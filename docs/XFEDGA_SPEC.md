@@ -12,16 +12,20 @@ You are a senior AI scientist in medical imaging and federated learning. The pro
 - **Tier 1 (by Review 3) covers priorities 0–3 in section 10 only.** Everything else is Tier 2 unless the measured timings show Tier 1 has room.
 
 ## 0. CURRENT STATE (notes to verify, not guarantees)
-- Files: `experiments/train_fedga.py` (breast), `experiments/train_fedga_prostate.py`, `fedga/fedavg.py`, `fedga/ga_optimizer.py`, `fedga/losses.py`, `xai/explainability.py`, `models/residual_unet.py`, `data/*`, `configs/*.yaml`, and `fl_dist/` (multi-process Flower port).
+- Files (verified by the first git commit, 13 Oct 2026): `experiments/train_fedga.py` (breast), `experiments/train_fedga_prostate.py`, `experiments/train_baseline_fedavg.py`, `fedga/fedavg.py`, `fedga/ga_optimizer.py`, `fedga/losses.py`, `xai/explainability.py`, `models/residual_unet.py`, `data/` (breast_dataset, prostate_dataset, server_split), `configs/` (breast_clients.yaml, prostate_clients.yaml, environment.md), `scripts/` (Grad-CAM checks), root-level analysis scripts (compare_significance*, gradcam_comparison*, debug_busbra, diagnose_class_balance, inspect_model, test_gradcam), and `round_history_*.csv` files.
 - The custom simulation is single-process, single-GPU, with a sequential client loop. MONAI provides the model and HausdorffDistanceMetric.
-- `fl_dist/` already has a server, clients, launcher, proof report, sweep, analysis and 35 tests. It covers ablations A–E and the FedAvg, FedProx and server fine-tune baselines.
-- **Missing from fl_dist** (the tier in section 10 decides when to build each):
-  - ablation F (random q_i)
+- **`fl_dist/` does NOT exist.** A search of D:\ and the user folder found no such folder. There is also **no `tests/` folder and no test suite.** Treat every earlier mention of "fl_dist, 35 tests, ablations A–E, FedProx, server fine-tune already built" as false until you find code proving otherwise.
+- **Nested `xfedga/` folder:** this appears to be an older, breast-only duplicate of the root code. Diff it against the root and report what differs. Propose removing it (after I approve), keeping anything unique.
+- **To build** (the tier in section 10 decides when):
+  - a test suite
+  - ablations B–F in the custom loop
+  - the FedProx and server fine-tune baselines, if they are absent
   - the GA-free random-search control
-  - the NSD metric
+  - NSD
   - the three-way fitness/validation/test split
   - the independent explanation metrics (section 6)
   - the robustness and DP experiments (section 7)
+  - the multi-process Flower federation (section 7)
 - Breast: the clients are BUS-UCLM and BUSI. The server data is BUS-BRA.
 - Prostate: PROMISE12 is split randomly 50/50 by case into 2 synthetic near-IID clients. The server data is Decathlon Task05.
 - Defaults: 15 rounds, 10 local epochs, Adam lr 1e-3, batch 8, population 6, generations 5, pc 0.5, pm 0.1, sigma0 0.01.
@@ -116,7 +120,7 @@ Fix or justify each of these with an experiment:
   - E: full XFedGA
   - F: full XFedGA with random q_i
 
-  A–E exist in `fl_dist/`. Review them; do not rebuild them.
+  Build all ablations as mode/config switches in the custom loop, so that no algorithm logic is duplicated. A probably equals the existing `mode=base`; verify this.
 - **Sensitivity:** beta, population {4, 6, 10}, generations {3, 5, 10}, sigma0, tau. Report wall clock and number of fitness evaluations for each.
 
 ## 5B. FITNESS-WEIGHT TUNING
@@ -148,8 +152,8 @@ Fix or justify each of these with an experiment:
 
 ## 7. FEDERATED SYSTEM REALISM
 - **Level 1, custom simulation:** source of the main results. Justification: the research question is the aggregation algorithm, and a single process gives reproducibility and fair comparison.
-- **Levels 2–3, `fl_dist/`:**
-  - Review and extend it; do not rewrite it.
+- **Levels 2–3, `fl_dist/` (to build, Tier 2):**
+  - Build thin Flower wrappers that import the same core functions as the custom loop.
   - Use the Flower 1.7.0 API (`start_server` / `start_numpy_client`).
   - Run the server and clients as separate OS processes over loopback gRPC, with a message audit proving that only weights, n_i and q_i are exchanged.
   - Parity check against the custom loop: 3 seeds, breast task, compared statistically.
@@ -160,7 +164,7 @@ Fix or justify each of these with an experiment:
 
 ## 8. ENGINEERING AND REPO HYGIENE
 - Client and server core functions stay framework-agnostic, shared by the custom loop and `fl_dist/`.
-- **Tests:** extend the existing suite with:
+- **Tests:** create `tests/` (pytest, if it is already installed in the env; otherwise ask me) covering:
   - aggregation weights sum to 1
   - fitness weights sum to 1 and are ≥ 0
   - the elitism guarantee
@@ -235,7 +239,7 @@ Report claims must match the outcome table exactly.
 - If an expected result does not appear, report it and propose a follow-up on the validation set.
 - For each design decision, state the alternative considered and why it was rejected.
 - **Priority order:**
-  - Tier 1: (0) repo hygiene and config cleanup; (1) three-way split, fixed subsamples and seeding; (2) FedAvg vs base FedGA vs XFedGA; (3) ablations including F and the random-search control.
+  - Tier 1: (0) repo hygiene, config cleanup, removal of the nested duplicate and a minimal test suite; (1) three-way split, fixed subsamples and seeding; (2) FedAvg vs base FedGA vs XFedGA; (3) ablations including F and the random-search control.
   - Tier 2: (4) fitness-weight Step 0 and beta sensitivity; (5) heterogeneous prostate partition; (6) custom vs fl_dist parity; (7) NSD and independent explanation metrics; (8) robustness and DP.
   - If the timings allow, pull (7) into Tier 1. Without independent explanation metrics, RQ2 cannot be answered.
 

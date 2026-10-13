@@ -14,7 +14,7 @@ Read `docs/XFEDGA_SPEC.md` at the start of every session. It is the master spec.
 - Never quote a paper's numbers or author names from memory. The base FedGA paper is cited only from the PDF at `D:\Amrita\Project\Literature review\FedGA_Genetic_Algorithm-Guided_Federated_Learning_for_Medical_Image_Segmentation_with_Non-IID_Features.pdf`.
 - Never select rounds, checkpoints or hyperparameters on the test set. Selection uses the validation set only.
 - If a result does not support a claim, say so and drop the claim. Do not tune to rescue it.
-- Do not rewrite or delete working code (`fl_dist/`, existing tests). Keep all existing tests passing after every change. Report pass/fail counts before and after.
+- Do not delete working code without my approval. Once `tests/` exists, keep every test passing after each change and report pass/fail counts before and after. (`fl_dist/` and the test suite do not exist yet; see spec section 0.)
 - The algorithm (aggregation, GA, fitness, q_i) lives only in `fedga/` and `xai/`. The custom loop and `fl_dist/` import it.
 - Ask me only when a decision cannot be inferred from the repo or the data documentation. Flag every assumption.
 
@@ -24,7 +24,7 @@ Read `docs/XFEDGA_SPEC.md` at the start of every session. It is the master spec.
 - **fitness weights (w1, w2, w3)** — weights on DSC, HD95_norm and EC in the GA fitness. Do not call them "lambda".
 - **beta** — saliency-weighting exponent in aggregation. It is not a post-GA blend.
 - **fitness set / validation set / test set** — the three disjoint server splits.
-- **multi-process federation on a single machine over loopback gRPC** — the only allowed description of the `fl_dist/` runs.
+- **multi-process federation on a single machine over loopback gRPC** — the only allowed description of `fl_dist/` runs, once it is built.
 
 ## End-of-session report (always, in this format)
 1. Files added, changed or deleted, with a one-line reason each.

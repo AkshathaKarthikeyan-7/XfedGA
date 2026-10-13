@@ -1,0 +1,10 @@
+torch
+torchvision
+monai
+scikit-learn
+opencv-python
+pyyaml
+pandas
+matplotlib
+seaborn
+grad-cam

@@ -1,0 +1,36 @@
+# Client -> dataset mapping for the prostate segmentation task.
+# NOTE: unlike breast_clients.yaml, the two clients here are NOT loaded via
+# INDEXERS -- both come from the same PROMISE12 source, split at the case
+# level by split_promise12_clients() in data/prostate_dataset.py, since no
+# site/institution metadata shipped with this PROMISE12 download (checked:
+# no .txt/.csv/readme files present). This is a SYNTHETIC non-IID split,
+# weaker non-IID grounding than the breast task's 2-real-dataset design --
+# state this explicitly in the report/panel review, don't imply otherwise.
+
+task: prostate_segmentation
+image_size: [384, 384]
+channels: 1
+
+clients:
+  - id: client_1
+    name: PROMISE12
+    path: "raw data/PROMISE12"
+    notes: "random half of PROMISE12 cases (via split_promise12_clients, seed=42)"
+
+  - id: client_2
+    name: PROMISE12
+    path: "raw data/PROMISE12"
+    notes: "disjoint other half of PROMISE12 cases"
+
+server:
+  # Decathlon Task05_Prostate acts as the held-out server dataset: never
+  # trained on locally. T2 channel only (channel 0 of the 4D volume);
+  # PZ+TZ labels merged into a single binary prostate mask.
+  name: Decathlon
+  path: "raw data/Task05_Prostate/Task05_Prostate"
+  notes: "32 cases; case-level fitness/OOD split to avoid patient leakage across sets"
+  fitness_split: 0.5
+  seed: 42
+
+train_val_split: 0.8
+seed: 42

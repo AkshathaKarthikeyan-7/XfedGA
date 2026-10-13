@@ -152,8 +152,16 @@ Fix or justify each of these with an experiment:
 
 ## 7. FEDERATED SYSTEM REALISM
 - **Level 1, custom simulation:** source of the main results. Justification: the research question is the aggregation algorithm, and a single process gives reproducibility and fair comparison.
-- **Levels 2–3, `fl_dist/` (to build, Tier 2):**
-  - Build thin Flower wrappers that import the same core functions as the custom loop.
+- **Levels 2–3, `fl_dist/` (to build, TIER 1 — I require this):** a distributed architecture that runs on one laptop.
+  - Architecture:
+    - one server process (aggregation + GA + validation)
+    - one OS process per client (local training + q_i), each loading only its own client's data
+    - communication over loopback gRPC
+  - The design must work unchanged across machines by changing only the server address in config. Do not claim it has been tested across machines.
+  - A launcher starts the server and all clients with one PowerShell command, with logs per process and clean shutdown on Ctrl+C or failure.
+  - Build thin Flower wrappers (`fl_dist/server.py`, `fl_dist/client.py`, `fl_dist/launch.py`) that import the same core functions as the custom loop. No algorithm code lives in `fl_dist/`.
+  - Configure the GA and q_i-weighted aggregation through a custom Flower Strategy (subclass `FedAvg` and override `aggregate_fit`). q_i travels in the client's fit metrics.
+  - GPU: 6 GB is shared by all processes. Measure peak memory with 2 clients and the server running concurrently. If it does not fit, run clients sequentially or put the server on CPU for aggregation, and report which option was used.
   - Use the Flower 1.7.0 API (`start_server` / `start_numpy_client`).
   - Run the server and clients as separate OS processes over loopback gRPC, with a message audit proving that only weights, n_i and q_i are exchanged.
   - Parity check against the custom loop: 3 seeds, breast task, compared statistically.
@@ -239,8 +247,19 @@ Report claims must match the outcome table exactly.
 - If an expected result does not appear, report it and propose a follow-up on the validation set.
 - For each design decision, state the alternative considered and why it was rejected.
 - **Priority order:**
-  - Tier 1: (0) repo hygiene, config cleanup, removal of the nested duplicate and a minimal test suite; (1) three-way split, fixed subsamples and seeding; (2) FedAvg vs base FedGA vs XFedGA; (3) ablations including F and the random-search control.
-  - Tier 2: (4) fitness-weight Step 0 and beta sensitivity; (5) heterogeneous prostate partition; (6) custom vs fl_dist parity; (7) NSD and independent explanation metrics; (8) robustness and DP.
+  - Tier 1:
+    - (0) repo hygiene, config cleanup, removal of the nested duplicate, a minimal test suite
+    - (1) three-way split, fixed subsamples and seeding; refactor the algorithm into framework-agnostic core functions
+    - (2) build `fl_dist/` (Flower multi-process federation), plus a message audit and a 1-round smoke run per task
+    - (3) FedAvg vs base FedGA vs XFedGA, with headline numbers from the custom loop because it is faster
+    - (4) parity check: custom loop vs fl_dist, breast, 3 seeds
+    - (5) ablations including F and the random-search control
+  - Tier 2:
+    - (6) fitness-weight Step 0 and beta sensitivity
+    - (7) heterogeneous prostate partition
+    - (8) NSD and independent explanation metrics
+    - (9) robustness and DP
+  - If timings show Tier 1 does not fit, cut (5) to A, B, E, F before cutting the Flower work.
   - If the timings allow, pull (7) into Tier 1. Without independent explanation metrics, RQ2 cannot be answered.
 
 **3-line experiment summary format (use exactly this):**
@@ -252,8 +271,9 @@ Report claims must match the outcome table exactly.
 ## 11. SESSION PLAN
 Each session ends with the end-of-session report from `CLAUDE.md`.
 1. **Audit and plan.** Verify section 0, measure timings, produce the costed Tier 1/Tier 2 plan. Then stop for approval.
-2. **Hygiene, splits and seeding** (priorities 0–1).
-3. **Core comparison** (priority 2).
-4. **Ablations** (priority 3).
-5. **Tier 2 items**, one per session.
-6. **Write-up:** report, slides, Q&A.
+2. **Hygiene, splits, seeding and core refactor** (priorities 0–1).
+3. **Build `fl_dist/`** (priority 2).
+4. **Core comparison and parity check** (priorities 3–4).
+5. **Ablations** (priority 5).
+6. **Tier 2 items**, one per session.
+7. **Write-up:** report, slides, Q&A.

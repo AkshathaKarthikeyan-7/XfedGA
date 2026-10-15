@@ -1,4 +1,9 @@
 """
+LEGACY two-way server split, kept ONLY so analysis/verify_checkpoints.py and
+analysis/case_level_variance.py can reproduce the Session-1 audit. Experiments use
+the patient/case-level three-way split in data/splits.py (BUS-BRA here is split
+per image, which leaks patients across halves: audit D-2).
+
 Carves the server-designated hospital's data into two disjoint halves:
   - fitness_pairs : used for GA fitness evaluation (not needed yet for the
                      plain FedAvg baseline, but prepared now so the later

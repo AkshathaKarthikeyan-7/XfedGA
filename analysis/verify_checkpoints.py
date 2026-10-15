@@ -30,7 +30,21 @@ from data.breast_dataset import BreastClientDataset  # noqa: E402
 from data.prostate_dataset import ProstateClientDataset  # noqa: E402
 from data.server_split import get_server_split, get_prostate_server_split  # noqa: E402
 from models.residual_unet import build_residual_unet  # noqa: E402
-from experiments.train_fedga import evaluate_dsc  # noqa: E402
+from fedga.ga_optimizer import dice_score  # noqa: E402
+
+
+@torch.no_grad()
+def evaluate_dsc(model, loader, device):
+    """Mean per-image DSC; identical to the legacy experiments/train_fedga.py::evaluate_dsc
+    (removed 15 Oct 2026, tag legacy-scripts-final) that produced the round_history CSVs."""
+    model.eval()
+    scores = []
+    for imgs, masks in loader:
+        imgs, masks = imgs.to(device), masks.to(device)
+        pred = torch.argmax(model(imgs), dim=1)
+        for p, m in zip(pred, masks):
+            scores.append(dice_score(p.float(), m.float()).item())
+    return sum(scores) / len(scores) if scores else 0.0
 
 L = "results/legacy"  # legacy checkpoints/CSVs, moved here 15 Oct 2026 (decision Q5)
 CHECKS = [

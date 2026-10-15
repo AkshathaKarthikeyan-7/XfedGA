@@ -7,7 +7,7 @@ XFedGA is explanation-aware federated learning with server-side genetic-algorith
 
 How the pieces fit: [ARCHITECTURE.md](ARCHITECTURE.md). Research spec: [docs/XFEDGA_SPEC.md](docs/XFEDGA_SPEC.md). Current plan: [reports/audit/plan.md](reports/audit/plan.md).
 
-> Status (15 Oct 2026): Session 2 in progress. Results produced before 13 Oct are superseded: their checkpoints were selected on the test set (see [results/legacy/README.md](results/legacy/README.md)).
+> Status (15 Oct 2026): Session 2 complete (hygiene, splits, seeding, runner, tests); Session 3a next. Results produced before 13 Oct are superseded: their checkpoints were selected on the test set (see [results/legacy/README.md](results/legacy/README.md)).
 
 ## Tasks and data
 | Task | Clients | Server data (fitness / validation / test) |
@@ -62,4 +62,4 @@ The split case/patient ids are logged in `results/splits/<task>_dataseed<seed>.j
 ## Repository layout
 `configs/ data/ models/ fedga/ xai/ experiments/ fl_dist/ (Session 3) analysis/ tests/ reports/ results/`; see [ARCHITECTURE.md](ARCHITECTURE.md).
 
-The old training scripts (`experiments/train_fedga.py`, `train_fedga_prostate.py`, `train_baseline_fedavg.py`) and the root analysis scripts are **legacy**. They are kept until the new runner is approved. Do not use them for results: their splits and checkpoint selection are the superseded ones.
+The pre-audit training scripts (`experiments/train_fedga.py`, `train_fedga_prostate.py`, `train_baseline_fedavg.py`), the root-level analysis scripts and `scripts/` were **removed on 15 Oct 2026** (superseded by `experiments/run_federated.py` and `analysis/`). They remain in git history at tag `legacy-scripts-final`; their outputs are in `results/legacy/` (superseded, OOD-selected).

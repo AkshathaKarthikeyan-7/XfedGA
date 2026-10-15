@@ -43,7 +43,7 @@ flowchart LR
 | `models/` | MONAI Residual U-Net |
 | `fedga/` | **the algorithm**: client update and q_i (`client.py`), aggregation (`fedavg.py`), GA (`ga_optimizer.py`), fitness and metrics (`evaluation.py`), loss |
 | `xai/` | Grad-CAM, EC (Grad-CAM–mask IoU at threshold 0.5), pointing game |
-| `experiments/` | `run_federated.py` (custom loop), task/data assembly (`tasks.py`), config loading and seeding (`config.py`). `train_fedga*.py` / `train_baseline_fedavg.py` are the **legacy** scripts, kept until the new runner is approved |
+| `experiments/` | `run_federated.py` (custom loop), task/data assembly (`tasks.py`), config loading and seeding (`config.py`). (The pre-audit `train_*.py` scripts were removed; tag `legacy-scripts-final`.) |
 | `fl_dist/` | (Session 3) Flower multi-process federation on a single machine over loopback gRPC; imports `fedga/` and `xai/`, holds no algorithm code |
 | `analysis/` | scripts that turn `results/` into tables and figures |
 | `results/` | runs (`runs/`), split logs (`splits/`), timing, audit outputs, legacy (superseded) outputs |

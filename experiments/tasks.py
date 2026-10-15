@@ -1,0 +1,134 @@
+"""
+Build the data side of one task from its config: client training sets, the fixed
+q_i subsamples, and the server fitness / validation / test sets with the fixed
+fitness subsample. Every server sample carries an image id and a group id
+(patient for BUS-BRA, case for Decathlon) so test metrics can be clustered.
+
+Splits depend only on the data seed (`seed` in the YAML), never on the run seed,
+so every method and every run seed sees identical splits and subsamples.
+"""
+import os
+from dataclasses import dataclass, field
+
+from data.breast_dataset import (INDEXERS as BREAST_INDEXERS, BreastClientDataset, breast_cache,
+                                 filter_nonempty_masks, train_val_split)
+from data.prostate_dataset import INDEXERS as PROSTATE_INDEXERS, ProstateClientDataset, prostate_cache, \
+    split_promise12_clients
+from data.splits import (ROLES, busbra_patient_split, decathlon_case_split, evenly_spaced_per_group,
+                         group_split, one_per_group_subsample, random_subsample)
+
+
+@dataclass
+class ClientData:
+    name: str
+    train: object            # torch Dataset
+    qi_indices: list         # fixed q_i subsample (indices into train)
+    n_train_groups: int      # patients / cases (or images where no patient id exists)
+
+
+@dataclass
+class ServerSet:
+    dataset: object
+    image_ids: list
+    group_ids: list
+
+
+@dataclass
+class TaskData:
+    clients: list
+    server: dict                         # role -> ServerSet
+    fitness_subsample: list              # indices into server["fitness"].dataset
+    val_explain_subsample: list          # indices into server["validation"].dataset
+    split_log: dict = field(default_factory=dict)
+
+
+def _stem(path):
+    return os.path.splitext(os.path.basename(path))[0]
+
+
+def build_breast(cfg):
+    size, seed = tuple(cfg["image_size"]), cfg["seed"]
+    sp = cfg["splits"]
+    clients, log = [], {"clients": {}, "server": {}}
+    for c in cfg["clients"]:
+        pairs = filter_nonempty_masks(BREAST_INDEXERS[c["name"]](c["path"]), size=size, verbose=False,
+                                      cache=breast_cache(c["name"], c["path"], size))
+        if c["name"] == "BUS-UCLM":   # patient = filename prefix, e.g. ALWI_000.png -> ALWI
+            train, val = group_split(pairs, lambda p: _stem(p[0]).split("_")[0], sp["client_val_fraction"], seed)
+            groups = len({_stem(p[0]).split("_")[0] for p in train})
+        else:                         # BUSI has no patient ids: image-level split (stated limitation)
+            train, val = train_val_split(pairs, val_ratio=sp["client_val_fraction"], seed=seed)
+            groups = len(train)
+        ds = BreastClientDataset(c["name"], c["path"], size=size, pairs=train)
+        qi = random_subsample(len(ds), cfg["saliency"]["subsample"], seed=seed + 1000 + len(clients))
+        clients.append(ClientData(c["name"], ds, qi, groups))
+        log["clients"][c["name"]] = {"n_train_images": len(train), "n_heldout_images": len(val),
+                                     "n_train_groups": groups, "qi_subsample": [_stem(train[i][0]) for i in qi]}
+
+    s = cfg["server"]
+    pairs = filter_nonempty_masks(BREAST_INDEXERS[s["name"]](s["path"]), size=size, verbose=False,
+                                  cache=breast_cache(s["name"], s["path"], size))
+    fr = sp["server_fractions"]
+    split, patients, patient_of = busbra_patient_split(pairs, sp["server_metadata"],
+                                                       (fr["fitness"], fr["validation"]), seed)
+    server = {}
+    for role in ROLES:
+        ids = [_stem(p[0]) for p in split[role]]
+        server[role] = ServerSet(BreastClientDataset(s["name"], s["path"], size=size, pairs=split[role]),
+                                 ids, [patient_of[i] for i in ids])
+        log["server"][role] = {"n_patients": len(patients[role]), "n_images": len(ids), "patients": patients[role]}
+    fit_idx = one_per_group_subsample(server["fitness"].image_ids, lambda i: patient_of[i],
+                                      cfg["fitness"]["subsample"], seed)
+    val_idx = one_per_group_subsample(server["validation"].image_ids, lambda i: patient_of[i],
+                                      cfg["evaluation"]["explain_samples"], seed + 1)
+    log["fitness_subsample"] = [server["fitness"].image_ids[i] for i in fit_idx]
+    log["val_explain_subsample"] = [server["validation"].image_ids[i] for i in val_idx]
+    return TaskData(clients, server, fit_idx, val_idx, log)
+
+
+def _case_ids(cases, cache):
+    image_ids, group_ids, sizes = [], [], []
+    for case_path, _ in cases:
+        n = len(cache.rows(case_path))
+        name = _stem(case_path).replace(".nii", "")
+        image_ids += [f"{name}#{k}" for k in range(n)]
+        group_ids += [name] * n
+        sizes.append(n)
+    return image_ids, group_ids, sizes
+
+
+def build_prostate(cfg):
+    size, seed = tuple(cfg["image_size"]), cfg["seed"]
+    root = cfg["clients"][0]["path"]
+    clients, log = [], {"clients": {}, "server": {}}
+    p_cache = prostate_cache("PROMISE12", root, size)
+    for k, cases in enumerate(split_promise12_clients(root, seed=seed)):
+        ds = ProstateClientDataset("PROMISE12", root, size=size, cases=cases)
+        qi = random_subsample(len(ds), cfg["saliency"]["subsample"], seed=seed + 1000 + k)
+        ids, _, _ = _case_ids(cases, p_cache)
+        name = f"PROMISE12_client{k + 1}"
+        clients.append(ClientData(name, ds, qi, len(cases)))
+        log["clients"][name] = {"n_cases": len(cases), "n_slices": len(ds),
+                                "cases": sorted(_stem(c) for c, _ in cases), "qi_subsample": [ids[i] for i in qi]}
+
+    s = cfg["server"]
+    cases = PROSTATE_INDEXERS["Decathlon"](s["path"])
+    d_cache = prostate_cache("Decathlon", s["path"], size)
+    sizes = {c: len(d_cache.rows(c)) for c, _ in cases}
+    split = decathlon_case_split(cases, sizes, seed, tuple(cfg["splits"]["server_block_roles"]))
+    server, group_sizes = {}, {}
+    for role in ROLES:
+        ids, groups, gsz = _case_ids(split[role], d_cache)
+        server[role] = ServerSet(ProstateClientDataset("Decathlon", s["path"], size=size, cases=split[role]), ids, groups)
+        group_sizes[role] = gsz
+        log["server"][role] = {"n_cases": len(split[role]), "n_slices": len(ids),
+                               "cases": sorted({g for g in groups})}
+    fit_idx = evenly_spaced_per_group(group_sizes["fitness"], cfg["fitness"]["subsample"])
+    val_idx = evenly_spaced_per_group(group_sizes["validation"], cfg["evaluation"]["explain_samples"])
+    log["fitness_subsample"] = [server["fitness"].image_ids[i] for i in fit_idx]
+    log["val_explain_subsample"] = [server["validation"].image_ids[i] for i in val_idx]
+    return TaskData(clients, server, fit_idx, val_idx, log)
+
+
+def build_task(task, cfg):
+    return {"breast": build_breast, "prostate": build_prostate}[task](cfg)

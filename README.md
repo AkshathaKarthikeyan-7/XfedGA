@@ -1,83 +1,65 @@
-# XFedGA — Explainable Genetic-Algorithm-Guided Federated Learning
-### M.Tech Final Year Project
+# XFedGA
 
-Upgrades the FedGA paper (Ahmed et al., IEEE JBHI 2026) with:
-1. A multi-objective, explanation-aware fitness function for the GA
-2. Adaptive (annealed) mutation instead of fixed-σ Gaussian noise
-3. Explanation-weighted client aggregation (replaces plain FedAvg weighting)
-4. Grad-CAM / attention-based explainability integrated into both training and evaluation
+XFedGA is explanation-aware federated learning with server-side genetic-algorithm (GA) search, for medical image segmentation (M.Tech project, Amrita Vishwa Vidyapeetham).
+- Each client sends its model update and a client-side Grad-CAM saliency score **q_i**.
+- The server aggregates with weights ∝ (n_i/N)·max(q_i, eps)^beta, then runs a GA whose fitness combines DSC, HD95 and explanation consistency.
+- The best candidate becomes the global model.
 
----
+How the pieces fit: [ARCHITECTURE.md](ARCHITECTURE.md). Research spec: [docs/XFEDGA_SPEC.md](docs/XFEDGA_SPEC.md). Current plan: [reports/audit/plan.md](reports/audit/plan.md).
 
-## 1. Client / dataset mapping (breast lesion segmentation)
+> Status (15 Oct 2026): Session 2 in progress. Results produced before 13 Oct are superseded: their checkpoints were selected on the test set (see [results/legacy/README.md](results/legacy/README.md)).
 
-| Client | Dataset | Status |
+## Tasks and data
+| Task | Clients | Server data (fitness / validation / test) |
 |---|---|---|
-| Client 1 | BUSI (Breast Ultrasound Images Dataset) | ✅ downloaded |
-| Client 2 | BUS-BRA | ✅ downloaded |
-| Client 3 | BUS-UCLM | ⏳ planned |
+| Breast ultrasound | BUSI, BUS-UCLM | BUS-BRA, split by patient 15 / 25 / 60 % |
+| Prostate MRI | PROMISE12, split 50/50 by case into 2 clients | Decathlon Task05, cases 8 / 8 / 16 |
 
-## 2. Client / dataset mapping (prostate segmentation — phase 2)
+Expected locations (relative to the repo root): `raw data/BUSI`, `raw data/BUS-UCLM`, `raw data/BUS-BRA`, `raw data/PROMISE12`, `raw data/Task05_Prostate/Task05_Prostate`. All datasets are public and de-identified; see their licences (Decathlon: CC-BY-SA 4.0).
 
-| Client | Dataset | Status |
-|---|---|---|
-| Client 4 | PROMISE12 | ⏳ registering this weekend |
-| Client 5 | I2CVB | ⏳ downloading next week |
+**Preprocessing:**
+- every image and mask is resized to 384×384 before training and before every metric;
+- breast images are min-max normalised;
+- prostate slices are resampled to 0.5 mm in-plane, clipped to the 1st/99th percentile and min-max normalised;
+- only slices or images with a non-empty mask are used.
 
-Each dataset = one simulated hospital/client, consistent with the original FedGA paper's
-cross-silo setup (data heterogeneity comes from the different scanners/protocols
-naturally present across these public sources — no need to artificially partition).
+Preprocessed tensors are cached under `cache/`, built automatically on first use and rebuilt whenever the preprocessing code or raw files change.
 
-## 3. Suggested phased plan
-
-**Phase 0 — Data pipeline (start here, this week)**
-- Preprocessing: grayscale, min-max normalize to [0,1], resize to 384×384 (matches
-  base paper, keeps results comparable)
-- Per-client train/val split (80/20)
-- Sanity-check: compute FID between client pairs to confirm heterogeneity (reuse the
-  base paper's Fig. 2/3 method) — good early figure for your report
-
-**Phase 1 — Baseline reproduction**
-- Implement plain FedAvg + 2D Residual U-Net on your 2 (then 3) breast clients
-- Reproduce a mini version of the base paper's Table III/V numbers as a sanity check
-  before adding anything new
-
-**Phase 2 — GA module (core of FedGA)**
-- Implement Algorithm 1 as-is first (single-objective DSC fitness) — this is your
-  "baseline FedGA" ablation for the paper
-
-**Phase 3 — Your contributions (this is the paper)**
-- Multi-objective fitness (DSC + HD95 + explanation consistency)
-- Annealed mutation
-- Explanation-weighted aggregation
-- Grad-CAM integration + faithfulness metrics (pointing game, insertion/deletion AUC)
-
-**Phase 4 — Prostate task (once PROMISE12/I2CVB land)**
-- Repeat with Attention U-Net; use attention-gate maps as a second, free explainability
-  channel — nice comparison point (learned attention vs. post-hoc Grad-CAM)
-
-**Phase 5 — Writing**
-- **Conference paper** (shorter, faster venue): breast-only results, core method
-  (multi-objective fitness + explanation-weighted aggregation), positioned as "adding
-  explainability to metaheuristic FL"
-- **Journal paper** (extended): add prostate task, full ablations, faithfulness
-  metrics, out-of-domain generalization tests — mirrors the depth of the base FedGA
-  JBHI paper
-
----
-
-## 4. Repo layout
+## Setup (Windows, PowerShell)
+```powershell
+# Python 3.10 environment with the pinned packages
+python -m venv venv; .\venv\Scripts\Activate.ps1
+pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu128
+pip install -r requirements.txt
 ```
-xfedga/
-  data/           # dataset-specific loaders + preprocessing
-  models/         # Residual U-Net, Attention U-Net
-  fedga/          # FedAvg, GA module (population, fitness, crossover, mutation)
-  xai/            # Grad-CAM, attention-map extraction, faithfulness metrics
-  configs/        # YAML configs per experiment
-  experiments/    # training/eval entry points
-  scripts/        # one-off utilities (FID heatmap, dataset stats)
-```
+The development environment is `D:\conda_envs\fedga`. The commands below use `$py = "D:\conda_envs\fedga\python.exe"`; with a venv, use `python` instead.
 
-## 5. Environment
-See `configs/environment.md`. Core deps: `torch`, `monai`, `scikit-learn`,
-`opencv-python`, `pytorch-grad-cam`, `pyyaml`.
+## Run
+```powershell
+$py = "D:\conda_envs\fedga\python.exe"
+
+# tests (add -m "not slow" to skip the GPU tests)
+& $py -m pytest
+
+# one federated run: --task breast|prostate, --method fedavg|fedga|xfedga, --seed N
+& $py experiments/run_federated.py --task prostate --method xfedga --seed 1
+
+# smoke run: 1 round, tiny GA, no test evaluation
+& $py experiments/run_federated.py --task breast --method xfedga --seed 1 --no_test --set train.rounds=1 ga.population=4 ga.generations=2
+
+# any hyperparameter can be overridden with dotted keys
+& $py experiments/run_federated.py --task breast --method xfedga --seed 1 --set aggregation.beta=1.0
+```
+Each run writes `results/runs/<run_id>/`:
+- `config_resolved.yaml`
+- `round_log.csv`: validation DSC / HD95 / EC / pointing game, q_i and alpha_i per client, GA best/mean fitness per generation, and timings
+- `test_per_image.csv`: the selected checkpoint on the test set, with patient/case ids
+- `run_meta.json`: run id, seed, config hash, git commit, selected round
+- the validation-selected checkpoint `<task>_<method>_seed<k>_valselected.pt`
+
+The split case/patient ids are logged in `results/splits/<task>.json`.
+
+## Repository layout
+`configs/ data/ models/ fedga/ xai/ experiments/ fl_dist/ (Session 3) analysis/ tests/ reports/ results/`; see [ARCHITECTURE.md](ARCHITECTURE.md).
+
+The old training scripts (`experiments/train_fedga.py`, `train_fedga_prostate.py`, `train_baseline_fedavg.py`) and the root analysis scripts are **legacy**. They are kept until the new runner is approved. Do not use them for results: their splits and checkpoint selection are the superseded ones.

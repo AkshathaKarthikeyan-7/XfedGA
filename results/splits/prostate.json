@@ -1,0 +1,150 @@
+{
+ "clients": {
+  "PROMISE12_client1": {
+   "cases": [
+    "Case03",
+    "Case04",
+    "Case06",
+    "Case08",
+    "Case09",
+    "Case12",
+    "Case13",
+    "Case15",
+    "Case16",
+    "Case17",
+    "Case19",
+    "Case24",
+    "Case25",
+    "Case26",
+    "Case30",
+    "Case31",
+    "Case32",
+    "Case34",
+    "Case37",
+    "Case39",
+    "Case41",
+    "Case45",
+    "Case46",
+    "Case47",
+    "Case48"
+   ],
+   "n_cases": 25,
+   "n_slices": 379,
+   "qi_subsample": [
+    "Case32#3",
+    "Case32#10",
+    "Case09#1",
+    "Case24#9"
+   ]
+  },
+  "PROMISE12_client2": {
+   "cases": [
+    "Case00",
+    "Case01",
+    "Case02",
+    "Case05",
+    "Case07",
+    "Case10",
+    "Case11",
+    "Case14",
+    "Case18",
+    "Case20",
+    "Case21",
+    "Case22",
+    "Case23",
+    "Case27",
+    "Case28",
+    "Case29",
+    "Case33",
+    "Case35",
+    "Case36",
+    "Case38",
+    "Case40",
+    "Case42",
+    "Case43",
+    "Case44",
+    "Case49"
+   ],
+   "n_cases": 25,
+   "n_slices": 399,
+   "qi_subsample": [
+    "Case44#0",
+    "Case44#9",
+    "Case42#0",
+    "Case42#11"
+   ]
+  }
+ },
+ "fitness_subsample": [
+  "prostate_01#8",
+  "prostate_14#6",
+  "prostate_25#9",
+  "prostate_34#6",
+  "prostate_40#4",
+  "prostate_41#8",
+  "prostate_46#5",
+  "prostate_47#8"
+ ],
+ "server": {
+  "fitness": {
+   "cases": [
+    "prostate_01",
+    "prostate_14",
+    "prostate_25",
+    "prostate_34",
+    "prostate_40",
+    "prostate_41",
+    "prostate_46",
+    "prostate_47"
+   ],
+   "n_cases": 8,
+   "n_slices": 117
+  },
+  "test": {
+   "cases": [
+    "prostate_00",
+    "prostate_02",
+    "prostate_10",
+    "prostate_13",
+    "prostate_17",
+    "prostate_18",
+    "prostate_20",
+    "prostate_21",
+    "prostate_24",
+    "prostate_28",
+    "prostate_29",
+    "prostate_31",
+    "prostate_37",
+    "prostate_38",
+    "prostate_42",
+    "prostate_44"
+   ],
+   "n_cases": 16,
+   "n_slices": 241
+  },
+  "validation": {
+   "cases": [
+    "prostate_04",
+    "prostate_06",
+    "prostate_07",
+    "prostate_16",
+    "prostate_32",
+    "prostate_35",
+    "prostate_39",
+    "prostate_43"
+   ],
+   "n_cases": 8,
+   "n_slices": 117
+  }
+ },
+ "val_explain_subsample": [
+  "prostate_04#6",
+  "prostate_06#8",
+  "prostate_07#4",
+  "prostate_16#10",
+  "prostate_32#5",
+  "prostate_35#8",
+  "prostate_39#7",
+  "prostate_43#6"
+ ]
+}

@@ -28,3 +28,6 @@ raw data/
 
 # preprocessed-tensor cache (data/cache.py)
 cache/
+
+# smoke-run outputs (not results)
+results/smoke/

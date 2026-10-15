@@ -42,3 +42,49 @@ loader:
   num_workers: 0
   persistent_workers: true
   pin_memory: false
+
+# ---------------------------------------------------------------------------
+# Experiment settings (loaded and validated in one place: experiments/config.py).
+# The data-split seed is `seed` above; the run seed is passed per run (--seed).
+train:
+  rounds: 15
+  local_epochs: 10
+  lr: 0.001
+  adam_betas: [0.9, 0.99]
+  batch_size: 8
+
+aggregation:
+  beta: 0.5          # saliency-weighting exponent: alpha_i ~ (n_i/N) * max(q_i, eps)^beta
+  eps: 0.001
+
+ga:
+  population: 6
+  generations: 5
+  pc: 0.5            # crossover probability
+  pm: 0.1            # per-weight mutation probability
+  sigma0: 0.01
+  tau: 10.0          # annealing: sigma_g = sigma0 * exp(-g / tau) (XFedGA only)
+  cache_elite_fitness: true    # decision Q7: enabled 15 Oct 2026 -- tests/test_determinism.py passed (repeatable fitness)
+
+fitness:
+  weights: [0.5, 0.3, 0.2]   # fitness weights (w1, w2, w3) on DSC, HD95_norm, EC; sum to 1
+  subsample: 40              # fixed fitness subsample, shared by FedGA (baseline) and XFedGA
+  # Every image and mask is resized to image_size (384 x 384) before any metric is
+  # computed, so HD95 is in pixels of that grid; HD95_norm = min(HD95_px / 384, 1).
+  hd95_normalizer: 384
+  cam_threshold: 0.5         # EC = IoU(Grad-CAM >= threshold, mask)
+
+saliency:
+  subsample: 40              # fixed q_i subsample per client (training images)
+
+evaluation:
+  explain_samples: 30        # per-round EC / pointing-game logging on a fixed validation subsample
+  selection_smoothing: 3     # checkpoint = round with the best centred 3-round mean validation DSC
+
+splits:
+  # Approved 15 Oct 2026 (Q1): BUS-BRA split by PATIENT (bus_data.csv `Case`), stratified by
+  # device x pathology. The legacy server.fitness_split (per-image 50/50) is not used by
+  # experiments/run_federated.py.
+  server_fractions: {fitness: 0.15, validation: 0.25}   # test = the remaining 60 %
+  server_metadata: "raw data/BUS-BRA/BUSBRA/bus_data.csv"
+  client_val_fraction: 0.2   # held out and unused (Q3); BUS-UCLM split by patient prefix

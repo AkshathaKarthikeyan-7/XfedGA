@@ -775,7 +775,7 @@
       }
     ]
   },
-  "guide_review": {
+  "guide_review_pre_step0": {
     "rows": [
       {
         "id": "S2-remeasure",
@@ -844,5 +844,377 @@
     "must_total_with_contingency_h": 21.419055131662752,
     "if_time_total_with_contingency_h": 12.080920057985479,
     "session4_must_with_contingency_h": 19.90620538088135
+  },
+  "guide_review": {
+    "source": "results/timing/runner/*_timing3 (3 rounds, extrapolated to 15)",
+    "per_run": {
+      "breast/fedavg": {
+        "rounds_measured": 3,
+        "mean_round_s": 65.26333333333334,
+        "round_s": [
+          65.29,
+          65.28,
+          65.22
+        ],
+        "setup_s": 1.4,
+        "test_and_selection_s": 69.21000000000001,
+        "fitness_evals_per_round": [
+          0,
+          0,
+          0
+        ],
+        "peak_reserved_MiB": 698,
+        "hours_15_rounds": 0.29154444444444444,
+        "extrapolated": true,
+        "meta_path": "D:\\new repo\\xfedga\\results\\timing\\runner\\breast_fedavg_seed1_77502d97_timing3\\run_meta.json",
+        "n_test": 1127,
+        "n_val": 470
+      },
+      "breast/fedga": {
+        "rounds_measured": 3,
+        "mean_round_s": 68.04666666666667,
+        "round_s": [
+          68.12,
+          67.12,
+          68.9
+        ],
+        "setup_s": 1.0,
+        "test_and_selection_s": 71.46000000000001,
+        "fitness_evals_per_round": [
+          21,
+          21,
+          21
+        ],
+        "peak_reserved_MiB": 748,
+        "hours_15_rounds": 0.30365555555555557,
+        "extrapolated": true,
+        "meta_path": "D:\\new repo\\xfedga\\results\\timing\\runner\\breast_fedga_seed1_6a994a0d_timing3\\run_meta.json",
+        "n_test": 1127,
+        "n_val": 470
+      },
+      "breast/xfedga": {
+        "rounds_measured": 3,
+        "mean_round_s": 122.78666666666668,
+        "round_s": [
+          122.15,
+          120.87,
+          125.34
+        ],
+        "setup_s": 1.6,
+        "test_and_selection_s": 70.03999999999996,
+        "fitness_evals_per_round": [
+          21,
+          21,
+          21
+        ],
+        "peak_reserved_MiB": 758,
+        "hours_15_rounds": 0.5315111111111112,
+        "extrapolated": true,
+        "meta_path": "D:\\new repo\\xfedga\\results\\timing\\runner\\breast_xfedga_seed1_a91dc6f9_timing3\\run_meta.json",
+        "n_test": 1127,
+        "n_val": 470
+      },
+      "prostate/fedavg": {
+        "rounds_measured": 3,
+        "mean_round_s": 55.21666666666666,
+        "round_s": [
+          56.84,
+          54.98,
+          53.83
+        ],
+        "setup_s": 0.0,
+        "test_and_selection_s": 13.150000000000034,
+        "fitness_evals_per_round": [
+          0,
+          0,
+          0
+        ],
+        "peak_reserved_MiB": 700,
+        "hours_15_rounds": 0.2337222222222222,
+        "extrapolated": true,
+        "meta_path": "D:\\new repo\\xfedga\\results\\timing\\runner\\prostate_fedavg_seed1_fa4926a2_timing3\\run_meta.json",
+        "n_test": 241,
+        "n_val": 117
+      },
+      "prostate/fedga": {
+        "rounds_measured": 3,
+        "mean_round_s": 58.24,
+        "round_s": [
+          59.7,
+          56.59,
+          58.43
+        ],
+        "setup_s": 0.0,
+        "test_and_selection_s": 12.97999999999999,
+        "fitness_evals_per_round": [
+          21,
+          21,
+          21
+        ],
+        "peak_reserved_MiB": 746,
+        "hours_15_rounds": 0.24627222222222223,
+        "extrapolated": true,
+        "meta_path": "D:\\new repo\\xfedga\\results\\timing\\runner\\prostate_fedga_seed1_6db06e44_timing3\\run_meta.json",
+        "n_test": 241,
+        "n_val": 117
+      },
+      "prostate/xfedga": {
+        "rounds_measured": 3,
+        "mean_round_s": 109.39999999999999,
+        "round_s": [
+          110.19,
+          106.49,
+          111.52
+        ],
+        "setup_s": 0.0,
+        "test_and_selection_s": 15.199999999999989,
+        "fitness_evals_per_round": [
+          21,
+          21,
+          21
+        ],
+        "peak_reserved_MiB": 758,
+        "hours_15_rounds": 0.46005555555555555,
+        "extrapolated": true,
+        "meta_path": "D:\\new repo\\xfedga\\results\\timing\\runner\\prostate_xfedga_seed1_e9c9524a_timing3\\run_meta.json",
+        "n_test": 241,
+        "n_val": 117
+      }
+    },
+    "rows": [
+      {
+        "id": "S3-flsmoke",
+        "session": "Session 3",
+        "label": "fl_dist 1-round smoke per task + memory measurement",
+        "raw_h": 0.07473083333333333,
+        "with_contingency_h": 0.09715008333333333
+      },
+      {
+        "id": "S4-core-5seeds",
+        "session": "Session 4",
+        "label": "FedAvg, FedGA (baseline), XFedGA (beta=0.5) x 5 seeds x 2 tasks (headline)",
+        "raw_h": 10.333805555555555,
+        "with_contingency_h": 13.433947222222223
+      },
+      {
+        "id": "S4-beta-screen",
+        "session": "Session 4",
+        "label": "beta screen {0, 1.0} x 1 seed x 2 tasks (beta=0.5 reused from core seed 1)",
+        "raw_h": 1.9831333333333334,
+        "with_contingency_h": 2.5780733333333337
+      },
+      {
+        "id": "S4-parity-1seed",
+        "session": "Session 4",
+        "label": "fl_dist XFedGA, breast, 1 seed (custom seed reused)",
+        "raw_h": 0.6112377777777778,
+        "with_contingency_h": 0.7946091111111111
+      },
+      {
+        "id": "S4-parity-extra2",
+        "session": "Session 4 (if time)",
+        "label": "parity seeds 2-3",
+        "raw_h": 1.2224755555555555,
+        "with_contingency_h": 1.5892182222222222
+      },
+      {
+        "id": "S5-overlays",
+        "session": "Session 5",
+        "label": "Grad-CAM overlays from saved checkpoints (test already evaluated in-run)",
+        "raw_h": 0.25,
+        "with_contingency_h": 0.325
+      }
+    ],
+    "session4_must_with_contingency_h": 16.806629666666666,
+    "if_time_total_with_contingency_h": 1.5892182222222222,
+    "all_session4_with_contingency_h": 18.395847888888888,
+    "gpu_state_during_timing": {
+      "busy_samples": 100,
+      "median_sm_clock_MHz": 2730.0,
+      "min_sm_clock_MHz": 390.0,
+      "median_power_W": 68.5,
+      "share_busy_samples_with_throttle_flag": 0.0
+    },
+    "session4_window_gpu_h": 32
+  },
+  "full_plan": {
+    "window": "2026-10-18..2026-11-05",
+    "budget": "8 h/weekday night, 16 h/weekend day",
+    "capacity_h": 192,
+    "contingency": 1.2,
+    "round_costs_s": {
+      "prostate": {
+        "fedavg": 55.21666666666666,
+        "fedga": 58.24,
+        "xfedga": 109.39999999999999,
+        "B_weighted_only": 57.56333333333334,
+        "C_fedavg_ga_multi": 106.90666666666667,
+        "D_fedga_anneal": 58.07333333333334,
+        "F_random_qi": 106.90666666666667,
+        "random_search": 106.90666666666667,
+        "fedprox": 60.33333333333334,
+        "centralized": 55.24666666666667,
+        "local_only": 59.626666666666665,
+        "components": {
+          "local": 50.86666666666667,
+          "qi": 2.3166666666666664,
+          "ga_dsc": 2.8266666666666667,
+          "ga_multi": 51.660000000000004,
+          "val": 4.38
+        }
+      },
+      "breast": {
+        "fedavg": 65.26333333333334,
+        "fedga": 68.04666666666667,
+        "xfedga": 122.78666666666668,
+        "B_weighted_only": 67.40333333333334,
+        "C_fedavg_ga_multi": 121.00666666666667,
+        "D_fedga_anneal": 67.99666666666667,
+        "F_random_qi": 121.00666666666667,
+        "random_search": 121.00666666666667,
+        "fedprox": 69.86866666666667,
+        "centralized": 65.11666666666667,
+        "local_only": 82.71333333333334,
+        "components": {
+          "local": 47.52,
+          "qi": 2.2866666666666666,
+          "ga_dsc": 2.8800000000000003,
+          "ga_multi": 55.89000000000001,
+          "val": 17.596666666666668
+        }
+      }
+    },
+    "queue": [
+      {
+        "item": "headline",
+        "label": "FedAvg, FedGA (baseline), XFedGA x 2 tasks x 5 seeds",
+        "raw_h": 10.333805555555555,
+        "with_contingency_h": 12.400566666666666,
+        "cumulative_h": 12.400566666666666,
+        "finishes": "2026-10-18",
+        "cut_rank": "never"
+      },
+      {
+        "item": "beta_screen",
+        "label": "XFedGA beta in {0, 1.0} x 2 tasks x 3 seeds (beta 0.5 = headline seeds 1-3)",
+        "raw_h": 5.949400000000001,
+        "with_contingency_h": 7.13928,
+        "cumulative_h": 19.539846666666666,
+        "finishes": "2026-10-19",
+        "cut_rank": "keep"
+      },
+      {
+        "item": "xai_metrics",
+        "label": "independent XAI metrics on 30 headline checkpoints (prostate: all test slices; breast: fixed 300-image subsample)",
+        "raw_h": 5.236653486243283,
+        "with_contingency_h": 6.28398418349194,
+        "cumulative_h": 25.823830850158608,
+        "finishes": "2026-10-20",
+        "cut_rank": "never"
+      },
+      {
+        "item": "ablations_BF_RS",
+        "label": "ablations B, F + random search x 2 tasks x 3 seeds (A, E reused from headline)",
+        "raw_h": 7.477016666666667,
+        "with_contingency_h": 8.97242,
+        "cumulative_h": 34.79625085015861,
+        "finishes": "2026-10-21",
+        "cut_rank": "never"
+      },
+      {
+        "item": "ablations_CD",
+        "label": "ablations C, D x 2 tasks x 3 seeds",
+        "raw_h": 4.569525,
+        "with_contingency_h": 5.483429999999999,
+        "cumulative_h": 40.279680850158606,
+        "finishes": "2026-10-22",
+        "cut_rank": "cut4"
+      },
+      {
+        "item": "parity",
+        "label": "fl_dist XFedGA, breast, 3 seeds (custom-loop seeds reused)",
+        "raw_h": 1.8337133333333329,
+        "with_contingency_h": 2.2004559999999995,
+        "cumulative_h": 42.48013685015861,
+        "finishes": "2026-10-22",
+        "cut_rank": "never"
+      },
+      {
+        "item": "fedprox",
+        "label": "FedProx x 2 tasks x 5 seeds",
+        "raw_h": 2.8331527777777774,
+        "with_contingency_h": 3.3997833333333327,
+        "cumulative_h": 45.87992018349194,
+        "finishes": "2026-10-22",
+        "cut_rank": "keep"
+      },
+      {
+        "item": "local_only",
+        "label": "local-only bound x 2 tasks x 3 seeds",
+        "raw_h": 1.8516166666666667,
+        "with_contingency_h": 2.22194,
+        "cumulative_h": 48.10186018349194,
+        "finishes": "2026-10-23",
+        "cut_rank": "keep"
+      },
+      {
+        "item": "centralized",
+        "label": "centralized bound x 2 tasks x 3 seeds",
+        "raw_h": 1.5769083333333336,
+        "with_contingency_h": 1.8922900000000002,
+        "cumulative_h": 49.99415018349194,
+        "finishes": "2026-10-23",
+        "cut_rank": "cut3"
+      },
+      {
+        "item": "hetero",
+        "label": "heterogeneous prostate partition: FedAvg, FedGA, XFedGA x 3 seeds",
+        "raw_h": 2.8201499999999995,
+        "with_contingency_h": 3.3841799999999993,
+        "cumulative_h": 53.37833018349194,
+        "finishes": "2026-10-23",
+        "cut_rank": "keep"
+      },
+      {
+        "item": "robustness",
+        "label": "noisy-q_i client (XFedGA) and corrupted-label client (XFedGA + FedAvg), breast, 3 seeds",
+        "raw_h": 4.063700000000001,
+        "with_contingency_h": 4.8764400000000006,
+        "cumulative_h": 58.25477018349194,
+        "finishes": "2026-10-24",
+        "cut_rank": "keep"
+      },
+      {
+        "item": "fw_grid",
+        "label": "fitness-weight grid (only if offline Step 0 shows the winner changes): 4 points x 3 seeds breast + 2 x 3 prostate",
+        "raw_h": 9.138466666666668,
+        "with_contingency_h": 10.96616,
+        "cumulative_h": 69.22093018349194,
+        "finishes": "2026-10-24",
+        "cut_rank": "cut2"
+      },
+      {
+        "item": "dp",
+        "label": "DP (clip + Gaussian noise), XFedGA, breast, 3 seeds",
+        "raw_h": 1.5945333333333336,
+        "with_contingency_h": 1.9134400000000003,
+        "cumulative_h": 71.13437018349194,
+        "finishes": "2026-10-24",
+        "cut_rank": "cut1"
+      },
+      {
+        "item": "paper_ga_settings",
+        "label": "optional: FedGA (paper GA settings) P=10, G=20, 20 rounds, full fitness set, batch 8, 1 seed per task",
+        "raw_h": 1.5154978835978836,
+        "with_contingency_h": 1.8185974603174602,
+        "cumulative_h": 72.9529676438094,
+        "finishes": "2026-10-25",
+        "cut_rank": "cut0"
+      }
+    ],
+    "total_with_contingency_h": 72.9529676438094,
+    "fits": true,
+    "cuts_needed": [],
+    "queue_after_cuts": null
   }
 }

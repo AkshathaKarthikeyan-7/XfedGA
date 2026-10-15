@@ -1,0 +1,31 @@
+{
+ "run_id": "prostate_fedavg_seed1_fa4926a2_timing3",
+ "task": "prostate",
+ "method": "fedavg",
+ "seed": 1,
+ "config_hash": "fa4926a2ca6d",
+ "git_commit": "4779ca8-dirty",
+ "selected_round": 2,
+ "selection": "centred moving-average validation DSC",
+ "smoothed_val_dsc": [
+  0.2551997431072183,
+  0.2816768621459333,
+  0.2621711652427089
+ ],
+ "n_i": [
+  379,
+  399
+ ],
+ "clients": [
+  "PROMISE12_client1",
+  "PROMISE12_client2"
+ ],
+ "server_sizes": {
+  "fitness": 117,
+  "validation": 117,
+  "test": 241
+ },
+ "setup_s": 0.1,
+ "total_s": 210.2,
+ "test_evaluated": true
+}

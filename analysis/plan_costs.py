@@ -193,6 +193,204 @@ def guide_review_plan(comp):
             "session4_must_with_contingency_h": sum(r["with_contingency_h"] for r in must if r["session"] == "Session 4")}
 
 
+RUNNER_DIR = os.path.join(REPO, "results", "timing", "runner")
+
+
+def load_runner_timings():
+    """
+    Per (task, method): 15-round run hours EXTRAPOLATED from 3-round runs of the new runner
+    (experiments/run_federated.py, tag timing3): setup + 15 x mean round + measured test evaluation.
+    These runs use the final Session-2 protocol (cache, D-1, three-way splits, shared 40-image
+    fitness subsample, elite cache, per-round validation, deterministic kernels).
+    """
+    import csv
+    import glob
+    out = {}
+    for meta_path in glob.glob(os.path.join(RUNNER_DIR, "*_timing3", "run_meta.json")):
+        meta = json.load(open(meta_path, encoding="utf-8"))
+        rows = list(csv.DictReader(open(os.path.join(os.path.dirname(meta_path), "round_log.csv"), encoding="utf-8")))
+        rounds = [float(r["round_s"]) for r in rows]
+        test_s = meta["total_s"] - meta["setup_s"] - sum(rounds)
+        out[(meta["task"], meta["method"])] = {
+            "rounds_measured": len(rounds), "mean_round_s": sum(rounds) / len(rounds), "round_s": rounds,
+            "setup_s": meta["setup_s"], "test_and_selection_s": test_s,
+            "fitness_evals_per_round": [int(r["fitness_evals"]) for r in rows],
+            "peak_reserved_MiB": max(int(r["peak_reserved_MiB"]) for r in rows),
+            "hours_15_rounds": (meta["setup_s"] + ROUNDS * sum(rounds) / len(rounds) + test_s) / 3600,
+            "extrapolated": True, "meta_path": meta_path,
+            "n_test": meta["server_sizes"]["test"], "n_val": meta["server_sizes"]["validation"]}
+    return out
+
+
+def gpu_state_summary(path=os.path.join(RUNNER_DIR, "gpu_state.csv")):
+    """nvidia-smi samples logged during the runner timings: clock/power while busy, throttle share."""
+    import csv
+    if not os.path.exists(path):
+        return None
+    busy = []
+    for r in csv.DictReader(open(path, encoding="utf-8", errors="ignore"), skipinitialspace=True):
+        try:
+            util = float(r["utilization.gpu [%]"].split()[0])
+            clk = float(r["clocks.current.sm [MHz]"].split()[0])
+            pwr = float(r["power.draw [W]"].split()[0])
+            reason = int(r["clocks_event_reasons.active"], 16)
+        except (KeyError, ValueError, AttributeError):
+            continue
+        if util >= 50:
+            busy.append((clk, pwr, reason))
+    if not busy:
+        return None
+    clocks = sorted(b[0] for b in busy)
+    powers = sorted(b[1] for b in busy)
+    throttled = sum(1 for b in busy if b[2] & ~0x1)   # any reason other than "GPU idle"
+    return {"busy_samples": len(busy), "median_sm_clock_MHz": clocks[len(clocks) // 2],
+            "min_sm_clock_MHz": clocks[0], "median_power_W": powers[len(powers) // 2],
+            "share_busy_samples_with_throttle_flag": throttled / len(busy)}
+
+
+def guide_review_plan_runner(rt):
+    """Guide Review plan costed from the new-runner measurements (supersedes guide_review_plan)."""
+    both = ["prostate", "breast"]
+    methods = ["fedavg", "fedga", "xfedga"]
+
+    def h(meths, tasks, n, factor=1.0):
+        return sum(rt[(t, m)]["hours_15_rounds"] for t in tasks for m in meths) * n * factor
+
+    def h1(meth, task, factor=1.0):  # 1-round smoke, no test evaluation
+        r = rt[(task, meth)]
+        return (r["setup_s"] + r["round_s"][0]) / 3600 * factor
+    items = [
+        ("S3-flsmoke", "Session 3", "fl_dist 1-round smoke per task + memory measurement",
+         sum(h1("xfedga", t, 1.15) for t in both)),
+        ("S4-core-5seeds", "Session 4", "FedAvg, FedGA (baseline), XFedGA (beta=0.5) x 5 seeds x 2 tasks (headline)",
+         h(methods, both, 5)),
+        ("S4-beta-screen", "Session 4", "beta screen {0, 1.0} x 1 seed x 2 tasks (beta=0.5 reused from core seed 1)",
+         h(["xfedga"], both, 2)),
+        ("S4-parity-1seed", "Session 4", "fl_dist XFedGA, breast, 1 seed (custom seed reused)",
+         h(["xfedga"], ["breast"], 1, 1.15)),
+        ("S4-parity-extra2", "Session 4 (if time)", "parity seeds 2-3", h(["xfedga"], ["breast"], 2, 1.15)),
+        ("S5-overlays", "Session 5", "Grad-CAM overlays from saved checkpoints (test already evaluated in-run)", 0.25),
+    ]
+    rows = [{"id": i, "session": s, "label": l, "raw_h": v, "with_contingency_h": v * CONTINGENCY}
+            for i, s, l, v in items]
+    must = [r for r in rows if "if time" not in r["session"]]
+    return {"source": "results/timing/runner/*_timing3 (3 rounds, extrapolated to 15)", "per_run": {
+                f"{t}/{m}": v for (t, m), v in sorted(rt.items())},
+            "rows": rows,
+            "session4_must_with_contingency_h": sum(r["with_contingency_h"] for r in must if r["session"] == "Session 4"),
+            "if_time_total_with_contingency_h": sum(r["with_contingency_h"] for r in rows if "if time" in r["session"]),
+            "all_session4_with_contingency_h": sum(r["with_contingency_h"] for r in rows if r["session"].startswith("Session 4"))}
+
+
+FULL_CONTINGENCY = 1.2   # resumable overnight queue: small packing loss; reruns and smokes
+FULL_BUDGET = (8, 16)    # GPU-h per weekday night / weekend day (instruction 15 Oct, project deadline 7 Nov)
+FULL_WINDOW = (dt.date(2026, 10, 18), dt.date(2026, 11, 5))
+
+
+def method_round_costs(rt, task):
+    """Per-round seconds for every method, from the measured runner logs of FedAvg / FedGA / XFedGA."""
+    import csv
+
+    def mean_col(method, col):
+        d = os.path.dirname(rt[(task, method)]["meta_path"])
+        rows = list(csv.DictReader(open(os.path.join(d, "round_log.csv"), encoding="utf-8")))
+        return sum(float(r[col]) for r in rows) / len(rows)
+    L = mean_col("fedavg", "local_s")
+    V = sum(mean_col(m, "val_s") for m in ["fedavg", "fedga", "xfedga"]) / 3
+    Q = mean_col("xfedga", "qi_s")
+    G_dsc, G_multi = mean_col("fedga", "ga_s"), mean_col("xfedga", "ga_s")
+    return {
+        "fedavg": rt[(task, "fedavg")]["mean_round_s"], "fedga": rt[(task, "fedga")]["mean_round_s"],
+        "xfedga": rt[(task, "xfedga")]["mean_round_s"],
+        "B_weighted_only": L + Q + V, "C_fedavg_ga_multi": L + G_multi + V, "D_fedga_anneal": L + G_dsc + V,
+        "F_random_qi": L + G_multi + V, "random_search": L + G_multi + V,
+        "fedprox": 1.1 * L + V, "centralized": L + V, "local_only": L + 2 * V,
+        "components": {"local": L, "qi": Q, "ga_dsc": G_dsc, "ga_multi": G_multi, "val": V},
+    }
+
+
+def full_plan(rt):
+    """Whole-project GPU queue (Phase 1 + 2), costed from the re-timed runner; calendar fill."""
+    both = ["prostate", "breast"]
+    rc = {t: method_round_costs(rt, t) for t in both}
+
+    def run_h(task, method, factor=1.0):
+        base = rt[(task, "xfedga" if method not in rt_methods else method)]
+        return factor * (base["setup_s"] + ROUNDS * rc[task][method] + base["test_and_selection_s"]) / 3600
+    rt_methods = {"fedavg", "fedga", "xfedga"}
+
+    def runs(methods, tasks, seeds, factor=1.0):
+        return sum(run_h(t, m, factor) for t in tasks for m in methods) * seeds
+
+    def paper_settings_h(task):
+        # elite cache on: P + G*P/2 = 10 + 20*5 = 110 evaluations per round (vs 21 measured), each on the
+        # full fitness set instead of the 40-image subsample (DSC fitness scales with image count)
+        r = rt[(task, "fedga")]
+        c = rc[task]["components"]
+        meta = json.load(open(r["meta_path"], encoding="utf-8"))
+        ga = c["ga_dsc"] * (110 / 21) * (meta["server_sizes"]["fitness"] / 40)
+        return (r["setup_s"] + 20 * (c["local"] + ga + c["val"]) + r["test_and_selection_s"]) / 3600
+
+    def xai_h(task, n_ckpt, n_images):
+        # per image: 12 CAM-equivalents (2 CAM methods + 10-layer randomisation) + 42 forwards (deletion+insertion)
+        r = rt[(task, "xfedga")]
+        cam = r["test_and_selection_s"] / r["n_test"]               # measured: 1 CAM + metrics per test image
+        fwd = rc[task]["components"]["val"] / r["n_val"]            # measured: forward + DSC/HD95 per val image
+        return n_ckpt * n_images * (12 * cam + 42 * fwd) / 3600
+    queue = [
+        ("headline", "FedAvg, FedGA (baseline), XFedGA x 2 tasks x 5 seeds", runs(["fedavg", "fedga", "xfedga"], both, 5), "never"),
+        ("beta_screen", "XFedGA beta in {0, 1.0} x 2 tasks x 3 seeds (beta 0.5 = headline seeds 1-3)", runs(["xfedga"], both, 2 * 3), "keep"),
+        ("xai_metrics", "independent XAI metrics on 30 headline checkpoints (prostate: all test slices; breast: fixed 300-image subsample)",
+         xai_h("prostate", 15, rt[("prostate", "xfedga")]["n_test"]) + xai_h("breast", 15, 300), "never"),
+        ("ablations_BF_RS", "ablations B, F + random search x 2 tasks x 3 seeds (A, E reused from headline)",
+         runs(["B_weighted_only", "F_random_qi", "random_search"], both, 3), "never"),
+        ("ablations_CD", "ablations C, D x 2 tasks x 3 seeds", runs(["C_fedavg_ga_multi", "D_fedga_anneal"], both, 3), "cut4"),
+        ("parity", "fl_dist XFedGA, breast, 3 seeds (custom-loop seeds reused)", runs(["xfedga"], ["breast"], 3, 1.15), "never"),
+        ("fedprox", "FedProx x 2 tasks x 5 seeds", runs(["fedprox"], both, 5), "keep"),
+        ("local_only", "local-only bound x 2 tasks x 3 seeds", runs(["local_only"], both, 3), "keep"),
+        ("centralized", "centralized bound x 2 tasks x 3 seeds", runs(["centralized"], both, 3), "cut3"),
+        ("hetero", "heterogeneous prostate partition: FedAvg, FedGA, XFedGA x 3 seeds", runs(["fedavg", "fedga", "xfedga"], ["prostate"], 3), "keep"),
+        ("robustness", "noisy-q_i client (XFedGA) and corrupted-label client (XFedGA + FedAvg), breast, 3 seeds",
+         runs(["xfedga"], ["breast"], 3) + runs(["xfedga", "fedavg"], ["breast"], 3), "keep"),
+        ("fw_grid", "fitness-weight grid (only if offline Step 0 shows the winner changes): 4 points x 3 seeds breast + 2 x 3 prostate",
+         runs(["xfedga"], ["breast"], 12) + runs(["xfedga"], ["prostate"], 6), "cut2"),
+        ("dp", "DP (clip + Gaussian noise), XFedGA, breast, 3 seeds", runs(["xfedga"], ["breast"], 3), "cut1"),
+        ("paper_ga_settings", "optional: FedGA (paper GA settings) P=10, G=20, 20 rounds, full fitness set, batch 8, 1 seed per task",
+         sum(paper_settings_h(t) for t in both), "cut0"),
+    ]
+    days, d = [], FULL_WINDOW[0]
+    while d <= FULL_WINDOW[1]:
+        days.append((d, FULL_BUDGET[1] if d.weekday() >= 5 else FULL_BUDGET[0]))
+        d += dt.timedelta(days=1)
+    capacity = sum(h for _, h in days)
+
+    def finish_dates(items):
+        out, used = [], 0.0
+        for name, label, h, cut in items:
+            used += h * FULL_CONTINGENCY
+            acc, when = 0.0, None
+            for day, cap in days:
+                acc += cap
+                if acc >= used:
+                    when = day
+                    break
+            out.append({"item": name, "label": label, "raw_h": h, "with_contingency_h": h * FULL_CONTINGENCY,
+                        "cumulative_h": used, "finishes": str(when) if when else "after window", "cut_rank": cut})
+        return out
+    rows = finish_dates(queue)
+    total = sum(r["with_contingency_h"] for r in rows)
+    cuts, kept = [], list(queue)
+    for rank in ["cut0", "cut1", "cut2", "cut3", "cut4"]:
+        if sum(q[2] for q in kept) * FULL_CONTINGENCY <= capacity:
+            break
+        cuts.append(rank)
+        kept = [q for q in kept if q[3] != rank]
+    return {"window": f"{FULL_WINDOW[0]}..{FULL_WINDOW[1]}", "budget": f"{FULL_BUDGET[0]} h/weekday night, {FULL_BUDGET[1]} h/weekend day",
+            "capacity_h": capacity, "contingency": FULL_CONTINGENCY, "round_costs_s": rc,
+            "queue": rows, "total_with_contingency_h": total, "fits": total <= capacity,
+            "cuts_needed": cuts, "queue_after_cuts": finish_dates(kept) if cuts else None}
+
+
 def main():
     comp, sharing = load_timing()
     out = {"components": comp, "gpu_sharing": sharing, "assumptions": ASSUMPTIONS, "experiments": []}
@@ -261,7 +459,14 @@ def main():
         out["schedule"] = {"budget_h": cap, "budget": f"{BUDGET[0]} h/weekday, {BUDGET[1]} h/weekend day, 2026-10-23..2026-11-08 (confirmed 15 Oct)",
                            "slowdowns": SLOWDOWNS, "rows": sched}
     if all(comp.values()):
-        out["guide_review"] = guide_review_plan(comp)
+        out["guide_review_pre_step0"] = guide_review_plan(comp)
+    rt = load_runner_timings()
+    if len(rt) == 6:
+        out["guide_review"] = guide_review_plan_runner(rt)
+        out["guide_review"]["gpu_state_during_timing"] = gpu_state_summary()
+        out["full_plan"] = full_plan(rt)
+        start = dt.date(2026, 10, 22)
+        out["guide_review"]["session4_window_gpu_h"] = budget(start, dt.date(2026, 10, 26), start - dt.timedelta(days=1), *BUDGET)[0]
     json.dump(out, open(os.path.join(HERE, "plan_costs.json"), "w", encoding="utf-8"), indent=2, default=str)
 
     lines = ["| id | tier | prio | experiment | per-run h (prostate / breast) | runs per task | total GPU-h |", "|---|---|---|---|---|---|---|"]

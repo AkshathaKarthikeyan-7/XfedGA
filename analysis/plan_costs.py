@@ -1,7 +1,7 @@
 """
 Cost model for the Session-1 plan. Reads measured timings from
 results/timing/timing_summary.json (+ GPU-sharing runs) and writes
-reports/audit/plan_costs.json and reports/audit/plan_costs.md.
+results/audit/plan_costs.json and results/audit/plan_costs.md.
 
 Every per-run cost is built from MEASURED per-round components:
   L   local training, both clients (s/round)
@@ -13,14 +13,14 @@ Every per-run cost is built from MEASURED per-round components:
 combined with ASSUMPTIONS that are listed in ASSUMPTIONS below and in the output.
 
 Usage (from repo root):
-    python reports/audit/plan_costs.py
+    python analysis/plan_costs.py
 """
 import datetime as dt
 import json
 import os
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-REPO = os.path.dirname(os.path.dirname(HERE))
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+HERE = os.path.join(REPO, "results", "audit")  # output folder
 TIMING = os.path.join(REPO, "results", "timing", "timing_summary.json")
 
 ROUNDS = 15

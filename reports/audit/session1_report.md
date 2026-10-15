@@ -8,10 +8,10 @@
 | `reports/audit/audit.md` | Inventory, item-by-item verification of spec §0, discrepancies D-1…D-12 |
 | `reports/audit/fedga_paper_comparison.md` | Paper vs our setup with page refs (pypdf); "FedGA (baseline)" naming; methods setup-table draft; p.10 round-selection note |
 | `reports/audit/plan.md` | Costed Tier 1 / Tier 2 plan, splits, `fl_dist/` design, β design, cuts, hypotheses, decisions |
-| `reports/audit/plan_costs.py` → `plan_costs.json`, `plan_costs.md` | Cost model and fill-order schedule, computed from the measured timings |
-| `reports/audit/verify_checkpoints.py` → `verify_checkpoints.json` | Shows every `*_BEST.pt` was selected on the OOD set |
-| `reports/audit/summarize_existing.py` → `existing_results.json` | Best / final / last-5 summary of the old round histories |
-| `reports/audit/case_level_variance.py` → `case_level_variance.json` | Per-case SD of paired ΔDSC (old fitness halves only), for CI planning |
+| `analysis/plan_costs.py` → `plan_costs.json`, `plan_costs.md` | Cost model and fill-order schedule, computed from the measured timings |
+| `analysis/verify_checkpoints.py` → `verify_checkpoints.json` | Shows every `*_BEST.pt` was selected on the OOD set |
+| `analysis/summarize_existing.py` → `existing_results.json` | Best / final / last-5 summary of the old round histories |
+| `analysis/case_level_variance.py` → `case_level_variance.json` | Per-case SD of paired ΔDSC (old fitness halves only), for CI planning |
 | `reports/audit/session1_status.md` | Pause/resume status |
 | `reports/audit/session1_report.md` | This report |
 | `reports/audit/env_freeze_after_pypdf_pytest.txt` | Added **by you** (pip freeze after the pytest + pypdf install) |

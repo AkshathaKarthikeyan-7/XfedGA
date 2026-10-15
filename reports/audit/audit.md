@@ -5,8 +5,8 @@ No existing file was modified. Evidence files produced this session:
 
 | File | Produced by | Content |
 |---|---|---|
-| `reports/audit/verify_checkpoints.json` | `reports/audit/verify_checkpoints.py` | re-evaluation of every root `*.pt` on the OOD split, matched to `round_history_*.csv` |
-| `reports/audit/existing_results.json` | `reports/audit/summarize_existing.py` | best-round / final / last-5 summaries of the existing CSVs |
+| `results/audit/verify_checkpoints.json` | `analysis/verify_checkpoints.py` | re-evaluation of every root `*.pt` on the OOD split, matched to `round_history_*.csv` |
+| `results/audit/existing_results.json` | `analysis/summarize_existing.py` | best-round / final / last-5 summaries of the existing CSVs |
 | `results/timing/timing_summary.{csv,json}` | `results/timing/summarize_timing.py` | per-run timing (from `results/timing/runs/*/timing_events.jsonl`, written by `results/timing/timed_run.py`) |
 
 Note: CLAUDE.md requires analysis scripts to live in `analysis/`. This session could only create files under `reports/audit/` and `results/timing/`, so the three scripts above sit there. Proposal: move them to `analysis/` in Session 2.

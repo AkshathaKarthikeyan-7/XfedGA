@@ -23,7 +23,7 @@ No python process running; GPU has no compute apps (checked). No existing repo f
 | GPU-sharing test: 2 prostate FedGA runs in parallel, 2 rounds. 248 s/round each vs 118 s single (rounds 1–2), so **throughput factor 0.95: no gain**. Local training slowed ~3×, consistent with a CPU-bound loop; 712 MiB reserved per process | `runs/share2_prostate_base_p{1,2}` |
 | Batch-size memory check (1 forward/backward): batch ≤ 64 fits the 6 GB of dedicated VRAM (64 → 4.8 GB reserved); 96 → 7.2 GB and **128 → 9.5 GB exceed it** (no OOM only because Windows spills into shared memory) | `results/timing/batch_memcheck.json` |
 | Per-case variance (old fitness half only): prostate per-case SD of paired ΔDSC 0.070 → 95% CI ±0.038 with 16 test cases; breast per-patient SD 0.137 → ±0.011 with 600 patients | `case_level_variance.json` |
-| Cost model run on final timings | `plan_costs.py` → `plan_costs.{json,md}` |
+| Cost model run on final timings | `analysis/plan_costs.py` → `plan_costs.{json,md}` |
 | `plan.md`, partly written: §1 discrepancies, §2 splits (Decathlon 8/8/16), §6 build effort, §7 `fl_dist/` design, §9 hypotheses | `plan.md` |
 | Timing summary regenerated | `results/timing/timing_summary.{csv,json}` |
 
@@ -43,7 +43,7 @@ Key cost numbers (from `plan_costs.json`):
 ```powershell
 $py = "D:\conda_envs\fedga\python.exe"
 & $py results/timing/summarize_timing.py   # regenerate timing summary (no GPU)
-& $py reports/audit/plan_costs.py          # regenerate cost tables (no GPU)
+& $py analysis/plan_costs.py          # regenerate cost tables (no GPU)
 ```
 Then ask Claude Code to fill the `plan.md` placeholders and write the end-of-session report. No further GPU runs are needed for Session 1.
 

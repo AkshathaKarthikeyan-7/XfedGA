@@ -1,14 +1,14 @@
 """
 Audit: summarize the pre-existing (superseded, OOD-selected) results recorded
 in the root-level round_history_*.csv files. Read-only; writes
-reports/audit/existing_results.json.
+results/audit/existing_results.json.
 
 All numbers here are slice/image-level means on the OOD half of the server
 split, logged during training; EC and pointing game use only the first 30
 OOD samples (evaluate_explainability, max_samples=30).
 
 Usage (from repo root):
-    python reports/audit/summarize_existing.py
+    python analysis/summarize_existing.py
 """
 import csv
 import json
@@ -16,17 +16,17 @@ import os
 
 import numpy as np
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-REPO = os.path.dirname(os.path.dirname(HERE))
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(REPO, "results", "audit")
 FILES = {
-    "breast_fedavg": "round_history_fedavg_baseline.csv",
-    "breast_base_fedga": "round_history_base_fedga.csv",
-    "breast_xfedga": "round_history_xfedga_fedga.csv",
-    "prostate_base_fedga": "round_history_base_fedga_prostate.csv",
-    "prostate_xfedga": "round_history_xfedga_fedga_prostate.csv",
-    "nested_breast_fedavg": "xfedga/round_history_fedavg_baseline.csv",
-    "nested_breast_base_fedga": "xfedga/round_history_base_fedga.csv",
-    "nested_breast_xfedga": "xfedga/round_history_xfedga_fedga.csv",
+    "breast_fedavg": "results/legacy/breast/round_history_fedavg_baseline.csv",
+    "breast_base_fedga": "results/legacy/breast/round_history_base_fedga.csv",
+    "breast_xfedga": "results/legacy/breast/round_history_xfedga_fedga.csv",
+    "prostate_base_fedga": "results/legacy/prostate/round_history_base_fedga_prostate.csv",
+    "prostate_xfedga": "results/legacy/prostate/round_history_xfedga_fedga_prostate.csv",
+    "nested_breast_fedavg": "results/legacy/nested_xfedga_2026-08-13/round_history_fedavg_baseline.csv",
+    "nested_breast_base_fedga": "results/legacy/nested_xfedga_2026-08-13/round_history_base_fedga.csv",
+    "nested_breast_xfedga": "results/legacy/nested_xfedga_2026-08-13/round_history_xfedga_fedga.csv",
 }
 
 
@@ -50,7 +50,7 @@ def main():
             rec["q_i_max_per_client"] = q.max(0).tolist()
             rec["q_i_round_to_round_absdiff_mean_per_client"] = np.abs(np.diff(q, axis=0)).mean(0).tolist()
         out[key] = rec
-    with open(os.path.join(HERE, "existing_results.json"), "w") as f:
+    with open(os.path.join(OUT, "existing_results.json"), "w") as f:
         json.dump(out, f, indent=2)
     print(json.dumps(out, indent=2))
 

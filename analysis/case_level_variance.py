@@ -5,7 +5,7 @@ FITNESS half of each server set (never the old OOD half).
 
 Prostate: per-case volume DSC = 2*sum|P∩G| / (sum|P| + sum|G|) over the case's
 non-empty slices. Breast: per-patient mean image DSC (BUS-BRA `Case` column).
-Writes reports/audit/case_level_variance.json with per-case values, the SD of
+Writes results/audit/case_level_variance.json with per-case values, the SD of
 paired differences, and the implied 95% CI half-width (t and bootstrap) for
 several test-set sizes.
 
@@ -14,7 +14,7 @@ SD of their paired difference is only a rough proxy for the SD between methods
 after seed-averaging; treat the output as an order of magnitude.
 
 Usage (from repo root):
-    python reports/audit/case_level_variance.py
+    python analysis/case_level_variance.py
 """
 import collections
 import csv
@@ -28,8 +28,8 @@ import yaml
 from scipy import stats
 from torch.utils.data import DataLoader
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-REPO = os.path.dirname(os.path.dirname(HERE))
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(REPO, "results", "audit")
 sys.path.insert(0, REPO)
 os.chdir(REPO)
 
@@ -78,8 +78,8 @@ def main():
 
     cfg = yaml.safe_load(open("configs/prostate_clients.yaml"))
     fit_cases, _ = get_prostate_server_split(cfg)
-    a = load("global_model_base_fedga_prostate_BEST.pt", device)
-    b = load("global_model_xfedga_fedga_prostate_BEST.pt", device)
+    a = load("results/legacy/prostate/global_model_base_fedga_prostate_BEST_OODselected.pt", device)
+    b = load("results/legacy/prostate/global_model_xfedga_fedga_prostate_BEST_OODselected.pt", device)
     per_case = []
     for case in fit_cases:
         ds = ProstateClientDataset("Decathlon", cfg["server"]["path"], cases=[case])
@@ -98,8 +98,8 @@ def main():
     fit_pairs, _ = get_server_split(cfg)
     meta = {r["ID"]: r["Case"] for r in csv.DictReader(open("raw data/BUS-BRA/BUSBRA/bus_data.csv"))}
     dl = DataLoader(BreastClientDataset("BUS-BRA", cfg["server"]["path"], pairs=fit_pairs), batch_size=8, shuffle=False)
-    _, _, _, img_a = sums(load("global_model_base_fedga_BEST.pt", device), dl, device)
-    _, _, _, img_b = sums(load("global_model_xfedga_fedga_BEST.pt", device), dl, device)
+    _, _, _, img_a = sums(load("results/legacy/breast/global_model_base_fedga_BEST_OODselected.pt", device), dl, device)
+    _, _, _, img_b = sums(load("results/legacy/breast/global_model_xfedga_fedga_BEST_OODselected.pt", device), dl, device)
     by_pat = collections.defaultdict(list)
     for (img_path, _), da, db in zip(fit_pairs, img_a, img_b):
         by_pat[meta[os.path.basename(img_path)[:-4]]].append(db - da)
@@ -107,7 +107,7 @@ def main():
     result["breast"] = {"split_used": "old fitness half (938 BUS-BRA images)", "n_images": len(fit_pairs),
                         **ci_table(d, [100, 200, 400, 600], rng)}
 
-    with open(os.path.join(HERE, "case_level_variance.json"), "w") as f:
+    with open(os.path.join(OUT, "case_level_variance.json"), "w") as f:
         json.dump(result, f, indent=2)
     for task, r in result.items():
         print(task, "n_cases", r["n_cases_measured"], "sd_paired_diff", round(r["sd_paired_diff"], 4),

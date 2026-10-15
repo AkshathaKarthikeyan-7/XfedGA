@@ -1,0 +1,22 @@
+channels: 1
+clients:
+- id: client_1
+  name: PROMISE12
+  notes: random half of PROMISE12 cases (via split_promise12_clients, seed=42)
+  path: D:\new repo\xfedga\raw data/PROMISE12
+- id: client_2
+  name: PROMISE12
+  notes: disjoint other half of PROMISE12 cases
+  path: D:\new repo\xfedga\raw data/PROMISE12
+image_size:
+- 384
+- 384
+seed: 42
+server:
+  fitness_split: 0.5
+  name: Decathlon
+  notes: 32 cases; case-level fitness/OOD split to avoid patient leakage across sets
+  path: D:\new repo\xfedga\raw data/Task05_Prostate/Task05_Prostate
+  seed: 42
+task: prostate_segmentation
+train_val_split: 0.8

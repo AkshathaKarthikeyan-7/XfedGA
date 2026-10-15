@@ -1,0 +1,4 @@
+{"event": "start", "task": "prostate", "mode": "xfedga", "argv": ["--rounds", "1", "--population", "4", "--generations", "2", "--local_epochs", "1"], "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU", "torch": "2.11.0+cu128", "time": "2026-10-13 19:55:38"}
+{"event": "setup_done", "setup_s": 57.69208312034607}
+{"event": "round", "round": 1, "local_train_s": 17.300353527069092, "qi_s": 8.62835168838501, "agg_s": 0.022994279861450195, "ga_s": 117.44028425216675, "fitness_eval_s": 116.8108479976654, "n_fitness_evals": 12, "ood_eval_s": 8.038859128952026, "n_local_updates": 2, "wall_s": 151.5081913471222, "peak_alloc_MiB": 568.904296875, "peak_reserved_MiB": 726.0, "ga_overhead_s": 0.6294362545013428, "other_s": 0.07734847068786621}
+{"event": "end", "status": "completed", "total_s": 209.76901745796204, "rounds_completed": 1}

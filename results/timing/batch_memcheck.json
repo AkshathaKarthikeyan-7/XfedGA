@@ -1,0 +1,52 @@
+{
+  "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "total_MiB": 6140.5,
+  "image": [
+    384,
+    384
+  ],
+  "results": [
+    {
+      "batch": 8,
+      "no_oom": true,
+      "peak_alloc_MiB": 544.04296875,
+      "peak_reserved_MiB": 668.0,
+      "fits_dedicated_vram": true
+    },
+    {
+      "batch": 16,
+      "no_oom": true,
+      "peak_alloc_MiB": 1095.1728515625,
+      "peak_reserved_MiB": 1306.0,
+      "fits_dedicated_vram": true
+    },
+    {
+      "batch": 32,
+      "no_oom": true,
+      "peak_alloc_MiB": 2158.515625,
+      "peak_reserved_MiB": 2564.0,
+      "fits_dedicated_vram": true
+    },
+    {
+      "batch": 64,
+      "no_oom": true,
+      "peak_alloc_MiB": 4322.1181640625,
+      "peak_reserved_MiB": 4784.0,
+      "fits_dedicated_vram": true
+    },
+    {
+      "batch": 96,
+      "no_oom": true,
+      "peak_alloc_MiB": 6491.47265625,
+      "peak_reserved_MiB": 7206.0,
+      "fits_dedicated_vram": false
+    },
+    {
+      "batch": 128,
+      "no_oom": true,
+      "peak_alloc_MiB": 8624.7138671875,
+      "peak_reserved_MiB": 9550.0,
+      "fits_dedicated_vram": false
+    }
+  ]
+}

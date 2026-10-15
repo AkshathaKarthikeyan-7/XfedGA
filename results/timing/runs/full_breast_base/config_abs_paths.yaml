@@ -1,0 +1,27 @@
+channels: 1
+clients:
+- id: client_1
+  kaggle: aryashah2k/breast-ultrasound-images-dataset
+  name: BUSI
+  notes: 'confirmed: benign/malignant/normal subfolders, filename (n)_mask.png'
+  path: D:\new repo\xfedga\raw data/BUSI
+- id: client_2
+  kaggle: orvile/bus-uclm-breast-ultrasound-dataset
+  name: BUS-UCLM
+  notes: 'confirmed: images/ + masks/ with identical filenames (e.g. ALWI_000.png),
+    nested under a doubled folder name -- indexer walks the tree to find it robustly'
+  path: D:\new repo\xfedga\raw data/BUS-UCLM
+image_size:
+- 384
+- 384
+seed: 42
+server:
+  fitness_split: 0.5
+  kaggle: orvile/bus-bra-a-breast-ultrasound-dataset
+  name: BUS-BRA
+  notes: 'confirmed: nested under BUSBRA/Images + BUSBRA/Masks, bus_data.csv has scanner
+    metadata'
+  path: D:\new repo\xfedga\raw data/BUS-BRA
+  seed: 42
+task: breast_lesion_segmentation
+train_val_split: 0.8

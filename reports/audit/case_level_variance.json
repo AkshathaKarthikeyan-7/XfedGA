@@ -1,0 +1,150 @@
+{
+  "prostate": {
+    "split_used": "old fitness half (16 Decathlon cases)",
+    "per_case": [
+      {
+        "case": "prostate_01.nii.gz",
+        "n_slices": 16,
+        "dsc_base": 0.6841385058868475,
+        "dsc_xfedga": 0.5925757687092098
+      },
+      {
+        "case": "prostate_02.nii.gz",
+        "n_slices": 18,
+        "dsc_base": 0.6853304960766059,
+        "dsc_xfedga": 0.6299790131150125
+      },
+      {
+        "case": "prostate_41.nii.gz",
+        "n_slices": 16,
+        "dsc_base": 0.6433396013538925,
+        "dsc_xfedga": 0.46361368712898826
+      },
+      {
+        "case": "prostate_04.nii.gz",
+        "n_slices": 14,
+        "dsc_base": 0.7568974187469181,
+        "dsc_xfedga": 0.7219562225606087
+      },
+      {
+        "case": "prostate_35.nii.gz",
+        "n_slices": 18,
+        "dsc_base": 0.7929798440758511,
+        "dsc_xfedga": 0.6392778449072428
+      },
+      {
+        "case": "prostate_42.nii.gz",
+        "n_slices": 19,
+        "dsc_base": 0.7912689297055219,
+        "dsc_xfedga": 0.7759503671088178
+      },
+      {
+        "case": "prostate_37.nii.gz",
+        "n_slices": 15,
+        "dsc_base": 0.6620450606585788,
+        "dsc_xfedga": 0.6596327946526779
+      },
+      {
+        "case": "prostate_31.nii.gz",
+        "n_slices": 16,
+        "dsc_base": 0.6893778826180333,
+        "dsc_xfedga": 0.6570771001150748
+      },
+      {
+        "case": "prostate_47.nii.gz",
+        "n_slices": 18,
+        "dsc_base": 0.7386961633734005,
+        "dsc_xfedga": 0.6927732650818954
+      },
+      {
+        "case": "prostate_34.nii.gz",
+        "n_slices": 13,
+        "dsc_base": 0.6291068279716108,
+        "dsc_xfedga": 0.5091885649340532
+      },
+      {
+        "case": "prostate_13.nii.gz",
+        "n_slices": 13,
+        "dsc_base": 0.6024864661404422,
+        "dsc_xfedga": 0.6267990788716177
+      },
+      {
+        "case": "prostate_17.nii.gz",
+        "n_slices": 13,
+        "dsc_base": 0.18901626233004531,
+        "dsc_xfedga": 0.16561029669090485
+      },
+      {
+        "case": "prostate_24.nii.gz",
+        "n_slices": 18,
+        "dsc_base": 0.8477614146602857,
+        "dsc_xfedga": 0.7726708192307328
+      },
+      {
+        "case": "prostate_43.nii.gz",
+        "n_slices": 13,
+        "dsc_base": 0.40825136014163377,
+        "dsc_xfedga": 0.3935960591133005
+      },
+      {
+        "case": "prostate_32.nii.gz",
+        "n_slices": 11,
+        "dsc_base": 0.6479642230026339,
+        "dsc_xfedga": 0.4286630624026391
+      },
+      {
+        "case": "prostate_10.nii.gz",
+        "n_slices": 11,
+        "dsc_base": 0.47686779232885773,
+        "dsc_xfedga": 0.3354096221154417
+      }
+    ],
+    "dsc_base_sd_across_cases": 0.16433453014276908,
+    "n_cases_measured": 16,
+    "mean_diff": -0.07379716764580883,
+    "sd_paired_diff": 0.07039252672424028,
+    "by_test_size": {
+      "8": {
+        "t_ci_half_width": 0.05884962505334683,
+        "bootstrap_ci_width_half": 0.046963493015596165
+      },
+      "10": {
+        "t_ci_half_width": 0.050355780119636276,
+        "bootstrap_ci_width_half": 0.04181048310774747
+      },
+      "12": {
+        "t_ci_half_width": 0.044725277695017655,
+        "bootstrap_ci_width_half": 0.03870329332802529
+      },
+      "16": {
+        "t_ci_half_width": 0.037509529774288605,
+        "bootstrap_ci_width_half": 0.03273050565797936
+      }
+    }
+  },
+  "breast": {
+    "split_used": "old fitness half (938 BUS-BRA images)",
+    "n_images": 938,
+    "n_cases_measured": 716,
+    "mean_diff": 0.012481809001880496,
+    "sd_paired_diff": 0.1365766960361491,
+    "by_test_size": {
+      "100": {
+        "t_ci_half_width": 0.02709977954559758,
+        "bootstrap_ci_width_half": 0.026269996136148176
+      },
+      "200": {
+        "t_ci_half_width": 0.0190440338507652,
+        "bootstrap_ci_width_half": 0.019221587534999342
+      },
+      "400": {
+        "t_ci_half_width": 0.013424992736207245,
+        "bootstrap_ci_width_half": 0.013183471037243238
+      },
+      "600": {
+        "t_ci_half_width": 0.010950336844236847,
+        "bootstrap_ci_width_half": 0.010428727201489145
+      }
+    }
+  }
+}

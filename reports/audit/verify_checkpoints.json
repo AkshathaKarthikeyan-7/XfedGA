@@ -1,0 +1,122 @@
+[
+  {
+    "task": "breast",
+    "checkpoint": "global_model_fedavg_baseline.pt",
+    "csv": "round_history_fedavg_baseline.csv",
+    "reeval_ood_dsc": 0.5355275307482221,
+    "nearest_csv_round": 15,
+    "nearest_csv_dsc": 0.5355275307482221,
+    "abs_diff": 0.0,
+    "csv_max_round": 1,
+    "csv_max_dsc": 0.6317334642091632,
+    "n_rounds_in_csv": 15
+  },
+  {
+    "task": "breast",
+    "checkpoint": "global_model_fedavg_baseline_BEST.pt",
+    "csv": "round_history_fedavg_baseline.csv",
+    "reeval_ood_dsc": 0.6317334941069039,
+    "nearest_csv_round": 1,
+    "nearest_csv_dsc": 0.6317334642091632,
+    "abs_diff": 2.9897740727591327e-08,
+    "csv_max_round": 1,
+    "csv_max_dsc": 0.6317334642091632,
+    "n_rounds_in_csv": 15
+  },
+  {
+    "task": "breast",
+    "checkpoint": "global_model_base_fedga.pt",
+    "csv": "round_history_base_fedga.csv",
+    "reeval_ood_dsc": 0.5751839239256461,
+    "nearest_csv_round": 15,
+    "nearest_csv_dsc": 0.5751839239256461,
+    "abs_diff": 0.0,
+    "csv_max_round": 2,
+    "csv_max_dsc": 0.6461996841605162,
+    "n_rounds_in_csv": 15
+  },
+  {
+    "task": "breast",
+    "checkpoint": "global_model_base_fedga_BEST.pt",
+    "csv": "round_history_base_fedga.csv",
+    "reeval_ood_dsc": 0.6461996841605162,
+    "nearest_csv_round": 2,
+    "nearest_csv_dsc": 0.6461996841605162,
+    "abs_diff": 0.0,
+    "csv_max_round": 2,
+    "csv_max_dsc": 0.6461996841605162,
+    "n_rounds_in_csv": 15
+  },
+  {
+    "task": "breast",
+    "checkpoint": "global_model_xfedga_fedga.pt",
+    "csv": "round_history_xfedga_fedga.csv",
+    "reeval_ood_dsc": 0.5451778957223384,
+    "nearest_csv_round": 15,
+    "nearest_csv_dsc": 0.5451778957223384,
+    "abs_diff": 0.0,
+    "csv_max_round": 2,
+    "csv_max_dsc": 0.6503381849486916,
+    "n_rounds_in_csv": 15
+  },
+  {
+    "task": "breast",
+    "checkpoint": "global_model_xfedga_fedga_BEST.pt",
+    "csv": "round_history_xfedga_fedga.csv",
+    "reeval_ood_dsc": 0.6503381849486916,
+    "nearest_csv_round": 2,
+    "nearest_csv_dsc": 0.6503381849486916,
+    "abs_diff": 0.0,
+    "csv_max_round": 2,
+    "csv_max_dsc": 0.6503381849486916,
+    "n_rounds_in_csv": 15
+  },
+  {
+    "task": "prostate",
+    "checkpoint": "global_model_base_fedga_prostate.pt",
+    "csv": "round_history_base_fedga_prostate.csv",
+    "reeval_ood_dsc": 0.4254325553699486,
+    "nearest_csv_round": 15,
+    "nearest_csv_dsc": 0.4254325553699486,
+    "abs_diff": 0.0,
+    "csv_max_round": 8,
+    "csv_max_dsc": 0.5438536233427737,
+    "n_rounds_in_csv": 15
+  },
+  {
+    "task": "prostate",
+    "checkpoint": "global_model_base_fedga_prostate_BEST.pt",
+    "csv": "round_history_base_fedga_prostate.csv",
+    "reeval_ood_dsc": 0.5438536233427737,
+    "nearest_csv_round": 8,
+    "nearest_csv_dsc": 0.5438536233427737,
+    "abs_diff": 0.0,
+    "csv_max_round": 8,
+    "csv_max_dsc": 0.5438536233427737,
+    "n_rounds_in_csv": 15
+  },
+  {
+    "task": "prostate",
+    "checkpoint": "global_model_xfedga_fedga_prostate.pt",
+    "csv": "round_history_xfedga_fedga_prostate.csv",
+    "reeval_ood_dsc": 0.3631862574970057,
+    "nearest_csv_round": 15,
+    "nearest_csv_dsc": 0.3631862574970057,
+    "abs_diff": 0.0,
+    "csv_max_round": 2,
+    "csv_max_dsc": 0.4960352857941033,
+    "n_rounds_in_csv": 15
+  },
+  {
+    "task": "prostate",
+    "checkpoint": "global_model_xfedga_fedga_prostate_BEST.pt",
+    "csv": "round_history_xfedga_fedga_prostate.csv",
+    "reeval_ood_dsc": 0.4960352857941033,
+    "nearest_csv_round": 2,
+    "nearest_csv_dsc": 0.4960352857941033,
+    "abs_diff": 0.0,
+    "csv_max_round": 2,
+    "csv_max_dsc": 0.4960352857941033,
+    "n_rounds_in_csv": 15
+  }
+]

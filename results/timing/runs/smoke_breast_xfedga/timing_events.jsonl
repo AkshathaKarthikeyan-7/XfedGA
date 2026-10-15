@@ -1,0 +1,4 @@
+{"event": "start", "task": "breast", "mode": "xfedga", "argv": ["--rounds", "1", "--population", "4", "--generations", "2", "--local_epochs", "1"], "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU", "torch": "2.11.0+cu128", "time": "2026-10-13 19:48:53"}
+{"event": "setup_done", "setup_s": 165.43163442611694}
+{"event": "round", "round": 1, "local_train_s": 35.01958894729614, "qi_s": 11.714354753494263, "agg_s": 0.39334702491760254, "ga_s": 121.42061591148376, "fitness_eval_s": 120.78884935379028, "n_fitness_evals": 12, "ood_eval_s": 23.165295839309692, "n_local_updates": 2, "wall_s": 191.80101585388184, "peak_alloc_MiB": 568.904296875, "peak_reserved_MiB": 726.0, "ga_overhead_s": 0.6317665576934814, "other_s": 0.0878133773803711}
+{"event": "end", "status": "completed", "total_s": 357.50991129875183, "rounds_completed": 1}

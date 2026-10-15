@@ -1,0 +1,102 @@
+{
+  "breast_fedavg": {
+    "file": "round_history_fedavg_baseline.csv",
+    "n_rounds": 15,
+    "best_round_by_ood_dsc": 1,
+    "best_ood_dsc": 0.6317334642091632,
+    "final_round_ood_dsc": 0.5355275307482221,
+    "last5_mean_ood_dsc": 0.5348301869703661,
+    "last5_std_ood_dsc": 0.012182511210718613
+  },
+  "breast_base_fedga": {
+    "file": "round_history_base_fedga.csv",
+    "n_rounds": 15,
+    "best_round_by_ood_dsc": 2,
+    "best_ood_dsc": 0.6461996841605162,
+    "final_round_ood_dsc": 0.5751839239256461,
+    "last5_mean_ood_dsc": 0.564789135980892,
+    "last5_std_ood_dsc": 0.010672538810800745,
+    "ood_ec_at_best_round": 0.133955859317954,
+    "last5_mean_ood_ec": 0.07853993849049559,
+    "ood_pointing_game_at_best_round": 0.6333333333333333,
+    "last5_mean_ood_pointing_game": 0.35333333333333333
+  },
+  "breast_xfedga": {
+    "file": "round_history_xfedga_fedga.csv",
+    "n_rounds": 15,
+    "best_round_by_ood_dsc": 2,
+    "best_ood_dsc": 0.6503381849486916,
+    "final_round_ood_dsc": 0.5451778957223384,
+    "last5_mean_ood_dsc": 0.5380225160119974,
+    "last5_std_ood_dsc": 0.0045673312353636955,
+    "ood_ec_at_best_round": 0.131822589324984,
+    "last5_mean_ood_ec": 0.09762648383726437,
+    "ood_pointing_game_at_best_round": 0.8,
+    "last5_mean_ood_pointing_game": 0.42666666666666664
+  },
+  "prostate_base_fedga": {
+    "file": "round_history_base_fedga_prostate.csv",
+    "n_rounds": 15,
+    "best_round_by_ood_dsc": 8,
+    "best_ood_dsc": 0.5438536233427737,
+    "final_round_ood_dsc": 0.4254325553699486,
+    "last5_mean_ood_dsc": 0.44645618927786934,
+    "last5_std_ood_dsc": 0.021850277188680368,
+    "ood_ec_at_best_round": 0.14521777320138668,
+    "last5_mean_ood_ec": 0.14321078484738362,
+    "ood_pointing_game_at_best_round": 0.5,
+    "last5_mean_ood_pointing_game": 0.5666666666666667
+  },
+  "prostate_xfedga": {
+    "file": "round_history_xfedga_fedga_prostate.csv",
+    "n_rounds": 15,
+    "best_round_by_ood_dsc": 2,
+    "best_ood_dsc": 0.4960352857941033,
+    "final_round_ood_dsc": 0.3631862574970057,
+    "last5_mean_ood_dsc": 0.3695720626353164,
+    "last5_std_ood_dsc": 0.022285559866709884,
+    "ood_ec_at_best_round": 0.20347360904810805,
+    "last5_mean_ood_ec": 0.17852242809703378,
+    "ood_pointing_game_at_best_round": 0.6,
+    "last5_mean_ood_pointing_game": 0.42000000000000004,
+    "q_i_min_per_client": [
+      0.1898,
+      0.3766
+    ],
+    "q_i_max_per_client": [
+      0.7265,
+      0.7039
+    ],
+    "q_i_round_to_round_absdiff_mean_per_client": [
+      0.09003571428571429,
+      0.08645714285714286
+    ]
+  },
+  "nested_breast_fedavg": {
+    "file": "xfedga/round_history_fedavg_baseline.csv",
+    "n_rounds": 15,
+    "best_round_by_ood_dsc": 1,
+    "best_ood_dsc": 0.6317334642091632,
+    "final_round_ood_dsc": 0.5355275307482221,
+    "last5_mean_ood_dsc": 0.5348301869703661,
+    "last5_std_ood_dsc": 0.012182511210718613
+  },
+  "nested_breast_base_fedga": {
+    "file": "xfedga/round_history_base_fedga.csv",
+    "n_rounds": 15,
+    "best_round_by_ood_dsc": 2,
+    "best_ood_dsc": 0.6586557800625799,
+    "final_round_ood_dsc": 0.5697423375382108,
+    "last5_mean_ood_dsc": 0.57084637553314,
+    "last5_std_ood_dsc": 0.004918049683523138
+  },
+  "nested_breast_xfedga": {
+    "file": "xfedga/round_history_xfedga_fedga.csv",
+    "n_rounds": 15,
+    "best_round_by_ood_dsc": 2,
+    "best_ood_dsc": 0.6502320834123481,
+    "final_round_ood_dsc": 0.5319487013109773,
+    "last5_mean_ood_dsc": 0.5482090874768275,
+    "last5_std_ood_dsc": 0.021273881680064145
+  }
+}

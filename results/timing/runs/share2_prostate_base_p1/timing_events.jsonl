@@ -1,0 +1,5 @@
+{"event": "start", "task": "prostate", "mode": "base", "argv": ["--rounds", "2"], "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU", "torch": "2.11.0+cu128", "time": "2026-10-14 19:59:05"}
+{"event": "setup_done", "setup_s": 28.32582426071167}
+{"event": "round", "round": 1, "local_train_s": 146.4977114200592, "qi_s": 0.0, "agg_s": 0.03420758247375488, "ga_s": 94.71399235725403, "fitness_eval_s": 93.93894028663635, "n_fitness_evals": 36, "ood_eval_s": 4.340414524078369, "n_local_updates": 2, "wall_s": 245.63329482078552, "peak_alloc_MiB": 569.654296875, "peak_reserved_MiB": 704.0, "ga_overhead_s": 0.7750520706176758, "other_s": 0.046968936920166016}
+{"event": "round", "round": 2, "local_train_s": 147.64472198486328, "qi_s": 0.0, "agg_s": 0.018539905548095703, "ga_s": 97.88642358779907, "fitness_eval_s": 97.05701732635498, "n_fitness_evals": 36, "ood_eval_s": 4.7263023853302, "n_local_updates": 2, "wall_s": 250.33754444122314, "peak_alloc_MiB": 595.390625, "peak_reserved_MiB": 712.0, "ga_overhead_s": 0.8294062614440918, "other_s": 0.06155657768249512}
+{"event": "end", "status": "completed", "total_s": 524.7185769081116, "rounds_completed": 2}

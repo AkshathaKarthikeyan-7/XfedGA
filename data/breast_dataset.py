@@ -20,7 +20,10 @@ def _load_resized(image_path, mask_path, size=(384, 384)):
     """Read grayscale image and mask, resize to `size`; returns (uint8 image, binary uint8 mask).
     This is the cached part of the preprocessing."""
     img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-    mask = cv2.imread(mask_path, cv2.IMREAD_GRAYSCALE)
+    # Masks are read in colour and binarised on the brightest channel (audit D-1): BUS-UCLM
+    # colour-codes lesions (benign pure green, malignant pure red); a grayscale read maps red to
+    # 76 < 127, which silently emptied every malignant mask. White masks (BUSI, BUS-BRA) are unchanged.
+    mask = cv2.imread(mask_path, cv2.IMREAD_COLOR).max(axis=2)
 
     img = cv2.resize(img, size, interpolation=cv2.INTER_LINEAR)
     mask = cv2.resize(mask, size, interpolation=cv2.INTER_NEAREST)

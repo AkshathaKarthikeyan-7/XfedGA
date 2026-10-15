@@ -103,3 +103,33 @@ def test_relative_and_absolute_roots_share_one_cache():
     require_path(root)
     from data.prostate_dataset import prostate_cache
     assert prostate_cache("PROMISE12", root).directory == prostate_cache("PROMISE12", os.path.abspath(root)).directory
+
+
+@pytest.mark.data
+def test_busuclm_malignant_masks_are_kept():
+    """Audit D-1: every Benign/Malignant BUS-UCLM mask is non-empty, every Normal mask is empty."""
+    import csv
+    import glob
+    import os
+    root = "raw data/BUS-UCLM"
+    require_path(root)
+    from data.breast_dataset import INDEXERS, breast_cache
+    info = glob.glob(os.path.join(root, "**", "INFO.csv"), recursive=True)[0]
+    label = {r[0]: r[2] for r in csv.reader(open(info, encoding="utf-8-sig"), delimiter=";")}
+    cache = breast_cache("BUS-UCLM", root)
+    counts = {}
+    for img_path, _ in INDEXERS["BUS-UCLM"](root):
+        nonempty = cache.mask_sum(cache.rows(img_path)[0]) > 0
+        lab = label[os.path.basename(img_path)]
+        counts[(lab, nonempty)] = counts.get((lab, nonempty), 0) + 1
+    assert counts == {("Benign", True): 174, ("Malignant", True): 90, ("Normal", False): 419}
+
+
+@pytest.mark.data
+@pytest.mark.parametrize("name,root,expected", [("BUSI", "raw data/BUSI", 647), ("BUS-BRA", "raw data/BUS-BRA", 1875)])
+def test_white_mask_datasets_unchanged_by_d1(name, root, expected):
+    """D-1 must not change BUSI / BUS-BRA: same non-empty counts as before the fix (audit 1.4)."""
+    require_path(root)
+    from data.breast_dataset import INDEXERS, breast_cache, filter_nonempty_masks
+    kept = filter_nonempty_masks(INDEXERS[name](root), verbose=False, cache=breast_cache(name, root))
+    assert len(kept) == expected

@@ -62,3 +62,28 @@ def test_w_agg_is_kept_when_it_is_the_optimum(mode):
     base, fitness = _toy_problem(0, target_offset=0.0)
     best = run_ga(base, fitness, mode=mode, population_size=6, generations=5, sigma0=0.01)
     assert all(torch.equal(best[k], base[k]) for k in base)
+
+
+@pytest.mark.parametrize("cache", [False, True])
+def test_ga_history_and_evaluation_counts(cache):
+    base, fitness = _toy_problem(1, target_offset=0.01)
+    calls = []
+
+    def counted(sd):
+        calls.append(1)
+        return fitness(sd)
+    best, hist = run_ga(base, counted, mode="xfedga", population_size=6, generations=5,
+                        cache_elite_fitness=cache, return_history=True)
+    assert len(hist) == 6 and sum(h["evaluations"] for h in hist) == len(calls)
+    assert len(calls) == (6 + 5 * 3 if cache else 6 * 6)
+    assert fitness(best) == max(h["best"] for h in hist) >= fitness(base)
+
+
+def test_cache_does_not_change_the_search():
+    # same seed -> same candidates; with a deterministic fitness the cached GA must return the same winner
+    base, fitness = _toy_problem(2, target_offset=0.01)
+    np.random.seed(5); torch.manual_seed(5)
+    a = run_ga(base, fitness, mode="base", population_size=6, generations=5, cache_elite_fitness=False)
+    np.random.seed(5); torch.manual_seed(5)
+    b = run_ga(base, fitness, mode="base", population_size=6, generations=5, cache_elite_fitness=True)
+    assert all(torch.equal(a[k], b[k]) for k in a)

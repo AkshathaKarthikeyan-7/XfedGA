@@ -1,11 +1,13 @@
 """
 GA-based server-side optimization.
 
-Contains two modes, selected via `mode`:
-  - "base"      : reproduces the original FedGA (Ahmed et al.) exactly --
-                   single-objective DSC fitness, fixed-sigma Gaussian mutation.
-  - "xfedga"    : your contribution -- multi-objective fitness
-                   (DSC + HD95 + explanation consistency) and annealed mutation.
+Two mutation schedules, selected via `mode`:
+  - "base"   : FedGA (baseline) -- the GA operators of Algorithm 1 of the base FedGA paper
+               (elitist top-half selection, uniform crossover, sparse Gaussian mutation with
+               fixed sigma). Population size, generations and fitness set are our settings,
+               which differ from the paper (reports/audit/fedga_paper_comparison.md).
+  - "xfedga" : same operators, mutation sigma annealed per generation: sigma0 * exp(-g / tau).
+The fitness function is passed in (evaluate_fn); see fedga/evaluation.py.
 """
 import copy
 import math
@@ -90,19 +92,44 @@ def annealed_sigma(sigma0, generation, tau=10.0):
     return sigma0 * math.exp(-generation / tau)
 
 
+def _evaluate(population, known, evaluate_fn):
+    """Fitness of every individual; entries already in `known` (cached elites) are reused."""
+    fits, n = [], 0
+    for ind, f in zip(population, known):
+        if f is None:
+            f = evaluate_fn(ind)
+            n += 1
+        fits.append(f)
+    return fits, n
+
+
 def run_ga(base_state_dict, evaluate_fn, mode="xfedga",
            population_size=10, generations=20,
-           pc=0.5, pm=0.1, sigma0=0.01, tau=10.0):
+           pc=0.5, pm=0.1, sigma0=0.01, tau=10.0,
+           cache_elite_fitness=False, return_history=False):
+    """
+    Elitist GA around w_agg = base_state_dict; returns the fittest final individual
+    (and, with return_history, one {"best", "mean", "evaluations"} dict per evaluation pass).
+    w_agg is individual 0 of the initial population and the top half always survives, so the
+    winner's fitness is >= fitness(w_agg) whenever evaluate_fn is deterministic.
+    cache_elite_fitness reuses the stored fitness of surviving elites instead of re-scoring
+    them (P + G*P/2 instead of P*(G+1) evaluations); enable it only if evaluation is
+    deterministic (decision Q7, tests/test_determinism.py).
+    """
     population = initial_population(base_state_dict, population_size, sigma0)
+    known = [None] * len(population)
+    history = []
 
     for g in range(generations):
         sigma = sigma0 if mode == "base" else annealed_sigma(sigma0, g, tau)
 
-        fitnesses = [evaluate_fn(ind) for ind in population]
+        fitnesses, n_eval = _evaluate(population, known, evaluate_fn)
+        history.append({"best": max(fitnesses), "mean": float(np.mean(fitnesses)), "evaluations": n_eval})
         ranked = sorted(zip(population, fitnesses), key=lambda x: x[1], reverse=True)
         population = [ind for ind, _ in ranked]
 
         parents = population[: population_size // 2]
+        parent_fitness = [f for _, f in ranked[: population_size // 2]]
 
         offspring = []
         while len(offspring) < population_size - len(parents):
@@ -115,7 +142,9 @@ def run_ga(base_state_dict, evaluate_fn, mode="xfedga",
             offspring.append(child)
 
         population = parents + offspring
+        known = (parent_fitness if cache_elite_fitness else [None] * len(parents)) + [None] * len(offspring)
 
-    final_fitnesses = [evaluate_fn(ind) for ind in population]
-    best_idx = int(np.argmax(final_fitnesses))
-    return population[best_idx]
+    final_fitnesses, n_eval = _evaluate(population, known, evaluate_fn)
+    history.append({"best": max(final_fitnesses), "mean": float(np.mean(final_fitnesses)), "evaluations": n_eval})
+    best = population[int(np.argmax(final_fitnesses))]
+    return (best, history) if return_history else best

@@ -120,3 +120,9 @@ def insertion_deletion_auc(model, input_tensor, saliency_map, target_class=1,
         scores.append(prob)
 
     return float(np.trapz(scores, dx=1.0 / steps))
+
+
+def unet_cam_layer(model):
+    """Grad-CAM target layer for the MONAI Residual U-Net (models/residual_unet.py):
+    the last decoder conv before the output head (16 channels, half resolution)."""
+    return model.model[1].submodule[2][1].conv.unit0.conv

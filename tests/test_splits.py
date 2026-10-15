@@ -73,3 +73,20 @@ def test_decathlon_split_real_cases():
     split = decathlon_case_split(cases, sizes, seed=42)
     assert [len(split[r]) for r in ROLES] == [8, 8, 16]
     _assert_partition(split, cases)
+
+
+@pytest.mark.data
+@pytest.mark.parametrize("task", ["prostate", "breast"])
+def test_split_summary_independent_of_subsample_settings(task):
+    """results/splits/<task>_dataseed<k>.json must be identical for every run with the same data seed."""
+    require_path("raw data/PROMISE12" if task == "prostate" else BUSBRA)
+    import json
+    from experiments.config import load_config
+    from experiments.tasks import build_task, split_summary
+    base = load_config(task)
+    tiny = load_config(task, ["fitness.subsample=8", "saliency.subsample=4", "evaluation.explain_samples=8",
+                              "aggregation.beta=1.0", "train.rounds=1"])
+    a, b = split_summary(build_task(task, base)), split_summary(build_task(task, tiny))
+    assert a == b
+    with open(f"results/splits/{task}_dataseed{base['seed']}.json", encoding="utf-8") as f:
+        assert json.load(f) == json.loads(json.dumps(a))

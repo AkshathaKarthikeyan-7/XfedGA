@@ -57,7 +57,7 @@ Each run writes `results/runs/<run_id>/`:
 - `run_meta.json`: run id, seed, config hash, git commit, selected round
 - the validation-selected checkpoint `<task>_<method>_seed<k>_valselected.pt`
 
-The split case/patient ids are logged in `results/splits/<task>.json`.
+The split case/patient ids are logged in `results/splits/<task>_dataseed<seed>.json` (identical for every run; each run checks it) and, with the fixed subsamples, in the run folder (`split_log.json`).
 
 ## Repository layout
 `configs/ data/ models/ fedga/ xai/ experiments/ fl_dist/ (Session 3) analysis/ tests/ reports/ results/`; see [ARCHITECTURE.md](ARCHITECTURE.md).

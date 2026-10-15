@@ -9,7 +9,7 @@ memory (PyTorch allocated / reserved), and the 15-round projection
 (setup + 15 x mean round). If the run stopped early, "extrapolated" is True.
 
 Usage (from repo root):
-    python results/timing/summarize_timing.py
+    python analysis/summarize_timing.py
 """
 import csv
 import glob
@@ -18,7 +18,7 @@ import os
 
 import numpy as np
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+HERE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results", "timing")
 KEYS = ["wall_s", "local_train_s", "qi_s", "agg_s", "ga_s", "fitness_eval_s", "ga_overhead_s", "ood_eval_s"]
 
 

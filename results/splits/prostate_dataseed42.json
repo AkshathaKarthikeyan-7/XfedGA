@@ -29,13 +29,7 @@
     "Case48"
    ],
    "n_cases": 25,
-   "n_slices": 379,
-   "qi_subsample": [
-    "Case32#3",
-    "Case32#10",
-    "Case09#1",
-    "Case24#9"
-   ]
+   "n_slices": 379
   },
   "PROMISE12_client2": {
    "cases": [
@@ -66,25 +60,9 @@
     "Case49"
    ],
    "n_cases": 25,
-   "n_slices": 399,
-   "qi_subsample": [
-    "Case44#0",
-    "Case44#9",
-    "Case42#0",
-    "Case42#11"
-   ]
+   "n_slices": 399
   }
  },
- "fitness_subsample": [
-  "prostate_01#8",
-  "prostate_14#6",
-  "prostate_25#9",
-  "prostate_34#6",
-  "prostate_40#4",
-  "prostate_41#8",
-  "prostate_46#5",
-  "prostate_47#8"
- ],
  "server": {
   "fitness": {
    "cases": [
@@ -136,15 +114,5 @@
    "n_cases": 8,
    "n_slices": 117
   }
- },
- "val_explain_subsample": [
-  "prostate_04#6",
-  "prostate_06#8",
-  "prostate_07#4",
-  "prostate_16#10",
-  "prostate_32#5",
-  "prostate_35#8",
-  "prostate_39#7",
-  "prostate_43#6"
- ]
+ }
 }

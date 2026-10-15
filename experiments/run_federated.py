@@ -14,7 +14,8 @@ Protocol (spec sections 2, 4, 6; plan.md section 0):
   end, on that checkpoint only.
 
 Outputs in results/runs/<run_id>/: config_resolved.yaml, round_log.csv, test_per_image.csv,
-run_meta.json and <task>_<method>_seed<k>_valselected.pt; split log in results/splits/<task>.json.
+run_meta.json, split_log.json (incl. fixed subsamples) and <task>_<method>_seed<k>_valselected.pt.
+The run-independent split ids are in results/splits/<task>_dataseed<seed>.json (checked on every run).
 """
 import argparse
 import copy
@@ -35,7 +36,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from data.loading import loader_kwargs  # noqa: E402
 from data.splits import write_split_log  # noqa: E402
 from experiments.config import config_hash, git_commit, load_config, seed_everything, torch_generator  # noqa: E402
-from experiments.tasks import build_task  # noqa: E402
+from experiments.tasks import build_task, split_summary  # noqa: E402
 from fedga.client import client_saliency_score, local_update  # noqa: E402
 from fedga.evaluation import FixedSet, build_fitness_fn, per_image_metrics  # noqa: E402
 from fedga.fedavg import aggregate, aggregation_weights  # noqa: E402
@@ -79,7 +80,15 @@ def run_experiment(task, method, seed, overrides=None, out_root="results/runs", 
 
     t0 = time.time()
     data = build_task(task, cfg)
-    write_split_log(os.path.join("results", "splits", f"{task}.json"), data.split_log)
+    write_split_log(os.path.join(out, "split_log.json"), data.split_log)
+    shared = os.path.join("results", "splits", f"{task}_dataseed{cfg['seed']}.json")
+    summary = split_summary(data)
+    if os.path.exists(shared):
+        with open(shared, encoding="utf-8") as f:
+            if json.load(f) != json.loads(json.dumps(summary)):
+                raise RuntimeError(f"splits differ from {shared}: data or split code changed")
+    else:
+        write_split_log(shared, summary)
     setup_s = time.time() - t0
 
     tr, ga_cfg, fit_cfg = cfg["train"], cfg["ga"], cfg["fitness"]

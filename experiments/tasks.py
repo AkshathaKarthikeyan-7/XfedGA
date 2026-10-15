@@ -130,5 +130,14 @@ def build_prostate(cfg):
     return TaskData(clients, server, fit_idx, val_idx, log)
 
 
+def split_summary(data):
+    """The run-independent part of the split log: client and server case/patient ids and counts
+    (no subsamples, which depend on subsample-size settings). Identical for every run with the
+    same data seed."""
+    return {"clients": {k: {kk: vv for kk, vv in v.items() if kk != "qi_subsample"}
+                        for k, v in data.split_log["clients"].items()},
+            "server": data.split_log["server"]}
+
+
 def build_task(task, cfg):
     return {"breast": build_breast, "prostate": build_prostate}[task](cfg)

@@ -12,7 +12,7 @@ training scripts write *.pt / *.csv into the current working directory
   - stops after 3 rounds if the projected 15-round wall clock > --cap_hours
 
 Usage (from repo root):
-    python results/timing/timed_run.py --task breast --mode base --workdir results/timing/runs/breast_base -- --rounds 15
+    python analysis/timed_run.py --task breast --mode base --workdir results/timing/runs/breast_base -- --rounds 15
 Everything after `--` is passed to the training script verbatim.
 """
 import argparse
@@ -23,7 +23,7 @@ import time
 
 import yaml
 
-REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, REPO)
 
 import torch  # noqa: E402

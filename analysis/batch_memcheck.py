@@ -5,13 +5,13 @@ training run. Answers: does the paper's batch 128 fit in 6 GB?
 
 Writes results/timing/batch_memcheck.json.
 Usage (from repo root):
-    python results/timing/batch_memcheck.py
+    python analysis/batch_memcheck.py
 """
 import json
 import os
 import sys
 
-REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, REPO)
 
 import torch  # noqa: E402
@@ -54,7 +54,7 @@ def main():
         torch.cuda.empty_cache()
         print(json.dumps(rec))
         out["results"].append(rec)
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "batch_memcheck.json"), "w") as f:
+    with open(os.path.join(REPO, "results", "timing", "batch_memcheck.json"), "w") as f:
         json.dump(out, f, indent=2)
 
 

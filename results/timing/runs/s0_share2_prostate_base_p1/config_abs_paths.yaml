@@ -1,0 +1,64 @@
+aggregation:
+  beta: 0.5
+  eps: 0.001
+channels: 1
+clients:
+- id: client_1
+  name: PROMISE12
+  notes: random half of PROMISE12 cases (via split_promise12_clients, seed=42)
+  path: D:\new repo\xfedga\raw data/PROMISE12
+- id: client_2
+  name: PROMISE12
+  notes: disjoint other half of PROMISE12 cases
+  path: D:\new repo\xfedga\raw data/PROMISE12
+evaluation:
+  explain_samples: 30
+  selection_smoothing: 3
+fitness:
+  cam_threshold: 0.5
+  hd95_normalizer: 384
+  subsample: 40
+  weights:
+  - 0.5
+  - 0.3
+  - 0.2
+ga:
+  cache_elite_fitness: false
+  generations: 5
+  pc: 0.5
+  pm: 0.1
+  population: 6
+  sigma0: 0.01
+  tau: 10.0
+image_size:
+- 384
+- 384
+loader:
+  num_workers: 0
+  persistent_workers: true
+  pin_memory: false
+saliency:
+  subsample: 40
+seed: 42
+server:
+  fitness_split: 0.5
+  name: Decathlon
+  notes: 32 cases; case-level fitness/OOD split to avoid patient leakage across sets
+  path: D:\new repo\xfedga\raw data/Task05_Prostate/Task05_Prostate
+  seed: 42
+splits:
+  server_block_roles:
+  - fitness
+  - validation
+  - test
+  - test
+task: prostate_segmentation
+train:
+  adam_betas:
+  - 0.9
+  - 0.99
+  batch_size: 8
+  local_epochs: 10
+  lr: 0.001
+  rounds: 15
+train_val_split: 0.8

@@ -37,8 +37,12 @@ seed: 42
 
 loader:
   # Preprocessed tensors are cached under cache/ (data/cache.py), keyed by a hash of the
-  # preprocessing code, parameters and raw files. num_workers: 0 is the measured optimum
-  # with the cache (see data/loading.py); workers > 0 are supported on Windows.
+  # preprocessing code, parameters and raw files.
+  # num_workers: 0 -- decided 15 Oct 2026 (approved) from a measurement on the cached datasets
+  # (RTX 4050 laptop, Windows): steady training epoch with 0 / 2 / 4 workers = 1.96 / 1.99 / 2.00 s
+  # (PROMISE12 client 1) and 2.68 / 2.70 / 2.73 s (BUSI), i.e. no gain, because the loop is
+  # GPU-bound once the cache is used; worker start-up under Windows spawn added 8-30 s per loader.
+  # Workers > 0 are supported and tested (tests/test_cache.py::test_dataloader_workers_match_single_process).
   num_workers: 0
   persistent_workers: true
   pin_memory: false

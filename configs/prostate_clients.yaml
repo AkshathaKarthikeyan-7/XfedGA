@@ -34,3 +34,11 @@ server:
 
 train_val_split: 0.8
 seed: 42
+
+loader:
+  # Preprocessed tensors are cached under cache/ (data/cache.py), keyed by a hash of the
+  # preprocessing code, parameters and raw files. num_workers: 0 is the measured optimum
+  # with the cache (see data/loading.py); workers > 0 are supported on Windows.
+  num_workers: 0
+  persistent_workers: true
+  pin_memory: false

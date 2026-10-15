@@ -23,6 +23,8 @@ import nibabel as nib
 from scipy.ndimage import zoom as ndi_zoom
 from torch.utils.data import Dataset
 
+from data.cache import DEFAULT_CACHE_ROOT, build_or_load, file_fingerprint, source_hash
+
 TARGET_SPACING_MM = 0.5
 
 
@@ -148,20 +150,60 @@ def split_promise12_clients(root, seed=42):
     return client1, client2
 
 
-class ProstateClientDataset(Dataset):
-    INDEXERS = {"PROMISE12": _index_promise12, "Decathlon": _index_decathlon}
-    EXTRACTORS = {"promise12": _extract_slices_promise12, "decathlon": _extract_slices_decathlon}
+INDEXERS = {"PROMISE12": _index_promise12, "Decathlon": _index_decathlon}
+EXTRACTORS = {"promise12": _extract_slices_promise12, "decathlon": _extract_slices_decathlon}
 
-    def __init__(self, client_name, root, size=(384, 384), min_fg_fraction=0.0, cases=None):
+
+def _case_files(case_path, dataset_tag):
+    if dataset_tag == "promise12":
+        seg = case_path.replace(".mhd", "_segmentation.mhd")
+        return [case_path, case_path[:-4] + ".raw", seg, seg[:-4] + ".raw"]
+    return [case_path, case_path.replace("imagesTr", "labelsTr")]
+
+
+def prostate_cache(client_name, root, size=(384, 384), min_fg_fraction=0.0, cache_root=DEFAULT_CACHE_ROOT):
+    """Cache of fully preprocessed float32 slices (+ binary masks) for EVERY case in `root`.
+    Item id = case path; each case owns the rows of its kept slices, in slice order."""
+    cases = INDEXERS[client_name](root)
+    spec = {"dataset": client_name, "size": list(size), "min_fg_fraction": min_fg_fraction,
+            "target_spacing_mm": TARGET_SPACING_MM, "version": 1,
+            "code": source_hash(_resample_to_spacing_sitk, _resample_to_spacing_nib,
+                                _resample_to_spacing_nib_nearest, _normalize_and_resize,
+                                _extract_slices_promise12, _extract_slices_decathlon),
+            "files": file_fingerprint([f for c, tag in cases for f in _case_files(c, tag)])}
+
+    def preprocess(case):
+        case_path, tag = case
+        return [_normalize_and_resize(img, msk, tuple(size))
+                for img, msk in EXTRACTORS[tag](case_path, min_fg_fraction)]
+
+    return build_or_load(client_name, spec, [(c, (c, tag)) for c, tag in cases], preprocess,
+                         cache_root=cache_root, image_dtype=np.float32)
+
+
+class ProstateClientDataset(Dataset):
+    """2-D slices of the given cases. With `cache_root` set (default), slices come from the
+    on-disk cache of fully preprocessed slices (see prostate_cache), built on first use;
+    with cache_root=None, volumes are loaded and preprocessed in memory as before."""
+    INDEXERS = INDEXERS
+    EXTRACTORS = EXTRACTORS
+
+    def __init__(self, client_name, root, size=(384, 384), min_fg_fraction=0.0, cases=None,
+                 cache_root=DEFAULT_CACHE_ROOT):
         self.size = size
         case_list = cases if cases is not None else self.INDEXERS[client_name](root)
         if len(case_list) == 0:
             raise RuntimeError(f"No cases found for {client_name} at {root}.")
 
+        self.cache = prostate_cache(client_name, root, size, min_fg_fraction, cache_root) if cache_root else None
         self.slices = []
-        for case_path, dataset_tag in case_list:
-            extractor = self.EXTRACTORS[dataset_tag]
-            self.slices.extend(extractor(case_path, min_fg_fraction))
+        if self.cache is not None:
+            for case_path, _ in case_list:
+                self.slices.extend(self.cache.rows(case_path))
+        else:
+            for case_path, dataset_tag in case_list:
+                extractor = self.EXTRACTORS[dataset_tag]
+                self.slices.extend(extractor(case_path, min_fg_fraction))
 
         if len(self.slices) == 0:
             raise RuntimeError(
@@ -175,8 +217,12 @@ class ProstateClientDataset(Dataset):
         return len(self.slices)
 
     def __getitem__(self, idx):
-        img_slice, mask_slice = self.slices[idx]
-        img, mask = _normalize_and_resize(img_slice, mask_slice, self.size)
+        if self.cache is not None:
+            row = self.slices[idx]
+            img, mask = self.cache.image(row), self.cache.mask(row)
+        else:
+            img_slice, mask_slice = self.slices[idx]
+            img, mask = _normalize_and_resize(img_slice, mask_slice, self.size)
         img_t = torch.from_numpy(img).unsqueeze(0)
-        mask_t = torch.from_numpy(mask).long()
+        mask_t = torch.from_numpy(np.asarray(mask)).long()
         return img_t, mask_t

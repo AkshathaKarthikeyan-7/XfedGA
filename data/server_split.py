@@ -16,14 +16,16 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from data.breast_dataset import INDEXERS, train_val_split, filter_nonempty_masks
+from data.breast_dataset import INDEXERS, train_val_split, filter_nonempty_masks, breast_cache
 
 
 def get_server_split(cfg):
     server_cfg = cfg["server"]
     indexer = INDEXERS[server_cfg["name"]]
     all_pairs = indexer(server_cfg["path"])
-    all_pairs = filter_nonempty_masks(all_pairs, size=tuple(cfg.get("image_size", (384, 384))))
+    size = tuple(cfg.get("image_size", (384, 384)))
+    all_pairs = filter_nonempty_masks(all_pairs, size=size,
+                                      cache=breast_cache(server_cfg["name"], server_cfg["path"], size))
 
     # reuse train_val_split as a generic 50/50 splitter
     fitness_pairs, ood_test_pairs = train_val_split(

@@ -25,3 +25,6 @@ logs/
 mlruns/
 wandb/
 raw data/
+
+# preprocessed-tensor cache (data/cache.py)
+cache/

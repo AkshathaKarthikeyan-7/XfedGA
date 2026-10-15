@@ -13,21 +13,45 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 
+from data.cache import DEFAULT_CACHE_ROOT, build_or_load, file_fingerprint, source_hash
 
-def _load_and_preprocess(image_path, mask_path, size=(384, 384)):
+
+def _load_resized(image_path, mask_path, size=(384, 384)):
+    """Read grayscale image and mask, resize to `size`; returns (uint8 image, binary uint8 mask).
+    This is the cached part of the preprocessing."""
     img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
     mask = cv2.imread(mask_path, cv2.IMREAD_GRAYSCALE)
 
     img = cv2.resize(img, size, interpolation=cv2.INTER_LINEAR)
     mask = cv2.resize(mask, size, interpolation=cv2.INTER_NEAREST)
+    mask = (mask > 127).astype(np.uint8)  # binarize
+    return img, mask
 
-    # min-max normalize image to [0,1], matches base paper's preprocessing
+
+def _normalize(img):
+    """Min-max normalize a resized uint8 image to float32 [0,1] (base paper's preprocessing)."""
     img = img.astype(np.float32)
     denom = (img.max() - img.min())
-    img = (img - img.min()) / denom if denom > 0 else img
-    mask = (mask > 127).astype(np.float32)  # binarize
+    return (img - img.min()) / denom if denom > 0 else img
 
-    return img, mask
+
+def _load_and_preprocess(image_path, mask_path, size=(384, 384)):
+    img, mask = _load_resized(image_path, mask_path, size)
+    return _normalize(img), mask.astype(np.float32)
+
+
+def breast_cache(dataset_name, root, size=(384, 384), cache_root=DEFAULT_CACHE_ROOT):
+    """Cache of resized uint8 images + binary masks for EVERY pair the indexer finds in `root`.
+    Item id = image path. Normalization is applied at load time, so cached and on-the-fly
+    outputs are identical."""
+    pairs = INDEXERS[dataset_name](root)
+    spec = {"dataset": dataset_name, "size": list(size), "version": 1,
+            "code": source_hash(_load_resized),
+            "files": file_fingerprint([p for pair in pairs for p in pair])}
+    items = [(img_path, (img_path, mask_path)) for img_path, mask_path in pairs]
+    return build_or_load(dataset_name, spec, items,
+                         lambda pm: [_load_resized(pm[0], pm[1], tuple(size))],
+                         cache_root=cache_root, image_dtype=np.uint8)
 
 
 def _index_busi(root):
@@ -146,7 +170,10 @@ INDEXERS = {
 
 
 class BreastClientDataset(Dataset):
-    def __init__(self, client_name, root, size=(384, 384), pairs=None):
+    """(image, mask) pairs. With `cache_root` set (default), reads preprocessed arrays from the
+    on-disk cache (see breast_cache), built on first use; with cache_root=None, reads from disk."""
+
+    def __init__(self, client_name, root, size=(384, 384), pairs=None, cache_root=DEFAULT_CACHE_ROOT):
         self.size = size
         self.pairs = pairs if pairs is not None else INDEXERS[client_name](root)
         if len(self.pairs) == 0:
@@ -154,15 +181,22 @@ class BreastClientDataset(Dataset):
                 f"No (image, mask) pairs found for {client_name} at {root}. "
                 f"Check the folder structure / update the indexer function."
             )
+        self.cache = breast_cache(client_name, root, size, cache_root) if cache_root else None
+        self.rows = [self.cache.rows(p)[0] for p, _ in self.pairs] if self.cache else None
 
     def __len__(self):
         return len(self.pairs)
 
     def __getitem__(self, idx):
-        img_path, mask_path = self.pairs[idx]
-        img, mask = _load_and_preprocess(img_path, mask_path, self.size)
+        if self.cache is not None:
+            row = self.rows[idx]
+            img = _normalize(self.cache.image(row))
+            mask = self.cache.mask(row)
+        else:
+            img_path, mask_path = self.pairs[idx]
+            img, mask = _load_and_preprocess(img_path, mask_path, self.size)
         img_t = torch.from_numpy(img).unsqueeze(0)   # (1, H, W)
-        mask_t = torch.from_numpy(mask).long()        # (H, W)
+        mask_t = torch.from_numpy(np.asarray(mask)).long()        # (H, W)
         return img_t, mask_t
 
 
@@ -174,7 +208,7 @@ def train_val_split(pairs, val_ratio=0.2, seed=42):
     return [pairs[i] for i in train_idx], [pairs[i] for i in val_idx]
 
 
-def filter_nonempty_masks(pairs, size=(384, 384), min_fg_fraction=0.0, verbose=True):
+def filter_nonempty_masks(pairs, size=(384, 384), min_fg_fraction=0.0, verbose=True, cache=None):
     """
     Removes (image, mask) pairs whose mask has no foreground (or below
     min_fg_fraction of pixels), to prevent the model learning an
@@ -187,8 +221,11 @@ def filter_nonempty_masks(pairs, size=(384, 384), min_fg_fraction=0.0, verbose=T
     kept = []
     dropped = 0
     for img_path, mask_path in pairs:
-        _, mask = _load_and_preprocess(img_path, mask_path, size)
-        fg_frac = mask.sum() / mask.size
+        if cache is not None:
+            fg_frac = cache.mask_sum(cache.rows(img_path)[0]) / (size[0] * size[1])
+        else:
+            _, mask = _load_and_preprocess(img_path, mask_path, size)
+            fg_frac = mask.sum() / mask.size
         if fg_frac > min_fg_fraction:
             kept.append((img_path, mask_path))
         else:

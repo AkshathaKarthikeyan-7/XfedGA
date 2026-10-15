@@ -31,6 +31,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from data.prostate_dataset import ProstateClientDataset, split_promise12_clients
 from data.server_split import get_prostate_server_split
+from data.loading import loader_kwargs
 from models.residual_unet import build_residual_unet
 from fedga.fedavg import fedavg_aggregate, explanation_weighted_aggregate
 from fedga.losses import build_loss
@@ -76,8 +77,8 @@ def main():
     client1_ds = ProstateClientDataset("PROMISE12", promise12_root, cases=client1_cases)
     client2_ds = ProstateClientDataset("PROMISE12", promise12_root, cases=client2_cases)
     client_loaders = [
-        DataLoader(client1_ds, batch_size=args.batch_size, shuffle=True),
-        DataLoader(client2_ds, batch_size=args.batch_size, shuffle=True),
+        DataLoader(client1_ds, batch_size=args.batch_size, shuffle=True, **loader_kwargs(cfg)),
+        DataLoader(client2_ds, batch_size=args.batch_size, shuffle=True, **loader_kwargs(cfg)),
     ]
     client_sizes = [len(client1_ds), len(client2_ds)]
     print(f"[client] PROMISE12 client_1: {len(client1_ds)} slices")
@@ -87,8 +88,8 @@ def main():
     decathlon_root = cfg["server"]["path"]
     fitness_ds = ProstateClientDataset("Decathlon", decathlon_root, cases=fitness_cases)
     ood_ds = ProstateClientDataset("Decathlon", decathlon_root, cases=ood_cases)
-    fitness_loader = DataLoader(fitness_ds, batch_size=args.batch_size, shuffle=False)
-    ood_loader = DataLoader(ood_ds, batch_size=args.batch_size, shuffle=False)
+    fitness_loader = DataLoader(fitness_ds, batch_size=args.batch_size, shuffle=False, **loader_kwargs(cfg))
+    ood_loader = DataLoader(ood_ds, batch_size=args.batch_size, shuffle=False, **loader_kwargs(cfg))
     print(f"[server] Decathlon: {len(fitness_ds)} fitness-eval slices, {len(ood_ds)} OOD-test slices")
 
     global_model = build_residual_unet().to(device)

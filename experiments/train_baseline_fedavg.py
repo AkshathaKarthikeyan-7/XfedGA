@@ -20,8 +20,9 @@ from torch.utils.data import DataLoader
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from data.breast_dataset import BreastClientDataset, INDEXERS, train_val_split, filter_nonempty_masks
+from data.breast_dataset import BreastClientDataset, INDEXERS, train_val_split, filter_nonempty_masks, breast_cache
 from data.server_split import get_server_split
+from data.loading import loader_kwargs
 from models.residual_unet import build_residual_unet
 from fedga.fedavg import fedavg_aggregate
 from fedga.losses import build_loss
@@ -85,12 +86,13 @@ def main():
         indexer = INDEXERS[client["name"]]
         all_pairs = indexer(client["path"])
         print(f"[client] {client['name']}: {len(all_pairs)} raw pairs before filtering")
-        all_pairs = filter_nonempty_masks(all_pairs, size=tuple(cfg["image_size"]))
+        all_pairs = filter_nonempty_masks(all_pairs, size=tuple(cfg["image_size"]),
+                                          cache=breast_cache(client["name"], client["path"], tuple(cfg["image_size"])))
         train_pairs, val_pairs = train_val_split(
             all_pairs, val_ratio=1 - cfg["train_val_split"], seed=cfg["seed"]
         )
         train_ds = BreastClientDataset(client["name"], client["path"], pairs=train_pairs)
-        client_loaders.append(DataLoader(train_ds, batch_size=args.batch_size, shuffle=True))
+        client_loaders.append(DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, **loader_kwargs(cfg)))
         client_sizes.append(len(train_pairs))
         print(f"[client] {client['name']}: {len(train_pairs)} train pairs")
 
@@ -100,7 +102,7 @@ def main():
 
     _, ood_test_pairs = get_server_split(cfg)
     ood_ds = BreastClientDataset(cfg["server"]["name"], cfg["server"]["path"], pairs=ood_test_pairs)
-    ood_loader = DataLoader(ood_ds, batch_size=args.batch_size, shuffle=False)
+    ood_loader = DataLoader(ood_ds, batch_size=args.batch_size, shuffle=False, **loader_kwargs(cfg))
     print(f"[server] {cfg['server']['name']} OOD test set: {len(ood_test_pairs)} pairs")
 
     global_model = build_residual_unet().to(device)

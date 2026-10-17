@@ -12,7 +12,12 @@
 | Re-timing: one XFedGA round per task with the new CAM. GA +10% (prostate) / +4% (breast); round +5% / +1%. Recost: 75.7 of 170 GPU-h, buffer 94.3 h, queue ends 24 Oct | `results/smoke/*_newcam_timing/`, `analysis/plan_costs.py` → `results/audit/plan_costs.json` |
 | Golden regression values re-pinned to the new definition. (A first re-pin at 14:01 was cut short by the interruption; it was redone deliberately on resuming.) | `tests/golden/regression_prostate.json` |
 
-## Next steps when resuming (in order)
+## Done on resuming (17 Oct, 17:24–17:37)
+- Full suite: **125 passed, 2 xfailed** (the pinned old-layer finding), pytest exit 0. Committed and pushed as `f8fd583`.
+- β screen relaunched from frozen worktree `D:
+ew repoþdga_frozen8fd583` at 17:36:29. The first run, `prostate_xfedga_seed1_2b3750fe_betascreen_b0p0`, uses `cam_layer: fullres`, `cam_target: pred`, and its first busy GPU sample is 2,760 MHz, 63 W, no throttle flag. 16 runs, about 9.6 GPU-h.
+
+## Next steps (original list; 1–4 done)
 1. **Confirm the full suite passes**, fast and slow (regression, known-answer, `fl_dist` parity): `& $py -m pytest -q`. Commit only if pytest exits 0.
 2. **Commit and push** the CAM switch, exclusion filter, re-audit list, labels, sanity check and recost.
 3. Remove `results/runs/STOP` if present.
@@ -22,4 +27,4 @@
    & $py "..\xfedga_frozen\<sha>\analysis\run_queue.py" "..\xfedga_frozen\<sha>\queues\beta_screen.yaml" --repo .
    ```
    Confirm the first run starts at full GPU clocks (`gpu_state.csv`, ~2.7 GHz).
-5. When the screen ends: `& $py analysis/beta_decision.py`, then **report the β decision before** setting it in the configs and queuing the headline.
+5. **Next:** when the screen ends, `& $py analysis/beta_decision.py`, then **report the β decision before** setting it in the configs and queuing the headline.

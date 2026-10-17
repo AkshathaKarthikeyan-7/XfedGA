@@ -73,6 +73,15 @@ This section supersedes the Guide-Review-only plan (§0-old, kept below). §4, �
 - **Unallocated buffer: 97.8 GPU-h** (≥ 60 required: met).
 - **Everything finishes by 2026-10-24**, before the Guide Review, if the queue is kept fed.
 
+**Progress (17 Oct, 12:35):**
+- **Session 3a done:** all switches, smoke-tested; regression pin; `run_queue.py`.
+- **Session 3b done:**
+  - `fl_dist/` is bit-identical to the custom loop on the 1-round parity test, the audit passes, and peak GPU is 2.8 GB with server + 2 clients;
+  - the demo script is `reports/demo/fl_dist_demo.md`;
+  - `analysis/xai_metrics.py` and `analysis/fitness_weight_step0.py` are written.
+- **All queues are generated** (`queues/*.yaml`, by `analysis/make_queues.py`). `robustness_dp` is generated once the headline update norms exist, because the DP clip is set from them.
+- **Robustness choice (flagged):** the noisy-q_i client and the corrupted-label client are both client index 1 (BUS-UCLM, the smaller breast client).
+
 **Dependencies:**
 - **Parity and XAI metrics** need Session 3b code (`fl_dist/` and the XAI-metric script, 18–21 Oct). If 3b slips, the queue continues with FedProx + bounds and the heterogeneous partition, and parity + XAI move later.
 - **The headline** needs the β decision.

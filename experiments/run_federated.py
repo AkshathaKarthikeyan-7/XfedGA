@@ -90,6 +90,73 @@ def select_round(val_dsc, window):
     return int(np.argmax(smooth)) + 1, smooth
 
 
+class ServerEval:
+    """Server-held evaluation data: the fixed fitness subsample (on the device) and the validation set."""
+
+    def __init__(self, cfg, spec, data, device):
+        bs = cfg["train"]["batch_size"]
+        self.bs = bs
+        self.val_loader = DataLoader(data.server["validation"].dataset, batch_size=bs, shuffle=False,
+                                     **loader_kwargs(cfg))
+        self.val_explain = Subset(data.server["validation"].dataset, data.val_explain_subsample)
+        self.fixed = (FixedSet(data.server["fitness"].dataset, data.fitness_subsample, device)
+                      if spec["search"] in ("ga", "random") else None)
+
+
+def server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device, cand_log=None):
+    """
+    Server side of round t, shared by the custom loop and fl_dist/strategy.py:
+    q_i handling (random q_i for ablation F, noisy-q_i client) -> aggregation weights alpha_i -> w_agg
+    -> search (GA / random search / none) on the fixed fitness subsample -> load the winner into
+    `model` -> validation metrics. Returns (round-log row without timing totals, CPU copy of the winner).
+    """
+    ga_cfg, fit_cfg, sc = cfg["ga"], cfg["fitness"], cfg["scenario"]
+    rt = {}
+    qs = list(qs)
+    if spec["q_source"] == "random":   # ablation F: q_i carries no information about the client
+        qs = np.random.RandomState(seed * 1000 + t).uniform(0.0, 1.0, size=len(client_states)).tolist()
+    if qs and sc["noisy_qi_client"] is not None:   # robustness: this client always reports q_i = 1
+        qs[sc["noisy_qi_client"]] = 1.0
+    agg = cfg["aggregation"]
+    alpha = aggregation_weights(sizes, qs if spec["aggregation"] == "saliency" else None, agg["beta"], agg["eps"])
+    w_agg = aggregate(client_states, alpha)
+
+    ts = time.time()
+    history, candidates = [], []
+    if spec["search"] in ("ga", "random"):
+        fitness_fn = build_fitness_fn(model, srv.fixed, spec["fitness"], fit_cfg["weights"],
+                                      fit_cfg["hd95_normalizer"], fit_cfg["cam_threshold"], record=candidates)
+    if spec["search"] == "ga":
+        best, history = run_ga(w_agg, fitness_fn, mode="xfedga" if spec["anneal"] else "base",
+                               population_size=ga_cfg["population"], generations=ga_cfg["generations"],
+                               pc=ga_cfg["pc"], pm=ga_cfg["pm"], sigma0=ga_cfg["sigma0"], tau=ga_cfg["tau"],
+                               cache_elite_fitness=ga_cfg["cache_elite_fitness"], return_history=True)
+    elif spec["search"] == "random":
+        n_eval = ga_evaluation_count(ga_cfg["population"], ga_cfg["generations"], ga_cfg["cache_elite_fitness"])
+        best, history = random_search(w_agg, fitness_fn, n_eval, ga_cfg["sigma0"])
+    else:
+        best = w_agg
+    rt["ga_s"] = time.time() - ts
+    if candidates and cand_log is not None:   # every evaluated candidate, for offline fitness-weight re-ranking
+        cand_log.write(json.dumps({"round": t, "candidates": candidates}) + "\n")
+        cand_log.flush()
+    model.load_state_dict(best)
+    best_state = {k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
+
+    ts = time.time()
+    val = per_image_metrics(model, srv.val_loader, device, fit_cfg["hd95_normalizer"], with_cam=False)
+    expl = per_image_metrics(model, DataLoader(srv.val_explain, batch_size=srv.bs), device, fit_cfg["hd95_normalizer"],
+                             fit_cfg["cam_threshold"], with_cam=True)
+    rt["val_s"] = time.time() - ts
+    row = {"round": t, "val_dsc": _mean(val, "dsc"), "val_hd95_norm": _mean(val, "hd95_norm"),
+           "val_hd95_px": _mean(val, "hd95_px"), "val_ec": _mean(expl, "ec"), "val_pg": _mean(expl, "pg"),
+           "q_i": json.dumps([round(q, 6) for q in qs]), "alpha_i": json.dumps([round(a, 6) for a in alpha]),
+           "ga_best_per_gen": json.dumps([round(h["best"], 6) for h in history]),
+           "ga_mean_per_gen": json.dumps([round(h["mean"], 6) for h in history]),
+           "fitness_evals": sum(h["evaluations"] for h in history), **{k: round(v, 2) for k, v in rt.items()}}
+    return row, best_state
+
+
 def _train(cfg, spec, seed, clients, data, device, model, cand_log=None):
     """One training trajectory over `clients` (list of ClientData). Returns (round rows, states, n_i)."""
     tr, ga_cfg, fit_cfg, sc = cfg["train"], cfg["ga"], cfg["fitness"], cfg["scenario"]
@@ -99,10 +166,7 @@ def _train(cfg, spec, seed, clients, data, device, model, cand_log=None):
                       for k, c in enumerate(clients)]
     qi_loaders = [DataLoader(Subset(c.train, c.qi_indices), batch_size=bs, shuffle=False) for c in clients]
     sizes = [len(c.train) for c in clients]
-    val_loader = DataLoader(data.server["validation"].dataset, batch_size=bs, shuffle=False, **lk)
-    val_explain = Subset(data.server["validation"].dataset, data.val_explain_subsample)
-    fixed = (FixedSet(data.server["fitness"].dataset, data.fitness_subsample, device)
-             if spec["search"] in ("ga", "random") else None)
+    srv = ServerEval(cfg, spec, data, device)
     prox_mu = cfg["method_options"]["fedprox_mu"] if spec["prox"] else 0.0
     dp = sc["dp"]
     loss_fn = build_loss()
@@ -129,50 +193,13 @@ def _train(cfg, spec, seed, clients, data, device, model, cand_log=None):
                 ts = time.time()
                 qs.append(client_saliency_score(local, qi_loaders[k], device, fit_cfg["cam_threshold"]))
                 rt["qi_s"] += time.time() - ts
-        if spec["q_source"] == "random":   # ablation F: q_i carries no information about the client
-            qs = np.random.RandomState(seed * 1000 + t).uniform(0.0, 1.0, size=len(clients)).tolist()
-        if qs and sc["noisy_qi_client"] is not None:   # robustness: this client always reports q_i = 1
-            qs[sc["noisy_qi_client"]] = 1.0
-        agg = cfg["aggregation"]
-        alpha = aggregation_weights(sizes, qs if spec["aggregation"] == "saliency" else None, agg["beta"], agg["eps"])
-        w_agg = aggregate(client_states, alpha)
-
-        ts = time.time()
-        history = []
-        candidates = []
-        if spec["search"] in ("ga", "random"):
-            fitness_fn = build_fitness_fn(model, fixed, spec["fitness"], fit_cfg["weights"],
-                                          fit_cfg["hd95_normalizer"], fit_cfg["cam_threshold"], record=candidates)
-        if spec["search"] == "ga":
-            best, history = run_ga(w_agg, fitness_fn, mode="xfedga" if spec["anneal"] else "base",
-                                   population_size=ga_cfg["population"], generations=ga_cfg["generations"],
-                                   pc=ga_cfg["pc"], pm=ga_cfg["pm"], sigma0=ga_cfg["sigma0"], tau=ga_cfg["tau"],
-                                   cache_elite_fitness=ga_cfg["cache_elite_fitness"], return_history=True)
-        elif spec["search"] == "random":
-            n_eval = ga_evaluation_count(ga_cfg["population"], ga_cfg["generations"], ga_cfg["cache_elite_fitness"])
-            best, history = random_search(w_agg, fitness_fn, n_eval, ga_cfg["sigma0"])
-        else:
-            best = w_agg
-        rt["ga_s"] = time.time() - ts
-        if candidates and cand_log is not None:   # every evaluated candidate, for offline fitness-weight re-ranking
-            cand_log.write(json.dumps({"round": t, "candidates": candidates}) + "\n")
-            cand_log.flush()
-        model.load_state_dict(best)
-        states.append({k: v.detach().cpu().clone() for k, v in model.state_dict().items()})
-
-        ts = time.time()
-        val = per_image_metrics(model, val_loader, device, fit_cfg["hd95_normalizer"], with_cam=False)
-        expl = per_image_metrics(model, DataLoader(val_explain, batch_size=bs), device, fit_cfg["hd95_normalizer"],
-                                 fit_cfg["cam_threshold"], with_cam=True)
-        rt["val_s"] = time.time() - ts
-        row = {"round": t, "val_dsc": _mean(val, "dsc"), "val_hd95_norm": _mean(val, "hd95_norm"),
-               "val_hd95_px": _mean(val, "hd95_px"), "val_ec": _mean(expl, "ec"), "val_pg": _mean(expl, "pg"),
-               "q_i": json.dumps([round(q, 6) for q in qs]), "alpha_i": json.dumps([round(a, 6) for a in alpha]),
-               "ga_best_per_gen": json.dumps([round(h["best"], 6) for h in history]),
-               "ga_mean_per_gen": json.dumps([round(h["mean"], 6) for h in history]),
-               "fitness_evals": sum(h["evaluations"] for h in history),
-               **{k: round(v, 2) for k, v in rt.items()}, "round_s": round(time.time() - t_round, 2),
-               "peak_reserved_MiB": round(torch.cuda.max_memory_reserved() / 2**20) if device.type == "cuda" else 0}
+        row, best_state = server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device, cand_log)
+        states.append(best_state)
+        timing = {"local_s": round(rt["local_s"], 2), "qi_s": round(rt["qi_s"], 2),
+                  "ga_s": row.pop("ga_s"), "val_s": row.pop("val_s")}
+        row.update(timing)   # same column order as before the server_step refactor
+        row["round_s"] = round(time.time() - t_round, 2)
+        row["peak_reserved_MiB"] = round(torch.cuda.max_memory_reserved() / 2**20) if device.type == "cuda" else 0
         rows.append(row)
         log.info("round %d/%d val DSC %.4f HD95n %.4f EC %.4f PG %.3f q=%s (%.0fs)", t, tr["rounds"],
                  row["val_dsc"], row["val_hd95_norm"], row["val_ec"], row["val_pg"], row["q_i"], row["round_s"])

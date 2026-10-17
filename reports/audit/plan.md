@@ -51,6 +51,21 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - **Shared β:** reported only (each task's selected β within one pooled s.d. of the other's). The per-task β is used.
 - **Before the headline is queued,** the numbers and the rule's outcome are written to `results/beta/beta_decision.{json,md}` and to §0.5 below.
 
+**Primary endpoint (pre-registered 17 Oct 2026, 13:21, before any headline run exists; your instruction).**
+- **Primary, one per task:**
+  - XFedGA vs FedGA (baseline), **test DSC**;
+  - case-level paired difference (per-image DSC → per-case mean → mean over the 5 seeds within each case → XFedGA − FedGA);
+  - **95% cluster-bootstrap CI over test cases** (10,000 resamples). Prostate: 16 cases; breast: 638 patients.
+  - **WIN** if the CI excludes 0 upwards, **LOSE** if it excludes 0 downwards, otherwise **TIE**. Prostate TIE is the pre-registered expectation.
+- **Secondary / exploratory, labelled so in every table:**
+  - test HD95_norm, EC and pointing game;
+  - all independent XAI metrics;
+  - every other method pair (XFedGA vs FedAvg, FedGA vs FedAvg, FedProx);
+  - all ablations, the random-search control, the β screen, the heterogeneous partition, robustness/DP and parity.
+
+  No multiplicity correction is applied to secondary comparisons. They are reported as exploratory and are not used to claim superiority.
+- **Sensitivity for the primary endpoint** (also reported for secondary comparisons): a case-level paired t-interval and a Wilcoxon signed-rank p-value. Any comparison where the bootstrap and t-interval disagree on WIN/TIE/LOSE is flagged in the table.
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

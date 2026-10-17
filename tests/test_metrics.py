@@ -71,3 +71,18 @@ def test_xai_functions_on_a_random_model():
         assert 0.0 <= auc <= 1.0
     rho = randomization_check(model, x, steps=(1, 4), size=16)
     assert set(rho) == {1, 4} and all(-1.0 <= v <= 1.0 for v in rho.values())
+
+
+def test_fitness_weight_step0_reranking():
+    import sys
+    sys.path.insert(0, "analysis")
+    from fitness_weight_step0 import DEFAULT, simplex, winner
+    grid = simplex()
+    assert len(grid) == 66 and all(abs(sum(w) - 1) < 1e-9 and min(w) >= 0 for w in grid)
+    cands = [{"dsc": 0.60, "hd95_norm": 0.30, "ec": 0.10},   # best DSC
+             {"dsc": 0.55, "hd95_norm": 0.10, "ec": 0.10},   # best boundary
+             {"dsc": 0.50, "hd95_norm": 0.30, "ec": 0.90}]   # best explanation
+    assert winner(cands, (1.0, 0.0, 0.0)) == 0 and winner(cands, (0.0, 1.0, 0.0)) == 1
+    assert winner(cands, (0.0, 0.0, 1.0)) == 2
+    f = [DEFAULT[0] * c["dsc"] - DEFAULT[1] * c["hd95_norm"] + DEFAULT[2] * c["ec"] for c in cands]
+    assert winner(cands, DEFAULT) == int(max(range(3), key=lambda i: f[i]))

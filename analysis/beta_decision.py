@@ -129,6 +129,9 @@ def main():
                          f"{t.get('margin_over_default', float('nan')):+.4f} | {t.get('beats_default_by_more_than_pooled_sd')} | "
                          f"{t['q_var_mean']:.2e} |")
         lines.append(f"| {task} | pooled s.d. = {d['pooled_sd']:.4f} | | | | | {d['outcome']} | |")
+    lines.append("")
+    lines.append("Margins vs other betas are EXPLORATORY (2 seeds; prostate 8 / breast 267 validation cases; validation "
+                 "only). The screen selects beta; it is not evidence that q_i weighting helps.")
     with open(os.path.join(OUT, "beta_decision.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     print("\n".join(lines))

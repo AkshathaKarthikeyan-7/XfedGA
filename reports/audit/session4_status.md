@@ -27,3 +27,16 @@
    ```
    Confirm the first run starts at full GPU clocks (`gpu_state.csv`, ~2.7 GHz).
 5. **Next:** when the screen ends, `& $py analysis/beta_decision.py`, then **report the β decision before** setting it in the configs and queuing the headline.
+
+## Headline queue (approved 18 Oct 2026)
+- **Queue:** FedAvg, FedGA (baseline), XFedGA (β = 0.5) × 2 tasks × 5 seeds = 30 runs (`queues/headline.yaml`).
+- **Frozen code:** worktree `D:/new repo/xfedga_frozen/b556334`. Started 18 Oct 02:07:55; first run at 2,775 MHz, β = 0.5, new CAM.
+- **Each run:** test set evaluated once, at the validation-selected checkpoint; q_i and alpha_i logged per round in `round_log.csv`.
+- **Test results are not looked at** until all 30 runs are finished. Then: `& $py analysis/make_tables.py --group main --out results/tables/headline`. Report the PRIMARY endpoint first.
+
+**If the laptop is interrupted** (sleep, reboot, power): run the same command again. The queue skips every run with a `run_meta.json`, moves the interrupted run's folder to `results/runs/_interrupted/`, and restarts that run from scratch. Runs are seed-deterministic, so a restart reproduces the same result.
+
+    cd "D:/new repo/xfedga"
+    & "D:/conda_envs/fedga/python.exe" "D:/new repo/xfedga_frozen/b556334/analysis/run_queue.py" "D:/new repo/xfedga_frozen/b556334/queues/headline.yaml" --repo "D:/new repo/xfedga"
+
+To stop cleanly after the current run: create `results/runs/STOP`, and delete it before resuming.

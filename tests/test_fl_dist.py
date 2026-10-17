@@ -1,7 +1,7 @@
 """
 fl_dist (Flower, separate OS processes over loopback gRPC) must reproduce the custom loop: a 1-round
 tiny XFedGA run with the regression seed matches tests/golden/regression_prostate.json bit-for-bit,
-and the message audit shows only weights, n_i, q_i and the client index. Slow (3 processes, GPU).
+and the message audit shows exactly weights, n_i, q_i and the client index. Slow (3 processes, GPU).
 """
 import csv
 import json
@@ -30,7 +30,15 @@ def test_fl_dist_matches_custom_loop_and_passes_audit(tmp_path):
         assert float(row[k]) == golden[k], k
     for k in ["q_i", "alpha_i", "ga_best_per_gen", "ga_mean_per_gen"]:
         assert row[k] == golden[k], k
+    # exactly what crosses the wire (ARCHITECTURE.md, "What fl_dist sends"):
+    #   client -> server: the model weights (63 float32 arrays), n_i (num_examples), q_i, client_index
+    #   server -> client: the global weights and {"round"}
     audit = json.load(open(run / "message_audit.json", encoding="utf-8"))
-    assert set(audit["metric_keys_seen"]) <= {"q_i", "client_index"}
-    assert audit["all_shapes_ok"] and audit["dtypes_seen"] == ["float32"] and audit["config_keys_sent"] == ["round"]
-    assert audit["messages_received"] == 2
+    assert audit["metric_keys_seen"] == ["client_index", "q_i"]
+    assert audit["all_shapes_ok"] and audit["dtypes_seen"] == ["float32"]
+    assert audit["config_keys_sent"] == ["round"]
+    received = audit["detail"]["received"]
+    assert len(received) == 2 and all(r["n_arrays"] == 63 for r in received)
+    assert sorted(r["num_examples"] for r in received) == [379, 399]          # n_i of the two PROMISE12 clients
+    assert sorted(r["client_index"] for r in received) == [0, 1]
+    assert all(r["metric_keys"] == ["client_index", "q_i"] for r in received)

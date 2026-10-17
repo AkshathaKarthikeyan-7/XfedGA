@@ -44,6 +44,19 @@ spacing groups), a client that always reports q_i = 1, a client with shuffled ma
 (client-side clip + Gaussian noise). FedAvg / FedGA / XFedGA outputs are pinned by
 `tests/test_regression.py`.
 
+## What `fl_dist` sends (message audit)
+Multi-process federation on a single machine over loopback gRPC (Flower 1.7.0). Exactly these items cross the wire, and nothing else; `fl_dist/strategy.py` checks every message and `tests/test_fl_dist.py` asserts it:
+
+| Direction | Content |
+|---|---|
+| client → server | **model weights** w_i (63 float32 arrays, 6,500,644 bytes); **n_i** (Flower `num_examples`); **q_i** (float, fit metric, XFedGA only); **client index** (int, fit metric) |
+| server → client | the **global model weights**; the fit config `{"round": t}` |
+
+- **Client index:** an identifier, not data. Flower's client ids are random, and the index fixes the client order used by aggregation and by the noisy-q_i / corrupted-label scenarios.
+- **Never sent:** images, masks, gradients or per-image scores.
+- **Each run** writes the audit to `message_audit.json` (server) and `client_<k>_audit.json` (what each client received).
+- **Untested:** network faults, stragglers and other machines. Changing the server address is the only change a multi-machine run would need.
+
 ## Where things live
 | Path | Contents |
 |---|---|
@@ -53,7 +66,7 @@ spacing groups), a client that always reports q_i = 1, a client with shuffled ma
 | `fedga/` | **the algorithm**: client update and q_i (`client.py`), aggregation (`fedavg.py`), GA (`ga_optimizer.py`), fitness and metrics (`evaluation.py`), loss |
 | `xai/` | Grad-CAM, EC (Grad-CAM–mask IoU at threshold 0.5), pointing game |
 | `experiments/` | `run_federated.py` (custom loop), task/data assembly (`tasks.py`), config loading and seeding (`config.py`). (The pre-audit `train_*.py` scripts were removed; tag `legacy-scripts-final`.) |
-| `fl_dist/` | (Session 3) Flower multi-process federation on a single machine over loopback gRPC; imports `fedga/` and `xai/`, holds no algorithm code |
+| `fl_dist/` | Flower multi-process federation on a single machine over loopback gRPC: `client.py`, `strategy.py` (FedAvg subclass, message audit), `server.py`, `launch.py` (one command). Calls the same `fedga/`, `xai/` and `server_step` code as the custom loop; holds no algorithm code |
 | `analysis/` | scripts that turn `results/` into tables and figures |
 | `results/` | runs (`runs/`), split logs (`splits/`), timing, audit outputs, legacy (superseded) outputs |
 | `tests/` | pytest suite (`python -m pytest`) |

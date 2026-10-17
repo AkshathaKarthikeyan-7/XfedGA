@@ -4,7 +4,8 @@ and the Flower clients (fl_dist/, Session 3). Framework-agnostic: plain PyTorch.
 
 Assumption (spec section 4): q_i is computed CLIENT-SIDE, on the client's own
 fixed q_i subsample, from the client's locally trained model; no image or
-mask leaves the client, only (w_i, n_i, q_i) are sent to the server.
+mask leaves the client; exactly the weights w_i, n_i, q_i and the client index are sent to the
+server (ARCHITECTURE.md, "What fl_dist sends").
 """
 import logging
 

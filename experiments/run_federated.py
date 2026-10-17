@@ -13,7 +13,8 @@ Protocol (spec sections 2, 4, 6; plan.md section 0):
   with the best centred moving-average validation DSC. The TEST set is evaluated once, at the
   end, on that checkpoint only.
 
-Outputs in results/runs/<run_id>/: config_resolved.yaml, round_log.csv, test_per_image.csv,
+Outputs in results/runs/<run_id>/: config_resolved.yaml, round_log.csv, ga_candidates.jsonl (fitness
+components of every evaluated GA candidate), test_per_image.csv,
 run_meta.json, split_log.json (incl. fixed subsamples) and <task>_<method>_seed<k>_valselected.pt.
 The run-independent split ids are in results/splits/<task>_dataseed<seed>.json (checked on every run).
 """
@@ -89,7 +90,7 @@ def select_round(val_dsc, window):
     return int(np.argmax(smooth)) + 1, smooth
 
 
-def _train(cfg, spec, seed, clients, data, device, model):
+def _train(cfg, spec, seed, clients, data, device, model, cand_log=None):
     """One training trajectory over `clients` (list of ClientData). Returns (round rows, states, n_i)."""
     tr, ga_cfg, fit_cfg, sc = cfg["train"], cfg["ga"], cfg["fitness"], cfg["scenario"]
     lk = loader_kwargs(cfg)
@@ -138,9 +139,10 @@ def _train(cfg, spec, seed, clients, data, device, model):
 
         ts = time.time()
         history = []
+        candidates = []
         if spec["search"] in ("ga", "random"):
             fitness_fn = build_fitness_fn(model, fixed, spec["fitness"], fit_cfg["weights"],
-                                          fit_cfg["hd95_normalizer"], fit_cfg["cam_threshold"])
+                                          fit_cfg["hd95_normalizer"], fit_cfg["cam_threshold"], record=candidates)
         if spec["search"] == "ga":
             best, history = run_ga(w_agg, fitness_fn, mode="xfedga" if spec["anneal"] else "base",
                                    population_size=ga_cfg["population"], generations=ga_cfg["generations"],
@@ -152,6 +154,9 @@ def _train(cfg, spec, seed, clients, data, device, model):
         else:
             best = w_agg
         rt["ga_s"] = time.time() - ts
+        if candidates and cand_log is not None:   # every evaluated candidate, for offline fitness-weight re-ranking
+            cand_log.write(json.dumps({"round": t, "candidates": candidates}) + "\n")
+            cand_log.flush()
         model.load_state_dict(best)
         states.append({k: v.detach().cpu().clone() for k, v in model.state_dict().items()})
 
@@ -248,7 +253,8 @@ def run_experiment(task, method, seed, overrides=None, out_root="results/runs", 
             offsets = np.cumsum([0] + [len(c.train) for c in data.clients[:-1]])
             qi = [int(o) + i for o, c in zip(offsets, data.clients) for i in c.qi_indices]
             clients = [ClientData("pooled", pooled, qi, sum(c.n_train_groups for c in data.clients))]
-        rows, states, sizes = _train(cfg, spec, seed, clients, data, device, model)
+        with open(os.path.join(out, "ga_candidates.jsonl"), "w", encoding="utf-8") as cand_log:
+            rows, states, sizes = _train(cfg, spec, seed, clients, data, device, model, cand_log)
         sel, smooth, tested = _finish(cfg, data, device, model, rows, states, out, "", evaluate_test)
         torch.save(states[sel - 1], os.path.join(out, f"{task}_{method}_seed{seed}_valselected.pt"))
         meta.update({"selected_round": sel, "smoothed_val_dsc": smooth, "n_i": sizes, "test_evaluated": tested})

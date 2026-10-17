@@ -81,32 +81,41 @@ def per_image_metrics(model, batches, device, hd95_normalizer, cam_threshold=0.5
     return rows
 
 
-def fitness_dsc(model, fixed):
+def fitness_dsc(model, fixed, record=None):
     """FedGA (baseline) fitness: mean DSC over the fixed fitness subsample."""
     model.eval()
     preds = _predict(model, fixed.images).cpu()
-    return float(np.mean([float(dice_score(preds[k].float(), fixed.masks[k].float())) for k in range(len(fixed))]))
+    f = float(np.mean([float(dice_score(preds[k].float(), fixed.masks[k].float())) for k in range(len(fixed))]))
+    if record is not None:
+        record.append({"dsc": f, "fitness": f})
+    return f
 
 
-def fitness_multi(model, fixed, weights, hd95_normalizer, cam_threshold):
-    """XFedGA fitness: w1*mean DSC - w2*mean HD95_norm + w3*mean EC over the fixed subsample."""
+def fitness_multi(model, fixed, weights, hd95_normalizer, cam_threshold, record=None):
+    """XFedGA fitness: w1*mean DSC - w2*mean HD95_norm + w3*mean EC over the fixed subsample.
+    With `record`, appends the components so the candidate pool can be re-ranked offline under
+    other fitness weights (fitness-weight Step 0)."""
     rows = per_image_metrics(model, [(fixed.images[i:i + 1], fixed.masks[i:i + 1]) for i in range(len(fixed))],
                              fixed.images.device, hd95_normalizer, cam_threshold, with_cam=True)
     ec = [0.0 if np.isnan(r["ec"]) else r["ec"] for r in rows]
-    return multi_objective_fitness(float(np.mean([r["dsc"] for r in rows])),
-                                   float(np.mean([r["hd95_norm"] for r in rows])),
-                                   float(np.mean(ec)), weights=tuple(weights))
+    dsc, hd, e = float(np.mean([r["dsc"] for r in rows])), float(np.mean([r["hd95_norm"] for r in rows])), float(np.mean(ec))
+    f = multi_objective_fitness(dsc, hd, e, weights=tuple(weights))
+    if record is not None:
+        record.append({"dsc": dsc, "hd95_norm": hd, "ec": e, "fitness": f})
+    return f
 
 
-def build_fitness_fn(model_template, fixed, kind, weights=(0.5, 0.3, 0.2), hd95_normalizer=384.0, cam_threshold=0.5):
-    """state_dict -> fitness, reusing one evaluation model. kind: 'dsc' or 'multi'."""
+def build_fitness_fn(model_template, fixed, kind, weights=(0.5, 0.3, 0.2), hd95_normalizer=384.0, cam_threshold=0.5,
+                     record=None):
+    """state_dict -> fitness, reusing one evaluation model. kind: 'dsc' or 'multi'.
+    record: optional list; every evaluation appends its components (in evaluation order)."""
     model = copy.deepcopy(model_template).to(fixed.images.device)
 
     def evaluate(state_dict):
         model.load_state_dict(state_dict)
         if kind == "dsc":
-            return fitness_dsc(model, fixed)
+            return fitness_dsc(model, fixed, record)
         if kind == "multi":
-            return fitness_multi(model, fixed, weights, hd95_normalizer, cam_threshold)
+            return fitness_multi(model, fixed, weights, hd95_normalizer, cam_threshold, record)
         raise ValueError(f"unknown fitness kind {kind!r}")
     return evaluate

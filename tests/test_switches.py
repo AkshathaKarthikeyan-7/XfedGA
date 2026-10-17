@@ -126,3 +126,16 @@ def test_corrupted_label_client_shuffles_masks():
     xs, ys = clean.clients[1].train[3], bad.clients[1].train[3]
     assert torch.equal(xs[0], ys[0]) and not torch.equal(xs[1], ys[1])
     assert torch.equal(clean.clients[0].train[3][1], bad.clients[0].train[3][1])   # other client untouched
+
+
+@pytest.mark.data
+@pytest.mark.slow
+def test_ga_candidates_logged_for_offline_reranking(tmp_path):
+    res = _run(tmp_path, "xfedga")
+    with open(os.path.join(res["out"], "ga_candidates.jsonl"), encoding="utf-8") as f:
+        rounds = [json.loads(line) for line in f]
+    cands = rounds[0]["candidates"]
+    assert len(cands) == _row(res)["fitness_evals"]
+    for c in cands:   # stored fitness = default weights applied to stored components
+        assert abs(c["fitness"] - (0.5 * c["dsc"] - 0.3 * c["hd95_norm"] + 0.2 * c["ec"])) < 1e-9
+    assert max(c["fitness"] for c in cands) == pytest.approx(json.loads(_row(res)["ga_best_per_gen"])[-1], abs=1e-6)

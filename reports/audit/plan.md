@@ -147,6 +147,9 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - **Shared β** (reported only): defensible = True.
 - **Configs:** `aggregation.beta` is already 0.5 in both configs, so no config change is needed. The headline runs use β = 0.5.
 - **Caveat:** with 2 seeds per β, the per-β s.d. is a rough estimate; the pooling over the 4 β values is what the rule relies on.
+- **The margins vs β = 0 and β = 1 are EXPLORATORY** (approved 18 Oct): 2 seeds, 8 validation cases (prostate), validation set only.
+  - The screen selects β; it is **not evidence that q_i weighting helps**, and no such claim is made from it.
+  - The aggregation effect is tested by the pre-registered comparisons and ablations (B vs FedAvg, F vs E) on the test set.
 
 
 

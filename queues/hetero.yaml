@@ -1,0 +1,94 @@
+name: hetero
+out: results/runs
+note: ''
+runs:
+- task: prostate
+  method: fedavg
+  seed: 1
+  set:
+  - scenario.partition=acquisition
+  tag: hetero
+- task: prostate
+  method: fedga
+  seed: 1
+  set:
+  - scenario.partition=acquisition
+  tag: hetero
+- task: prostate
+  method: xfedga
+  seed: 1
+  set:
+  - scenario.partition=acquisition
+  tag: hetero
+- task: prostate
+  method: fedavg
+  seed: 2
+  set:
+  - scenario.partition=acquisition
+  tag: hetero
+- task: prostate
+  method: fedga
+  seed: 2
+  set:
+  - scenario.partition=acquisition
+  tag: hetero
+- task: prostate
+  method: xfedga
+  seed: 2
+  set:
+  - scenario.partition=acquisition
+  tag: hetero
+- task: prostate
+  method: fedavg
+  seed: 3
+  set:
+  - scenario.partition=acquisition
+  tag: hetero
+- task: prostate
+  method: fedga
+  seed: 3
+  set:
+  - scenario.partition=acquisition
+  tag: hetero
+- task: prostate
+  method: xfedga
+  seed: 3
+  set:
+  - scenario.partition=acquisition
+  tag: hetero
+- task: prostate
+  method: fedavg
+  seed: 4
+  set:
+  - scenario.partition=acquisition
+  tag: hetero
+- task: prostate
+  method: fedga
+  seed: 4
+  set:
+  - scenario.partition=acquisition
+  tag: hetero
+- task: prostate
+  method: xfedga
+  seed: 4
+  set:
+  - scenario.partition=acquisition
+  tag: hetero
+- task: prostate
+  method: fedavg
+  seed: 5
+  set:
+  - scenario.partition=acquisition
+  tag: hetero
+- task: prostate
+  method: fedga
+  seed: 5
+  set:
+  - scenario.partition=acquisition
+  tag: hetero
+- task: prostate
+  method: xfedga
+  seed: 5
+  set:
+  - scenario.partition=acquisition
+  tag: hetero

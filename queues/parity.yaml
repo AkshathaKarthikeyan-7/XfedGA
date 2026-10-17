@@ -1,0 +1,19 @@
+name: parity
+out: results/runs
+note: ''
+runs:
+- task: breast
+  method: xfedga
+  seed: 1
+  tag: fl
+  runner: fl_dist
+- task: breast
+  method: xfedga
+  seed: 2
+  tag: fl
+  runner: fl_dist
+- task: breast
+  method: xfedga
+  seed: 3
+  tag: fl
+  runner: fl_dist

@@ -5,7 +5,7 @@ XFedGA is explanation-aware federated learning with server-side genetic-algorith
 - The server aggregates with weights ∝ (n_i/N)·max(q_i, eps)^beta, then runs a GA whose fitness combines DSC, HD95 and explanation consistency.
 - The best candidate becomes the global model.
 
-How the pieces fit: [ARCHITECTURE.md](ARCHITECTURE.md). Research spec: [docs/XFEDGA_SPEC.md](docs/XFEDGA_SPEC.md). Current plan: [reports/audit/plan.md](reports/audit/plan.md).
+How the pieces fit: [ARCHITECTURE.md](ARCHITECTURE.md). Live demo script: [docs/DEMO.md](docs/DEMO.md). Research spec: [docs/XFEDGA_SPEC.md](docs/XFEDGA_SPEC.md). Current plan: [reports/audit/plan.md](reports/audit/plan.md).
 
 > Status (17 Oct 2026): Session 3a — all method and scenario switches implemented and smoke-tested; experiment queue in `analysis/run_queue.py`. Results produced before 13 Oct are superseded: their checkpoints were selected on the test set (see [results/legacy/README.md](results/legacy/README.md)).
 
@@ -69,7 +69,8 @@ The split case/patient ids are logged in `results/splits/<task>_dataseed<seed>.j
 & $py analysis/run_queue.py queues/beta_screen.yaml
 # run from a frozen worktree so later edits cannot change running jobs:
 git worktree add --detach ..þdga_frozen\<sha> <sha>
-& $py ..þdga_frozen\<sha>nalysisun_queue.py ..þdga_frozen\<sha>\queues\<queue>.yaml --repo .
+& $py ..þdga_frozen\<sha>nalysis
+un_queue.py ..þdga_frozen\<sha>\queues\<queue>.yaml --repo .
 ```
 
 ## Repository layout

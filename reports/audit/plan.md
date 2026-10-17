@@ -81,7 +81,7 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - **Session 3a done:** all switches, smoke-tested; regression pin; `run_queue.py`.
 - **Session 3b done:**
   - `fl_dist/` is bit-identical to the custom loop on the 1-round parity test, the audit passes, and peak GPU is 2.8 GB with server + 2 clients;
-  - the demo script is `reports/demo/fl_dist_demo.md`;
+  - the demo script is `docs/DEMO.md`;
   - `analysis/xai_metrics.py` and `analysis/fitness_weight_step0.py` are written.
 - **All queues are generated** (`queues/*.yaml`, by `analysis/make_queues.py`). `robustness_dp` is generated once the headline update norms exist, because the DP clip is set from them.
 - **Robustness design (flagged):** the noisy-q_i client and the corrupted-label client are both client index 1, **BUS-UCLM, the smaller breast client** (211 vs 518 training images).

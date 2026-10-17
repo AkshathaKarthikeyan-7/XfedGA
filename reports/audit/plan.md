@@ -39,13 +39,17 @@ This section supersedes the Guide-Review-only plan (§0-old, kept below). §4, �
 2. **Spare hours.** Ablations A–F + random search at 5 seeds; heterogeneous partition at 5 seeds (FedAvg, FedGA, XFedGA); robustness/DP at 3 seeds. Keep **≥ 60 GPU-h unallocated**.
 3. `num_workers = 0`, recorded in the configs. 4. Legacy scripts removed (tag `legacy-scripts-final`). 5. Merged and pushed with tags. Items 3–5 were done 15 Oct.
 
-**β decision rule (pre-registered 17 Oct, before any β-screen run finished; `analysis/beta_decision.py`):**
+**β decision rule (revised 17 Oct 2026, 12:50, on your instruction, BEFORE any β decision was computed).**
+At that moment 1 of 16 screen runs had finished and none had been analysed. The superseded 0.002-DSC tie rule is kept in git history (commit `d316dfa`). The rule is implemented in `analysis/beta_decision.py` and unit-tested in `tests/test_beta_decision.py`.
 - **Run score:** max over rounds of the centred 3-round moving-average validation DSC (the value that selects the run's checkpoint).
 - **β score:** mean run score over its 2 seeds.
-- **Selection:** the β with the highest score.
-- **Ties:** β values within **0.002 DSC** of the best are tied (my definition; the instruction said "ties" without a threshold). Ties are broken by the **lower round-to-round q_i variance**, averaged over clients and seeds.
-- **Shared β:** reported as defensible if each task's best β is within one seed-SD of the other task's best. Per-task β is used either way, as decided.
-- **Before the headline is queued,** the decision and its evidence are written to `results/beta/beta_decision.{json,md}` and to §0.5 below.
+- **Pooled s.d. (per task):** the seed-to-seed s.d. of the run score, pooled across β: sqrt(mean of the per-β variances, ddof = 1).
+- **Decision:**
+  - **keep the pre-registered default β = 0.5** unless another β beats it by **more than the pooled s.d.**;
+  - if several do, choose the highest-scoring one;
+  - any within one pooled s.d. of that one are tied, and the tie goes to the **lower round-to-round q_i variance** (per client, averaged over clients and seeds).
+- **Shared β:** reported only (each task's selected β within one pooled s.d. of the other's). The per-task β is used.
+- **Before the headline is queued,** the numbers and the rule's outcome are written to `results/beta/beta_decision.{json,md}` and to §0.5 below.
 
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
@@ -80,7 +84,9 @@ This section supersedes the Guide-Review-only plan (§0-old, kept below). §4, �
   - the demo script is `reports/demo/fl_dist_demo.md`;
   - `analysis/xai_metrics.py` and `analysis/fitness_weight_step0.py` are written.
 - **All queues are generated** (`queues/*.yaml`, by `analysis/make_queues.py`). `robustness_dp` is generated once the headline update norms exist, because the DP clip is set from them.
-- **Robustness choice (flagged):** the noisy-q_i client and the corrupted-label client are both client index 1 (BUS-UCLM, the smaller breast client).
+- **Robustness design (flagged):** the noisy-q_i client and the corrupted-label client are both client index 1, **BUS-UCLM, the smaller breast client** (211 vs 518 training images).
+  - **Corrupted labels:** because its weight n_i/N is the smaller one, corrupting BUS-UCLM is the **milder** case. It bounds the damage from below, not the worst case. The worse case (corrupting BUSI) is not run.
+  - **Noisy q_i:** a false q_i = 1 lets the small client gain weight in XFedGA's aggregation, which is the case that tests the q_i weighting.
 
 **Dependencies:**
 - **Parity and XAI metrics** need Session 3b code (`fl_dist/` and the XAI-metric script, 18–21 Oct). If 3b slips, the queue continues with FedProx + bounds and the heterogeneous partition, and parity + XAI move later.

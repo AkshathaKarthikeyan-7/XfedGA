@@ -8,8 +8,9 @@ robustness_dp needs the headline's client update norms (DP clip = median update 
 headline XFedGA breast runs); it is skipped until those runs exist.
 
 Robustness choices (flagged in plan.md): the noisy-q_i client and the corrupted-label client are
-client index 1 (BUS-UCLM, the smaller breast client), where a false q_i = 1 or wrong labels can
-move the aggregate most relative to its data size.
+client index 1, BUS-UCLM, the SMALLER breast client. For corrupted labels this is the milder case
+(its n_i/N weight is the smaller one); for noisy q_i, a false q_i = 1 lets the small client gain weight
+in the q_i-weighted aggregation.
 """
 import csv
 import glob

@@ -119,6 +119,7 @@ def main():
     name = q.get("name", os.path.splitext(os.path.basename(args.queue))[0])
     log_path, status_path = os.path.join(qdir, f"{name}.log"), os.path.join(qdir, f"{name}_status.json")
     runner = os.path.join(CODE_ROOT, "experiments", "run_federated.py")
+    launcher = os.path.join(CODE_ROOT, "fl_dist", "launch.py")   # entries with runner: fl_dist (parity runs)
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True,
                             cwd=CODE_ROOT).stdout.strip()
 
@@ -153,7 +154,8 @@ def main():
             shutil.move(run_dir, dest)
             log(f"[{i}] moved interrupted run to {dest}")
         os.makedirs(run_dir, exist_ok=True)
-        cmd = [args.python, runner, "--task", entry["task"], "--method", entry["method"], "--seed", str(entry["seed"]),
+        script = launcher if entry.get("runner") == "fl_dist" else runner
+        cmd = [args.python, script, "--task", entry["task"], "--method", entry["method"], "--seed", str(entry["seed"]),
                "--out", out] + (["--tag", entry["tag"]] if entry.get("tag") else []) + \
               (["--set"] + list(entry["set"]) if entry.get("set") else []) + (["--no_test"] if entry.get("no_test") else [])
         log(f"[{i}/{len(q['runs'])}] start {rid}")

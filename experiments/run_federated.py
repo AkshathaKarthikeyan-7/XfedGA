@@ -177,7 +177,8 @@ def _train(cfg, spec, seed, clients, data, device, model, cand_log=None):
         rt = {"local_s": 0.0, "qi_s": 0.0}
         t_round = time.time()
         global_state = {k: v.detach().clone() for k, v in model.state_dict().items()} if dp["enabled"] else None
-        client_states, qs = [], []
+        client_states, qs, norms = [], [], []
+        start_state = {k: v.detach() for k, v in model.state_dict().items()}
         for k, c in enumerate(clients):
             local = copy.deepcopy(model)
             ts = time.time()
@@ -188,6 +189,9 @@ def _train(cfg, spec, seed, clients, data, device, model, cand_log=None):
                                       torch_generator(seed * 100000 + t * 100 + k))
                 local.load_state_dict(st)
             client_states.append(st)
+            # L2 norm of the update w_i - w_global (sent update, after DP if enabled): calibrates dp.clip_norm
+            norms.append(float(torch.sqrt(sum(((st[n].float() - start_state[n].float()) ** 2).sum()
+                                              for n in st if st[n].dtype.is_floating_point))))
             rt["local_s"] += time.time() - ts
             if spec["q_source"] == "gradcam":
                 ts = time.time()
@@ -195,6 +199,7 @@ def _train(cfg, spec, seed, clients, data, device, model, cand_log=None):
                 rt["qi_s"] += time.time() - ts
         row, best_state = server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device, cand_log)
         states.append(best_state)
+        row["update_norm_i"] = json.dumps([round(x, 4) for x in norms])
         timing = {"local_s": round(rt["local_s"], 2), "qi_s": round(rt["qi_s"], 2),
                   "ga_s": row.pop("ga_s"), "val_s": row.pop("val_s")}
         row.update(timing)   # same column order as before the server_step refactor

@@ -120,8 +120,35 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 
 **Cut order if needed:** DP → centralized bound → ablations C/D (the fitness-weight grid no longer exists). **Never cut:** headline, ablations B/E/F, `fl_dist` demo, independent XAI metrics.
 
-### 0.5 β decision (to be filled from `results/beta/beta_decision.md` when the screen finishes)
-_Pending: the β screen is running._
+### 0.5 β decision (18 Oct 2026, 01:52; from `results/beta/beta_decision.{json,md}`, produced by `analysis/beta_decision.py`)
+**Selected: β = 0.5 for prostate and for breast.** The pre-registered default is kept on both tasks: no other β beats it on validation by more than the task's pooled seed s.d.
+
+**The screen:**
+- 16 XFedGA runs, with the new CAM definition (`cam_layer = fullres`, `cam_target = pred`);
+- frozen code `f8fd583`; 17 Oct 17:36 – 18 Oct 01:52;
+- every run at a GPU median of 2,730 MHz, none throttled;
+- validation only: no test evaluation in any screen run (asserted by the script);
+- the old-CAM runs are excluded (`results/runs/_oldcam_definition/`, `analysis/run_filter.py`).
+
+| task | beta | seeds | val score mean | seed s.d. | margin over beta 0.5 | beats 0.5 by > pooled s.d. | q_i variance |
+|---|---|---|---|---|---|---|---|
+| prostate | 0.0 | [1, 2] | 0.3689 | 0.0033 | -0.0225 | False | 7.82e-03 |
+| prostate | 0.2 | [1, 2] | 0.3901 | 0.0016 | -0.0012 | False | 4.20e-03 |
+| prostate | 0.5 **(selected)** | [1, 2] | 0.3914 | 0.0128 | +0.0000 | False | 6.73e-03 |
+| prostate | 1.0 | [1, 2] | 0.3575 | 0.0279 | -0.0339 | False | 8.13e-03 |
+| prostate | pooled s.d. = 0.0155 | | | | | default beta 0.5 kept: no beta beats it by more than the pooled s.d. | |
+| breast | 0.0 | [1, 2] | 0.6558 | 0.0005 | -0.0129 | False | 3.04e-03 |
+| breast | 0.2 | [1, 2] | 0.6658 | 0.0028 | -0.0029 | False | 2.20e-03 |
+| breast | 0.5 **(selected)** | [1, 2] | 0.6687 | 0.0082 | +0.0000 | False | 2.10e-03 |
+| breast | 1.0 | [1, 2] | 0.6491 | 0.0040 | -0.0197 | False | 2.10e-03 |
+| breast | pooled s.d. = 0.0048 | | | | | default beta 0.5 kept: no beta beats it by more than the pooled s.d. | |
+
+**Outcome per task:** default beta 0.5 kept: no beta beats it by more than the pooled s.d. (prostate, pooled s.d. 0.0155); default beta 0.5 kept: no beta beats it by more than the pooled s.d. (breast, pooled s.d. 0.0048).
+- **Shared β** (reported only): defensible = True.
+- **Configs:** `aggregation.beta` is already 0.5 in both configs, so no config change is needed. The headline runs use β = 0.5.
+- **Caveat:** with 2 seeds per β, the per-β s.d. is a rough estimate; the pooling over the 4 β values is what the rule relies on.
+
+
 
 ### 0.1 Sessions
 | Session | Dates | Scope |

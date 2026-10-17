@@ -1,0 +1,393 @@
+{
+ "rule": {
+  "score": "max centred 3-round mean validation DSC per run, mean over seeds",
+  "default_beta": 0.5,
+  "switch": "another beta must beat the default by more than the task's pooled seed s.d.",
+  "several": "highest score; ties within one pooled s.d. -> lower round-to-round q_i variance",
+  "revised": "2026-10-17 12:50, before any beta decision was computed"
+ },
+ "decision": {
+  "prostate": {
+   "table": [
+    {
+     "beta": 0.0,
+     "n_seeds": 2,
+     "seeds": [
+      1,
+      2
+     ],
+     "score_mean": 0.36886183510036474,
+     "score_sd": 0.003321085588678454,
+     "q_var_mean": 0.007820490651302222,
+     "alpha_var_mean": 2.0029671421627253e-32,
+     "margin_over_default": -0.022500104951644118,
+     "beats_default_by_more_than_pooled_sd": false
+    },
+    {
+     "beta": 0.2,
+     "n_seeds": 2,
+     "seeds": [
+      1,
+      2
+     ],
+     "score_mean": 0.39012676816116876,
+     "score_sd": 0.001572675322876605,
+     "q_var_mean": 0.004202231845464445,
+     "alpha_var_mean": 5.623684940888895e-05,
+     "margin_over_default": -0.0012351718908401033,
+     "beats_default_by_more_than_pooled_sd": false
+    },
+    {
+     "beta": 0.5,
+     "n_seeds": 2,
+     "seeds": [
+      1,
+      2
+     ],
+     "score_mean": 0.39136194005200886,
+     "score_sd": 0.012842957758534617,
+     "q_var_mean": 0.006733877089626668,
+     "alpha_var_mean": 0.0003086215078222221,
+     "margin_over_default": 0.0,
+     "beats_default_by_more_than_pooled_sd": false
+    },
+    {
+     "beta": 1.0,
+     "n_seeds": 2,
+     "seeds": [
+      1,
+      2
+     ],
+     "score_mean": 0.3574511223286222,
+     "score_sd": 0.027927043767884737,
+     "q_var_mean": 0.00812870288600889,
+     "alpha_var_mean": 0.0010058652138000002,
+     "margin_over_default": -0.033910817723386666,
+     "beats_default_by_more_than_pooled_sd": false
+    }
+   ],
+   "pooled_sd": 0.015478729395200426,
+   "default_beta": 0.5,
+   "default_score": 0.39136194005200886,
+   "betas_beating_default": [],
+   "tied_after_beating": [],
+   "best_beta": 0.5,
+   "outcome": "default beta 0.5 kept: no beta beats it by more than the pooled s.d.",
+   "complete": true
+  },
+  "breast": {
+   "table": [
+    {
+     "beta": 0.0,
+     "n_seeds": 2,
+     "seeds": [
+      1,
+      2
+     ],
+     "score_mean": 0.6558244938269088,
+     "score_sd": 0.0004934822707904921,
+     "q_var_mean": 0.0030412565597466665,
+     "alpha_var_mean": 0.0,
+     "margin_over_default": -0.01290741880687285,
+     "beats_default_by_more_than_pooled_sd": false
+    },
+    {
+     "beta": 0.2,
+     "n_seeds": 2,
+     "seeds": [
+      1,
+      2
+     ],
+     "score_mean": 0.6658497228906778,
+     "score_sd": 0.0027789267275864418,
+     "q_var_mean": 0.0022045698926333335,
+     "alpha_var_mean": 3.593605875555554e-05,
+     "margin_over_default": -0.0028821897431038357,
+     "beats_default_by_more_than_pooled_sd": false
+    },
+    {
+     "beta": 0.5,
+     "n_seeds": 2,
+     "seeds": [
+      1,
+      2
+     ],
+     "score_mean": 0.6687319126337816,
+     "score_sd": 0.008201310391996687,
+     "q_var_mean": 0.0021008783344422226,
+     "alpha_var_mean": 0.0002468498201244445,
+     "margin_over_default": 0.0,
+     "beats_default_by_more_than_pooled_sd": false
+    },
+    {
+     "beta": 1.0,
+     "n_seeds": 2,
+     "seeds": [
+      1,
+      2
+     ],
+     "score_mean": 0.6490695445421444,
+     "score_sd": 0.003957305525455605,
+     "q_var_mean": 0.0020996609610800005,
+     "alpha_var_mean": 0.0010129159414666664,
+     "margin_over_default": -0.01966236809163724,
+     "beats_default_by_more_than_pooled_sd": false
+    }
+   ],
+   "pooled_sd": 0.00476675250240017,
+   "default_beta": 0.5,
+   "default_score": 0.6687319126337816,
+   "betas_beating_default": [],
+   "tied_after_beating": [],
+   "best_beta": 0.5,
+   "outcome": "default beta 0.5 kept: no beta beats it by more than the pooled s.d.",
+   "complete": true
+  }
+ },
+ "shared_beta": {
+  "defensible": true,
+  "rule": "each task's selected beta within one pooled s.d. of the other's (reported only)"
+ },
+ "runs": [
+  {
+   "task": "breast",
+   "seed": 1,
+   "beta": 0.0,
+   "run_id": "breast_xfedga_seed1_fdfed1e2_betascreen_b0p0",
+   "score": 0.6554755491668375,
+   "selected_round": 1,
+   "q_var": 0.005482151186764444,
+   "q_mean": [
+    0.44325526666666665,
+    0.4195629999999999
+   ],
+   "alpha_var": 0.0,
+   "test_evaluated": false
+  },
+  {
+   "task": "breast",
+   "seed": 2,
+   "beta": 0.0,
+   "run_id": "breast_xfedga_seed2_fdfed1e2_betascreen_b0p0",
+   "score": 0.6561734384869801,
+   "selected_round": 3,
+   "q_var": 0.0006003619327288887,
+   "q_mean": [
+    0.26598126666666666,
+    0.2920297333333334
+   ],
+   "alpha_var": 0.0,
+   "test_evaluated": false
+  },
+  {
+   "task": "breast",
+   "seed": 1,
+   "beta": 0.2,
+   "run_id": "breast_xfedga_seed1_6785d31a_betascreen_b0p2",
+   "score": 0.6678147208241747,
+   "selected_round": 1,
+   "q_var": 0.003794694845511111,
+   "q_mean": [
+    0.42680493333333336,
+    0.42375679999999993
+   ],
+   "alpha_var": 3.8114974648888826e-05,
+   "test_evaluated": false
+  },
+  {
+   "task": "breast",
+   "seed": 2,
+   "beta": 0.2,
+   "run_id": "breast_xfedga_seed2_6785d31a_betascreen_b0p2",
+   "score": 0.6638847249571809,
+   "selected_round": 3,
+   "q_var": 0.0006144449397555557,
+   "q_mean": [
+    0.27372993333333334,
+    0.31670046666666674
+   ],
+   "alpha_var": 3.375714286222225e-05,
+   "test_evaluated": false
+  },
+  {
+   "task": "breast",
+   "seed": 1,
+   "beta": 0.5,
+   "run_id": "breast_xfedga_seed1_8bf4f80f_betascreen_b0p5",
+   "score": 0.6745311148265782,
+   "selected_round": 1,
+   "q_var": 0.003070487942262223,
+   "q_mean": [
+    0.44839673333333335,
+    0.39588606666666665
+   ],
+   "alpha_var": 0.00024270735742222218,
+   "test_evaluated": false
+  },
+  {
+   "task": "breast",
+   "seed": 2,
+   "beta": 0.5,
+   "run_id": "breast_xfedga_seed2_8bf4f80f_betascreen_b0p5",
+   "score": 0.6629327104409851,
+   "selected_round": 3,
+   "q_var": 0.001131268726622222,
+   "q_mean": [
+    0.27435146666666665,
+    0.3068242666666666
+   ],
+   "alpha_var": 0.0002509922828266668,
+   "test_evaluated": false
+  },
+  {
+   "task": "breast",
+   "seed": 1,
+   "beta": 1.0,
+   "run_id": "breast_xfedga_seed1_483b7230_betascreen_b1p0",
+   "score": 0.6462713069698677,
+   "selected_round": 1,
+   "q_var": 0.0032408469207555564,
+   "q_mean": [
+    0.4567989333333333,
+    0.41819846666666666
+   ],
+   "alpha_var": 0.0009074103081066667,
+   "test_evaluated": false
+  },
+  {
+   "task": "breast",
+   "seed": 2,
+   "beta": 1.0,
+   "run_id": "breast_xfedga_seed2_483b7230_betascreen_b1p0",
+   "score": 0.651867782114421,
+   "selected_round": 3,
+   "q_var": 0.0009584750014044444,
+   "q_mean": [
+    0.2761998,
+    0.3202868666666667
+   ],
+   "alpha_var": 0.0011184215748266664,
+   "test_evaluated": false
+  },
+  {
+   "task": "prostate",
+   "seed": 1,
+   "beta": 0.0,
+   "run_id": "prostate_xfedga_seed1_2b3750fe_betascreen_b0p0",
+   "score": 0.3665134729597093,
+   "selected_round": 9,
+   "q_var": 0.007547223699688889,
+   "q_mean": [
+    0.4642789333333334,
+    0.4869951333333333
+   ],
+   "alpha_var": 2.0029671421627253e-32,
+   "test_evaluated": false
+  },
+  {
+   "task": "prostate",
+   "seed": 2,
+   "beta": 0.0,
+   "run_id": "prostate_xfedga_seed2_2b3750fe_betascreen_b0p0",
+   "score": 0.3712101972410202,
+   "selected_round": 1,
+   "q_var": 0.008093757602915554,
+   "q_mean": [
+    0.45825813333333326,
+    0.4346035333333333
+   ],
+   "alpha_var": 2.0029671421627253e-32,
+   "test_evaluated": false
+  },
+  {
+   "task": "prostate",
+   "seed": 1,
+   "beta": 0.2,
+   "run_id": "prostate_xfedga_seed1_edd6c3cd_betascreen_b0p2",
+   "score": 0.3912388175465796,
+   "selected_round": 5,
+   "q_var": 0.0019338518545777774,
+   "q_mean": [
+    0.5692518,
+    0.6042350666666665
+   ],
+   "alpha_var": 2.0858706062222214e-05,
+   "test_evaluated": false
+  },
+  {
+   "task": "prostate",
+   "seed": 2,
+   "beta": 0.2,
+   "run_id": "prostate_xfedga_seed2_edd6c3cd_betascreen_b0p2",
+   "score": 0.389014718775758,
+   "selected_round": 4,
+   "q_var": 0.006470611836351113,
+   "q_mean": [
+    0.5045946,
+    0.4378972666666666
+   ],
+   "alpha_var": 9.16149927555557e-05,
+   "test_evaluated": false
+  },
+  {
+   "task": "prostate",
+   "seed": 1,
+   "beta": 0.5,
+   "run_id": "prostate_xfedga_seed1_da079fb7_betascreen_b0p5",
+   "score": 0.4004432825735611,
+   "selected_round": 6,
+   "q_var": 0.003222867132337778,
+   "q_mean": [
+    0.5350582,
+    0.5776954666666666
+   ],
+   "alpha_var": 0.00013466581059555548,
+   "test_evaluated": false
+  },
+  {
+   "task": "prostate",
+   "seed": 2,
+   "beta": 0.5,
+   "run_id": "prostate_xfedga_seed2_da079fb7_betascreen_b0p5",
+   "score": 0.3822805975304567,
+   "selected_round": 2,
+   "q_var": 0.01024488704691556,
+   "q_mean": [
+    0.4576095333333334,
+    0.4044861333333334
+   ],
+   "alpha_var": 0.00048257720504888877,
+   "test_evaluated": false
+  },
+  {
+   "task": "prostate",
+   "seed": 1,
+   "beta": 1.0,
+   "run_id": "prostate_xfedga_seed1_d47b3334_betascreen_b1p0",
+   "score": 0.37719852435538703,
+   "selected_round": 7,
+   "q_var": 0.005406084868622221,
+   "q_mean": [
+    0.5146745333333332,
+    0.5730250666666667
+   ],
+   "alpha_var": 0.0003175914434399999,
+   "test_evaluated": false
+  },
+  {
+   "task": "prostate",
+   "seed": 2,
+   "beta": 1.0,
+   "run_id": "prostate_xfedga_seed2_d47b3334_betascreen_b1p0",
+   "score": 0.3377037203018574,
+   "selected_round": 3,
+   "q_var": 0.010851320903395559,
+   "q_mean": [
+    0.4515219333333333,
+    0.40070626666666664
+   ],
+   "alpha_var": 0.0016941389841600004,
+   "test_evaluated": false
+  }
+ ]
+}

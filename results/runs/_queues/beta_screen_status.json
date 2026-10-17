@@ -1,0 +1,360 @@
+{
+ "queue": "beta_screen",
+ "code_root": "D:\\new repo\\xfedga_frozen\\f8fd583",
+ "code_commit": "f8fd583",
+ "repo": "D:\\new repo\\xfedga",
+ "runs": [
+  {
+   "run_id": "prostate_xfedga_seed1_2b3750fe_betascreen_b0p0",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "aggregation.beta=0.0"
+   ],
+   "tag": "betascreen_b0p0",
+   "no_test": true,
+   "status": "done",
+   "minutes": 27.8,
+   "gpu": {
+    "busy_samples": 72,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 2730.0,
+    "median_power_W": 67.79,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 857.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed1_fdfed1e2_betascreen_b0p0",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "aggregation.beta=0.0"
+   ],
+   "tag": "betascreen_b0p0",
+   "no_test": true,
+   "status": "done",
+   "minutes": 34.2,
+   "gpu": {
+    "busy_samples": 85,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 67.01,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 959.0
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed1_edd6c3cd_betascreen_b0p2",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "aggregation.beta=0.2"
+   ],
+   "tag": "betascreen_b0p2",
+   "no_test": true,
+   "status": "done",
+   "minutes": 28.4,
+   "gpu": {
+    "busy_samples": 76,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 1065.0,
+    "median_power_W": 67.7,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 957.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed1_6785d31a_betascreen_b0p2",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "aggregation.beta=0.2"
+   ],
+   "tag": "betascreen_b0p2",
+   "no_test": true,
+   "status": "done",
+   "minutes": 34.6,
+   "gpu": {
+    "busy_samples": 82,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 480.0,
+    "median_power_W": 67.32,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 959.0
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed1_da079fb7_betascreen_b0p5",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "aggregation.beta=0.5"
+   ],
+   "tag": "betascreen_b0p5",
+   "no_test": true,
+   "status": "done",
+   "minutes": 28.5,
+   "gpu": {
+    "busy_samples": 79,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 765.0,
+    "median_power_W": 67.53,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 875.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed1_8bf4f80f_betascreen_b0p5",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "aggregation.beta=0.5"
+   ],
+   "tag": "betascreen_b0p5",
+   "no_test": true,
+   "status": "done",
+   "minutes": 32.8,
+   "gpu": {
+    "busy_samples": 82,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 67.33,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 959.0
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed1_d47b3334_betascreen_b1p0",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "aggregation.beta=1.0"
+   ],
+   "tag": "betascreen_b1p0",
+   "no_test": true,
+   "status": "done",
+   "minutes": 28.1,
+   "gpu": {
+    "busy_samples": 77,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 630.0,
+    "median_power_W": 67.73,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 873.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed1_483b7230_betascreen_b1p0",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "aggregation.beta=1.0"
+   ],
+   "tag": "betascreen_b1p0",
+   "no_test": true,
+   "status": "done",
+   "minutes": 34.1,
+   "gpu": {
+    "busy_samples": 76,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 975.0,
+    "median_power_W": 67.18,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 959.0
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed2_2b3750fe_betascreen_b0p0",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 2,
+   "set": [
+    "aggregation.beta=0.0"
+   ],
+   "tag": "betascreen_b0p0",
+   "no_test": true,
+   "status": "done",
+   "minutes": 28.1,
+   "gpu": {
+    "busy_samples": 73,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 2730.0,
+    "median_power_W": 67.49,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 857.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed2_fdfed1e2_betascreen_b0p0",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 2,
+   "set": [
+    "aggregation.beta=0.0"
+   ],
+   "tag": "betascreen_b0p0",
+   "no_test": true,
+   "status": "done",
+   "minutes": 34.1,
+   "gpu": {
+    "busy_samples": 78,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.18,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 957.0
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed2_edd6c3cd_betascreen_b0p2",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 2,
+   "set": [
+    "aggregation.beta=0.2"
+   ],
+   "tag": "betascreen_b0p2",
+   "no_test": true,
+   "status": "done",
+   "minutes": 28.1,
+   "gpu": {
+    "busy_samples": 79,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 1215.0,
+    "median_power_W": 67.4,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 875.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed2_6785d31a_betascreen_b0p2",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 2,
+   "set": [
+    "aggregation.beta=0.2"
+   ],
+   "tag": "betascreen_b0p2",
+   "no_test": true,
+   "status": "done",
+   "minutes": 33.5,
+   "gpu": {
+    "busy_samples": 79,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 450.0,
+    "median_power_W": 67.14,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 957.0
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed2_da079fb7_betascreen_b0p5",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 2,
+   "set": [
+    "aggregation.beta=0.5"
+   ],
+   "tag": "betascreen_b0p5",
+   "no_test": true,
+   "status": "done",
+   "minutes": 27.9,
+   "gpu": {
+    "busy_samples": 76,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 1215.0,
+    "median_power_W": 67.64,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 873.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed2_8bf4f80f_betascreen_b0p5",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 2,
+   "set": [
+    "aggregation.beta=0.5"
+   ],
+   "tag": "betascreen_b0p5",
+   "no_test": true,
+   "status": "done",
+   "minutes": 33.6,
+   "gpu": {
+    "busy_samples": 85,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 66.75,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 959.0
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed2_d47b3334_betascreen_b1p0",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 2,
+   "set": [
+    "aggregation.beta=1.0"
+   ],
+   "tag": "betascreen_b1p0",
+   "no_test": true,
+   "status": "done",
+   "minutes": 28.1,
+   "gpu": {
+    "busy_samples": 76,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 2730.0,
+    "median_power_W": 67.31,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 857.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed2_483b7230_betascreen_b1p0",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 2,
+   "set": [
+    "aggregation.beta=1.0"
+   ],
+   "tag": "betascreen_b1p0",
+   "no_test": true,
+   "status": "done",
+   "minutes": 33.6,
+   "gpu": {
+    "busy_samples": 84,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 66.78,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 957.0
+   }
+  }
+ ]
+}

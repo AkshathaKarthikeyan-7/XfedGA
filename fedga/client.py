@@ -56,11 +56,12 @@ def privatize_update(state, global_state, clip_norm, noise_multiplier, generator
     return out
 
 
-def client_saliency_score(model, loader, device, cam_threshold=0.5):
+def client_saliency_score(model, loader, device, cam_threshold=0.5, cam_target="all"):
     """
     q_i = mean over the client's fixed q_i subsample of
           EC(CAM_k, M_k) = |{CAM_k >= t} ∩ M_k| / |{CAM_k >= t} ∪ M_k|   (t = cam_threshold),
-    where CAM_k is the Grad-CAM of the summed class-1 logit at unet_cam_layer, min-max
+    where CAM_k is the Grad-CAM of the class-1 logit summed over the pixels chosen by cam_target
+    (xai.explainability.cam_target_mask) at unet_cam_layer, min-max
     normalised per image. A Grad-CAM failure on an image counts as EC = 0 and is logged;
     an empty loader returns 0.5 (neutral) and is logged.
     """
@@ -70,7 +71,7 @@ def client_saliency_score(model, loader, device, cam_threshold=0.5):
     for imgs, masks in loader:
         for i in range(imgs.shape[0]):
             try:
-                cam = get_gradcam(model, layer, imgs[i:i + 1].to(device), target_class=1)
+                cam = get_gradcam(model, layer, imgs[i:i + 1].to(device), target_class=1, cam_target=cam_target)
                 ecs.append(explanation_consistency(cam, masks[i].numpy(), threshold=cam_threshold))
             except Exception:  # noqa: BLE001 -- counted and logged, matches the pre-refactor behaviour
                 failures += 1

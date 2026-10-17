@@ -55,7 +55,7 @@ def _predict(model, images, batch_size=8):
                       for i in range(0, len(images), batch_size)])
 
 
-def per_image_metrics(model, batches, device, hd95_normalizer, cam_threshold=0.5, with_cam=True):
+def per_image_metrics(model, batches, device, hd95_normalizer, cam_threshold=0.5, with_cam=True, cam_target="all"):
     """
     batches: iterable of (images (B,1,H,W), masks (B,H,W)). Returns one dict per image:
     dsc, hd95_norm, hd95_px (NaN if a mask is empty), and if with_cam: ec, pg.
@@ -72,7 +72,7 @@ def per_image_metrics(model, batches, device, hd95_normalizer, cam_threshold=0.5
                    "hd95_px": float("nan") if raw is None else raw}
             if with_cam:
                 try:
-                    cam = get_gradcam(model, layer, imgs[k:k + 1].to(device), target_class=1)
+                    cam = get_gradcam(model, layer, imgs[k:k + 1].to(device), target_class=1, cam_target=cam_target)
                     row["ec"] = explanation_consistency(cam, masks[k].numpy(), threshold=cam_threshold)
                     row["pg"] = pointing_game_accuracy(cam, masks[k].numpy())
                 except Exception:  # noqa: BLE001 -- recorded as NaN, never silently dropped
@@ -91,12 +91,12 @@ def fitness_dsc(model, fixed, record=None):
     return f
 
 
-def fitness_multi(model, fixed, weights, hd95_normalizer, cam_threshold, record=None):
+def fitness_multi(model, fixed, weights, hd95_normalizer, cam_threshold, record=None, cam_target="all"):
     """XFedGA fitness: w1*mean DSC - w2*mean HD95_norm + w3*mean EC over the fixed subsample.
     With `record`, appends the components so the candidate pool can be re-ranked offline under
     other fitness weights (fitness-weight Step 0)."""
     rows = per_image_metrics(model, [(fixed.images[i:i + 1], fixed.masks[i:i + 1]) for i in range(len(fixed))],
-                             fixed.images.device, hd95_normalizer, cam_threshold, with_cam=True)
+                             fixed.images.device, hd95_normalizer, cam_threshold, with_cam=True, cam_target=cam_target)
     ec = [0.0 if np.isnan(r["ec"]) else r["ec"] for r in rows]
     dsc, hd, e = float(np.mean([r["dsc"] for r in rows])), float(np.mean([r["hd95_norm"] for r in rows])), float(np.mean(ec))
     f = multi_objective_fitness(dsc, hd, e, weights=tuple(weights))
@@ -106,7 +106,7 @@ def fitness_multi(model, fixed, weights, hd95_normalizer, cam_threshold, record=
 
 
 def build_fitness_fn(model_template, fixed, kind, weights=(0.5, 0.3, 0.2), hd95_normalizer=384.0, cam_threshold=0.5,
-                     record=None):
+                     record=None, cam_target="all"):
     """state_dict -> fitness, reusing one evaluation model. kind: 'dsc' or 'multi'.
     record: optional list; every evaluation appends its components (in evaluation order)."""
     model = copy.deepcopy(model_template).to(fixed.images.device)
@@ -116,6 +116,6 @@ def build_fitness_fn(model_template, fixed, kind, weights=(0.5, 0.3, 0.2), hd95_
         if kind == "dsc":
             return fitness_dsc(model, fixed, record)
         if kind == "multi":
-            return fitness_multi(model, fixed, weights, hd95_normalizer, cam_threshold, record)
+            return fitness_multi(model, fixed, weights, hd95_normalizer, cam_threshold, record, cam_target)
         raise ValueError(f"unknown fitness kind {kind!r}")
     return evaluate

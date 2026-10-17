@@ -77,6 +77,9 @@ fitness:
   # computed, so HD95 is in pixels of that grid; HD95_norm = min(HD95_px / 384, 1).
   hd95_normalizer: 384
   cam_threshold: 0.5         # EC = IoU(Grad-CAM >= threshold, mask)
+  # Grad-CAM target: sum of class-1 logits over ALL pixels (all; every run up to 17 Oct 2026) or over the
+  # model's PREDICTED foreground (pred). Used for q_i, the EC fitness term, logging and XAI metrics.
+  cam_target: all
 
 saliency:
   subsample: 40              # fixed q_i subsample per client (training images)

@@ -8,8 +8,12 @@ Metrics per image (spec section 6; none is optimised by XFedGA except the IoU co
 reported for plausibility only):
   pg_gradcam, pg_gradcampp   pointing game (peak of the map inside the mask)
   iou_gradcampp              Grad-CAM++ mask IoU at 0.5 (plausibility, not faithfulness)
-  deletion_auc, insertion_auc  mean lesion probability while the most salient pixels are removed /
-                             added in 20 steps (Grad-CAM order); lower deletion / higher insertion = more faithful
+  deletion_auc, insertion_auc  mean predicted foreground probability INSIDE the ground-truth mask while
+                             the most salient pixels (Grad-CAM order, 20 steps) are replaced by / restored
+                             from a Gaussian-blurred copy of the image (sigma 8 px); lower deletion /
+                             higher insertion = more faithful (xai.explainability.insertion_deletion_auc)
+CAM: Grad-CAM / Grad-CAM++ at xai.explainability.unet_cam_layer (last decoder conv), target = the
+class-1 logit summed over the pixels given by the run's fitness.cam_target (all | pred).
 Per checkpoint, on the first --randomization_images images: cascading parameter-randomisation check
 (Spearman rho between the original and randomised Grad-CAM after 1, 2, 4, 8, 16 layers).
 
@@ -81,21 +85,22 @@ def process(run_dir, args, device):
     model.eval()
     layer = unet_cam_layer(model)
     thr = cfg["fitness"]["cam_threshold"]
+    ct = args.cam_target or cfg["fitness"].get("cam_target", "all")
     os.makedirs(out, exist_ok=True)
     t0 = time.time()
     rows, rand_rows = [], []
     for n, i in enumerate(idx):
         img, mask = test.dataset[i]
         x, m = img[None].to(device), mask.numpy()
-        cam = get_gradcam(model, layer, x, target_class=1)
-        campp = get_gradcam_pp(model, layer, x, target_class=1)
+        cam = get_gradcam(model, layer, x, target_class=1, cam_target=ct)
+        campp = get_gradcam_pp(model, layer, x, target_class=1, cam_target=ct)
         rows.append({"image_id": test.image_ids[i], "group_id": test.group_ids[i],
                      "pg_gradcam": pointing_game_accuracy(cam, m), "pg_gradcampp": pointing_game_accuracy(campp, m),
                      "iou_gradcampp": explanation_consistency(campp, m, threshold=thr),
-                     "deletion_auc": insertion_deletion_auc(model, x, cam, mode="deletion"),
-                     "insertion_auc": insertion_deletion_auc(model, x, cam, mode="insertion")})
+                     "deletion_auc": insertion_deletion_auc(model, x, cam, gt_mask=m, mode="deletion"),
+                     "insertion_auc": insertion_deletion_auc(model, x, cam, gt_mask=m, mode="insertion")})
         if n < args.randomization_images:
-            rho = randomization_check(model, x, seed=args.seed)
+            rho = randomization_check(model, x, seed=args.seed, cam_target=ct)
             rand_rows.append({"image_id": test.image_ids[i], **{f"rho_after_{k}_layers": v for k, v in rho.items()}})
     with open(os.path.join(out, "xai_per_image.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
@@ -106,6 +111,7 @@ def process(run_dir, args, device):
         w.writeheader()
         w.writerows(rand_rows)
     summary = {"run_id": meta["run_id"], "task": task, "method": meta["method"], "seed": meta["seed"], "split": args.split,
+               "cam_target": ct,
                "checkpoint": os.path.relpath(ckpt, REPO), "n_images": len(rows), "seconds": round(time.time() - t0, 1),
                **{k: float(np.mean([r[k] for r in rows])) for k in rows[0] if k not in ("image_id", "group_id")},
                **{k: float(np.mean([r[k] for r in rand_rows])) for k in rand_rows[0] if k != "image_id"}}
@@ -124,6 +130,8 @@ def main():
     ap.add_argument("--split", choices=["test", "validation"], default="test",
                     help="validation: for checking the module on runs without a test evaluation (e.g. the beta screen)")
     ap.add_argument("--out", default=None, help="output root (default results/xai)")
+    ap.add_argument("--cam_target", choices=["all", "pred"], default=None,
+                    help="Grad-CAM target pixels (default: the run's fitness.cam_target)")
     args = ap.parse_args()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     for run_dir in sorted(glob.glob(args.runs)):

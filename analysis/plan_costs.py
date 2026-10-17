@@ -391,6 +391,76 @@ def full_plan(rt):
             "cuts_needed": cuts, "queue_after_cuts": finish_dates(kept) if cuts else None}
 
 
+# Schedule approved 17 Oct 2026: full GPU days and "some evenings/nights" (assumed 6 GPU-h; flagged).
+DAY_HOURS_17OCT = {dt.date(2026, 10, 17): 12,   # today from noon
+                   dt.date(2026, 10, 20): 16, dt.date(2026, 10, 21): 16, dt.date(2026, 10, 23): 12,
+                   dt.date(2026, 10, 24): 16, dt.date(2026, 10, 25): 16}
+EVENING_HOURS = 6
+WINDOW_17OCT = (dt.date(2026, 10, 17), dt.date(2026, 11, 5))
+BUFFER_MIN_H = 60
+
+
+def plan_17oct(rt):
+    """Queue approved 17 Oct: beta screen -> headline (5 seeds) -> ablations + random search (5 seeds) ->
+    parity -> XAI metrics -> FedProx + bounds -> heterogeneous (5 seeds) -> robustness / DP (3 seeds)."""
+    both = ["prostate", "breast"]
+    rc = {t: method_round_costs(rt, t) for t in both}
+    measured = {"fedavg", "fedga", "xfedga"}
+
+    def run_h(task, method, factor=1.0, test=True):
+        base = rt[(task, method if method in measured else "xfedga")]
+        test_s = base["test_and_selection_s"] if test else 0.0
+        return factor * (base["setup_s"] + ROUNDS * rc[task][method] + test_s) / 3600
+
+    def runs(methods, tasks, seeds, factor=1.0, test=True):
+        return sum(run_h(t, m, factor, test) for t in tasks for m in methods) * seeds
+
+    def xai_h(task, n_ckpt, n_images):
+        r = rt[(task, "xfedga")]
+        cam = r["test_and_selection_s"] / r["n_test"]
+        fwd = rc[task]["components"]["val"] / r["n_val"]
+        return n_ckpt * n_images * (12 * cam + 42 * fwd) / 3600
+    queue = [
+        ("beta_screen", "XFedGA beta {0, 0.2, 0.5, 1.0} x 2 tasks x 2 seeds, validation only (RUNNING since 17 Oct 11:55)",
+         runs(["xfedga"], both, 4 * 2, test=False)),
+        ("headline", "FedAvg, FedGA (baseline), XFedGA (selected beta) x 2 tasks x 5 seeds",
+         runs(["fedavg", "fedga", "xfedga"], both, 5)),
+        ("ablations", "ablations B, C, D, F + random search x 2 tasks x 5 seeds (A = FedGA, E = XFedGA from headline)",
+         runs(["B_weighted_only", "C_fedavg_ga_multi", "D_fedga_anneal", "F_random_qi", "random_search"], both, 5)),
+        ("parity", "fl_dist XFedGA, breast, 3 seeds", runs(["xfedga"], ["breast"], 3, 1.15)),
+        ("xai_metrics", "independent XAI metrics on the 30 headline checkpoints (no retraining)",
+         xai_h("prostate", 15, rt[("prostate", "xfedga")]["n_test"]) + xai_h("breast", 15, 300)),
+        ("fedprox_bounds", "FedProx x 2 tasks x 5 seeds; centralized + local-only bounds x 2 tasks x 3 seeds",
+         runs(["fedprox"], both, 5) + runs(["centralized", "local_only"], both, 3)),
+        ("hetero", "heterogeneous prostate partition: FedAvg, FedGA, XFedGA x 5 seeds",
+         runs(["fedavg", "fedga", "xfedga"], ["prostate"], 5)),
+        ("robustness_dp", "breast, 3 seeds: noisy-q_i client (XFedGA), corrupted-label client (XFedGA + FedAvg), DP (XFedGA)",
+         runs(["xfedga"], ["breast"], 3) + runs(["xfedga", "fedavg"], ["breast"], 3) + runs(["xfedga"], ["breast"], 3)),
+    ]
+    days, d = [], WINDOW_17OCT[0]
+    while d <= WINDOW_17OCT[1]:
+        days.append((d, DAY_HOURS_17OCT.get(d, EVENING_HOURS)))
+        d += dt.timedelta(days=1)
+    capacity = sum(h for _, h in days)
+    rows, used = [], 0.0
+    for name, label, h in queue:
+        used += h * FULL_CONTINGENCY
+        acc, when = 0.0, "after window"
+        for day, cap in days:
+            acc += cap
+            if acc >= used:
+                when = str(day)
+                break
+        rows.append({"item": name, "label": label, "raw_h": h, "with_contingency_h": h * FULL_CONTINGENCY,
+                     "cumulative_h": used, "finishes": when})
+    by_guide = sum(cap for day, cap in days if day <= dt.date(2026, 10, 29))
+    return {"window": f"{WINDOW_17OCT[0]}..{WINDOW_17OCT[1]}", "capacity_h": capacity,
+            "full_days": {str(k): v for k, v in DAY_HOURS_17OCT.items()}, "evening_hours_assumed": EVENING_HOURS,
+            "contingency": FULL_CONTINGENCY, "queue": rows, "planned_with_contingency_h": used,
+            "unallocated_buffer_h": capacity - used, "buffer_ok": capacity - used >= BUFFER_MIN_H,
+            "capacity_by_2026_10_29_h": by_guide, "finish": rows[-1]["finishes"]}
+
+
 def main():
     comp, sharing = load_timing()
     out = {"components": comp, "gpu_sharing": sharing, "assumptions": ASSUMPTIONS, "experiments": []}
@@ -465,6 +535,7 @@ def main():
         out["guide_review"] = guide_review_plan_runner(rt)
         out["guide_review"]["gpu_state_during_timing"] = gpu_state_summary()
         out["full_plan"] = full_plan(rt)
+        out["plan_17oct"] = plan_17oct(rt)
         start = dt.date(2026, 10, 22)
         out["guide_review"]["session4_window_gpu_h"] = budget(start, dt.date(2026, 10, 26), start - dt.timedelta(days=1), *BUDGET)[0]
     json.dump(out, open(os.path.join(HERE, "plan_costs.json"), "w", encoding="utf-8"), indent=2, default=str)

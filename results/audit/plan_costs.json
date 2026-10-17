@@ -1216,5 +1216,90 @@
     "fits": true,
     "cuts_needed": [],
     "queue_after_cuts": null
+  },
+  "plan_17oct": {
+    "window": "2026-10-17..2026-11-05",
+    "capacity_h": 172,
+    "full_days": {
+      "2026-10-17": 12,
+      "2026-10-20": 16,
+      "2026-10-21": 16,
+      "2026-10-23": 12,
+      "2026-10-24": 16,
+      "2026-10-25": 16
+    },
+    "evening_hours_assumed": 6,
+    "contingency": 1.2,
+    "queue": [
+      {
+        "item": "beta_screen",
+        "label": "XFedGA beta {0, 0.2, 0.5, 1.0} x 2 tasks x 2 seeds, validation only (RUNNING since 17 Oct 11:55)",
+        "raw_h": 7.74311111111111,
+        "with_contingency_h": 9.291733333333331,
+        "cumulative_h": 9.291733333333331,
+        "finishes": "2026-10-17"
+      },
+      {
+        "item": "headline",
+        "label": "FedAvg, FedGA (baseline), XFedGA (selected beta) x 2 tasks x 5 seeds",
+        "raw_h": 10.333805555555555,
+        "with_contingency_h": 12.400566666666666,
+        "cumulative_h": 21.692299999999996,
+        "finishes": "2026-10-19"
+      },
+      {
+        "item": "ablations",
+        "label": "ablations B, C, D, F + random search x 2 tasks x 5 seeds (A = FedGA, E = XFedGA from headline)",
+        "raw_h": 20.077569444444446,
+        "with_contingency_h": 24.093083333333336,
+        "cumulative_h": 45.78538333333333,
+        "finishes": "2026-10-21"
+      },
+      {
+        "item": "parity",
+        "label": "fl_dist XFedGA, breast, 3 seeds",
+        "raw_h": 1.8337133333333329,
+        "with_contingency_h": 2.2004559999999995,
+        "cumulative_h": 47.98583933333333,
+        "finishes": "2026-10-21"
+      },
+      {
+        "item": "xai_metrics",
+        "label": "independent XAI metrics on the 30 headline checkpoints (no retraining)",
+        "raw_h": 5.236653486243283,
+        "with_contingency_h": 6.28398418349194,
+        "cumulative_h": 54.26982351682527,
+        "finishes": "2026-10-21"
+      },
+      {
+        "item": "fedprox_bounds",
+        "label": "FedProx x 2 tasks x 5 seeds; centralized + local-only bounds x 2 tasks x 3 seeds",
+        "raw_h": 6.261677777777777,
+        "with_contingency_h": 7.514013333333332,
+        "cumulative_h": 61.7838368501586,
+        "finishes": "2026-10-22"
+      },
+      {
+        "item": "hetero",
+        "label": "heterogeneous prostate partition: FedAvg, FedGA, XFedGA x 5 seeds",
+        "raw_h": 4.700249999999999,
+        "with_contingency_h": 5.640299999999998,
+        "cumulative_h": 67.4241368501586,
+        "finishes": "2026-10-23"
+      },
+      {
+        "item": "robustness_dp",
+        "label": "breast, 3 seeds: noisy-q_i client (XFedGA), corrupted-label client (XFedGA + FedAvg), DP (XFedGA)",
+        "raw_h": 5.658233333333334,
+        "with_contingency_h": 6.789880000000001,
+        "cumulative_h": 74.2140168501586,
+        "finishes": "2026-10-24"
+      }
+    ],
+    "planned_with_contingency_h": 74.2140168501586,
+    "unallocated_buffer_h": 97.7859831498414,
+    "buffer_ok": true,
+    "capacity_by_2026_10_29_h": 130,
+    "finish": "2026-10-24"
   }
 }

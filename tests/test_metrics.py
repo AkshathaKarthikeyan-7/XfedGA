@@ -55,13 +55,14 @@ def test_config_validation_rejects_bad_settings():
 
 
 def test_xai_functions_on_a_random_model():
-    """Grad-CAM++, deletion/insertion AUC and the randomisation check run and return sane values (CPU)."""
-    import numpy as np
+    """Grad-CAM++, deletion/insertion AUC and the randomisation check run and return sane values.
+    pytorch-grad-cam places its target mask on CUDA whenever CUDA exists, so the model follows."""
     from models.residual_unet import build_residual_unet
     from xai.explainability import get_gradcam, get_gradcam_pp, insertion_deletion_auc, randomization_check, unet_cam_layer
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     torch.manual_seed(0)
-    model = build_residual_unet().eval()
-    x = torch.rand(1, 1, 64, 64)
+    model = build_residual_unet().to(device).eval()
+    x = torch.rand(1, 1, 64, 64, device=device)
     cam = get_gradcam(model, unet_cam_layer(model), x)
     campp = get_gradcam_pp(model, unet_cam_layer(model), x)
     assert cam.shape == campp.shape == (64, 64) and 0 <= cam.min() and cam.max() <= 1

@@ -14,8 +14,7 @@
 
 ## Done on resuming (17 Oct, 17:24–17:37)
 - Full suite: **125 passed, 2 xfailed** (the pinned old-layer finding), pytest exit 0. Committed and pushed as `f8fd583`.
-- β screen relaunched from frozen worktree `D:
-ew repoþdga_frozen8fd583` at 17:36:29. The first run, `prostate_xfedga_seed1_2b3750fe_betascreen_b0p0`, uses `cam_layer: fullres`, `cam_target: pred`, and its first busy GPU sample is 2,760 MHz, 63 W, no throttle flag. 16 runs, about 9.6 GPU-h.
+- β screen relaunched from frozen worktree `D:/new repo/xfedga_frozen/f8fd583` at 17:36:29. The first run, `prostate_xfedga_seed1_2b3750fe_betascreen_b0p0`, uses `cam_layer: fullres`, `cam_target: pred`, and its first busy GPU sample is 2,760 MHz, 63 W, no throttle flag. 16 runs, about 9.6 GPU-h.
 
 ## Next steps (original list; 1–4 done)
 1. **Confirm the full suite passes**, fast and slow (regression, known-answer, `fl_dist` parity): `& $py -m pytest -q`. Commit only if pytest exits 0.

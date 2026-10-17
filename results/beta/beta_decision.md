@@ -10,3 +10,5 @@
 | breast | 0.5 **(selected)** | [1, 2] | 0.6687 | 0.0082 | +0.0000 | False | 2.10e-03 |
 | breast | 1.0 | [1, 2] | 0.6491 | 0.0040 | -0.0197 | False | 2.10e-03 |
 | breast | pooled s.d. = 0.0048 | | | | | default beta 0.5 kept: no beta beats it by more than the pooled s.d. | |
+
+Margins vs other betas are EXPLORATORY (2 seeds; prostate 8 / breast 267 validation cases; validation only). The screen selects beta; it is not evidence that q_i weighting helps.

@@ -35,6 +35,15 @@ flowchart LR
 | GA search | – | yes, fixed sigma | yes, sigma annealed sigma0·exp(−g/tau) |
 | fitness (fixed 40-image subsample) | – | DSC | w1·DSC − w2·HD95_norm + w3·EC |
 
+All methods are switch combinations in `experiments/run_federated.py::METHODS` (topology, aggregation,
+q_i source, search, fitness, annealing, FedProx term): ablations B (weighted aggregation, no GA),
+C (FedAvg + GA multi-objective), D (FedGA + annealing), F (XFedGA with random q_i), the GA-free
+random search (same number of fitness evaluations), FedProx, and the centralized / local-only bounds.
+Scenario switches in the YAML `scenario:` section: heterogeneous prostate partition (acquisition
+spacing groups), a client that always reports q_i = 1, a client with shuffled masks, and DP
+(client-side clip + Gaussian noise). FedAvg / FedGA / XFedGA outputs are pinned by
+`tests/test_regression.py`.
+
 ## Where things live
 | Path | Contents |
 |---|---|

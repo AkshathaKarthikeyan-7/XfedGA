@@ -92,3 +92,17 @@ splits:
   server_fractions: {fitness: 0.15, validation: 0.25}   # test = the remaining 60 %
   server_metadata: "raw data/BUS-BRA/BUSBRA/bus_data.csv"
   client_val_fraction: 0.2   # held out and unused (Q3); BUS-UCLM split by patient prefix
+
+method_options:
+  fedprox_mu: 0.01           # FedProx proximal weight (mu / 2) * ||w - w_global||^2 (method fedprox)
+
+scenario:
+  # Defaults = the main experiments. Robustness / heterogeneity runs override these.
+  partition: random          # prostate only: random (50/50 by case) | acquisition (spacing groups, data/scenarios.py)
+  acquisition_threshold_mm: 0.45
+  noisy_qi_client: null      # client index (0-based) that always reports q_i = 1.0
+  corrupted_label_client: null   # client index whose masks are shuffled across its own images
+  dp:
+    enabled: false           # client-side clip + Gaussian noise on the update (no formal guarantee claimed)
+    clip_norm: 1.0           # L2 clip of w_i - w_global; to be set from measured update norms before DP runs
+    noise_multiplier: 0.1    # noise std = noise_multiplier * clip_norm

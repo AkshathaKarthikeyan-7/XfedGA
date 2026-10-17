@@ -7,7 +7,7 @@ XFedGA is explanation-aware federated learning with server-side genetic-algorith
 
 How the pieces fit: [ARCHITECTURE.md](ARCHITECTURE.md). Research spec: [docs/XFEDGA_SPEC.md](docs/XFEDGA_SPEC.md). Current plan: [reports/audit/plan.md](reports/audit/plan.md).
 
-> Status (15 Oct 2026): Session 2 complete (hygiene, splits, seeding, runner, tests); Session 3a next. Results produced before 13 Oct are superseded: their checkpoints were selected on the test set (see [results/legacy/README.md](results/legacy/README.md)).
+> Status (17 Oct 2026): Session 3a — all method and scenario switches implemented and smoke-tested; experiment queue in `analysis/run_queue.py`. Results produced before 13 Oct are superseded: their checkpoints were selected on the test set (see [results/legacy/README.md](results/legacy/README.md)).
 
 ## Tasks and data
 | Task | Clients | Server data (fitness / validation / test) |
@@ -41,7 +41,11 @@ $py = "D:\conda_envs\fedga\python.exe"
 # tests (add -m "not slow" to skip the GPU tests)
 & $py -m pytest
 
-# one federated run: --task breast|prostate, --method fedavg|fedga|xfedga, --seed N
+# one federated run: --task breast|prostate, --seed N, --method one of
+#   fedavg | fedga (FedGA baseline = ablation A) | xfedga (= ablation E)
+#   abl_B | abl_C | abl_D | abl_F | random_search | fedprox | centralized | local_only
+# scenario switches (configs, scenario:): partition=acquisition (prostate), noisy_qi_client,
+#   corrupted_label_client, dp.enabled
 & $py experiments/run_federated.py --task prostate --method xfedga --seed 1
 
 # smoke run: 1 round, tiny GA, no test evaluation
@@ -58,6 +62,15 @@ Each run writes `results/runs/<run_id>/`:
 - the validation-selected checkpoint `<task>_<method>_seed<k>_valselected.pt`
 
 The split case/patient ids are logged in `results/splits/<task>_dataseed<seed>.json` (identical for every run; each run checks it) and, with the fixed subsamples, in the run folder (`split_log.json`).
+
+## Experiment queue
+```powershell
+# sequential, resumable; skips finished runs; logs GPU state and flags throttling
+& $py analysis/run_queue.py queues/beta_screen.yaml
+# run from a frozen worktree so later edits cannot change running jobs:
+git worktree add --detach ..þdga_frozen\<sha> <sha>
+& $py ..þdga_frozen\<sha>nalysisun_queue.py ..þdga_frozen\<sha>\queues\<queue>.yaml --repo .
+```
 
 ## Repository layout
 `configs/ data/ models/ fedga/ xai/ experiments/ fl_dist/ (Session 3) analysis/ tests/ reports/ results/`; see [ARCHITECTURE.md](ARCHITECTURE.md).

@@ -148,3 +148,28 @@ def run_ga(base_state_dict, evaluate_fn, mode="xfedga",
     history.append({"best": max(final_fitnesses), "mean": float(np.mean(final_fitnesses)), "evaluations": n_eval})
     best = population[int(np.argmax(final_fitnesses))]
     return (best, history) if return_history else best
+
+
+def ga_evaluation_count(population_size, generations, cache_elite_fitness):
+    """Fitness evaluations one run_ga call performs (used to give random search an equal budget)."""
+    if cache_elite_fitness:
+        return population_size + generations * (population_size - population_size // 2)
+    return population_size * (generations + 1)
+
+
+def random_search(base_state_dict, evaluate_fn, n_evaluations, sigma0=0.01):
+    """
+    GA-free control (spec section 5): score w_agg and (n_evaluations - 1) independent Gaussian
+    neighbours w_agg + N(0, sigma0^2), same noise model as the GA's initial population, and keep the
+    best. Same fitness budget as the GA it is compared with; no crossover, mutation or selection.
+    Returns (best, history) with one history entry, like run_ga(return_history=True).
+    """
+    best, best_fit = base_state_dict, evaluate_fn(base_state_dict)
+    fits = [best_fit]
+    for _ in range(n_evaluations - 1):
+        cand = add_gaussian_noise(base_state_dict, sigma0)
+        f = evaluate_fn(cand)
+        fits.append(f)
+        if f > best_fit:
+            best, best_fit = cand, f
+    return best, [{"best": best_fit, "mean": float(np.mean(fits)), "evaluations": len(fits)}]

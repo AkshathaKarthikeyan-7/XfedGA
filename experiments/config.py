@@ -22,7 +22,7 @@ CODE_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TASK_CONFIGS = {"breast": os.path.join(CODE_ROOT, "configs", "breast_clients.yaml"),
                 "prostate": os.path.join(CODE_ROOT, "configs", "prostate_clients.yaml")}
 REQUIRED = ["image_size", "seed", "clients", "server", "train", "aggregation", "ga", "fitness",
-            "saliency", "evaluation", "splits", "loader"]
+            "saliency", "evaluation", "splits", "loader", "method_options", "scenario"]
 
 
 def _parse_value(text):
@@ -58,6 +58,19 @@ def validate(cfg):
         raise ValueError("beta must be >= 0")
     if cfg["fitness"]["hd95_normalizer"] != cfg["image_size"][0] or cfg["image_size"][0] != cfg["image_size"][1]:
         raise ValueError("hd95_normalizer must equal the (square) image side: images are resized before metrics")
+    sc = cfg["scenario"]
+    if sc["partition"] not in ("random", "acquisition"):
+        raise ValueError(f"scenario.partition must be random|acquisition, got {sc['partition']!r}")
+    if sc["partition"] == "acquisition" and cfg.get("task") != "prostate_segmentation":
+        raise ValueError("scenario.partition=acquisition is defined for the prostate task only")
+    n_clients = 2
+    for key in ("noisy_qi_client", "corrupted_label_client"):
+        if sc[key] is not None and not (0 <= sc[key] < n_clients):
+            raise ValueError(f"scenario.{key} must be null or a client index in [0, {n_clients})")
+    if sc["dp"]["enabled"] and (sc["dp"]["clip_norm"] <= 0 or sc["dp"]["noise_multiplier"] < 0):
+        raise ValueError("dp.clip_norm must be > 0 and dp.noise_multiplier >= 0")
+    if cfg["method_options"]["fedprox_mu"] < 0:
+        raise ValueError("fedprox_mu must be >= 0")
     g = cfg["ga"]
     if g["population"] < 1 or g["generations"] < 0 or not (0 <= g["pc"] <= 1) or not (0 <= g["pm"] <= 1):
         raise ValueError(f"invalid GA settings {g}")

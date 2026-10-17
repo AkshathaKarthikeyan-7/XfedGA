@@ -14,6 +14,7 @@ from data.breast_dataset import (INDEXERS as BREAST_INDEXERS, BreastClientDatase
                                  filter_nonempty_masks, train_val_split)
 from data.prostate_dataset import INDEXERS as PROSTATE_INDEXERS, ProstateClientDataset, prostate_cache, \
     split_promise12_clients
+from data.scenarios import ShuffledMaskDataset, split_promise12_by_acquisition
 from data.splits import (ROLES, busbra_patient_split, decathlon_case_split, evenly_spaced_per_group,
                          group_split, one_per_group_subsample, random_subsample)
 
@@ -102,7 +103,13 @@ def build_prostate(cfg):
     root = cfg["clients"][0]["path"]
     clients, log = [], {"clients": {}, "server": {}}
     p_cache = prostate_cache("PROMISE12", root, size)
-    for k, cases in enumerate(split_promise12_clients(root, seed=seed)):
+    sc = cfg["scenario"]
+    if sc["partition"] == "acquisition":
+        client_cases = split_promise12_by_acquisition(root, sc["acquisition_threshold_mm"])
+    else:
+        client_cases = split_promise12_clients(root, seed=seed)
+    log["partition"] = sc["partition"]
+    for k, cases in enumerate(client_cases):
         ds = ProstateClientDataset("PROMISE12", root, size=size, cases=cases)
         qi = random_subsample(len(ds), cfg["saliency"]["subsample"], seed=seed + 1000 + k)
         ids, _, _ = _case_ids(cases, p_cache)
@@ -140,4 +147,11 @@ def split_summary(data):
 
 
 def build_task(task, cfg):
-    return {"breast": build_breast, "prostate": build_prostate}[task](cfg)
+    data = {"breast": build_breast, "prostate": build_prostate}[task](cfg)
+    k = cfg["scenario"]["corrupted_label_client"]
+    if k is not None:   # robustness scenario: client k's masks shuffled across its own images
+        c = data.clients[k]
+        data.clients[k] = ClientData(c.name, ShuffledMaskDataset(c.train, cfg["seed"] + 777), c.qi_indices,
+                                     c.n_train_groups)
+        data.split_log["corrupted_label_client"] = c.name
+    return data

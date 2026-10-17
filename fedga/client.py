@@ -16,19 +16,43 @@ from xai.explainability import explanation_consistency, get_gradcam, unet_cam_la
 log = logging.getLogger(__name__)
 
 
-def local_update(model, loader, epochs, lr, betas, device, loss_fn):
-    """E local epochs of Adam on the client's training loader; returns the new state_dict."""
+def local_update(model, loader, epochs, lr, betas, device, loss_fn, prox_mu=0.0):
+    """
+    E local epochs of Adam on the client's training loader; returns the new state_dict.
+    prox_mu > 0 adds the FedProx proximal term (mu / 2) * ||w - w_global||^2, with w_global the
+    weights the client received at the start of the round.
+    """
     model.train()
     opt = torch.optim.Adam(model.parameters(), lr=lr, betas=tuple(betas))
+    anchor = [p.detach().clone() for p in model.parameters()] if prox_mu > 0 else None
     for _ in range(epochs):
         for imgs, masks in loader:
             imgs = imgs.to(device)
             masks = masks.unsqueeze(1).to(device)
             opt.zero_grad()
             loss = loss_fn(model(imgs), masks)
+            if anchor is not None:
+                loss = loss + 0.5 * prox_mu * sum(((p - a) ** 2).sum() for p, a in zip(model.parameters(), anchor))
             loss.backward()
             opt.step()
     return {k: v.detach().clone() for k, v in model.state_dict().items()}
+
+
+def privatize_update(state, global_state, clip_norm, noise_multiplier, generator):
+    """
+    Client-side Gaussian mechanism on the model update (no formal privacy accounting is claimed):
+    delta = w_i - w_global is clipped to L2 norm <= clip_norm, then N(0, (noise_multiplier *
+    clip_norm)^2) is added to every float coordinate; returns w_global + noisy delta.
+    """
+    keys = [k for k, v in state.items() if v.dtype.is_floating_point]
+    delta = {k: state[k] - global_state[k] for k in keys}
+    norm = torch.sqrt(sum((d.float() ** 2).sum() for d in delta.values()))
+    scale = min(1.0, clip_norm / (float(norm) + 1e-12))
+    out = dict(state)
+    for k in keys:
+        noise = torch.randn(delta[k].shape, generator=generator, dtype=delta[k].dtype).to(delta[k].device)
+        out[k] = global_state[k] + delta[k] * scale + noise * noise_multiplier * clip_norm
+    return out
 
 
 def client_saliency_score(model, loader, device, cam_threshold=0.5):

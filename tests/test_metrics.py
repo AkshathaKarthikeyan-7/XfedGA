@@ -52,3 +52,21 @@ def test_config_validation_rejects_bad_settings():
     with pytest.raises(KeyError):
         load_config("prostate", ["ga.populaton=4"])
     assert load_config("prostate", ["aggregation.beta=1.0"])["aggregation"]["beta"] == 1.0
+
+
+def test_xai_functions_on_a_random_model():
+    """Grad-CAM++, deletion/insertion AUC and the randomisation check run and return sane values (CPU)."""
+    import numpy as np
+    from models.residual_unet import build_residual_unet
+    from xai.explainability import get_gradcam, get_gradcam_pp, insertion_deletion_auc, randomization_check, unet_cam_layer
+    torch.manual_seed(0)
+    model = build_residual_unet().eval()
+    x = torch.rand(1, 1, 64, 64)
+    cam = get_gradcam(model, unet_cam_layer(model), x)
+    campp = get_gradcam_pp(model, unet_cam_layer(model), x)
+    assert cam.shape == campp.shape == (64, 64) and 0 <= cam.min() and cam.max() <= 1
+    for mode in ("deletion", "insertion"):
+        auc = insertion_deletion_auc(model, x, cam, steps=4, mode=mode)
+        assert 0.0 <= auc <= 1.0
+    rho = randomization_check(model, x, steps=(1, 4), size=16)
+    assert set(rho) == {1, 4} and all(-1.0 <= v <= 1.0 for v in rho.values())

@@ -126,3 +126,46 @@ def unet_cam_layer(model):
     """Grad-CAM target layer for the MONAI Residual U-Net (models/residual_unet.py):
     the last decoder conv before the output head (16 channels, half resolution)."""
     return model.model[1].submodule[2][1].conv.unit0.conv
+
+
+def get_gradcam_pp(model, target_layer, input_tensor, target_class=1):
+    """Grad-CAM++ (a second CAM method for the independent explanation metrics), same target as get_gradcam."""
+    from pytorch_grad_cam import GradCAMPlusPlus
+    from pytorch_grad_cam.utils.model_targets import SemanticSegmentationTarget
+
+    model.eval()
+    with GradCAMPlusPlus(model=model, target_layers=[target_layer]) as cam:
+        targets = [SemanticSegmentationTarget(target_class, np.ones(input_tensor.shape[-2:]))]
+        return cam(input_tensor=input_tensor, targets=targets)[0]
+
+
+def randomization_check(model, input_tensor, steps=(1, 2, 4, 8, 16), seed=0, size=96):
+    """
+    Cascading model-parameter randomisation (Adebayo et al., 2018): re-initialise the conv layers from the
+    output towards the input (cumulatively, `steps` = number of layers randomised) and return the Spearman
+    rank correlation between the original Grad-CAM and the Grad-CAM of each randomised model (maps
+    downsampled to size x size). A faithful explanation should decorrelate as more layers are randomised.
+    """
+    import copy
+
+    import torch.nn as nn
+    from scipy.stats import spearmanr
+
+    def cam_of(m):
+        c = get_gradcam(m, unet_cam_layer(m), input_tensor, target_class=1)
+        return F.interpolate(torch.from_numpy(c)[None, None].float(), size=(size, size), mode="area").flatten().numpy()
+
+    base = cam_of(model)
+    rand = copy.deepcopy(model)
+    convs = [m for m in rand.modules() if isinstance(m, (nn.Conv2d, nn.ConvTranspose2d))][::-1]
+    out, done = {}, 0
+    for k in steps:
+        k = min(k, len(convs))
+        for i in range(done, k):
+            torch.manual_seed(seed + i)
+            convs[i].reset_parameters()
+        done = k
+        c = cam_of(rand)
+        rho = spearmanr(base, c).correlation if np.std(c) > 0 and np.std(base) > 0 else 0.0
+        out[k] = float(rho)
+    return out

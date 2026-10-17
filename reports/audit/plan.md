@@ -51,6 +51,17 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - **Shared β:** reported only (each task's selected β within one pooled s.d. of the other's). The per-task β is used.
 - **Before the headline is queued,** the numbers and the rule's outcome are written to `results/beta/beta_decision.{json,md}` and to §0.5 below.
 
+**XFedGA CAM definition changed (decision (b), 17 Oct 2026 13:49; recorded before any new run).**
+- **New definition:** Grad-CAM at the **full-resolution decoder up-convolution** (`xai.explainability.unet_fullres_cam_layer`, `model.model[2][0]`), explaining the class-1 logit summed over the model's **predicted foreground** (`cam_target = pred`; it falls back to all pixels when the prediction is empty).
+- **Where it is used:** the config default for both tasks, and the single CAM definition for q_i, the EC fitness term, validation/test EC and pointing-game logging, and all independent XAI metrics.
+- **Evidence:** a **synthetic known-answer test only** (`tests/test_xai_known_answer.py`): a Residual U-Net trained to Dice > 0.8 on synthetic bright squares, 2 training seeds, 5–8 test images. The old layer (`unet_cam_layer`, a half-resolution decoder conv) put 0.05–0.19 of the CAM mass on the lesion, with pointing game 0.38, for either target. The full-resolution layer gives 1.00 and 1.00, insertion > deletion on every image, and a rank-correlation drop under weight randomisation. The all-pixel target puts ~0 mass on the lesion at the old layer.
+- **What the choice was NOT based on:** validation or test results of the method. A real validation-slice check (one β-screen checkpoint) was run only after the known-answer finding, as a sanity check.
+- **State of the experiments at this decision:**
+  - **no headline run existed;**
+  - the β screen (old CAM definition) had 3 of 16 runs finished and was stopped after its 4th. Those runs are kept, tagged `oldcam`, and **excluded from all analysis**.
+  - The β screen is rerun with the new definition and the same pre-registered β rule.
+- **Superseded:** every result before 17 Oct that used EC, pointing game or q_i, including Review-2 (`reports/audit/reaudit.md`, item 6).
+
 **Primary endpoint (pre-registered 17 Oct 2026, 13:21, before any headline run exists; your instruction).**
 - **Primary, one per task:**
   - XFedGA vs FedGA (baseline), **test DSC**;

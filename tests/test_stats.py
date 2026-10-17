@@ -77,3 +77,25 @@ def test_compare_detects_a_real_improvement_and_calls_ties():
     assert tie["outcome"] == "TIE"
     hd = compare(_runs(better, 3, 0.01, rng), _runs(base, 3, 0.01, rng), "hd95_norm")   # lower HD95 = better
     assert hd["mean_diff"] < 0 and hd["outcome"] == "WIN"
+
+
+def test_t_interval_and_wilcoxon():
+    from scipy import stats as st
+    from stats import t_interval, wilcoxon_p
+    d = np.array([0.01, 0.03, -0.02, 0.05, 0.04, 0.00, 0.02, 0.06])
+    lo, hi = t_interval(d)
+    half = st.t.ppf(0.975, 7) * d.std(ddof=1) / np.sqrt(8)
+    assert lo == pytest.approx(d.mean() - half) and hi == pytest.approx(d.mean() + half)
+    assert wilcoxon_p(np.zeros(5)) == 1.0
+    assert 0 < wilcoxon_p(d) < 1
+
+
+def test_compare_reports_sensitivity_and_flags_disagreement():
+    rng = np.random.default_rng(7)
+    base = {f"c{i}": 0.5 for i in range(16)}
+    better = {c: 0.5 + 0.02 * (1 + rng.standard_t(2)) for c in base}   # heavy-tailed differences, n = 16
+    r = compare([[{"group_id": c, "dsc": v} for c, v in better.items()]],
+                [[{"group_id": c, "dsc": v} for c, v in base.items()]], "dsc")
+    for k in ("t_ci_low", "t_ci_high", "t_outcome", "wilcoxon_p", "bootstrap_t_disagree"):
+        assert k in r
+    assert r["bootstrap_t_disagree"] == (r["outcome"] != r["t_outcome"])

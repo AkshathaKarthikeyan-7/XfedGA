@@ -123,6 +123,19 @@ def summary_table(runs, tasks, methods, validation_only):
     return header, rows, data
 
 
+PRIMARY = ("xfedga", "fedga", "dsc")   # pre-registered primary endpoint (plan.md section 0.0, commit 868216a)
+
+
+def _cmp_row(task, a, b, c):
+    endpoint = "PRIMARY" if (a, b, c["metric"]) == PRIMARY else "secondary"
+    dz = f"{c['effect_dz']:+.2f}" if np.isfinite(c["effect_dz"]) else "–"
+    wp = f"{c['wilcoxon_p']:.3g}" if np.isfinite(c["wilcoxon_p"]) else "–"
+    return [task, f"{NAMES.get(a, a)} vs {NAMES.get(b, b)}", c["metric"], endpoint, c["n_cases"],
+            f"{c['mean_diff']:+.4f}", f"[{c['ci_low']:+.4f}, {c['ci_high']:+.4f}]", dz, c["outcome"],
+            f"[{c['t_ci_low']:+.4f}, {c['t_ci_high']:+.4f}]", c["t_outcome"], wp,
+            "DISAGREE" if c["bootstrap_t_disagree"] else ""]
+
+
 def comparison_table(runs, tasks, pairs, n_boot):
     rows, data = [], []
     for task in tasks:
@@ -133,17 +146,14 @@ def comparison_table(runs, tasks, pairs, n_boot):
             for metric in ["dsc", "hd95_norm"]:
                 c = compare([r["test"] for r in ra], [r["test"] for r in rb], metric, n_boot=n_boot)
                 data.append({"task": task, "method": a, "comparator": b, **c})
-                rows.append([task, f"{NAMES.get(a, a)} vs {NAMES.get(b, b)}", metric, c["n_cases"],
-                             f"{c['mean_diff']:+.4f}", f"[{c['ci_low']:+.4f}, {c['ci_high']:+.4f}]",
-                             f"{c['effect_dz']:+.2f}" if np.isfinite(c["effect_dz"]) else "–", c["outcome"]])
+                rows.append(_cmp_row(task, a, b, c))
             xa, xb = by(runs, task, a, "xai"), by(runs, task, b, "xai")
             for metric in XAI_METRICS if xa and xb else []:
                 c = compare([r["xai"] for r in xa], [r["xai"] for r in xb], metric, n_boot=n_boot)
                 data.append({"task": task, "method": a, "comparator": b, **c})
-                rows.append([task, f"{NAMES.get(a, a)} vs {NAMES.get(b, b)}", metric, c["n_cases"],
-                             f"{c['mean_diff']:+.4f}", f"[{c['ci_low']:+.4f}, {c['ci_high']:+.4f}]",
-                             f"{c['effect_dz']:+.2f}" if np.isfinite(c["effect_dz"]) else "–", c["outcome"]])
-    header = ["task", "comparison", "metric", "cases", "mean diff.", "95% CI (cluster bootstrap)", "$d_z$", "outcome"]
+                rows.append(_cmp_row(task, a, b, c))
+    header = ["task", "comparison", "metric", "endpoint", "cases", "mean diff.", "95% CI (cluster bootstrap)", "$d_z$",
+              "outcome", "95% paired t-interval", "t outcome", "Wilcoxon p", "bootstrap vs t"]
     return header, rows, data
 
 
@@ -233,7 +243,10 @@ def main():
     if not args.validation_only:
         h, r_, comp = comparison_table(runs, tasks, COMPARISONS[args.comparisons], args.n_boot)
         write_table(os.path.join(args.out, "comparisons"), h, r_,
-                    "Case-level paired differences (seeds averaged within case), 95% cluster-bootstrap CI over cases.")
+                    "Case-level paired differences (seeds averaged within case), 95% cluster-bootstrap CI over cases. "
+                    "PRIMARY = the pre-registered endpoint (XFedGA vs FedGA (baseline), test DSC); every other row is "
+                    "secondary / exploratory. Sensitivity: paired t-interval and Wilcoxon signed-rank p; DISAGREE marks "
+                    "a different WIN/TIE/LOSE between the bootstrap and the t-interval.")
         h, r_ = outcome_table(runs, tasks, comp)
         write_table(os.path.join(args.out, "outcome"), h, r_, "Outcome (spec 9B): XFedGA vs FedGA (baseline).")
         out["comparisons"] = comp

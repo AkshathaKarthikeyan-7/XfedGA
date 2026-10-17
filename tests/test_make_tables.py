@@ -60,4 +60,8 @@ def test_tables_comparisons_outcome_and_latex(tmp_path):
     tex = (out / "comparisons.tex").read_text(encoding="utf-8")
     assert tex.startswith(r"\begin{tabular}") and r"\hline" in tex and "booktabs" not in tex and "toprule" not in tex
     assert "WIN" in (out / "outcome.md").read_text(encoding="utf-8")
+    md = (out / "comparisons.md").read_text(encoding="utf-8")
+    assert "PRIMARY" in md and "secondary" in md and "Wilcoxon p" in md
+    prim = [line for line in md.splitlines() if "PRIMARY" in line and "| dsc |" in line]
+    assert len(prim) == 1 and "XFedGA vs FedGA (baseline)" in prim[0]
     assert (out / "fig_val_dsc_prostate.png").exists() and (out / "fig_qi_alpha_prostate.png").exists()

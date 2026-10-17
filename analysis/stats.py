@@ -10,6 +10,9 @@ Protocol:
   - effect size: Cohen's d_z = mean(d) / sd(d) for the paired case differences;
   - outcome: WIN if the CI excludes 0 in the favourable direction, LOSE if it excludes 0 in the
     unfavourable direction, otherwise TIE.
+  - small-sample sensitivity (plan.md section 0.0): case-level paired t-interval and its outcome, and a
+    Wilcoxon signed-rank p-value; `bootstrap_t_disagree` flags comparisons where the bootstrap and the
+    t-interval give different WIN / TIE / LOSE.
 """
 import math
 from collections import defaultdict
@@ -55,6 +58,27 @@ def bootstrap_ci(d, n_boot=10000, alpha=0.05, seed=0):
     return float(np.quantile(means, alpha / 2)), float(np.quantile(means, 1 - alpha / 2))
 
 
+def t_interval(d, alpha=0.05):
+    """Paired t-interval for mean(d) over cases."""
+    from scipy import stats as st
+    d = np.asarray(d, dtype=float)
+    if d.size < 2:
+        return float("nan"), float("nan")
+    half = st.t.ppf(1 - alpha / 2, d.size - 1) * d.std(ddof=1) / math.sqrt(d.size)
+    return float(d.mean() - half), float(d.mean() + half)
+
+
+def wilcoxon_p(d):
+    """Two-sided Wilcoxon signed-rank p-value over cases (1.0 if every difference is zero)."""
+    from scipy import stats as st
+    d = np.asarray(d, dtype=float)
+    if d.size == 0:
+        return float("nan")
+    if np.all(d == 0):
+        return 1.0
+    return float(st.wilcoxon(d, zero_method="wilcox", alternative="two-sided").pvalue)
+
+
 def effect_size_dz(d):
     d = np.asarray(d, dtype=float)
     sd = d.std(ddof=1) if d.size > 1 else float("nan")
@@ -81,10 +105,14 @@ def compare(method_runs, comparator_runs, metric, n_boot=10000, seed=0):
     b = seed_averaged([case_means(r, metric) for r in comparator_runs])
     cases, d = paired_differences(a, b)
     lo, hi = bootstrap_ci(d, n_boot=n_boot, seed=seed)
-    return {"metric": metric, "n_cases": len(cases), "mean_diff": float(d.mean()) if d.size else float("nan"),
-            "ci_low": lo, "ci_high": hi, "effect_dz": effect_size_dz(d),
-            "outcome": outcome(lo, hi, DIRECTION[metric]),
-            "n_seeds": (len(method_runs), len(comparator_runs))}
+    tlo, thi = t_interval(d)
+    res = {"metric": metric, "n_cases": len(cases), "mean_diff": float(d.mean()) if d.size else float("nan"),
+           "ci_low": lo, "ci_high": hi, "effect_dz": effect_size_dz(d),
+           "outcome": outcome(lo, hi, DIRECTION[metric]),
+           "t_ci_low": tlo, "t_ci_high": thi, "t_outcome": outcome(tlo, thi, DIRECTION[metric]),
+           "wilcoxon_p": wilcoxon_p(d), "n_seeds": (len(method_runs), len(comparator_runs))}
+    res["bootstrap_t_disagree"] = res["outcome"] != res["t_outcome"]
+    return res
 
 
 def mean_sd_over_seeds(per_seed_values):

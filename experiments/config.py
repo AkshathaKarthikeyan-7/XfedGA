@@ -16,7 +16,11 @@ import numpy as np
 import torch
 import yaml
 
-TASK_CONFIGS = {"breast": "configs/breast_clients.yaml", "prostate": "configs/prostate_clients.yaml"}
+# Configs are resolved relative to the CODE root (this file's repo), not the working directory, so a
+# frozen worktree runs with its own frozen configs while data, cache and results come from the cwd.
+CODE_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TASK_CONFIGS = {"breast": os.path.join(CODE_ROOT, "configs", "breast_clients.yaml"),
+                "prostate": os.path.join(CODE_ROOT, "configs", "prostate_clients.yaml")}
 REQUIRED = ["image_size", "seed", "clients", "server", "train", "aggregation", "ga", "fitness",
             "saliency", "evaluation", "splits", "loader"]
 
@@ -71,11 +75,12 @@ def config_hash(cfg):
 
 
 def git_commit():
+    """Commit of the code that is running (CODE_ROOT), with -dirty if tracked files changed."""
     try:
-        sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], text=True,
+        sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], text=True, cwd=CODE_ROOT,
                                       stderr=subprocess.DEVNULL).strip()
         dirty = subprocess.check_output(["git", "status", "--porcelain", "--untracked-files=no"], text=True,
-                                        stderr=subprocess.DEVNULL).strip()
+                                        cwd=CODE_ROOT, stderr=subprocess.DEVNULL).strip()
         return sha + ("-dirty" if dirty else "")
     except (OSError, subprocess.CalledProcessError):
         return "unknown"

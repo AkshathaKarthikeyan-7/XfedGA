@@ -1,0 +1,117 @@
+name: beta_screen
+out: results/runs
+note: 'beta screen (plan.md section 0, approved 15 Oct): XFedGA, beta in {0, 0.2, 0.5, 1.0}, 2 seeds, both tasks; validation only (no test evaluation); beta chosen per task on the centred 3-round mean validation
+  DSC, ties -> lower q_i variance'
+runs:
+- task: prostate
+  method: xfedga
+  seed: 1
+  set:
+  - aggregation.beta=0.0
+  tag: betascreen_b0p0
+  no_test: true
+- task: breast
+  method: xfedga
+  seed: 1
+  set:
+  - aggregation.beta=0.0
+  tag: betascreen_b0p0
+  no_test: true
+- task: prostate
+  method: xfedga
+  seed: 1
+  set:
+  - aggregation.beta=0.2
+  tag: betascreen_b0p2
+  no_test: true
+- task: breast
+  method: xfedga
+  seed: 1
+  set:
+  - aggregation.beta=0.2
+  tag: betascreen_b0p2
+  no_test: true
+- task: prostate
+  method: xfedga
+  seed: 1
+  set:
+  - aggregation.beta=0.5
+  tag: betascreen_b0p5
+  no_test: true
+- task: breast
+  method: xfedga
+  seed: 1
+  set:
+  - aggregation.beta=0.5
+  tag: betascreen_b0p5
+  no_test: true
+- task: prostate
+  method: xfedga
+  seed: 1
+  set:
+  - aggregation.beta=1.0
+  tag: betascreen_b1p0
+  no_test: true
+- task: breast
+  method: xfedga
+  seed: 1
+  set:
+  - aggregation.beta=1.0
+  tag: betascreen_b1p0
+  no_test: true
+- task: prostate
+  method: xfedga
+  seed: 2
+  set:
+  - aggregation.beta=0.0
+  tag: betascreen_b0p0
+  no_test: true
+- task: breast
+  method: xfedga
+  seed: 2
+  set:
+  - aggregation.beta=0.0
+  tag: betascreen_b0p0
+  no_test: true
+- task: prostate
+  method: xfedga
+  seed: 2
+  set:
+  - aggregation.beta=0.2
+  tag: betascreen_b0p2
+  no_test: true
+- task: breast
+  method: xfedga
+  seed: 2
+  set:
+  - aggregation.beta=0.2
+  tag: betascreen_b0p2
+  no_test: true
+- task: prostate
+  method: xfedga
+  seed: 2
+  set:
+  - aggregation.beta=0.5
+  tag: betascreen_b0p5
+  no_test: true
+- task: breast
+  method: xfedga
+  seed: 2
+  set:
+  - aggregation.beta=0.5
+  tag: betascreen_b0p5
+  no_test: true
+- task: prostate
+  method: xfedga
+  seed: 2
+  set:
+  - aggregation.beta=1.0
+  tag: betascreen_b1p0
+  no_test: true
+- task: breast
+  method: xfedga
+  seed: 2
+  set:
+  - aggregation.beta=1.0
+  tag: betascreen_b1p0
+  no_test: true

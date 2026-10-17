@@ -12,7 +12,7 @@ import logging
 import numpy as np
 import torch
 
-from xai.explainability import explanation_consistency, get_gradcam, unet_cam_layer
+from xai.explainability import cam_layer as get_cam_layer, explanation_consistency, get_gradcam
 
 log = logging.getLogger(__name__)
 
@@ -56,17 +56,18 @@ def privatize_update(state, global_state, clip_norm, noise_multiplier, generator
     return out
 
 
-def client_saliency_score(model, loader, device, cam_threshold=0.5, cam_target="all"):
+def client_saliency_score(model, loader, device, cam_threshold=0.5, cam_target="pred", cam_layer="fullres"):
     """
     q_i = mean over the client's fixed q_i subsample of
           EC(CAM_k, M_k) = |{CAM_k >= t} ∩ M_k| / |{CAM_k >= t} ∪ M_k|   (t = cam_threshold),
     where CAM_k is the Grad-CAM of the class-1 logit summed over the pixels chosen by cam_target
-    (xai.explainability.cam_target_mask) at unet_cam_layer, min-max
+    (xai.explainability.cam_target_mask) at the configured layer (fitness.cam_layer; xai.explainability.cam_layer),
+    min-max
     normalised per image. A Grad-CAM failure on an image counts as EC = 0 and is logged;
     an empty loader returns 0.5 (neutral) and is logged.
     """
     model.eval()
-    layer = unet_cam_layer(model)
+    layer = get_cam_layer(model, cam_layer)
     ecs, failures = [], 0
     for imgs, masks in loader:
         for i in range(imgs.shape[0]):

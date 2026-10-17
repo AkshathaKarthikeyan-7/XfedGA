@@ -69,8 +69,10 @@ def validate(cfg):
             raise ValueError(f"scenario.{key} must be null or a client index in [0, {n_clients})")
     if sc["dp"]["enabled"] and (sc["dp"]["clip_norm"] <= 0 or sc["dp"]["noise_multiplier"] < 0):
         raise ValueError("dp.clip_norm must be > 0 and dp.noise_multiplier >= 0")
-    if cfg["fitness"].get("cam_target", "all") not in ("all", "pred"):
+    if cfg["fitness"].get("cam_target") not in ("all", "pred"):
         raise ValueError("fitness.cam_target must be all|pred")
+    if cfg["fitness"].get("cam_layer") not in ("fullres", "halfres"):
+        raise ValueError("fitness.cam_layer must be fullres|halfres")
     if cfg["method_options"]["fedprox_mu"] < 0:
         raise ValueError("fedprox_mu must be >= 0")
     g = cfg["ga"]

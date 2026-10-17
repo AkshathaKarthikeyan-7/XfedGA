@@ -14,10 +14,12 @@ ROUND_COLS = ["round", "val_dsc", "val_hd95_norm", "val_hd95_px", "val_ec", "val
               "peak_reserved_MiB"]
 
 
-def fake_run(root, task, method, seed, shift, rng, tag=""):
+def fake_run(root, task, method, seed, shift, rng, tag="", cam=("fullres", "pred")):
     rid = f"{task}_{method}_seed{seed}_abcdef12" + (f"_{tag}" if tag else "")
     d = os.path.join(root, rid)
     os.makedirs(d)
+    with open(os.path.join(d, "config_resolved.yaml"), "w", encoding="utf-8") as f:
+        f.write(f"fitness:\n  cam_layer: {cam[0]}\n  cam_target: {cam[1]}\n")
     q = "[0.2, 0.3]" if method == "xfedga" else "[]"
     with open(os.path.join(d, "round_log.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=ROUND_COLS)
@@ -47,12 +49,13 @@ def test_tables_comparisons_outcome_and_latex(tmp_path):
         fake_run(runs, "prostate", "fedga", seed, 0.00, rng)
         fake_run(runs, "prostate", "xfedga", seed, 0.05, rng)
         fake_run(runs, "prostate", "xfedga", seed, -0.30, rng, tag="hetero")    # other group: must not mix in
+        fake_run(runs, "prostate", "fedavg", seed + 10, -0.30, rng, cam=("halfres", "all"))   # old CAM: excluded
     out = tmp_path / "tables"
     res = subprocess.run([sys.executable, os.path.join(REPO, "analysis", "make_tables.py"), "--runs", str(runs / "*"),
                           "--group", "main", "--n_boot", "2000", "--out", str(out)], capture_output=True, text=True, cwd=REPO)
     assert res.returncode == 0, res.stderr[-2000:]
     data = json.load(open(out / "tables.json"))
-    assert all("hetero" not in r for r in data["runs"]) and len(data["runs"]) == 9
+    assert all("hetero" not in r for r in data["runs"]) and len(data["runs"]) == 9   # old-CAM runs excluded
     c = next(x for x in data["comparisons"] if x["method"] == "xfedga" and x["comparator"] == "fedga" and x["metric"] == "dsc")
     assert c["n_cases"] == 20 and abs(c["mean_diff"] - 0.05) < 0.005 and c["outcome"] == "WIN"
     h = next(x for x in data["comparisons"] if x["method"] == "fedga" and x["comparator"] == "fedavg" and x["metric"] == "dsc")

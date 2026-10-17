@@ -1,0 +1,108 @@
+{
+ "prostate": {
+  "checkpoint": "results\\runs\\prostate_xfedga_seed1_7e621eda_betascreen_b0p0",
+  "validation_images": [
+   "prostate_04#0",
+   "prostate_04#5",
+   "prostate_04#10",
+   "prostate_06#1",
+   "prostate_06#6",
+   "prostate_06#11",
+   "prostate_06#16",
+   "prostate_07#4",
+   "prostate_16#0",
+   "prostate_16#5",
+   "prostate_16#10",
+   "prostate_16#15",
+   "prostate_32#0",
+   "prostate_32#5",
+   "prostate_32#10",
+   "prostate_35#4",
+   "prostate_35#9",
+   "prostate_35#14",
+   "prostate_39#1",
+   "prostate_39#6",
+   "prostate_39#11",
+   "prostate_43#1",
+   "prostate_43#6",
+   "prostate_43#12"
+  ],
+  "old (halfres, all)": {
+   "q_i": {
+    "PROMISE12_client1": 0.0006,
+    "PROMISE12_client2": 0.0099
+   },
+   "val_dsc_mean": 0.3373991519668004,
+   "val_ec_mean": 0.021540386042950433,
+   "val_pg_mean": 0.041666666666666664,
+   "n_dsc_gt_0.5": 10,
+   "val_pg_on_dsc_gt_0.5": 0.1,
+   "val_ec_on_dsc_gt_0.5": 0.02894590001631221
+  },
+  "new (fullres, pred)": {
+   "q_i": {
+    "PROMISE12_client1": 0.5095,
+    "PROMISE12_client2": 0.5244
+   },
+   "val_dsc_mean": 0.3373991519668004,
+   "val_ec_mean": 0.09048314979083434,
+   "val_pg_mean": 0.5833333333333334,
+   "n_dsc_gt_0.5": 10,
+   "val_pg_on_dsc_gt_0.5": 1.0,
+   "val_ec_on_dsc_gt_0.5": 0.18231595594847919
+  }
+ },
+ "breast": {
+  "checkpoint": "results\\runs\\breast_xfedga_seed1_44cfc1dc_betascreen_b0p0",
+  "validation_images": [
+   "bus_0002-l",
+   "bus_0067-l",
+   "bus_0104-s",
+   "bus_0157-r",
+   "bus_0189-r",
+   "bus_0235-r",
+   "bus_0288-r",
+   "bus_0335-r",
+   "bus_0377-l",
+   "bus_0409-l",
+   "bus_0461-l",
+   "bus_0499-r",
+   "bus_0532-r",
+   "bus_0592-l",
+   "bus_0621-l",
+   "bus_0654-l",
+   "bus_0727-s",
+   "bus_0820-s",
+   "bus_0884-l",
+   "bus_0911-r",
+   "bus_0944-r",
+   "bus_0983-r",
+   "bus_1024-l",
+   "bus_1064-r"
+  ],
+  "old (halfres, all)": {
+   "q_i": {
+    "BUSI": 0.1598,
+    "BUS-UCLM": 0.1517
+   },
+   "val_dsc_mean": 0.6810908801853657,
+   "val_ec_mean": 0.14442424018274838,
+   "val_pg_mean": 0.5833333333333334,
+   "n_dsc_gt_0.5": 21,
+   "val_pg_on_dsc_gt_0.5": 0.6666666666666666,
+   "val_ec_on_dsc_gt_0.5": 0.15535721887078618
+  },
+  "new (fullres, pred)": {
+   "q_i": {
+    "BUSI": 0.2555,
+    "BUS-UCLM": 0.2272
+   },
+   "val_dsc_mean": 0.6810908801853657,
+   "val_ec_mean": 0.24564218173643435,
+   "val_pg_mean": 0.7916666666666666,
+   "n_dsc_gt_0.5": 21,
+   "val_pg_on_dsc_gt_0.5": 0.9047619047619048,
+   "val_ec_on_dsc_gt_0.5": 0.2689807464121332
+  }
+ }
+}

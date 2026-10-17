@@ -16,6 +16,7 @@ Usage (from repo root):
     python analysis/plan_costs.py
 """
 import datetime as dt
+import glob
 import json
 import os
 
@@ -287,6 +288,17 @@ FULL_BUDGET = (8, 16)    # GPU-h per weekday night / weekend day (instruction 15
 FULL_WINDOW = (dt.date(2026, 10, 18), dt.date(2026, 11, 5))
 
 
+def newcam_factors(rt, task):
+    import csv
+    new = glob.glob(os.path.join(REPO, "results", "smoke", f"{task}_xfedga_seed1_*_newcam_timing", "round_log.csv"))
+    if not new:
+        return 1.0, 1.0
+    n = next(csv.DictReader(open(new[0], encoding="utf-8")))
+    o = next(csv.DictReader(open(os.path.join(os.path.dirname(rt[(task, "xfedga")]["meta_path"]), "round_log.csv"),
+                                 encoding="utf-8")))
+    return float(n["qi_s"]) / float(o["qi_s"]), float(n["ga_s"]) / float(o["ga_s"])
+
+
 def method_round_costs(rt, task):
     """Per-round seconds for every method, from the measured runner logs of FedAvg / FedGA / XFedGA."""
     import csv
@@ -299,9 +311,14 @@ def method_round_costs(rt, task):
     V = sum(mean_col(m, "val_s") for m in ["fedavg", "fedga", "xfedga"]) / 3
     Q = mean_col("xfedga", "qi_s")
     G_dsc, G_multi = mean_col("fedga", "ga_s"), mean_col("xfedga", "ga_s")
+    # new CAM definition (17 Oct): Grad-CAM-based costs (q_i, multi-objective GA) scaled by the measured
+    # round-1 ratio new/old (results/smoke/<task>_xfedga_seed1_*_newcam_timing vs the timing3 run)
+    fq, fg = newcam_factors(rt, task)
+    Q, G_multi = Q * fq, G_multi * fg
+    xfedga_round = rt[(task, "xfedga")]["mean_round_s"] + (fq - 1) * mean_col("xfedga", "qi_s")         + (fg - 1) * mean_col("xfedga", "ga_s")
     return {
         "fedavg": rt[(task, "fedavg")]["mean_round_s"], "fedga": rt[(task, "fedga")]["mean_round_s"],
-        "xfedga": rt[(task, "xfedga")]["mean_round_s"],
+        "xfedga": xfedga_round, "newcam_factors": {"qi": fq, "ga_multi": fg},
         "B_weighted_only": L + Q + V, "C_fedavg_ga_multi": L + G_multi + V, "D_fedga_anneal": L + G_dsc + V,
         "F_random_qi": L + G_multi + V, "random_search": L + G_multi + V,
         "fedprox": 1.1 * L + V, "centralized": L + V, "local_only": L + 2 * V,
@@ -392,7 +409,7 @@ def full_plan(rt):
 
 
 # Schedule approved 17 Oct 2026: full GPU days and "some evenings/nights" (assumed 6 GPU-h; flagged).
-DAY_HOURS_17OCT = {dt.date(2026, 10, 17): 12,   # today from noon
+DAY_HOURS_17OCT = {dt.date(2026, 10, 17): 10,   # from 14:00 (12 h from noon minus ~2 h of the stopped old-CAM screen)
                    dt.date(2026, 10, 20): 16, dt.date(2026, 10, 21): 16, dt.date(2026, 10, 23): 12,
                    dt.date(2026, 10, 24): 16, dt.date(2026, 10, 25): 16}
 EVENING_HOURS = 6
@@ -421,7 +438,7 @@ def plan_17oct(rt):
         fwd = rc[task]["components"]["val"] / r["n_val"]
         return n_ckpt * n_images * (12 * cam + 42 * fwd) / 3600
     queue = [
-        ("beta_screen", "XFedGA beta {0, 0.2, 0.5, 1.0} x 2 tasks x 2 seeds, validation only (RUNNING since 17 Oct 11:55)",
+        ("beta_screen", "XFedGA beta {0, 0.2, 0.5, 1.0} x 2 tasks x 2 seeds, validation only (new CAM; rerun from 17 Oct 14:00)",
          runs(["xfedga"], both, 4 * 2, test=False)),
         ("headline", "FedAvg, FedGA (baseline), XFedGA (selected beta) x 2 tasks x 5 seeds",
          runs(["fedavg", "fedga", "xfedga"], both, 5)),

@@ -1,0 +1,70 @@
+task: prostate_segmentation
+method: xfedga
+method_switches:
+  aggregation: saliency
+  search: ga
+  fitness: multi
+  anneal: true
+seed: 42
+image_size:
+- 384
+- 384
+channels: 1
+clients:
+- id: client_1
+  name: PROMISE12
+  path: raw data/PROMISE12
+  notes: random half of PROMISE12 cases (via split_promise12_clients, seed=42)
+- id: client_2
+  name: PROMISE12
+  path: raw data/PROMISE12
+  notes: disjoint other half of PROMISE12 cases
+server:
+  name: Decathlon
+  path: raw data/Task05_Prostate/Task05_Prostate
+  notes: 32 cases; case-level fitness/OOD split to avoid patient leakage across sets
+  fitness_split: 0.5
+  seed: 42
+train_val_split: 0.8
+loader:
+  num_workers: 0
+  persistent_workers: true
+  pin_memory: false
+train:
+  rounds: 15
+  local_epochs: 10
+  lr: 0.001
+  adam_betas:
+  - 0.9
+  - 0.99
+  batch_size: 8
+aggregation:
+  beta: 0.0
+  eps: 0.001
+ga:
+  population: 6
+  generations: 5
+  pc: 0.5
+  pm: 0.1
+  sigma0: 0.01
+  tau: 10.0
+  cache_elite_fitness: true
+fitness:
+  weights:
+  - 0.5
+  - 0.3
+  - 0.2
+  subsample: 40
+  hd95_normalizer: 384
+  cam_threshold: 0.5
+saliency:
+  subsample: 40
+evaluation:
+  explain_samples: 30
+  selection_smoothing: 3
+splits:
+  server_block_roles:
+  - fitness
+  - validation
+  - test
+  - test

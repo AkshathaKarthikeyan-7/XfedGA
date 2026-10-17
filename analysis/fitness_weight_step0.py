@@ -19,8 +19,12 @@ import csv
 import glob
 import json
 import os
+import sys
 
 import numpy as np
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from run_filter import uses_current_cam  # noqa: E402
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(REPO, "results", "fitness_weights")
@@ -42,7 +46,7 @@ def load_pools(pattern):
     for d in sorted(glob.glob(pattern)):
         path = os.path.join(d, "ga_candidates.jsonl")
         meta_path = os.path.join(d, "run_meta.json")
-        if not (os.path.exists(path) and os.path.exists(meta_path)):
+        if not (os.path.exists(path) and os.path.exists(meta_path)) or not uses_current_cam(d):
             continue
         meta = json.load(open(meta_path, encoding="utf-8"))
         with open(path, encoding="utf-8") as f:

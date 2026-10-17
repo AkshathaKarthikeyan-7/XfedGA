@@ -81,7 +81,7 @@ class XFedGAClient(fl.client.NumPyClient):
         if self.spec["q_source"] == "gradcam":
             metrics["q_i"] = float(client_saliency_score(local, self.qi_loader, self.device,
                                                          self.cfg["fitness"]["cam_threshold"],
-                                                         self.cfg["fitness"].get("cam_target", "all")))
+                                                         self.cfg["fitness"]["cam_target"], self.cfg["fitness"]["cam_layer"]))
         log.info("round %d: trained; metrics %s", t, metrics)
         return state_to_ndarrays(state), len(self.data.train), metrics
 

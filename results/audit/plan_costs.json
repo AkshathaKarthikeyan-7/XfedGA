@@ -1046,40 +1046,48 @@
       "prostate": {
         "fedavg": 55.21666666666666,
         "fedga": 58.24,
-        "xfedga": 109.39999999999999,
-        "B_weighted_only": 57.56333333333334,
-        "C_fedavg_ga_multi": 106.90666666666667,
+        "xfedga": 115.10719154443485,
+        "newcam_factors": {
+          "qi": 1.1721311475409837,
+          "ga_multi": 1.1027568922305766
+        },
+        "B_weighted_only": 57.962103825136616,
+        "C_fedavg_ga_multi": 112.21508771929825,
         "D_fedga_anneal": 58.07333333333334,
-        "F_random_qi": 106.90666666666667,
-        "random_search": 106.90666666666667,
+        "F_random_qi": 112.21508771929825,
+        "random_search": 112.21508771929825,
         "fedprox": 60.33333333333334,
         "centralized": 55.24666666666667,
         "local_only": 59.626666666666665,
         "components": {
           "local": 50.86666666666667,
-          "qi": 2.3166666666666664,
+          "qi": 2.7154371584699453,
           "ga_dsc": 2.8266666666666667,
-          "ga_multi": 51.660000000000004,
+          "ga_multi": 56.96842105263159,
           "val": 4.38
         }
       },
       "breast": {
         "fedavg": 65.26333333333334,
         "fedga": 68.04666666666667,
-        "xfedga": 122.78666666666668,
-        "B_weighted_only": 67.40333333333334,
-        "C_fedavg_ga_multi": 121.00666666666667,
+        "xfedga": 125.4150322632846,
+        "newcam_factors": {
+          "qi": 1.1349206349206349,
+          "ga_multi": 1.0415073730202076
+        },
+        "B_weighted_only": 67.71185185185186,
+        "C_fedavg_ga_multi": 123.32651374476607,
         "D_fedga_anneal": 67.99666666666667,
-        "F_random_qi": 121.00666666666667,
-        "random_search": 121.00666666666667,
+        "F_random_qi": 123.32651374476607,
+        "random_search": 123.32651374476607,
         "fedprox": 69.86866666666667,
         "centralized": 65.11666666666667,
         "local_only": 82.71333333333334,
         "components": {
           "local": 47.52,
-          "qi": 2.2866666666666666,
+          "qi": 2.5951851851851853,
           "ga_dsc": 2.8800000000000003,
-          "ga_multi": 55.89000000000001,
+          "ga_multi": 58.20984707809941,
           "val": 17.596666666666668
         }
       }
@@ -1088,18 +1096,18 @@
       {
         "item": "headline",
         "label": "FedAvg, FedGA (baseline), XFedGA x 2 tasks x 5 seeds",
-        "raw_h": 10.333805555555555,
-        "with_contingency_h": 12.400566666666666,
-        "cumulative_h": 12.400566666666666,
+        "raw_h": 10.507462995994155,
+        "with_contingency_h": 12.608955595192986,
+        "cumulative_h": 12.608955595192986,
         "finishes": "2026-10-18",
         "cut_rank": "never"
       },
       {
         "item": "beta_screen",
         "label": "XFedGA beta in {0, 1.0} x 2 tasks x 3 seeds (beta 0.5 = headline seeds 1-3)",
-        "raw_h": 5.949400000000001,
-        "with_contingency_h": 7.13928,
-        "cumulative_h": 19.539846666666666,
+        "raw_h": 6.157788928526319,
+        "with_contingency_h": 7.389346714231582,
+        "cumulative_h": 19.998302309424567,
         "finishes": "2026-10-19",
         "cut_rank": "keep"
       },
@@ -1108,34 +1116,34 @@
         "label": "independent XAI metrics on 30 headline checkpoints (prostate: all test slices; breast: fixed 300-image subsample)",
         "raw_h": 5.236653486243283,
         "with_contingency_h": 6.28398418349194,
-        "cumulative_h": 25.823830850158608,
+        "cumulative_h": 26.282286492916505,
         "finishes": "2026-10-20",
         "cut_rank": "never"
       },
       {
         "item": "ablations_BF_RS",
         "label": "ablations B, F + random search x 2 tasks x 3 seeds (A, E reused from headline)",
-        "raw_h": 7.477016666666667,
-        "with_contingency_h": 8.97242,
-        "cumulative_h": 34.79625085015861,
+        "raw_h": 7.676564482563965,
+        "with_contingency_h": 9.211877379076757,
+        "cumulative_h": 35.494163871993266,
         "finishes": "2026-10-21",
         "cut_rank": "never"
       },
       {
         "item": "ablations_CD",
         "label": "ablations C, D x 2 tasks x 3 seeds",
-        "raw_h": 4.569525,
-        "with_contingency_h": 5.483429999999999,
-        "cumulative_h": 40.279680850158606,
+        "raw_h": 4.664878351634138,
+        "with_contingency_h": 5.597854021960965,
+        "cumulative_h": 41.09201789395423,
         "finishes": "2026-10-22",
         "cut_rank": "cut4"
       },
       {
         "item": "parity",
         "label": "fl_dist XFedGA, breast, 3 seeds (custom-loop seeds reused)",
-        "raw_h": 1.8337133333333329,
-        "with_contingency_h": 2.2004559999999995,
-        "cumulative_h": 42.48013685015861,
+        "raw_h": 1.871496088784716,
+        "with_contingency_h": 2.2457953065416594,
+        "cumulative_h": 43.33781320049589,
         "finishes": "2026-10-22",
         "cut_rank": "never"
       },
@@ -1144,7 +1152,7 @@
         "label": "FedProx x 2 tasks x 5 seeds",
         "raw_h": 2.8331527777777774,
         "with_contingency_h": 3.3997833333333327,
-        "cumulative_h": 45.87992018349194,
+        "cumulative_h": 46.73759653382922,
         "finishes": "2026-10-22",
         "cut_rank": "keep"
       },
@@ -1153,7 +1161,7 @@
         "label": "local-only bound x 2 tasks x 3 seeds",
         "raw_h": 1.8516166666666667,
         "with_contingency_h": 2.22194,
-        "cumulative_h": 48.10186018349194,
+        "cumulative_h": 48.95953653382922,
         "finishes": "2026-10-23",
         "cut_rank": "keep"
       },
@@ -1162,44 +1170,44 @@
         "label": "centralized bound x 2 tasks x 3 seeds",
         "raw_h": 1.5769083333333336,
         "with_contingency_h": 1.8922900000000002,
-        "cumulative_h": 49.99415018349194,
+        "cumulative_h": 50.851826533829225,
         "finishes": "2026-10-23",
         "cut_rank": "cut3"
       },
       {
         "item": "hetero",
         "label": "heterogeneous prostate partition: FedAvg, FedGA, XFedGA x 3 seeds",
-        "raw_h": 2.8201499999999995,
-        "with_contingency_h": 3.3841799999999993,
-        "cumulative_h": 53.37833018349194,
+        "raw_h": 2.8914898943054355,
+        "with_contingency_h": 3.4697878731665224,
+        "cumulative_h": 54.32161440699575,
         "finishes": "2026-10-23",
         "cut_rank": "keep"
       },
       {
         "item": "robustness",
         "label": "noisy-q_i client (XFedGA) and corrupted-label client (XFedGA + FedAvg), breast, 3 seeds",
-        "raw_h": 4.063700000000001,
-        "with_contingency_h": 4.8764400000000006,
-        "cumulative_h": 58.25477018349194,
+        "raw_h": 4.129409139915448,
+        "with_contingency_h": 4.955290967898537,
+        "cumulative_h": 59.276905374894284,
         "finishes": "2026-10-24",
         "cut_rank": "keep"
       },
       {
         "item": "fw_grid",
         "label": "fitness-weight grid (only if offline Step 0 shows the winner changes): 4 points x 3 seeds breast + 2 x 3 prostate",
-        "raw_h": 9.138466666666668,
-        "with_contingency_h": 10.96616,
-        "cumulative_h": 69.22093018349194,
+        "raw_h": 9.412564735108434,
+        "with_contingency_h": 11.29507768213012,
+        "cumulative_h": 70.5719830570244,
         "finishes": "2026-10-24",
         "cut_rank": "cut2"
       },
       {
         "item": "dp",
         "label": "DP (clip + Gaussian noise), XFedGA, breast, 3 seeds",
-        "raw_h": 1.5945333333333336,
-        "with_contingency_h": 1.9134400000000003,
-        "cumulative_h": 71.13437018349194,
-        "finishes": "2026-10-24",
+        "raw_h": 1.6273879032910574,
+        "with_contingency_h": 1.9528654839492687,
+        "cumulative_h": 72.52484854097366,
+        "finishes": "2026-10-25",
         "cut_rank": "cut1"
       },
       {
@@ -1207,21 +1215,21 @@
         "label": "optional: FedGA (paper GA settings) P=10, G=20, 20 rounds, full fitness set, batch 8, 1 seed per task",
         "raw_h": 1.5154978835978836,
         "with_contingency_h": 1.8185974603174602,
-        "cumulative_h": 72.9529676438094,
+        "cumulative_h": 74.34344600129113,
         "finishes": "2026-10-25",
         "cut_rank": "cut0"
       }
     ],
-    "total_with_contingency_h": 72.9529676438094,
+    "total_with_contingency_h": 74.34344600129113,
     "fits": true,
     "cuts_needed": [],
     "queue_after_cuts": null
   },
   "plan_17oct": {
     "window": "2026-10-17..2026-11-05",
-    "capacity_h": 172,
+    "capacity_h": 170,
     "full_days": {
-      "2026-10-17": 12,
+      "2026-10-17": 10,
       "2026-10-20": 16,
       "2026-10-21": 16,
       "2026-10-23": 12,
@@ -1233,34 +1241,34 @@
     "queue": [
       {
         "item": "beta_screen",
-        "label": "XFedGA beta {0, 0.2, 0.5, 1.0} x 2 tasks x 2 seeds, validation only (RUNNING since 17 Oct 11:55)",
-        "raw_h": 7.74311111111111,
-        "with_contingency_h": 9.291733333333331,
-        "cumulative_h": 9.291733333333331,
+        "label": "XFedGA beta {0, 0.2, 0.5, 1.0} x 2 tasks x 2 seeds, validation only (new CAM; rerun from 17 Oct 14:00)",
+        "raw_h": 8.020963015812871,
+        "with_contingency_h": 9.625155618975445,
+        "cumulative_h": 9.625155618975445,
         "finishes": "2026-10-17"
       },
       {
         "item": "headline",
         "label": "FedAvg, FedGA (baseline), XFedGA (selected beta) x 2 tasks x 5 seeds",
-        "raw_h": 10.333805555555555,
-        "with_contingency_h": 12.400566666666666,
-        "cumulative_h": 21.692299999999996,
-        "finishes": "2026-10-19"
+        "raw_h": 10.507462995994155,
+        "with_contingency_h": 12.608955595192986,
+        "cumulative_h": 22.23411121416843,
+        "finishes": "2026-10-20"
       },
       {
         "item": "ablations",
         "label": "ablations B, C, D, F + random search x 2 tasks x 5 seeds (A = FedGA, E = XFedGA from headline)",
-        "raw_h": 20.077569444444446,
-        "with_contingency_h": 24.093083333333336,
-        "cumulative_h": 45.78538333333333,
+        "raw_h": 20.569071390330166,
+        "with_contingency_h": 24.6828856683962,
+        "cumulative_h": 46.91699688256463,
         "finishes": "2026-10-21"
       },
       {
         "item": "parity",
         "label": "fl_dist XFedGA, breast, 3 seeds",
-        "raw_h": 1.8337133333333329,
-        "with_contingency_h": 2.2004559999999995,
-        "cumulative_h": 47.98583933333333,
+        "raw_h": 1.871496088784716,
+        "with_contingency_h": 2.2457953065416594,
+        "cumulative_h": 49.16279218910629,
         "finishes": "2026-10-21"
       },
       {
@@ -1268,38 +1276,38 @@
         "label": "independent XAI metrics on the 30 headline checkpoints (no retraining)",
         "raw_h": 5.236653486243283,
         "with_contingency_h": 6.28398418349194,
-        "cumulative_h": 54.26982351682527,
-        "finishes": "2026-10-21"
+        "cumulative_h": 55.44677637259823,
+        "finishes": "2026-10-22"
       },
       {
         "item": "fedprox_bounds",
         "label": "FedProx x 2 tasks x 5 seeds; centralized + local-only bounds x 2 tasks x 3 seeds",
         "raw_h": 6.261677777777777,
         "with_contingency_h": 7.514013333333332,
-        "cumulative_h": 61.7838368501586,
-        "finishes": "2026-10-22"
+        "cumulative_h": 62.96078970593156,
+        "finishes": "2026-10-23"
       },
       {
         "item": "hetero",
         "label": "heterogeneous prostate partition: FedAvg, FedGA, XFedGA x 5 seeds",
-        "raw_h": 4.700249999999999,
-        "with_contingency_h": 5.640299999999998,
-        "cumulative_h": 67.4241368501586,
+        "raw_h": 4.819149823842393,
+        "with_contingency_h": 5.782979788610871,
+        "cumulative_h": 68.74376949454243,
         "finishes": "2026-10-23"
       },
       {
         "item": "robustness_dp",
         "label": "breast, 3 seeds: noisy-q_i client (XFedGA), corrupted-label client (XFedGA + FedAvg), DP (XFedGA)",
-        "raw_h": 5.658233333333334,
-        "with_contingency_h": 6.789880000000001,
-        "cumulative_h": 74.2140168501586,
+        "raw_h": 5.756797043206506,
+        "with_contingency_h": 6.908156451847806,
+        "cumulative_h": 75.65192594639024,
         "finishes": "2026-10-24"
       }
     ],
-    "planned_with_contingency_h": 74.2140168501586,
-    "unallocated_buffer_h": 97.7859831498414,
+    "planned_with_contingency_h": 75.65192594639024,
+    "unallocated_buffer_h": 94.34807405360976,
     "buffer_ok": true,
-    "capacity_by_2026_10_29_h": 130,
+    "capacity_by_2026_10_29_h": 128,
     "finish": "2026-10-24"
   }
 }

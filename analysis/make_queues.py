@@ -16,9 +16,13 @@ import csv
 import glob
 import json
 import os
+import sys
 
 import numpy as np
 import yaml
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from run_filter import uses_current_cam  # noqa: E402
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BOTH = ["prostate", "breast"]
@@ -47,7 +51,7 @@ def entries(tasks, methods, seeds, sets=(), tag=None, **extra):
 def headline_update_norm():
     norms = []
     for d in glob.glob(os.path.join(REPO, "results", "runs", "breast_xfedga_seed*")):
-        if "_betascreen" in d or not os.path.exists(os.path.join(d, "run_meta.json")):
+        if "_betascreen" in d or not os.path.exists(os.path.join(d, "run_meta.json")) or not uses_current_cam(d):
             continue
         with open(os.path.join(d, "round_log.csv"), encoding="utf-8") as f:
             for r in csv.DictReader(f):

@@ -12,8 +12,11 @@ reported for plausibility only):
                              the most salient pixels (Grad-CAM order, 20 steps) are replaced by / restored
                              from a Gaussian-blurred copy of the image (sigma 8 px); lower deletion /
                              higher insertion = more faithful (xai.explainability.insertion_deletion_auc)
-CAM: Grad-CAM / Grad-CAM++ at xai.explainability.unet_cam_layer (last decoder conv), target = the
-class-1 logit summed over the pixels given by the run's fitness.cam_target (all | pred).
+CAM: Grad-CAM / Grad-CAM++ at the run's fitness.cam_layer (fullres = full-resolution decoder up-conv,
+the XFedGA definition from 17 Oct 2026), target = the class-1 logit summed over the pixels given by the
+run's fitness.cam_target (pred = predicted foreground).
+deletion_auc / insertion_auc are EXPLORATORY on the real data: the models use surrounding anatomy, which
+blurring the salient pixels in place leaves intact (see plan.md section 0.0).
 Per checkpoint, on the first --randomization_images images: cascading parameter-randomisation check
 (Spearman rho between the original and randomised Grad-CAM after 1, 2, 4, 8, 16 layers).
 
@@ -38,12 +41,13 @@ import yaml
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, REPO)
 
+from analysis.run_filter import uses_current_cam  # noqa: E402
 from data.splits import one_per_group_subsample  # noqa: E402
 from experiments.config import load_config  # noqa: E402
 from experiments.tasks import build_task  # noqa: E402
 from models.residual_unet import build_residual_unet  # noqa: E402
-from xai.explainability import (explanation_consistency, get_gradcam, get_gradcam_pp, insertion_deletion_auc,  # noqa: E402
-                                pointing_game_accuracy, randomization_check, unet_cam_layer)
+from xai.explainability import (CAM_LAYERS, cam_layer, explanation_consistency, get_gradcam, get_gradcam_pp,  # noqa: E402
+                                insertion_deletion_auc, pointing_game_accuracy, randomization_check)
 
 OUT = os.path.join(REPO, "results", "xai")
 
@@ -65,6 +69,8 @@ def image_subset(task, data, cfg, breast_images, split="test"):
 
 
 def process(run_dir, args, device):
+    if not uses_current_cam(run_dir):    # old CAM definition: excluded (plan.md section 0.0)
+        return None
     meta = json.load(open(os.path.join(run_dir, "run_meta.json"), encoding="utf-8"))
     if meta.get("method_switches", {}).get("topology") == "local_only":
         return None
@@ -83,7 +89,8 @@ def process(run_dir, args, device):
     model = build_residual_unet().to(device)
     model.load_state_dict(torch.load(ckpt, map_location=device))
     model.eval()
-    layer = unet_cam_layer(model)
+    lname = cfg["fitness"].get("cam_layer", "fullres")
+    layer = cam_layer(model, lname)
     thr = cfg["fitness"]["cam_threshold"]
     ct = args.cam_target or cfg["fitness"].get("cam_target", "all")
     os.makedirs(out, exist_ok=True)
@@ -100,7 +107,7 @@ def process(run_dir, args, device):
                      "deletion_auc": insertion_deletion_auc(model, x, cam, gt_mask=m, mode="deletion"),
                      "insertion_auc": insertion_deletion_auc(model, x, cam, gt_mask=m, mode="insertion")})
         if n < args.randomization_images:
-            rho = randomization_check(model, x, seed=args.seed, cam_target=ct)
+            rho = randomization_check(model, x, seed=args.seed, cam_target=ct, layer_fn=CAM_LAYERS[lname])
             rand_rows.append({"image_id": test.image_ids[i], **{f"rho_after_{k}_layers": v for k, v in rho.items()}})
     with open(os.path.join(out, "xai_per_image.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
@@ -111,7 +118,7 @@ def process(run_dir, args, device):
         w.writeheader()
         w.writerows(rand_rows)
     summary = {"run_id": meta["run_id"], "task": task, "method": meta["method"], "seed": meta["seed"], "split": args.split,
-               "cam_target": ct,
+               "cam_target": ct, "cam_layer": lname,
                "checkpoint": os.path.relpath(ckpt, REPO), "n_images": len(rows), "seconds": round(time.time() - t0, 1),
                **{k: float(np.mean([r[k] for r in rows])) for k in rows[0] if k not in ("image_id", "group_id")},
                **{k: float(np.mean([r[k] for r in rand_rows])) for k in rand_rows[0] if k != "image_id"}}

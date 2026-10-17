@@ -28,6 +28,7 @@ import sys
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from run_filter import uses_current_cam  # noqa: E402
 from stats import DIRECTION, case_means, compare, mean_sd_over_seeds  # noqa: E402
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,6 +43,7 @@ COMPARISONS = {
 }
 METRICS = ["dsc", "hd95_norm", "ec", "pg"]
 XAI_METRICS = ["pg_gradcam", "pg_gradcampp", "deletion_auc", "insertion_auc"]
+EXPLORATORY = {"deletion_auc", "insertion_auc"}   # context caveat: plan.md section 0.0, analysis/xai_metrics.py
 
 
 def run_group(run_id):
@@ -55,6 +57,8 @@ def load_runs(pattern, group):
     runs = []
     for meta_path in glob.glob(os.path.join(pattern, "run_meta.json")):
         d = os.path.dirname(meta_path)
+        if not uses_current_cam(d):      # old CAM definition (before 17 Oct 13:49): never analysed
+            continue
         meta = json.load(open(meta_path, encoding="utf-8"))
         rid = meta.get("run_id", os.path.basename(d))
         g = run_group(rid)
@@ -127,7 +131,8 @@ PRIMARY = ("xfedga", "fedga", "dsc")   # pre-registered primary endpoint (plan.m
 
 
 def _cmp_row(task, a, b, c):
-    endpoint = "PRIMARY" if (a, b, c["metric"]) == PRIMARY else "secondary"
+    endpoint = ("PRIMARY" if (a, b, c["metric"]) == PRIMARY else
+                "exploratory (context caveat)" if c["metric"] in EXPLORATORY else "secondary")
     dz = f"{c['effect_dz']:+.2f}" if np.isfinite(c["effect_dz"]) else "–"
     wp = f"{c['wilcoxon_p']:.3g}" if np.isfinite(c["wilcoxon_p"]) else "–"
     return [task, f"{NAMES.get(a, a)} vs {NAMES.get(b, b)}", c["metric"], endpoint, c["n_cases"],
@@ -245,7 +250,9 @@ def main():
         write_table(os.path.join(args.out, "comparisons"), h, r_,
                     "Case-level paired differences (seeds averaged within case), 95% cluster-bootstrap CI over cases. "
                     "PRIMARY = the pre-registered endpoint (XFedGA vs FedGA (baseline), test DSC); every other row is "
-                    "secondary / exploratory. Sensitivity: paired t-interval and Wilcoxon signed-rank p; DISAGREE marks "
+                    "secondary; deletion/insertion AUC are exploratory: on real images the model uses surrounding anatomy, "
+                    "which blurring the salient pixels in place leaves intact. "
+                    "Sensitivity: paired t-interval and Wilcoxon signed-rank p; DISAGREE marks "
                     "a different WIN/TIE/LOSE between the bootstrap and the t-interval.")
         h, r_ = outcome_table(runs, tasks, comp)
         write_table(os.path.join(args.out, "outcome"), h, r_, "Outcome (spec 9B): XFedGA vs FedGA (baseline).")

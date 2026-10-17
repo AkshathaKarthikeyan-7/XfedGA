@@ -1,0 +1,12 @@
+# Re-audit list: why results before 17 Oct 2026 are superseded
+
+These are the issues that invalidate earlier results. Each one is fixed before the headline experiments. Evidence is in `reports/audit/audit.md` and `reports/audit/plan.md`. The old outputs are kept, marked superseded, in `results/legacy/` (and `results/runs/_oldcam_definition/` for item 6).
+
+| # | Issue | Consequence for earlier results | Fixed by |
+|---|---|---|---|
+| 1 | Every `*_BEST.pt` was the round with the highest DSC **on the OOD test set** (exact re-evaluation, `results/audit/verify_checkpoints.json`) | Selection on the test set: all Review-1/2 accuracy numbers are optimistic and superseded | Three-way split; checkpoint selected on validation (centred 3-round mean), test evaluated once (Session 2) |
+| 2 | Single, unseeded runs; per-image statistics on correlated images | No seed variance; p-values overstate certainty | Seeding + determinism test; case-level paired comparisons with cluster-bootstrap CIs, 5 seeds (Session 2; `analysis/stats.py`) |
+| 3 | BUS-UCLM malignant masks (red) were binarised to empty, so all 90 malignant lesions were dropped (audit D-1) | Breast client 2 trained on benign lesions only | Masks read in colour (Session 2; `tests/test_cache.py`) |
+| 4 | The BUS-BRA fitness/OOD split was per image; 382 patients appeared in both halves (audit D-2) | Patient leakage between fitness and OOD data | Patient-level 15/25/60 split, stratified (Session 2; `tests/test_splits.py`) |
+| 5 | The β of the prostate XFedGA run is unknown (the deck says 0.2, the script default is 0.5) | The prostate XFedGA result cannot be attributed to a β | β chosen per task on validation by a pre-registered rule (`analysis/beta_decision.py`) |
+| 6 | **Grad-CAM layer failed a known-answer localisation test; replaced before the headline; all Review-2 EC and pointing-game results are superseded** | The old layer (half-resolution decoder conv) with the all-pixel target put 0.05–0.19 of the CAM mass on the lesion of a near-perfect synthetic model, pointing game 0.38. q_i and the EC fitness term of every XFedGA run before 17 Oct used it; prostate q_i was ≈ 0.001 | Full-resolution decoder layer + predicted-foreground target (`fitness.cam_layer = fullres`, `cam_target = pred`; decision 17 Oct, recorded in commit `a78d272` before any new run; `tests/test_xai_known_answer.py`; validation sanity check in `results/audit/cam_change_sanity.json`) |

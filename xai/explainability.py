@@ -48,7 +48,7 @@ def cam_target_mask(model, input_tensor, target_class=1, cam_target="all"):
     return np.ones((h, w), dtype=np.float32)
 
 
-def get_gradcam(model, target_layer, input_tensor, target_class=1, cam_target="all"):
+def get_gradcam(model, target_layer, input_tensor, target_class=1, cam_target="pred"):
     """
     Grad-CAM of the summed class-`target_class` logits over the pixels chosen by `cam_target`
     (see cam_target_mask), at `target_layer` (for the Residual U-Net: unet_cam_layer, the last decoder
@@ -161,13 +161,23 @@ def unet_cam_layer(model):
 
 
 def unet_fullres_cam_layer(model):
-    """Candidate Grad-CAM layer: the full-resolution decoder up-convolution (model.model[2][0]), just before the
-    output head. Passes the known-answer test (CAM mass in lesion 1.00, pointing game 1.00). NOT used by the
-    method unless adopted by decision (plan.md)."""
+    """XFedGA's Grad-CAM layer from 17 Oct 2026 (decision (b), plan.md section 0.0): the full-resolution decoder
+    up-convolution (model.model[2][0]), just before the output head. Passes the known-answer test (CAM mass in
+    lesion 1.00, pointing game 1.00, tests/test_xai_known_answer.py)."""
     return model.model[2][0]
 
 
-def get_gradcam_pp(model, target_layer, input_tensor, target_class=1, cam_target="all"):
+CAM_LAYERS = {"fullres": unet_fullres_cam_layer, "halfres": unet_cam_layer}
+
+
+def cam_layer(model, name="fullres"):
+    """The Grad-CAM layer named in the config (fitness.cam_layer): fullres (method default) | halfres (legacy)."""
+    if name not in CAM_LAYERS:
+        raise ValueError(f"cam_layer must be one of {sorted(CAM_LAYERS)}, got {name!r}")
+    return CAM_LAYERS[name](model)
+
+
+def get_gradcam_pp(model, target_layer, input_tensor, target_class=1, cam_target="pred"):
     """Grad-CAM++ (a second CAM method for the independent explanation metrics), same target as get_gradcam."""
     from pytorch_grad_cam import GradCAMPlusPlus
     from pytorch_grad_cam.utils.model_targets import SemanticSegmentationTarget
@@ -178,7 +188,7 @@ def get_gradcam_pp(model, target_layer, input_tensor, target_class=1, cam_target
         return cam(input_tensor=input_tensor, targets=[SemanticSegmentationTarget(target_class, tmask)])[0]
 
 
-def randomization_check(model, input_tensor, steps=(1, 2, 4, 8, 16), seed=0, size=96, cam_target="all",
+def randomization_check(model, input_tensor, steps=(1, 2, 4, 8, 16), seed=0, size=96, cam_target="pred",
                         layer_fn=None):
     """
     Cascading model-parameter randomisation (Adebayo et al., 2018): re-initialise the conv layers from the
@@ -192,7 +202,7 @@ def randomization_check(model, input_tensor, steps=(1, 2, 4, 8, 16), seed=0, siz
     from scipy.stats import spearmanr
 
     def cam_of(m):
-        c = get_gradcam(m, (layer_fn or unet_cam_layer)(m), input_tensor, target_class=1, cam_target=cam_target)
+        c = get_gradcam(m, (layer_fn or unet_fullres_cam_layer)(m), input_tensor, target_class=1, cam_target=cam_target)
         return F.interpolate(torch.from_numpy(c)[None, None].float(), size=(size, size), mode="area").flatten().numpy()
 
     base = cam_of(model)

@@ -20,11 +20,15 @@ Reads results/runs/*_betascreen_b*/; writes results/beta/beta_decision.json and 
 """
 import csv
 import glob
+import sys
 import json
 import os
 
 import numpy as np
 import yaml
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from run_filter import uses_current_cam  # noqa: E402
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUNS = os.path.join(REPO, "results", "runs")
@@ -38,6 +42,8 @@ def load_runs():
     runs = []
     for meta_path in glob.glob(os.path.join(RUNS, "*_betascreen_b*", "run_meta.json")):
         d = os.path.dirname(meta_path)
+        if not uses_current_cam(d):      # old CAM definition: excluded (plan.md section 0.0)
+            continue
         meta = json.load(open(meta_path, encoding="utf-8"))
         with open(os.path.join(d, "config_resolved.yaml"), encoding="utf-8") as f:
             cfg_beta = float(yaml.safe_load(f)["aggregation"]["beta"])

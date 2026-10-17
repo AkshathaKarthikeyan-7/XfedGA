@@ -1,0 +1,92 @@
+{
+ "queue": "beta_screen",
+ "code_root": "D:\\new repo\\xfedga_frozen\\bd6baeb",
+ "code_commit": "bd6baeb",
+ "repo": "D:\\new repo\\xfedga",
+ "runs": [
+  {
+   "run_id": "prostate_xfedga_seed1_7e621eda_betascreen_b0p0",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "aggregation.beta=0.0"
+   ],
+   "tag": "betascreen_b0p0",
+   "no_test": true,
+   "status": "done",
+   "minutes": 29.4,
+   "gpu": {
+    "busy_samples": 105,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 1260.0,
+    "median_power_W": 66.92,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed1_44cfc1dc_betascreen_b0p0",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "aggregation.beta=0.0"
+   ],
+   "tag": "betascreen_b0p0",
+   "no_test": true,
+   "status": "done",
+   "minutes": 31.8,
+   "gpu": {
+    "busy_samples": 84,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.26,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed1_61a2305d_betascreen_b0p2",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "aggregation.beta=0.2"
+   ],
+   "tag": "betascreen_b0p2",
+   "no_test": true,
+   "status": "done",
+   "minutes": 26.0,
+   "gpu": {
+    "busy_samples": 78,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 1275.0,
+    "median_power_W": 67.87,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed1_957aba4b_betascreen_b0p2",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "aggregation.beta=0.2"
+   ],
+   "tag": "betascreen_b0p2",
+   "no_test": true,
+   "status": "done",
+   "minutes": 33.0,
+   "gpu": {
+    "busy_samples": 94,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 67.03,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false
+   }
+  }
+ ]
+}

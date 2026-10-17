@@ -126,7 +126,7 @@ def server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device
     if spec["search"] in ("ga", "random"):
         fitness_fn = build_fitness_fn(model, srv.fixed, spec["fitness"], fit_cfg["weights"],
                                       fit_cfg["hd95_normalizer"], fit_cfg["cam_threshold"], record=candidates,
-                                      cam_target=fit_cfg.get("cam_target", "all"))
+                                      cam_target=fit_cfg["cam_target"], cam_layer=fit_cfg["cam_layer"])
     if spec["search"] == "ga":
         best, history = run_ga(w_agg, fitness_fn, mode="xfedga" if spec["anneal"] else "base",
                                population_size=ga_cfg["population"], generations=ga_cfg["generations"],
@@ -147,7 +147,8 @@ def server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device
     ts = time.time()
     val = per_image_metrics(model, srv.val_loader, device, fit_cfg["hd95_normalizer"], with_cam=False)
     expl = per_image_metrics(model, DataLoader(srv.val_explain, batch_size=srv.bs), device, fit_cfg["hd95_normalizer"],
-                             fit_cfg["cam_threshold"], with_cam=True, cam_target=fit_cfg.get("cam_target", "all"))
+                             fit_cfg["cam_threshold"], with_cam=True, cam_target=fit_cfg["cam_target"],
+                             cam_layer=fit_cfg["cam_layer"])
     rt["val_s"] = time.time() - ts
     row = {"round": t, "val_dsc": _mean(val, "dsc"), "val_hd95_norm": _mean(val, "hd95_norm"),
            "val_hd95_px": _mean(val, "hd95_px"), "val_ec": _mean(expl, "ec"), "val_pg": _mean(expl, "pg"),
@@ -197,7 +198,7 @@ def _train(cfg, spec, seed, clients, data, device, model, cand_log=None):
             if spec["q_source"] == "gradcam":
                 ts = time.time()
                 qs.append(client_saliency_score(local, qi_loaders[k], device, fit_cfg["cam_threshold"],
-                                                fit_cfg.get("cam_target", "all")))
+                                                fit_cfg["cam_target"], fit_cfg["cam_layer"]))
                 rt["qi_s"] += time.time() - ts
         row, best_state = server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device, cand_log)
         states.append(best_state)
@@ -227,7 +228,7 @@ def _finish(cfg, data, device, model, rows, states, out, suffix, evaluate_test):
         test = data.server["test"]
         rows_t = per_image_metrics(model, DataLoader(test.dataset, batch_size=bs, shuffle=False, **loader_kwargs(cfg)),
                                    device, fit_cfg["hd95_normalizer"], fit_cfg["cam_threshold"], with_cam=True,
-                                   cam_target=fit_cfg.get("cam_target", "all"))
+                                   cam_target=fit_cfg["cam_target"], cam_layer=fit_cfg["cam_layer"])
         with open(os.path.join(out, f"test_per_image{suffix}.csv"), "w", newline="", encoding="utf-8") as f:
             w = csv.writer(f)
             w.writerow(["image_id", "group_id", "dsc", "hd95_norm", "hd95_px", "ec", "pg"])

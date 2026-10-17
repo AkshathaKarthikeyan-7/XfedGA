@@ -47,11 +47,13 @@ def _stem(path):
     return os.path.splitext(os.path.basename(path))[0]
 
 
-def build_breast(cfg):
+def build_breast(cfg, part="all"):
     size, seed = tuple(cfg["image_size"]), cfg["seed"]
     sp = cfg["splits"]
     clients, log = [], {"clients": {}, "server": {}}
-    for c in cfg["clients"]:
+    for k, c in enumerate(cfg["clients"]):
+        if part == "server" or (isinstance(part, int) and part != k):
+            continue
         pairs = filter_nonempty_masks(BREAST_INDEXERS[c["name"]](c["path"]), size=size, verbose=False,
                                       cache=breast_cache(c["name"], c["path"], size))
         if c["name"] == "BUS-UCLM":   # patient = filename prefix, e.g. ALWI_000.png -> ALWI
@@ -61,10 +63,12 @@ def build_breast(cfg):
             train, val = train_val_split(pairs, val_ratio=sp["client_val_fraction"], seed=seed)
             groups = len(train)
         ds = BreastClientDataset(c["name"], c["path"], size=size, pairs=train)
-        qi = random_subsample(len(ds), cfg["saliency"]["subsample"], seed=seed + 1000 + len(clients))
+        qi = random_subsample(len(ds), cfg["saliency"]["subsample"], seed=seed + 1000 + k)
         clients.append(ClientData(c["name"], ds, qi, groups))
         log["clients"][c["name"]] = {"n_train_images": len(train), "n_heldout_images": len(val),
                                      "n_train_groups": groups, "qi_subsample": [_stem(train[i][0]) for i in qi]}
+    if isinstance(part, int):
+        return TaskData(clients, {}, [], [], log)
 
     s = cfg["server"]
     pairs = filter_nonempty_masks(BREAST_INDEXERS[s["name"]](s["path"]), size=size, verbose=False,
@@ -98,7 +102,7 @@ def _case_ids(cases, cache):
     return image_ids, group_ids, sizes
 
 
-def build_prostate(cfg):
+def build_prostate(cfg, part="all"):
     size, seed = tuple(cfg["image_size"]), cfg["seed"]
     root = cfg["clients"][0]["path"]
     clients, log = [], {"clients": {}, "server": {}}
@@ -110,6 +114,8 @@ def build_prostate(cfg):
         client_cases = split_promise12_clients(root, seed=seed)
     log["partition"] = sc["partition"]
     for k, cases in enumerate(client_cases):
+        if part == "server" or (isinstance(part, int) and part != k):
+            continue
         ds = ProstateClientDataset("PROMISE12", root, size=size, cases=cases)
         qi = random_subsample(len(ds), cfg["saliency"]["subsample"], seed=seed + 1000 + k)
         ids, _, _ = _case_ids(cases, p_cache)
@@ -117,6 +123,8 @@ def build_prostate(cfg):
         clients.append(ClientData(name, ds, qi, len(cases)))
         log["clients"][name] = {"n_cases": len(cases), "n_slices": len(ds),
                                 "cases": sorted(_stem(c) for c, _ in cases), "qi_subsample": [ids[i] for i in qi]}
+    if isinstance(part, int):
+        return TaskData(clients, {}, [], [], log)
 
     s = cfg["server"]
     cases = PROSTATE_INDEXERS["Decathlon"](s["path"])
@@ -146,12 +154,18 @@ def split_summary(data):
             "server": data.split_log["server"]}
 
 
-def build_task(task, cfg):
-    data = {"breast": build_breast, "prostate": build_prostate}[task](cfg)
+def build_task(task, cfg, part="all"):
+    """
+    part = "all"   : every client and the server sets (custom loop);
+           "server": server fitness / validation / test sets only (fl_dist server);
+           k (int) : client k only, and nothing else (fl_dist client k loads only its own data).
+    """
+    data = {"breast": build_breast, "prostate": build_prostate}[task](cfg, part)
     k = cfg["scenario"]["corrupted_label_client"]
-    if k is not None:   # robustness scenario: client k's masks shuffled across its own images
-        c = data.clients[k]
-        data.clients[k] = ClientData(c.name, ShuffledMaskDataset(c.train, cfg["seed"] + 777), c.qi_indices,
-                                     c.n_train_groups)
+    if k is not None and part in ("all", k):   # robustness scenario: client k's masks shuffled across its own images
+        idx = k if part == "all" else 0
+        c = data.clients[idx]
+        data.clients[idx] = ClientData(c.name, ShuffledMaskDataset(c.train, cfg["seed"] + 777), c.qi_indices,
+                                       c.n_train_groups)
         data.split_log["corrupted_label_client"] = c.name
     return data

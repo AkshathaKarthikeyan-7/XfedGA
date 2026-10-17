@@ -42,7 +42,7 @@ sys.path.insert(0, CODE_ROOT)
 
 from experiments.config import config_hash, load_config  # noqa: E402
 
-SMI_FIELDS = "timestamp,utilization.gpu,clocks.sm,power.draw,temperature.gpu,clocks_event_reasons.active,pstate"
+SMI_FIELDS = "timestamp,utilization.gpu,clocks.sm,power.draw,temperature.gpu,clocks_event_reasons.active,pstate,memory.used"
 
 
 def run_id_for(entry):
@@ -74,9 +74,13 @@ class GpuSampler(threading.Thread):
 
 
 def gpu_summary(path, min_clock_mhz):
-    busy = []
+    busy, mem = [], []
     with open(path, encoding="utf-8") as f:
         for row in csv.DictReader(f, skipinitialspace=True):
+            try:
+                mem.append(float(row.get("memory.used") or "nan"))
+            except ValueError:
+                pass
             try:
                 util = float(row["utilization.gpu"])
                 clk = float(row["clocks.sm"])
@@ -86,15 +90,16 @@ def gpu_summary(path, min_clock_mhz):
                 continue
             if util >= 50:
                 busy.append((clk, pwr, reason))
+    max_mem = max((m for m in mem if m == m), default=None)   # whole-GPU memory.used (all processes)
     if not busy:
-        return {"busy_samples": 0, "throttled": None}
+        return {"busy_samples": 0, "throttled": None, "max_memory_used_MiB": max_mem}
     clocks = sorted(b[0] for b in busy)
     share = sum(1 for b in busy if b[2] & ~0x1) / len(busy)  # any reason other than "GPU idle"
     median = clocks[len(clocks) // 2]
     return {"busy_samples": len(busy), "median_sm_clock_MHz": median, "min_sm_clock_MHz": clocks[0],
             "median_power_W": sorted(b[1] for b in busy)[len(busy) // 2],
             "share_busy_with_throttle_reason": round(share, 3),
-            "throttled": median < min_clock_mhz or share > 0.2}
+            "throttled": median < min_clock_mhz or share > 0.2, "max_memory_used_MiB": max_mem}
 
 
 def main():

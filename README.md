@@ -73,6 +73,17 @@ git worktree add --detach ..þdga_frozen\<sha> <sha>
 un_queue.py ..þdga_frozen\<sha>\queues\<queue>.yaml --repo .
 ```
 
+## Analysis (CPU; every table and figure from `results/`)
+```powershell
+& $py analysis/make_tables.py --group main --out results/tables/headline                        # headline
+& $py analysis/make_tables.py --group main --comparisons ablations --out results/tables/ablations
+& $py analysis/make_tables.py --group hetero --out results/tables/hetero
+& $py analysis/xai_metrics.py --runs "results/runs/*_seed*"      # independent XAI metrics (GPU, minutes per checkpoint)
+& $py analysis/fitness_weight_step0.py                           # fitness-weight sensitivity, offline
+& $py analysis/beta_decision.py                                  # beta rule on the beta screen (validation only)
+```
+Each table is written as `.md` and as LaTeX (`egin{tabular}` with `\hline`) for the thesis. Comparisons are case-level paired differences: seeds are averaged within case, with a 95% cluster-bootstrap CI over cases, Cohen's d_z, and WIN / TIE / LOSE.
+
 ## Repository layout
 `configs/ data/ models/ fedga/ xai/ experiments/ fl_dist/ (Session 3) analysis/ tests/ reports/ results/`; see [ARCHITECTURE.md](ARCHITECTURE.md).
 

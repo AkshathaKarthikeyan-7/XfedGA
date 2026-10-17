@@ -1,7 +1,8 @@
 """
 Independent explanation metrics from saved validation-selected checkpoints (no retraining), on the
 TEST set images (the test set was already evaluated once inside the run; this script only adds
-explanation metrics for the same checkpoint, it selects nothing).
+explanation metrics for the same checkpoint, it selects nothing). --split validation computes the
+same metrics on validation images, e.g. to check the module on beta-screen checkpoints.
 
 Metrics per image (spec section 6; none is optimised by XFedGA except the IoU columns, which are
 reported for plausibility only):
@@ -50,8 +51,8 @@ def _merge(base, over):
     return out
 
 
-def image_subset(task, data, cfg, breast_images):
-    test = data.server["test"]
+def image_subset(task, data, cfg, breast_images, split="test"):
+    test = data.server[split]
     if task == "prostate":
         return list(range(len(test.image_ids)))
     group = dict(zip(test.image_ids, test.group_ids))
@@ -61,17 +62,19 @@ def image_subset(task, data, cfg, breast_images):
 
 def process(run_dir, args, device):
     meta = json.load(open(os.path.join(run_dir, "run_meta.json"), encoding="utf-8"))
-    if not meta.get("test_evaluated") or meta.get("method_switches", {}).get("topology") == "local_only":
+    if meta.get("method_switches", {}).get("topology") == "local_only":
         return None
-    out = os.path.join(OUT, meta["run_id"])
+    if args.split == "test" and not meta.get("test_evaluated"):
+        return None          # test-split metrics only for runs whose test set was already evaluated once
+    out = os.path.join(args.out or OUT, meta["run_id"] + ("" if args.split == "test" else f"_{args.split}"))
     if os.path.exists(os.path.join(out, "summary.json")):
         return "skip"
     task = meta["task"]
     # the run's resolved config, with any keys added after the run was made filled from today's defaults
     cfg = _merge(load_config(task), yaml.safe_load(open(os.path.join(run_dir, "config_resolved.yaml"), encoding="utf-8")))
     data = build_task(task, cfg, part="server")
-    test = data.server["test"]
-    idx = image_subset(task, data, cfg, args.breast_images)[: args.limit or None]
+    test = data.server[args.split]
+    idx = image_subset(task, data, cfg, args.breast_images, args.split)[: args.limit or None]
     ckpt = glob.glob(os.path.join(run_dir, "*_valselected.pt"))[0]
     model = build_residual_unet().to(device)
     model.load_state_dict(torch.load(ckpt, map_location=device))
@@ -102,7 +105,7 @@ def process(run_dir, args, device):
         w = csv.DictWriter(f, fieldnames=list(rand_rows[0]))
         w.writeheader()
         w.writerows(rand_rows)
-    summary = {"run_id": meta["run_id"], "task": task, "method": meta["method"], "seed": meta["seed"],
+    summary = {"run_id": meta["run_id"], "task": task, "method": meta["method"], "seed": meta["seed"], "split": args.split,
                "checkpoint": os.path.relpath(ckpt, REPO), "n_images": len(rows), "seconds": round(time.time() - t0, 1),
                **{k: float(np.mean([r[k] for r in rows])) for k in rows[0] if k not in ("image_id", "group_id")},
                **{k: float(np.mean([r[k] for r in rand_rows])) for k in rand_rows[0] if k != "image_id"}}
@@ -118,6 +121,9 @@ def main():
     ap.add_argument("--randomization_images", type=int, default=20)
     ap.add_argument("--limit", type=int, default=0, help="images per checkpoint (0 = all; for smoke tests)")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--split", choices=["test", "validation"], default="test",
+                    help="validation: for checking the module on runs without a test evaluation (e.g. the beta screen)")
+    ap.add_argument("--out", default=None, help="output root (default results/xai)")
     args = ap.parse_args()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     for run_dir in sorted(glob.glob(args.runs)):

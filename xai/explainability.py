@@ -188,13 +188,14 @@ def get_gradcam_pp(model, target_layer, input_tensor, target_class=1, cam_target
         return cam(input_tensor=input_tensor, targets=[SemanticSegmentationTarget(target_class, tmask)])[0]
 
 
-def randomization_check(model, input_tensor, steps=(1, 2, 4, 8, 16), seed=0, size=96, cam_target="pred",
+def randomization_check(model, input_tensor, steps=(1, 2, 4, 8, 16, "all"), seed=0, size=96, cam_target="pred",
                         layer_fn=None):
     """
     Cascading model-parameter randomisation (Adebayo et al., 2018): re-initialise the conv layers from the
     output towards the input (cumulatively, `steps` = number of layers randomised) and return the Spearman
     rank correlation between the original Grad-CAM and the Grad-CAM of each randomised model (maps
     downsampled to size x size). A faithful explanation should decorrelate as more layers are randomised.
+    The step "all" re-initialises every conv layer ("full parameter randomisation", pre-registered H-XAI-2).
     """
     import copy
 
@@ -209,13 +210,13 @@ def randomization_check(model, input_tensor, steps=(1, 2, 4, 8, 16), seed=0, siz
     rand = copy.deepcopy(model)
     convs = [m for m in rand.modules() if isinstance(m, (nn.Conv2d, nn.ConvTranspose2d))][::-1]
     out, done = {}, 0
-    for k in steps:
-        k = min(k, len(convs))
+    for step in steps:
+        k = len(convs) if step == "all" else min(step, len(convs))
         for i in range(done, k):
             torch.manual_seed(seed + i)
             convs[i].reset_parameters()
         done = k
         c = cam_of(rand)
         rho = spearmanr(base, c).correlation if np.std(c) > 0 and np.std(base) > 0 else 0.0
-        out[k] = float(rho)
+        out[step] = float(rho)
     return out

@@ -120,3 +120,10 @@ def test_randomisation_lowers_rank_correlation(trained):
     model, x, _, _ = trained
     rho = randomization_check(model, x[:1], steps=(1, 16), size=32, cam_target="pred", layer_fn=unet_fullres_cam_layer)
     assert rho[16] < 0.5 and rho[16] <= rho[1]
+
+
+@pytest.mark.slow
+def test_full_randomisation_step(trained):
+    model, x, _, _ = trained
+    rho = randomization_check(model, x[:1], steps=(1, "all"), size=32, cam_target="pred", layer_fn=unet_fullres_cam_layer)
+    assert set(rho) == {1, "all"} and rho["all"] < 0.5

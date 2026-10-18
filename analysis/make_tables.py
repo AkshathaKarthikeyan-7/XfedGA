@@ -42,7 +42,8 @@ COMPARISONS = {
     "baselines": [("xfedga", "fedprox"), ("fedprox", "fedavg")],
 }
 METRICS = ["dsc", "hd95_norm", "ec", "pg"]
-XAI_METRICS = ["pg_gradcam", "pg_gradcampp", "deletion_auc", "insertion_auc"]
+XAI_METRICS = ["pg_gradcampp", "rho_after_all_layers", "pg_gradcam", "deletion_auc", "insertion_auc"]
+XAI_PREREGISTERED = {"pg_gradcampp": "H-XAI-1", "rho_after_all_layers": "H-XAI-2"}   # plan.md, commit 661a173
 EXPLORATORY = {"deletion_auc", "insertion_auc"}   # context caveat: plan.md section 0.0, analysis/xai_metrics.py
 
 
@@ -132,6 +133,8 @@ PRIMARY = ("xfedga", "fedga", "dsc")   # pre-registered primary endpoint (plan.m
 
 def _cmp_row(task, a, b, c):
     endpoint = ("PRIMARY" if (a, b, c["metric"]) == PRIMARY else
+                f"secondary, pre-registered {XAI_PREREGISTERED[c['metric']]}"
+                if c["metric"] in XAI_PREREGISTERED and (a, b) == PRIMARY[:2] else
                 "exploratory (context caveat)" if c["metric"] in EXPLORATORY else "secondary")
     dz = f"{c['effect_dz']:+.2f}" if np.isfinite(c["effect_dz"]) else "–"
     wp = f"{c['wilcoxon_p']:.3g}" if np.isfinite(c["wilcoxon_p"]) else "–"

@@ -106,9 +106,11 @@ def process(run_dir, args, device):
                      "iou_gradcampp": explanation_consistency(campp, m, threshold=thr),
                      "deletion_auc": insertion_deletion_auc(model, x, cam, gt_mask=m, mode="deletion"),
                      "insertion_auc": insertion_deletion_auc(model, x, cam, gt_mask=m, mode="insertion")})
-        if n < args.randomization_images:
+        if args.randomization_images < 0 or n < args.randomization_images:
             rho = randomization_check(model, x, seed=args.seed, cam_target=ct, layer_fn=CAM_LAYERS[lname])
-            rand_rows.append({"image_id": test.image_ids[i], **{f"rho_after_{k}_layers": v for k, v in rho.items()}})
+            rr = {f"rho_after_{k}_layers": v for k, v in rho.items()}
+            rand_rows.append({"image_id": test.image_ids[i], **rr})
+            rows[-1].update(rr)            # per-image row also carries rho, for case-level comparisons (H-XAI-2)
     with open(os.path.join(out, "xai_per_image.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
@@ -131,7 +133,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--runs", required=True, help="glob of run folders, e.g. results/runs/*_seed*_*")
     ap.add_argument("--breast_images", type=int, default=300)
-    ap.add_argument("--randomization_images", type=int, default=20)
+    ap.add_argument("--randomization_images", type=int, default=-1,
+                    help="images per checkpoint for the randomisation check (-1 = every image; pre-registered H-XAI-2)")
     ap.add_argument("--limit", type=int, default=0, help="images per checkpoint (0 = all; for smoke tests)")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--split", choices=["test", "validation"], default="test",

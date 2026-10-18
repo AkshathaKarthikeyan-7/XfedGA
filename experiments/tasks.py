@@ -106,7 +106,9 @@ def build_prostate(cfg, part="all"):
     size, seed = tuple(cfg["image_size"]), cfg["seed"]
     root = cfg["clients"][0]["path"]
     clients, log = [], {"clients": {}, "server": {}}
-    p_cache = prostate_cache("PROMISE12", root, size)
+    pp = cfg.get("preprocessing") or {}
+    pre = {"fov_crop_mm": pp.get("fov_crop_mm"), "intensity": pp.get("intensity", "minmax")}
+    p_cache = prostate_cache("PROMISE12", root, size, **pre)
     sc = cfg["scenario"]
     if sc["partition"] == "acquisition":
         client_cases = split_promise12_by_acquisition(root, sc["acquisition_threshold_mm"])
@@ -116,7 +118,7 @@ def build_prostate(cfg, part="all"):
     for k, cases in enumerate(client_cases):
         if part == "server" or (isinstance(part, int) and part != k):
             continue
-        ds = ProstateClientDataset("PROMISE12", root, size=size, cases=cases)
+        ds = ProstateClientDataset("PROMISE12", root, size=size, cases=cases, **pre)
         qi = random_subsample(len(ds), cfg["saliency"]["subsample"], seed=seed + 1000 + k)
         ids, _, _ = _case_ids(cases, p_cache)
         name = f"PROMISE12_client{k + 1}"
@@ -128,13 +130,14 @@ def build_prostate(cfg, part="all"):
 
     s = cfg["server"]
     cases = PROSTATE_INDEXERS["Decathlon"](s["path"])
-    d_cache = prostate_cache("Decathlon", s["path"], size)
+    d_cache = prostate_cache("Decathlon", s["path"], size, **pre)
     sizes = {c: len(d_cache.rows(c)) for c, _ in cases}
     split = decathlon_case_split(cases, sizes, seed, tuple(cfg["splits"]["server_block_roles"]))
     server, group_sizes = {}, {}
     for role in ROLES:
         ids, groups, gsz = _case_ids(split[role], d_cache)
-        server[role] = ServerSet(ProstateClientDataset("Decathlon", s["path"], size=size, cases=split[role]), ids, groups)
+        server[role] = ServerSet(ProstateClientDataset("Decathlon", s["path"], size=size, cases=split[role], **pre),
+                                 ids, groups)
         group_sizes[role] = gsz
         log["server"][role] = {"n_cases": len(split[role]), "n_slices": len(ids),
                                "cases": sorted({g for g in groups})}

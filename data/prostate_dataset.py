@@ -161,9 +161,50 @@ def _case_files(case_path, dataset_tag):
     return [case_path, case_path.replace("imagesTr", "labelsTr")]
 
 
-def prostate_cache(client_name, root, size=(384, 384), min_fg_fraction=0.0, cache_root=DEFAULT_CACHE_ROOT):
+def _center_crop(arr, side_px):
+    """Square crop of side `side_px` centred on the in-plane image centre (zero-padded if the slice is smaller).
+    Uses no ground truth: protocol v2 FOV crop (plan.md, pre-registered 18 Oct 2026)."""
+    h, w = arr.shape
+    ph, pw = max(0, side_px - h), max(0, side_px - w)
+    a = np.pad(arr, ((ph // 2, ph - ph // 2), (pw // 2, pw - pw // 2)))
+    h, w = a.shape
+    top, left = (h - side_px) // 2, (w - side_px) // 2
+    return a[top:top + side_px, left:left + side_px]
+
+
+def _crop_normalize_resize(case_slices, size, fov_crop_mm, intensity, min_fg_fraction):
+    """
+    Protocol v2 preprocessing of one case: (1) optional FOV crop of side fov_crop_mm, centred on the image centre,
+    on the 0.5 mm resampled slices; (2) intensity: "zscore" = (x - mean) / sd with mean and sd over the case's WHOLE
+    cropped volume (all slices, independent of the masks), or "minmax" = the v1 per-slice percentile clip + min-max;
+    (3) resize to `size`; (4) keep the slices whose mask foreground fraction > min_fg_fraction (as in v1).
+    """
+    side = None if fov_crop_mm is None else int(round(fov_crop_mm / TARGET_SPACING_MM))
+    crops = [(_center_crop(i, side), _center_crop(m, side)) if side else (i, m) for i, m in case_slices]
+    if intensity == "zscore":
+        vol = np.stack([c[0] for c in crops]).astype(np.float64)
+        mu, sd = float(vol.mean()), float(vol.std()) or 1.0
+    out = []
+    for img, msk in crops:
+        if (msk > 0).sum() / msk.size <= min_fg_fraction:
+            continue
+        if intensity == "zscore":
+            img = cv2.resize(img.astype(np.float32), size, interpolation=cv2.INTER_LINEAR)
+            msk = cv2.resize(msk.astype(np.float32), size, interpolation=cv2.INTER_NEAREST)
+            out.append((((img - mu) / sd).astype(np.float32), (msk > 0).astype(np.float32)))
+        else:
+            out.append(_normalize_and_resize(img, msk, size))
+    return out
+
+
+def prostate_cache(client_name, root, size=(384, 384), min_fg_fraction=0.0, cache_root=DEFAULT_CACHE_ROOT,
+                   fov_crop_mm=None, intensity="minmax"):
     """Cache of fully preprocessed float32 slices (+ binary masks) for EVERY case in `root`.
-    Item id = case path; each case owns the rows of its kept slices, in slice order."""
+    Item id = case path; each case owns the rows of its kept slices, in slice order.
+    fov_crop_mm / intensity: protocol v2 options (None / "minmax" = v1, whose cache key is unchanged)."""
+    if intensity not in ("minmax", "zscore"):
+        raise ValueError(f"intensity must be minmax|zscore, got {intensity!r}")
+    v1 = fov_crop_mm is None and intensity == "minmax"
     cases = INDEXERS[client_name](root)
     spec = {"dataset": client_name, "size": list(size), "min_fg_fraction": min_fg_fraction,
             "target_spacing_mm": TARGET_SPACING_MM, "version": 1,
@@ -171,9 +212,15 @@ def prostate_cache(client_name, root, size=(384, 384), min_fg_fraction=0.0, cach
                                 _resample_to_spacing_nib_nearest, _normalize_and_resize,
                                 _extract_slices_promise12, _extract_slices_decathlon),
             "files": file_fingerprint([f for c, tag in cases for f in _case_files(c, tag)])}
+    if not v1:
+        spec.update({"fov_crop_mm": fov_crop_mm, "intensity": intensity,
+                     "code_v2": source_hash(_center_crop, _crop_normalize_resize)})
 
     def preprocess(case):
         case_path, tag = case
+        if not v1:   # every slice of the case (for volume statistics), filtered after cropping
+            return _crop_normalize_resize(EXTRACTORS[tag](case_path, -1.0), tuple(size), fov_crop_mm, intensity,
+                                          min_fg_fraction)
         return [_normalize_and_resize(img, msk, tuple(size))
                 for img, msk in EXTRACTORS[tag](case_path, min_fg_fraction)]
 
@@ -189,13 +236,16 @@ class ProstateClientDataset(Dataset):
     EXTRACTORS = EXTRACTORS
 
     def __init__(self, client_name, root, size=(384, 384), min_fg_fraction=0.0, cases=None,
-                 cache_root=DEFAULT_CACHE_ROOT):
+                 cache_root=DEFAULT_CACHE_ROOT, fov_crop_mm=None, intensity="minmax"):
         self.size = size
         case_list = cases if cases is not None else self.INDEXERS[client_name](root)
         if len(case_list) == 0:
             raise RuntimeError(f"No cases found for {client_name} at {root}.")
 
-        self.cache = prostate_cache(client_name, root, size, min_fg_fraction, cache_root) if cache_root else None
+        if not cache_root and (fov_crop_mm is not None or intensity != "minmax"):
+            raise ValueError("protocol v2 preprocessing (FOV crop / z-score) is only implemented through the cache")
+        self.cache = prostate_cache(client_name, root, size, min_fg_fraction, cache_root, fov_crop_mm,
+                                    intensity) if cache_root else None
         self.slices = []
         if self.cache is not None:
             for case_path, _ in case_list:

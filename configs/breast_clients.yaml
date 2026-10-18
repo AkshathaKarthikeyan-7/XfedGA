@@ -90,6 +90,7 @@ saliency:
 evaluation:
   explain_samples: 30        # per-round EC / pointing-game logging on a fixed validation subsample
   selection_smoothing: 3     # checkpoint = round with the best centred 3-round mean validation DSC
+  log_wagg_val: false        # protocol v2: also log w_agg's validation DSC every round (evaluation only)
 
 splits:
   # Approved 15 Oct 2026 (Q1): BUS-BRA split by PATIENT (bus_data.csv `Case`), stratified by

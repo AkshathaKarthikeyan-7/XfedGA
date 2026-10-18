@@ -1,0 +1,73 @@
+{
+ "rule": "smallest multiple of 10 mm >= 2 x max Chebyshev distance of any PROMISE12 (client training) gland pixel from the in-plane image centre, after 0.5 mm resampling",
+ "train_half_extent_mm": {
+  "max": 50.0,
+  "median": 30.5,
+  "per_case": {
+   "Case00.mhd": 30.0,
+   "Case01.mhd": 27.5,
+   "Case02.mhd": 22.5,
+   "Case03.mhd": 20.5,
+   "Case04.mhd": 31.0,
+   "Case05.mhd": 31.0,
+   "Case06.mhd": 39.5,
+   "Case07.mhd": 35.5,
+   "Case08.mhd": 49.0,
+   "Case09.mhd": 41.5,
+   "Case10.mhd": 28.0,
+   "Case11.mhd": 27.5,
+   "Case12.mhd": 38.5,
+   "Case13.mhd": 26.5,
+   "Case14.mhd": 34.5,
+   "Case15.mhd": 30.5,
+   "Case16.mhd": 30.5,
+   "Case17.mhd": 22.5,
+   "Case18.mhd": 35.5,
+   "Case19.mhd": 32.0,
+   "Case20.mhd": 25.0,
+   "Case21.mhd": 28.5,
+   "Case22.mhd": 39.5,
+   "Case23.mhd": 50.0,
+   "Case24.mhd": 25.5,
+   "Case25.mhd": 40.5,
+   "Case26.mhd": 30.0,
+   "Case27.mhd": 33.0,
+   "Case28.mhd": 28.5,
+   "Case29.mhd": 30.5,
+   "Case30.mhd": 31.0,
+   "Case31.mhd": 32.0,
+   "Case32.mhd": 24.5,
+   "Case33.mhd": 28.0,
+   "Case34.mhd": 33.0,
+   "Case35.mhd": 24.0,
+   "Case36.mhd": 27.0,
+   "Case37.mhd": 26.5,
+   "Case38.mhd": 40.0,
+   "Case39.mhd": 35.0,
+   "Case40.mhd": 33.0,
+   "Case41.mhd": 24.5,
+   "Case42.mhd": 34.0,
+   "Case43.mhd": 32.0,
+   "Case44.mhd": 29.5,
+   "Case45.mhd": 29.5,
+   "Case46.mhd": 26.5,
+   "Case47.mhd": 25.5,
+   "Case48.mhd": 33.5,
+   "Case49.mhd": 27.0
+  }
+ },
+ "side_mm": 100,
+ "side_px_at_0.5mm": 200,
+ "check_server": {
+  "fitness": {
+   "cases": 8,
+   "max_share_gland_cut": 0.0,
+   "cases_with_any_cut": []
+  },
+  "validation": {
+   "cases": 8,
+   "max_share_gland_cut": 0.0,
+   "cases_with_any_cut": []
+  }
+ }
+}

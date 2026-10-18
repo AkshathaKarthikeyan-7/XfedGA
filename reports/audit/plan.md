@@ -106,6 +106,17 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
    - **Intensities:** z-score per case over the cropped volume, replacing percentile clip + min-max.
 4. **Logging only:** w_agg's validation DSC every round (for the GA-overfitting diagnostic).
 
+*Implementation record (18 Oct 2026, after the pre-registration commit, before any v2 run):*
+- **S = 100 mm** (200 px at 0.5 mm). The PROMISE12 training max half-extent is 50.0 mm (median 30.5). The crop cuts **0.0%** of fitness- and validation-set gland pixels (`analysis/fov_crop_size.py` → `results/audit/fov_crop.json`; test not read).
+- **Crop:** `_center_crop` in `data/prostate_dataset.py`. Zero-padded if a slice is smaller than 200 px.
+- **Z-score:** the mean and s.d. come from all slices of the cropped volume, including slices without gland, and never use masks. Then the v1 slice filter (gland present) is applied, so wherever the crop cuts no gland (all client, fitness and validation cases), the slice sets are the v1 sets.
+- **Config:** `preprocessing.fov_crop_mm` / `preprocessing.intensity`. v1 = null / minmax, with the v1 cache key unchanged. `evaluation.log_wagg_val` (writes `val_dsc_wagg`; evaluation only, and it does not change the run, as checked in `tests/test_protocol_v2.py`).
+- **DEVIATION (flagged):** the prostate fitness set has only **117 slices < 120**. Under v2 the prostate fitness subsample is therefore the **whole fitness set (117)**: `evenly_spaced_per_group` returns every index when n ≥ the set size. Breast uses 120 (one image per patient, 159 patients).
+- **Code roots (decided 18 Oct 2026):**
+  - Every continuation of v1 runs (ablations, parity, robustness, hetero) runs from the frozen worktree `b556334`. Config hashes then match, so the 3 finished ablation runs are reused. Adding the v2 keys to the configs changes the hash of any v1 run launched from later code.
+  - If v2 is adopted for a task, every later run for that task uses a new frozen worktree at the v2 commit.
+- **Screen queue:** `queues/v2_screen.yaml` (8 runs, `no_test`, tag `v2screen`), run from a frozen worktree at the v2 commit. **Decision script:** `analysis/v2_adoption.py` → `results/protocol_v2/`.
+
 **v2 adoption rule.**
 - **Screen:** FedGA and XFedGA, 2 tasks × seeds 1–2, validation only, no test evaluation.
 - **Comparison:** each run's score is the max centred 3-round mean validation DSC, averaged over the 2 seeds. Compare v2 with v1 (the headline runs, seeds 1–2, same score).

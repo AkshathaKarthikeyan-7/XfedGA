@@ -90,6 +90,12 @@ saliency:
 evaluation:
   explain_samples: 30        # per-round EC / pointing-game logging on a fixed validation subsample
   selection_smoothing: 3     # checkpoint = round with the best centred 3-round mean validation DSC
+  log_wagg_val: false        # protocol v2: also log w_agg's validation DSC every round (evaluation only)
+
+preprocessing:
+  # protocol v2 options (pre-registered 18 Oct 2026). v1 = null / minmax.
+  fov_crop_mm: null          # v2: 100 = image-centred 100 mm square after 0.5 mm resampling (results/audit/fov_crop.json)
+  intensity: minmax          # minmax (v1: per-slice 1st/99th-percentile clip + min-max) | zscore (v2: per-case volume)
 
 splits:
   # Approved 15 Oct 2026 (Q1): Decathlon cases 8 / 8 / 16, in blocks of 4 cases of similar

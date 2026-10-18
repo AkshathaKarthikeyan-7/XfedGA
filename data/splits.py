@@ -112,6 +112,8 @@ def evenly_spaced_per_group(group_sizes, n):
     order; returns `n` dataset indices spread evenly over cases and, within a case, evenly over
     its slices (deterministic, no seed needed).
     """
+    if n >= sum(group_sizes):          # the subsample would cover the whole set: use every slice
+        return list(range(sum(group_sizes)))
     k = len(group_sizes)
     per = [n // k + (1 if i < n % k else 0) for i in range(k)]
     out, offset = [], 0

@@ -1,0 +1,85 @@
+name: v2_screen
+out: results/runs
+note: 'Protocol v2 VALIDATION-ONLY screen (plan.md pre-registration 18 Oct 2026, commit 661a173): FedGA (baseline) + XFedGA, 2 tasks x seeds 1-2, no test evaluation. Compared with v1 headline seeds 1-2
+  by analysis/v2_adoption.py.'
+runs:
+- task: prostate
+  method: fedga
+  seed: 1
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - evaluation.log_wagg_val=true
+  - preprocessing.fov_crop_mm=100
+  - preprocessing.intensity=zscore
+  no_test: true
+  tag: v2screen
+- task: prostate
+  method: xfedga
+  seed: 1
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - evaluation.log_wagg_val=true
+  - preprocessing.fov_crop_mm=100
+  - preprocessing.intensity=zscore
+  no_test: true
+  tag: v2screen
+- task: breast
+  method: fedga
+  seed: 1
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - evaluation.log_wagg_val=true
+  no_test: true
+  tag: v2screen
+- task: breast
+  method: xfedga
+  seed: 1
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - evaluation.log_wagg_val=true
+  no_test: true
+  tag: v2screen
+- task: prostate
+  method: fedga
+  seed: 2
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - evaluation.log_wagg_val=true
+  - preprocessing.fov_crop_mm=100
+  - preprocessing.intensity=zscore
+  no_test: true
+  tag: v2screen
+- task: prostate
+  method: xfedga
+  seed: 2
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - evaluation.log_wagg_val=true
+  - preprocessing.fov_crop_mm=100
+  - preprocessing.intensity=zscore
+  no_test: true
+  tag: v2screen
+- task: breast
+  method: fedga
+  seed: 2
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - evaluation.log_wagg_val=true
+  no_test: true
+  tag: v2screen
+- task: breast
+  method: xfedga
+  seed: 2
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - evaluation.log_wagg_val=true
+  no_test: true
+  tag: v2screen

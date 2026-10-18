@@ -73,6 +73,13 @@ def validate(cfg):
         raise ValueError("fitness.cam_target must be all|pred")
     if cfg["fitness"].get("cam_layer") not in ("fullres", "halfres"):
         raise ValueError("fitness.cam_layer must be fullres|halfres")
+    pp = cfg.get("preprocessing") or {}
+    if pp.get("intensity", "minmax") not in ("minmax", "zscore"):
+        raise ValueError("preprocessing.intensity must be minmax|zscore")
+    if pp.get("fov_crop_mm") is not None and pp["fov_crop_mm"] <= 0:
+        raise ValueError("preprocessing.fov_crop_mm must be null or > 0")
+    if pp and cfg.get("task") != "prostate_segmentation":
+        raise ValueError("preprocessing (FOV crop / z-score) is defined for the prostate task only")
     if cfg["method_options"]["fedprox_mu"] < 0:
         raise ValueError("fedprox_mu must be >= 0")
     g = cfg["ga"]

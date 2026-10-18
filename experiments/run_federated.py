@@ -120,6 +120,11 @@ def server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device
     agg = cfg["aggregation"]
     alpha = aggregation_weights(sizes, qs if spec["aggregation"] == "saliency" else None, agg["beta"], agg["eps"])
     w_agg = aggregate(client_states, alpha)
+    wagg_val = None
+    if cfg["evaluation"].get("log_wagg_val"):   # protocol v2: validation DSC of w_agg (GA-overfitting diagnostic)
+        model.load_state_dict(w_agg)
+        wagg_val = _mean(per_image_metrics(model, srv.val_loader, device, fit_cfg["hd95_normalizer"], with_cam=False),
+                         "dsc")
 
     ts = time.time()
     history, candidates = [], []
@@ -156,6 +161,8 @@ def server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device
            "ga_best_per_gen": json.dumps([round(h["best"], 6) for h in history]),
            "ga_mean_per_gen": json.dumps([round(h["mean"], 6) for h in history]),
            "fitness_evals": sum(h["evaluations"] for h in history), **{k: round(v, 2) for k, v in rt.items()}}
+    if wagg_val is not None:
+        row["val_dsc_wagg"] = wagg_val
     return row, best_state
 
 

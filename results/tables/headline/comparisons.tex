@@ -4,15 +4,45 @@ task & comparison & metric & endpoint & cases & mean diff. & 95\% CI (cluster bo
 \hline
 prostate & XFedGA vs FedGA (baseline) & dsc & PRIMARY & 16 & +0.0149 & [-0.0019, +0.0327] & +0.41 & TIE & [-0.0046, +0.0344] & TIE & 0.13 &  \\
 prostate & XFedGA vs FedGA (baseline) & hd95\_norm & secondary & 16 & -0.0303 & [-0.0466, -0.0144] & -0.89 & WIN & [-0.0484, -0.0122] & WIN & 0.00336 &  \\
+prostate & XFedGA vs FedGA (baseline) & pg\_gradcampp & secondary, pre-registered H-XAI-1 & 16 & +0.0007 & [+0.0000, +0.0022] & +0.25 & TIE & [-0.0008, +0.0023] & TIE & 0.317 &  \\
+prostate & XFedGA vs FedGA (baseline) & rho\_after\_all\_layers & secondary, pre-registered H-XAI-2 & 16 & +0.0275 & [+0.0220, +0.0318] & +2.61 & LOSE & [+0.0219, +0.0331] & LOSE & 6.1e-05 &  \\
+prostate & XFedGA vs FedGA (baseline) & pg\_gradcam & secondary & 16 & +0.0073 & [-0.0143, +0.0271] & +0.17 & TIE & [-0.0162, +0.0307] & TIE & 0.363 &  \\
+prostate & XFedGA vs FedGA (baseline) & deletion\_auc & exploratory (context caveat) & 16 & +0.0356 & [+0.0241, +0.0478] & +1.43 & LOSE & [+0.0224, +0.0488] & LOSE & 6.1e-05 &  \\
+prostate & XFedGA vs FedGA (baseline) & insertion\_auc & exploratory (context caveat) & 16 & +0.0008 & [-0.0090, +0.0101] & +0.04 & TIE & [-0.0100, +0.0116] & TIE & 0.94 &  \\
 prostate & XFedGA vs FedAvg & dsc & secondary & 16 & +0.0065 & [-0.0095, +0.0216] & +0.20 & TIE & [-0.0110, +0.0240] & TIE & 0.323 &  \\
 prostate & XFedGA vs FedAvg & hd95\_norm & secondary & 16 & -0.0161 & [-0.0288, -0.0024] & -0.58 & WIN & [-0.0310, -0.0012] & WIN & 0.0182 &  \\
+prostate & XFedGA vs FedAvg & pg\_gradcampp & secondary & 16 & -0.0012 & [-0.0044, +0.0015] & -0.18 & TIE & [-0.0046, +0.0023] & TIE & 0.593 &  \\
+prostate & XFedGA vs FedAvg & rho\_after\_all\_layers & secondary & 16 & +0.0153 & [+0.0119, +0.0185] & +2.13 & LOSE & [+0.0114, +0.0191] & LOSE & 3.05e-05 &  \\
+prostate & XFedGA vs FedAvg & pg\_gradcam & secondary & 16 & +0.0178 & [-0.0180, +0.0511] & +0.24 & TIE & [-0.0212, +0.0568] & TIE & 0.323 &  \\
+prostate & XFedGA vs FedAvg & deletion\_auc & exploratory (context caveat) & 16 & -0.0022 & [-0.0191, +0.0167] & -0.06 & TIE & [-0.0223, +0.0178] & TIE & 0.528 &  \\
+prostate & XFedGA vs FedAvg & insertion\_auc & exploratory (context caveat) & 16 & +0.0007 & [-0.0094, +0.0111] & +0.03 & TIE & [-0.0110, +0.0124] & TIE & 0.98 &  \\
 prostate & FedGA (baseline) vs FedAvg & dsc & secondary & 16 & -0.0084 & [-0.0265, +0.0119] & -0.20 & TIE & [-0.0302, +0.0135] & TIE & 0.298 &  \\
 prostate & FedGA (baseline) vs FedAvg & hd95\_norm & secondary & 16 & +0.0142 & [-0.0045, +0.0332] & +0.35 & TIE & [-0.0072, +0.0355] & TIE & 0.193 &  \\
+prostate & FedGA (baseline) vs FedAvg & pg\_gradcampp & secondary & 16 & -0.0019 & [-0.0051, +0.0000] & -0.35 & TIE & [-0.0048, +0.0010] & TIE & 0.18 &  \\
+prostate & FedGA (baseline) vs FedAvg & rho\_after\_all\_layers & secondary & 16 & -0.0122 & [-0.0169, -0.0068] & -1.14 & WIN & [-0.0180, -0.0065] & WIN & 0.00101 &  \\
+prostate & FedGA (baseline) vs FedAvg & pg\_gradcam & secondary & 16 & +0.0105 & [-0.0235, +0.0438] & +0.15 & TIE & [-0.0276, +0.0487] & TIE & 0.57 &  \\
+prostate & FedGA (baseline) vs FedAvg & deletion\_auc & exploratory (context caveat) & 16 & -0.0378 & [-0.0467, -0.0284] & -1.96 & WIN & [-0.0481, -0.0275] & WIN & 6.1e-05 &  \\
+prostate & FedGA (baseline) vs FedAvg & insertion\_auc & exploratory (context caveat) & 16 & -0.0001 & [-0.0088, +0.0098] & -0.01 & TIE & [-0.0107, +0.0104] & TIE & 0.744 &  \\
 breast & XFedGA vs FedGA (baseline) & dsc & PRIMARY & 638 & -0.0072 & [-0.0109, -0.0035] & -0.15 & LOSE & [-0.0109, -0.0035] & LOSE & 0.000944 &  \\
 breast & XFedGA vs FedGA (baseline) & hd95\_norm & secondary & 638 & +0.0115 & [+0.0083, +0.0147] & +0.28 & LOSE & [+0.0083, +0.0147] & LOSE & 2.92e-12 &  \\
+breast & XFedGA vs FedGA (baseline) & pg\_gradcampp & secondary, pre-registered H-XAI-1 & 300 & +0.0040 & [-0.0053, +0.0133] & +0.05 & TIE & [-0.0055, +0.0135] & TIE & 0.405 &  \\
+breast & XFedGA vs FedGA (baseline) & rho\_after\_all\_layers & secondary, pre-registered H-XAI-2 & 300 & +0.0003 & [-0.0016, +0.0022] & +0.02 & TIE & [-0.0016, +0.0022] & TIE & 0.953 &  \\
+breast & XFedGA vs FedGA (baseline) & pg\_gradcam & secondary & 300 & -0.0040 & [-0.0213, +0.0133] & -0.03 & TIE & [-0.0215, +0.0135] & TIE & 0.581 &  \\
+breast & XFedGA vs FedGA (baseline) & deletion\_auc & exploratory (context caveat) & 300 & +0.0273 & [+0.0222, +0.0325] & +0.60 & LOSE & [+0.0221, +0.0324] & LOSE & 3.41e-24 &  \\
+breast & XFedGA vs FedGA (baseline) & insertion\_auc & exploratory (context caveat) & 300 & +0.0178 & [+0.0119, +0.0239] & +0.34 & WIN & [+0.0118, +0.0239] & WIN & 3.87e-12 &  \\
 breast & XFedGA vs FedAvg & dsc & secondary & 638 & -0.0034 & [-0.0064, -0.0004] & -0.09 & LOSE & [-0.0065, -0.0004] & LOSE & 0.0244 &  \\
 breast & XFedGA vs FedAvg & hd95\_norm & secondary & 638 & -0.0000 & [-0.0030, +0.0029] & -0.00 & TIE & [-0.0030, +0.0029] & TIE & 0.541 &  \\
+breast & XFedGA vs FedAvg & pg\_gradcampp & secondary & 300 & +0.0060 & [-0.0027, +0.0147] & +0.08 & TIE & [-0.0026, +0.0146] & TIE & 0.17 &  \\
+breast & XFedGA vs FedAvg & rho\_after\_all\_layers & secondary & 300 & +0.0073 & [+0.0058, +0.0088] & +0.54 & LOSE & [+0.0057, +0.0088] & LOSE & 7.84e-22 &  \\
+breast & XFedGA vs FedAvg & pg\_gradcam & secondary & 300 & -0.0040 & [-0.0200, +0.0120] & -0.03 & TIE & [-0.0200, +0.0120] & TIE & 0.874 &  \\
+breast & XFedGA vs FedAvg & deletion\_auc & exploratory (context caveat) & 300 & +0.0054 & [-0.0004, +0.0115] & +0.11 & TIE & [-0.0004, +0.0113] & TIE & 0.396 &  \\
+breast & XFedGA vs FedAvg & insertion\_auc & exploratory (context caveat) & 300 & -0.0097 & [-0.0155, -0.0038] & -0.19 & LOSE & [-0.0156, -0.0039] & LOSE & 1.96e-06 &  \\
 breast & FedGA (baseline) vs FedAvg & dsc & secondary & 638 & +0.0038 & [-0.0001, +0.0075] & +0.08 & TIE & [-0.0001, +0.0076] & TIE & 0.0566 &  \\
 breast & FedGA (baseline) vs FedAvg & hd95\_norm & secondary & 638 & -0.0115 & [-0.0147, -0.0083] & -0.28 & WIN & [-0.0148, -0.0083] & WIN & 1.13e-15 &  \\
+breast & FedGA (baseline) vs FedAvg & pg\_gradcampp & secondary & 300 & +0.0020 & [-0.0060, +0.0100] & +0.03 & TIE & [-0.0060, +0.0100] & TIE & 0.622 &  \\
+breast & FedGA (baseline) vs FedAvg & rho\_after\_all\_layers & secondary & 300 & +0.0070 & [+0.0049, +0.0091] & +0.37 & LOSE & [+0.0049, +0.0091] & LOSE & 1.75e-13 &  \\
+breast & FedGA (baseline) vs FedAvg & pg\_gradcam & secondary & 300 & +0.0000 & [-0.0167, +0.0167] & +0.00 & TIE & [-0.0163, +0.0163] & TIE & 0.527 &  \\
+breast & FedGA (baseline) vs FedAvg & deletion\_auc & exploratory (context caveat) & 300 & -0.0218 & [-0.0273, -0.0164] & -0.45 & WIN & [-0.0273, -0.0163] & WIN & 7.98e-15 &  \\
+breast & FedGA (baseline) vs FedAvg & insertion\_auc & exploratory (context caveat) & 300 & -0.0276 & [-0.0336, -0.0217] & -0.52 & LOSE & [-0.0336, -0.0215] & LOSE & 1.02e-19 &  \\
 \hline
 \end{tabular}

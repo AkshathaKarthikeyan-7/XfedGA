@@ -1,0 +1,25 @@
+breast_fedga_seed1_e12fc677: 300 images in 180.8 s; PG 0.843, deletion 0.559, insertion 0.606
+breast_fedga_seed2_e12fc677: 300 images in 193.4 s; PG 0.707, deletion 0.782, insertion 0.767
+breast_fedga_seed3_e12fc677: 300 images in 193.2 s; PG 0.803, deletion 0.743, insertion 0.728
+breast_fedga_seed4_e12fc677: 300 images in 187.4 s; PG 0.777, deletion 0.770, insertion 0.754
+breast_fedga_seed5_e12fc677: 300 images in 162.6 s; PG 0.810, deletion 0.646, insertion 0.676
+  ProstateClientDataset[Decathlon]: 117 slices from 8 cases
+  ProstateClientDataset[Decathlon]: 117 slices from 8 cases
+  ProstateClientDataset[Decathlon]: 241 slices from 16 cases
+prostate_fedga_seed1_be308424: 241 images in 118.0 s; PG 0.535, deletion 0.158, insertion 0.150
+  ProstateClientDataset[Decathlon]: 117 slices from 8 cases
+  ProstateClientDataset[Decathlon]: 117 slices from 8 cases
+  ProstateClientDataset[Decathlon]: 241 slices from 16 cases
+prostate_fedga_seed2_be308424: 241 images in 118.2 s; PG 0.552, deletion 0.174, insertion 0.164
+  ProstateClientDataset[Decathlon]: 117 slices from 8 cases
+  ProstateClientDataset[Decathlon]: 117 slices from 8 cases
+  ProstateClientDataset[Decathlon]: 241 slices from 16 cases
+prostate_fedga_seed3_be308424: 241 images in 117.7 s; PG 0.714, deletion 0.217, insertion 0.277
+  ProstateClientDataset[Decathlon]: 117 slices from 8 cases
+  ProstateClientDataset[Decathlon]: 117 slices from 8 cases
+  ProstateClientDataset[Decathlon]: 241 slices from 16 cases
+prostate_fedga_seed4_be308424: 241 images in 117.7 s; PG 0.581, deletion 0.484, insertion 0.449
+  ProstateClientDataset[Decathlon]: 117 slices from 8 cases
+  ProstateClientDataset[Decathlon]: 117 slices from 8 cases
+  ProstateClientDataset[Decathlon]: 241 slices from 16 cases
+prostate_fedga_seed5_be308424: 241 images in 118.8 s; PG 0.643, deletion 0.149, insertion 0.229

@@ -1,0 +1,23 @@
+{
+ "run_id": "breast_fedga_seed2_e12fc677",
+ "task": "breast",
+ "method": "fedga",
+ "seed": 2,
+ "split": "test",
+ "cam_target": "pred",
+ "cam_layer": "fullres",
+ "checkpoint": "results\\runs\\breast_fedga_seed2_e12fc677\\breast_fedga_seed2_valselected.pt",
+ "n_images": 300,
+ "seconds": 193.4,
+ "pg_gradcam": 0.7066666666666667,
+ "pg_gradcampp": 0.0,
+ "iou_gradcampp": 0.000305281579892962,
+ "deletion_auc": 0.7823017808079228,
+ "insertion_auc": 0.7670877226556828,
+ "rho_after_1_layers": -0.4396837779116416,
+ "rho_after_2_layers": -0.3545292780847392,
+ "rho_after_4_layers": -0.005398996309939209,
+ "rho_after_8_layers": 0.3104160598713472,
+ "rho_after_16_layers": 0.29264816000097044,
+ "rho_after_all_layers": 0.13613821366047646
+}

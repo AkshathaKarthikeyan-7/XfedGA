@@ -1,0 +1,23 @@
+{
+ "run_id": "prostate_fedavg_seed5_532998da",
+ "task": "prostate",
+ "method": "fedavg",
+ "seed": 5,
+ "split": "test",
+ "cam_target": "pred",
+ "cam_layer": "fullres",
+ "checkpoint": "results\\runs\\prostate_fedavg_seed5_532998da\\prostate_fedavg_seed5_valselected.pt",
+ "n_images": 241,
+ "seconds": 136.9,
+ "pg_gradcam": 0.5020746887966805,
+ "pg_gradcampp": 0.012448132780082987,
+ "iou_gradcampp": 0.011066500812319921,
+ "deletion_auc": 0.3944633790963287,
+ "insertion_auc": 0.27838706250082224,
+ "rho_after_1_layers": 0.3660251884220072,
+ "rho_after_2_layers": -0.5006736005942442,
+ "rho_after_4_layers": -0.33753889038388063,
+ "rho_after_8_layers": -0.3033919346988573,
+ "rho_after_16_layers": -0.31748104050074233,
+ "rho_after_all_layers": -0.1195925807868883
+}

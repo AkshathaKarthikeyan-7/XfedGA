@@ -173,7 +173,7 @@ def outcome_table(runs, tasks, comp_data, method="xfedga", comparator="fedga"):
                          and c["comparator"] == comparator and c["metric"] == metric), None)
         acc = pick("dsc")
         acc_s = f"{acc['outcome']} (ΔDSC {acc['mean_diff']:+.3f}, CI [{acc['ci_low']:+.3f}, {acc['ci_high']:+.3f}])" if acc else "–"
-        ex = [c for c in (pick(m) for m in ["pg_gradcam", "deletion_auc"]) if c]
+        ex = [c for c in (pick(m) for m in XAI_PREREGISTERED) if c]   # H-XAI-1, H-XAI-2
         ex_s = "; ".join(f"{c['metric']}: {c['outcome']} ({c['mean_diff']:+.3f}, CI [{c['ci_low']:+.3f}, {c['ci_high']:+.3f}])"
                          for c in ex) if ex else "pending (independent XAI metrics not computed)"
         sd = {m: mean_sd_over_seeds([run_value(r["test"], "dsc") for r in by(runs, task, m, "test")])[1]
@@ -238,6 +238,8 @@ def main():
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
     runs = load_runs(args.runs, args.group)
+    in_comp = {m for pair in COMPARISONS[args.comparisons] for m in pair}
+    runs = [r for r in runs if r["method"] in in_comp]   # only the methods of the selected comparisons
     if not runs:
         print("no runs match")
         return

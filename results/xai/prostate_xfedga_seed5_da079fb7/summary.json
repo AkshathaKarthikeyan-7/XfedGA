@@ -1,0 +1,23 @@
+{
+ "run_id": "prostate_xfedga_seed5_da079fb7",
+ "task": "prostate",
+ "method": "xfedga",
+ "seed": 5,
+ "split": "test",
+ "cam_target": "pred",
+ "cam_layer": "fullres",
+ "checkpoint": "results\\runs\\prostate_xfedga_seed5_da079fb7\\prostate_xfedga_seed5_valselected.pt",
+ "n_images": 241,
+ "seconds": 119.4,
+ "pg_gradcam": 0.6390041493775933,
+ "pg_gradcampp": 0.004149377593360996,
+ "iou_gradcampp": 0.00689021998822669,
+ "deletion_auc": 0.17734567805821363,
+ "insertion_auc": 0.12006397691587367,
+ "rho_after_1_layers": 0.5896116582067038,
+ "rho_after_2_layers": -0.12155962130000919,
+ "rho_after_4_layers": -0.16899312246163678,
+ "rho_after_8_layers": -0.21920204709343444,
+ "rho_after_16_layers": -0.21602257349084497,
+ "rho_after_all_layers": -0.06223835724495756
+}

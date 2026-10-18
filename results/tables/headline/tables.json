@@ -308,6 +308,111 @@
   {
    "task": "prostate",
    "method": "xfedga",
+   "comparator": "fedga",
+   "metric": "pg_gradcampp",
+   "n_cases": 16,
+   "mean_diff": 0.0007352941176470588,
+   "ci_low": 0.0,
+   "ci_high": 0.0022058823529411764,
+   "effect_dz": 0.25,
+   "outcome": "TIE",
+   "t_ci_low": -0.0008319481952642081,
+   "t_ci_high": 0.002302536430558326,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.31731050786291415,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "xfedga",
+   "comparator": "fedga",
+   "metric": "rho_after_all_layers",
+   "n_cases": 16,
+   "mean_diff": 0.02750002010395778,
+   "ci_low": 0.022014169009309935,
+   "ci_high": 0.03184864128670036,
+   "effect_dz": 2.6100127788021172,
+   "outcome": "LOSE",
+   "t_ci_low": 0.02188559305694206,
+   "t_ci_high": 0.0331144471509735,
+   "t_outcome": "LOSE",
+   "wilcoxon_p": 6.103515625e-05,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "xfedga",
+   "comparator": "fedga",
+   "metric": "pg_gradcam",
+   "n_cases": 16,
+   "mean_diff": 0.007284056887385079,
+   "ci_low": -0.014282670782090274,
+   "ci_high": 0.027111505711350927,
+   "effect_dz": 0.16549984739041693,
+   "outcome": "TIE",
+   "t_ci_low": -0.016168532325310736,
+   "t_ci_high": 0.030736646100080894,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.3633911924921729,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "xfedga",
+   "comparator": "fedga",
+   "metric": "deletion_auc",
+   "n_cases": 16,
+   "mean_diff": 0.035602182444188446,
+   "ci_low": 0.024127896798929193,
+   "ci_high": 0.04781646780928451,
+   "effect_dz": 1.4323646347282757,
+   "outcome": "LOSE",
+   "t_ci_low": 0.022357605303748737,
+   "t_ci_high": 0.048846759584628155,
+   "t_outcome": "LOSE",
+   "wilcoxon_p": 6.103515625e-05,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "xfedga",
+   "comparator": "fedga",
+   "metric": "insertion_auc",
+   "n_cases": 16,
+   "mean_diff": 0.0008077527731964974,
+   "ci_low": -0.009035386567137036,
+   "ci_high": 0.010103716826911541,
+   "effect_dz": 0.03985420552094248,
+   "outcome": "TIE",
+   "t_ci_low": -0.009992138096847639,
+   "t_ci_high": 0.011607643643240635,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.93988037109375,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "xfedga",
    "comparator": "fedavg",
    "metric": "dsc",
    "n_cases": 16,
@@ -341,6 +446,111 @@
    "t_ci_high": -0.0011938119480107666,
    "t_outcome": "WIN",
    "wilcoxon_p": 0.01824951171875,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "xfedga",
+   "comparator": "fedavg",
+   "metric": "pg_gradcampp",
+   "n_cases": 16,
+   "mean_diff": -0.0011726006191950466,
+   "ci_low": -0.0044078947368421054,
+   "ci_high": 0.0015479876160990713,
+   "effect_dz": -0.18133793036095044,
+   "outcome": "TIE",
+   "t_ci_low": -0.004618293216340837,
+   "t_ci_high": 0.002273091977950743,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.5929800980174267,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "xfedga",
+   "comparator": "fedavg",
+   "metric": "rho_after_all_layers",
+   "n_cases": 16,
+   "mean_diff": 0.015270500303619719,
+   "ci_low": 0.011862341446197633,
+   "ci_high": 0.018546912285478983,
+   "effect_dz": 2.125609845329492,
+   "outcome": "LOSE",
+   "t_ci_low": 0.011442387044249627,
+   "t_ci_high": 0.01909861356298981,
+   "t_outcome": "LOSE",
+   "wilcoxon_p": 3.0517578125e-05,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "xfedga",
+   "comparator": "fedavg",
+   "metric": "pg_gradcam",
+   "n_cases": 16,
+   "mean_diff": 0.0177934738872239,
+   "ci_low": -0.01802263017313565,
+   "ci_high": 0.05114816428465326,
+   "effect_dz": 0.24286882228808535,
+   "outcome": "TIE",
+   "t_ci_low": -0.021246007872458544,
+   "t_ci_high": 0.05683295564690634,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.322509765625,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "xfedga",
+   "comparator": "fedavg",
+   "metric": "deletion_auc",
+   "n_cases": 16,
+   "mean_diff": -0.0022416135593790517,
+   "ci_low": -0.019077629603671042,
+   "ci_high": 0.016703676802147342,
+   "effect_dz": -0.059573509447340744,
+   "outcome": "TIE",
+   "t_ci_low": -0.022291994369500072,
+   "t_ci_high": 0.017808767250741965,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.528167724609375,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "xfedga",
+   "comparator": "fedavg",
+   "metric": "insertion_auc",
+   "n_cases": 16,
+   "mean_diff": 0.0006973984043114963,
+   "ci_low": -0.009367047037956567,
+   "ci_high": 0.01105258901211155,
+   "effect_dz": 0.03167038545825708,
+   "outcome": "TIE",
+   "t_ci_low": -0.011036509238703822,
+   "t_ci_high": 0.012431306047326814,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.979949951171875,
    "n_seeds": [
     5,
     5
@@ -383,6 +593,111 @@
    "t_ci_high": 0.03550741625346667,
    "t_outcome": "TIE",
    "wilcoxon_p": 0.19281005859375,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "fedga",
+   "comparator": "fedavg",
+   "metric": "pg_gradcampp",
+   "n_cases": 16,
+   "mean_diff": -0.0019078947368421054,
+   "ci_low": -0.00506578947368421,
+   "ci_high": 0.0,
+   "effect_dz": -0.34734483085626994,
+   "outcome": "TIE",
+   "t_ci_low": -0.004834799795276577,
+   "t_ci_high": 0.0010190103215923663,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.17971249487899976,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "fedga",
+   "comparator": "fedavg",
+   "metric": "rho_after_all_layers",
+   "n_cases": 16,
+   "mean_diff": -0.012229519800338061,
+   "ci_low": -0.016878545037332306,
+   "ci_high": -0.006826863954866471,
+   "effect_dz": -1.1355772425248702,
+   "outcome": "WIN",
+   "t_ci_low": -0.017968144053427657,
+   "t_ci_high": -0.006490895547248466,
+   "t_outcome": "WIN",
+   "wilcoxon_p": 0.001007080078125,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "fedga",
+   "comparator": "fedavg",
+   "metric": "pg_gradcam",
+   "n_cases": 16,
+   "mean_diff": 0.01050941699983882,
+   "ci_low": -0.0234830929640213,
+   "ci_high": 0.043784068717928525,
+   "effect_dz": 0.14676781176763715,
+   "outcome": "TIE",
+   "t_ci_low": -0.02764658570030368,
+   "t_ci_high": 0.048665419699981324,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.5700608835629815,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "fedga",
+   "comparator": "fedavg",
+   "metric": "deletion_auc",
+   "n_cases": 16,
+   "mean_diff": -0.0378437960035675,
+   "ci_low": -0.046716472455199186,
+   "ci_high": -0.028386431403404633,
+   "effect_dz": -1.9589014374392055,
+   "outcome": "WIN",
+   "t_ci_low": -0.048138104365948675,
+   "t_ci_high": -0.027549487641186324,
+   "t_outcome": "WIN",
+   "wilcoxon_p": 6.103515625e-05,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "prostate",
+   "method": "fedga",
+   "comparator": "fedavg",
+   "metric": "insertion_auc",
+   "n_cases": 16,
+   "mean_diff": -0.00011035436888500111,
+   "ci_low": -0.008796903471793353,
+   "ci_high": 0.009753622064895492,
+   "effect_dz": -0.005577807186034208,
+   "outcome": "TIE",
+   "t_ci_low": -0.010652793429854856,
+   "t_ci_high": 0.010432084692084854,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.743560791015625,
    "n_seeds": [
     5,
     5
@@ -434,6 +749,111 @@
   {
    "task": "breast",
    "method": "xfedga",
+   "comparator": "fedga",
+   "metric": "pg_gradcampp",
+   "n_cases": 300,
+   "mean_diff": 0.004000000000000001,
+   "ci_low": -0.005333333333333334,
+   "ci_high": 0.013333333333333334,
+   "effect_dz": 0.04801374771000072,
+   "outcome": "TIE",
+   "t_ci_low": -0.0054654950164990624,
+   "t_ci_high": 0.013465495016499063,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.40538055645894233,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "xfedga",
+   "comparator": "fedga",
+   "metric": "rho_after_all_layers",
+   "n_cases": 300,
+   "mean_diff": 0.00026782585260286723,
+   "ci_low": -0.0016371307614511273,
+   "ci_high": 0.0021528268355149776,
+   "effect_dz": 0.01607786574999905,
+   "outcome": "TIE",
+   "t_ci_low": -0.0016248360665836686,
+   "t_ci_high": 0.0021604877717894032,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.9528044460495141,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "xfedga",
+   "comparator": "fedga",
+   "metric": "pg_gradcam",
+   "n_cases": 300,
+   "mean_diff": -0.004000000000000002,
+   "ci_low": -0.02134999999999999,
+   "ci_high": 0.013333333333333334,
+   "effect_dz": -0.025929970903380256,
+   "outcome": "TIE",
+   "t_ci_low": -0.021526972605017833,
+   "t_ci_high": 0.013526972605017831,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.5810577652078996,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "xfedga",
+   "comparator": "fedga",
+   "metric": "deletion_auc",
+   "n_cases": 300,
+   "mean_diff": 0.027265249086433078,
+   "ci_low": 0.022176664827273283,
+   "ci_high": 0.032472514376183655,
+   "effect_dz": 0.5994725672759967,
+   "outcome": "LOSE",
+   "t_ci_low": 0.02209764656314087,
+   "t_ci_high": 0.03243285160972528,
+   "t_outcome": "LOSE",
+   "wilcoxon_p": 3.406509897726509e-24,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "xfedga",
+   "comparator": "fedga",
+   "metric": "insertion_auc",
+   "n_cases": 300,
+   "mean_diff": 0.01784238860529877,
+   "ci_low": 0.011865822634183579,
+   "ci_high": 0.023855162274343773,
+   "effect_dz": 0.33607921448728606,
+   "outcome": "WIN",
+   "t_ci_low": 0.01181040313807168,
+   "t_ci_high": 0.02387437407252586,
+   "t_outcome": "WIN",
+   "wilcoxon_p": 3.86639814365445e-12,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "xfedga",
    "comparator": "fedavg",
    "metric": "dsc",
    "n_cases": 638,
@@ -467,6 +887,111 @@
    "t_ci_high": 0.002930256675424615,
    "t_outcome": "TIE",
    "wilcoxon_p": 0.5413726729315487,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "xfedga",
+   "comparator": "fedavg",
+   "metric": "pg_gradcampp",
+   "n_cases": 300,
+   "mean_diff": 0.006,
+   "ci_low": -0.002666666666666667,
+   "ci_high": 0.014666666666666668,
+   "effect_dz": 0.07935794305933679,
+   "outcome": "TIE",
+   "t_ci_low": -0.0025903289353021667,
+   "t_ci_high": 0.014590328935302167,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.1699118417314922,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "xfedga",
+   "comparator": "fedavg",
+   "metric": "rho_after_all_layers",
+   "n_cases": 300,
+   "mean_diff": 0.007276244028069527,
+   "ci_low": 0.005752405174444634,
+   "ci_high": 0.008767747954416245,
+   "effect_dz": 0.5383417086453922,
+   "outcome": "LOSE",
+   "t_ci_low": 0.005740573062706441,
+   "t_ci_high": 0.008811914993432613,
+   "t_outcome": "LOSE",
+   "wilcoxon_p": 7.8409248207614365e-22,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "xfedga",
+   "comparator": "fedavg",
+   "metric": "pg_gradcam",
+   "n_cases": 300,
+   "mean_diff": -0.0039999999999999975,
+   "ci_low": -0.02,
+   "ci_high": 0.012,
+   "effect_dz": -0.028438773929114616,
+   "outcome": "TIE",
+   "t_ci_low": -0.01998078351778662,
+   "t_ci_high": 0.011980783517786628,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.873638792581321,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "xfedga",
+   "comparator": "fedavg",
+   "metric": "deletion_auc",
+   "n_cases": 300,
+   "mean_diff": 0.005432927141462757,
+   "ci_low": -0.00035647417376543115,
+   "ci_high": 0.011495292318313454,
+   "effect_dz": 0.10516957761988836,
+   "outcome": "TIE",
+   "t_ci_low": -0.00043645920144840325,
+   "t_ci_high": 0.011302313484373917,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.3961341903230654,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "xfedga",
+   "comparator": "fedavg",
+   "metric": "insertion_auc",
+   "n_cases": 300,
+   "mean_diff": -0.009745268147776374,
+   "ci_low": -0.015516500078559948,
+   "ci_high": -0.003806336649095517,
+   "effect_dz": -0.18835825667056824,
+   "outcome": "LOSE",
+   "t_ci_low": -0.015623653835916285,
+   "t_ci_high": -0.003866882459636462,
+   "t_outcome": "LOSE",
+   "wilcoxon_p": 1.960621677829432e-06,
    "n_seeds": [
     5,
     5
@@ -509,6 +1034,111 @@
    "t_ci_high": -0.008274661774322085,
    "t_outcome": "WIN",
    "wilcoxon_p": 1.1309365609828156e-15,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "fedga",
+   "comparator": "fedavg",
+   "metric": "pg_gradcampp",
+   "n_cases": 300,
+   "mean_diff": 0.0020000000000000005,
+   "ci_low": -0.006000000000000001,
+   "ci_high": 0.01,
+   "effect_dz": 0.02843877392911464,
+   "outcome": "TIE",
+   "t_ci_low": -0.005990391758893312,
+   "t_ci_high": 0.009990391758893312,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.621873424330741,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "fedga",
+   "comparator": "fedavg",
+   "metric": "rho_after_all_layers",
+   "n_cases": 300,
+   "mean_diff": 0.00700841817546666,
+   "ci_low": 0.004895222044203294,
+   "ci_high": 0.009106309635353785,
+   "effect_dz": 0.3745359042565985,
+   "outcome": "LOSE",
+   "t_ci_low": 0.004882358275430154,
+   "t_ci_high": 0.009134478075503166,
+   "t_outcome": "LOSE",
+   "wilcoxon_p": 1.7548986405967226e-13,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "fedga",
+   "comparator": "fedavg",
+   "metric": "pg_gradcam",
+   "n_cases": 300,
+   "mean_diff": 2.960594732333751e-18,
+   "ci_low": -0.01666666666666666,
+   "ci_high": 0.016666666666666666,
+   "effect_dz": 2.062643631192268e-17,
+   "outcome": "TIE",
+   "t_ci_low": -0.01630811284363449,
+   "t_ci_high": 0.0163081128436345,
+   "t_outcome": "TIE",
+   "wilcoxon_p": 0.5272902773114454,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "fedga",
+   "comparator": "fedavg",
+   "metric": "deletion_auc",
+   "n_cases": 300,
+   "mean_diff": -0.02183232194497032,
+   "ci_low": -0.027326342813737598,
+   "ci_high": -0.01639875049478737,
+   "effect_dz": -0.4513738796575813,
+   "outcome": "WIN",
+   "t_ci_low": -0.027327888216128443,
+   "t_ci_high": -0.016336755673812195,
+   "t_outcome": "WIN",
+   "wilcoxon_p": 7.978779585371745e-15,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  {
+   "task": "breast",
+   "method": "fedga",
+   "comparator": "fedavg",
+   "metric": "insertion_auc",
+   "n_cases": 300,
+   "mean_diff": -0.02758765675307514,
+   "ci_low": -0.033625526374999215,
+   "ci_high": -0.02168899128835198,
+   "effect_dz": -0.5185848077900191,
+   "outcome": "LOSE",
+   "t_ci_low": -0.033631928337577166,
+   "t_ci_high": -0.021543385168573112,
+   "t_outcome": "LOSE",
+   "wilcoxon_p": 1.0216578266984049e-19,
    "n_seeds": [
     5,
     5

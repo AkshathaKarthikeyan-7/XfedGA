@@ -124,6 +124,19 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - **Decision:** adopt v2 for a task **only if v2 beats v1 by more than the pooled s.d. for BOTH FedGA and XFedGA**; otherwise keep v1 for that task.
 - **Measurement:** validation DSC is measured in each protocol's own pipeline. This is fair for the prostate crop only if the crop cuts no validation gland pixels (reported); predictions outside the crop are background by construction.
 
+**Fitness-weight sensitivity (Step 0, 18 Oct 2026) and the dropped tuning stage.**
+- **Analysis:** `analysis/fitness_weight_step0.py` → `results/fitness_weights/step0.json`, `step0_grid.csv`, `step0_named.md`. CPU only, no new evaluation.
+  - It re-ranks the logged GA candidate pools of the 10 v1 headline XFedGA runs (75 rounds per task) under (w1, w2, w3) ∈ {(0.5, 0.3, 0.2), (0.7, 0.2, 0.1), (0.8, 0.2, 0.0), (1, 0, 0)}, and over the 0.1-step simplex.
+- **Result:**
+  - The GA winner changes in 25–57% (prostate) and 28–68% (breast) of rounds.
+  - The winner's fitness-subset DSC moves by at most +0.0024 (prostate, (1, 0, 0)). That is smaller than the breast primary gap (ΔDSC −0.0072).
+- **Caveat:** within-round selection only. The GA trajectory under other weights is not simulated, and winner metrics are on the 40-image fitness subset, not validation.
+- **Reported as:** the fitness-weight sensitivity analysis. The weights stay (0.5, 0.3, 0.2).
+- **Tuning stage dropped:**
+  - A validation-only tuning screen (XFedGA weights, FedGA σ0) was considered on 18 Oct 2026, **after the v1 test result was known**.
+  - It was dropped on the Step 0 evidence above, before any tuning run.
+  - No second test evaluation is planned on its account.
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

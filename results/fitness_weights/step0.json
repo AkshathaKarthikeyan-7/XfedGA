@@ -1,0 +1,114 @@
+{
+ "default_weights": [
+  0.5,
+  0.3,
+  0.2
+ ],
+ "grid_points": 66,
+ "runs": [
+  "breast_xfedga_seed1_8bf4f80f",
+  "breast_xfedga_seed2_8bf4f80f",
+  "breast_xfedga_seed3_8bf4f80f",
+  "breast_xfedga_seed4_8bf4f80f",
+  "breast_xfedga_seed5_8bf4f80f",
+  "prostate_xfedga_seed1_da079fb7",
+  "prostate_xfedga_seed2_da079fb7",
+  "prostate_xfedga_seed3_da079fb7",
+  "prostate_xfedga_seed4_da079fb7",
+  "prostate_xfedga_seed5_da079fb7"
+ ],
+ "per_task": {
+  "breast": {
+   "rounds": 75,
+   "mean_share_changed_over_grid": 0.47737373737373734,
+   "corners": {
+    "(1.0, 0.0, 0.0)": 0.68,
+    "(0.0, 1.0, 0.0)": 0.6933333333333334,
+    "(0.0, 0.0, 1.0)": 0.7866666666666666
+   }
+  },
+  "prostate": {
+   "rounds": 75,
+   "mean_share_changed_over_grid": 0.43070707070707065,
+   "corners": {
+    "(1.0, 0.0, 0.0)": 0.5733333333333334,
+    "(0.0, 1.0, 0.0)": 0.7333333333333333,
+    "(0.0, 0.0, 1.0)": 0.72
+   }
+  }
+ },
+ "named": {
+  "breast/(0.5, 0.3, 0.2)": {
+   "rounds": 75,
+   "share_winner_changed": 0.0,
+   "n_changed": 0,
+   "share_w_agg_kept": 0.013333333333333334,
+   "winner_mean_dsc": 0.6558742402364731,
+   "winner_mean_hd95_norm": 0.2783303985922701,
+   "winner_mean_ec": 0.2193247950284601
+  },
+  "breast/(0.7, 0.2, 0.1)": {
+   "rounds": 75,
+   "share_winner_changed": 0.28,
+   "n_changed": 21,
+   "share_w_agg_kept": 0.013333333333333334,
+   "winner_mean_dsc": 0.6567204943150958,
+   "winner_mean_hd95_norm": 0.27908993467812737,
+   "winner_mean_ec": 0.2172503956381432
+  },
+  "breast/(0.8, 0.2, 0.0)": {
+   "rounds": 75,
+   "share_winner_changed": 0.4533333333333333,
+   "n_changed": 34,
+   "share_w_agg_kept": 0.0,
+   "winner_mean_dsc": 0.6571988522999873,
+   "winner_mean_hd95_norm": 0.27934295802315073,
+   "winner_mean_ec": 0.2126437095312023
+  },
+  "breast/(1.0, 0.0, 0.0)": {
+   "rounds": 75,
+   "share_winner_changed": 0.68,
+   "n_changed": 51,
+   "share_w_agg_kept": 0.04,
+   "winner_mean_dsc": 0.6576103306408276,
+   "winner_mean_hd95_norm": 0.2832523639077942,
+   "winner_mean_ec": 0.21145871401008573
+  },
+  "prostate/(0.5, 0.3, 0.2)": {
+   "rounds": 75,
+   "share_winner_changed": 0.0,
+   "n_changed": 0,
+   "share_w_agg_kept": 0.013333333333333334,
+   "winner_mean_dsc": 0.4691058652335491,
+   "winner_mean_hd95_norm": 0.20491833126420778,
+   "winner_mean_ec": 0.19012612659432665
+  },
+  "prostate/(0.7, 0.2, 0.1)": {
+   "rounds": 75,
+   "share_winner_changed": 0.25333333333333335,
+   "n_changed": 19,
+   "share_w_agg_kept": 0.013333333333333334,
+   "winner_mean_dsc": 0.4705215272988545,
+   "winner_mean_hd95_norm": 0.20823029109794233,
+   "winner_mean_ec": 0.18994908288761406
+  },
+  "prostate/(0.8, 0.2, 0.0)": {
+   "rounds": 75,
+   "share_winner_changed": 0.30666666666666664,
+   "n_changed": 23,
+   "share_w_agg_kept": 0.013333333333333334,
+   "winner_mean_dsc": 0.4707352083036135,
+   "winner_mean_hd95_norm": 0.2090106780355175,
+   "winner_mean_ec": 0.18979328756793115
+  },
+  "prostate/(1.0, 0.0, 0.0)": {
+   "rounds": 75,
+   "share_winner_changed": 0.5733333333333334,
+   "n_changed": 43,
+   "share_w_agg_kept": 0.02666666666666667,
+   "winner_mean_dsc": 0.4714522336085115,
+   "winner_mean_hd95_norm": 0.21580887064047985,
+   "winner_mean_ec": 0.18800651674106403
+  }
+ }
+}

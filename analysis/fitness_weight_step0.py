@@ -19,6 +19,7 @@ import csv
 import glob
 import json
 import os
+import re
 import sys
 
 import numpy as np
@@ -29,6 +30,8 @@ from run_filter import uses_current_cam  # noqa: E402
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(REPO, "results", "fitness_weights")
 DEFAULT = (0.5, 0.3, 0.2)
+NAMED = [(0.5, 0.3, 0.2), (0.7, 0.2, 0.1), (0.8, 0.2, 0.0), (1.0, 0.0, 0.0)]   # 18 Oct 2026 request (tuning stage)
+HEADLINE = os.path.join(REPO, "results", "runs", "*_xfedga_seed[1-5]_[0-9a-f]*")
 
 
 def simplex(step=0.1):
@@ -41,9 +44,11 @@ def winner(cands, w):
     return int(np.argmax(scores))
 
 
-def load_pools(pattern):
+def load_pools(pattern, include_tagged=False):
     pools = []
     for d in sorted(glob.glob(pattern)):
+        if not include_tagged and not re.fullmatch(r".+_seed\d+_[0-9a-f]{8}", os.path.basename(d)):
+            continue                                   # tagged runs (betascreen, v2screen, fl, ...) excluded
         path = os.path.join(d, "ga_candidates.jsonl")
         meta_path = os.path.join(d, "run_meta.json")
         if not (os.path.exists(path) and os.path.exists(meta_path)) or not uses_current_cam(d):
@@ -60,9 +65,10 @@ def load_pools(pattern):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--runs", default=os.path.join(REPO, "results", "runs", "*_xfedga_seed*"))
+    ap.add_argument("--runs", default=HEADLINE, help="default: the v1 headline XFedGA runs (untagged)")
+    ap.add_argument("--include_tagged", action="store_true", help="also use tagged runs matching --runs")
     args = ap.parse_args()
-    pools = load_pools(args.runs)
+    pools = load_pools(args.runs, args.include_tagged)
     if not pools:
         print("no candidate pools found")
         return
@@ -89,8 +95,32 @@ def main():
                                                          if (r["w1"], r["w2"], r["w3"]) == c)
                                             for c in [(1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)]}}
                             for t in tasks}}
+    named, lines = {}, ["| Task | Weights (w1, w2, w3) | Rounds | Winner changes vs (0.5, 0.3, 0.2) | "
+                        "Winner DSC (fitness subset) | Winner HD95_norm | Winner EC | Winner = w_agg |",
+                        "|---|---|---|---|---|---|---|---|"]
+    for t in tasks:
+        ps = [p for p in pools if p["task"] == t]
+        for w in NAMED:
+            win = [p["cands"][winner(p["cands"], w)] for p in ps]
+            ch = [winner(p["cands"], w) != winner(p["cands"], DEFAULT) for p in ps]
+            kept = [winner(p["cands"], w) == 0 for p in ps]          # candidate 0 = w_agg (first evaluated)
+            named[f"{t}/{w}"] = {"rounds": len(ps), "share_winner_changed": float(np.mean(ch)),
+                                 "n_changed": int(np.sum(ch)), "share_w_agg_kept": float(np.mean(kept)),
+                                 **{f"winner_mean_{k}": float(np.mean([c[k] for c in win])) for k in ("dsc", "hd95_norm", "ec")}}
+            n = named[f"{t}/{w}"]
+            lines.append(f"| {t} | {w} | {len(ps)} | {n['n_changed']} ({n['share_winner_changed']:.0%}) | "
+                         f"{n['winner_mean_dsc']:.4f} | {n['winner_mean_hd95_norm']:.4f} | {n['winner_mean_ec']:.4f} | "
+                         f"{n['share_w_agg_kept']:.0%} |")
+    lines += ["", "Re-ranking of the logged candidate pools of the v1 headline XFedGA runs (CPU, no new evaluation). "
+              "Within-round selection only: the GA trajectory under other weights is not simulated. Winner metrics are on "
+              "the 40-image fitness subset, not validation."]
+    summary["named"] = named
     with open(os.path.join(OUT, "step0.json"), "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=1)
+    with open(os.path.join(OUT, "step0_named.md"), "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+    sys.stdout.reconfigure(encoding="utf-8")
+    print("\n".join(lines))
     print(json.dumps(summary["per_task"], indent=1))
 
 

@@ -222,6 +222,24 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - **Never cut:** the final headline primary arms (5 seeds), `prostate_ms`, the dose-response at p = 0.5 and 1.0, and the Flower demo.
 - **Screen order:** `prostate_ms` seed-1 cells (8 runs), then breast XFedGA+ seed 1 (2 runs), then the seed-2 cells (8 + 2). No test evaluation. Code root: a frozen worktree at the commit of this pre-registration.
 
+**Pre-registration: acceptance check (18 Oct 2026, before any result of the combined screen). A DECLARED POST-v1 VARIANT.**
+- **Motivation (RC2):** in the breast v2 screen runs (validation only), the GA winner's validation DSC is below w_agg's in 13–20% of rounds (`results/protocol_v2/v2_adoption.md`). The GA overfits its fitness subsample.
+- **Variant (switch `ga.acceptance_check`, default false; code: `data/splits.py::fitness_halves`, `experiments/run_federated.py::acceptance_decision`, `ServerEval`):**
+  - **Halves:** the server fitness subsample is split into two fixed, **case-level** halves A and B: cases sorted by mean gland / lesion size, blocks of 2, one to each half by a seeded permutation (data seed 42); an odd last case goes to A.
+  - **GA:** fitness is evaluated on **A only**. XFedGA+'s server-verified score s_i is also computed on A (flagged), so B stays untouched until the check.
+  - **Check:** after the last generation the winner is accepted only if its fitness on B is ≥ w_agg's fitness on B; otherwise the round's model is w_agg (for XFedGA+ the logged mixing vector is then alpha). The decision is logged per round (`accepted`, `fit_B_winner`, `fit_B_wagg`).
+  - **No validation or test data.** It costs +2 fitness evaluations per round (winner and w_agg on B); the GA itself scores half as many images per evaluation.
+  - **Flagged:** with half the subsample, the GA fitness is noisier (v1: about 20 instead of 40 images).
+  - **Applicable to** XFedGA, XFedGA+ and XFedGA+ (DSC-only) only (`run_experiment` refuses it for other methods). Existing methods and defaults are unchanged; the regression pin must still pass.
+- **Screen (validation only, after the combined screen finishes):**
+  - **Runs:** the acceptance-check version of the method selected by the adoption rules: XFedGA+ if XFedGA+ is adopted (one decision for both tasks), otherwise XFedGA. 2 tasks (breast, `prostate_ms`) × seeds 1–2, the protocol adopted per task, no test evaluation.
+  - **Comparator:** the selected method's existing seed 1–2 runs of the same protocol (breast: v1 headline or XFedGA+ screen; `prostate_ms`: the combined screen).
+  - **Score:** max centred 3-round mean validation DSC per run, mean of seeds 1–2.
+  - **Pooled s.d.:** per task, sqrt(mean of the seed variances, ddof = 1) over the two cells (the selected method and its acceptance version).
+- **Adoption rule (as for XFedGA+):** adopt the acceptance version only if it beats the selected method by more than the pooled s.d. on ≥ 1 task and is not worse by more than the pooled s.d. on the other. Otherwise it is reported as screened, not adopted.
+- **If adopted:** it is an additional final-headline arm (5 seeds, both tasks, test once). Declared secondary endpoint: acceptance version vs FedGA (baseline), test DSC; exploratory: vs the selected method. It is not part of the dose-response, and not in the agreed cut order (`analysis/recost_18oct.py`; the recost fits without cuts).
+- **Reporting:** every screened variant (XFedGA+, its DSC-only control, the acceptance check) is reported in the thesis, adopted or not.
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

@@ -155,6 +155,40 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
   - It was dropped on the Step 0 evidence above, before any tuning run.
   - No second test evaluation is planned on its account.
 
+**Pre-registration: XFedGA+ (18 Oct 2026). A DECLARED POST-v1 VARIANT.**
+- **Status:** designed after the v1 headline test results were known (primary: prostate TIE, breast LOSE). It is reported as such. The v1 headline and its outcomes stay reported unchanged.
+- **Method `xfedga_plus`** (code: `fedga/evaluation.py::server_client_scores`, `fedga/ga_optimizer.py::run_mix_ga`, switches in `experiments/run_federated.py`):
+  - **Server-verified client score:** s_i = DSC_i × EC_mass,i of client i's model on the fixed fitness subsample, the same images as the GA fitness. No validation or test data is used.
+  - **EC in XFedGA+ = EC_mass, the share of Grad-CAM mass inside the mask** (energy-based pointing game, `xai/explainability.py::cam_mass_in_mask`), not the IoU of the CAM thresholded at 0.5. It is used in s_i **and** in the fitness EC term.
+    - **Justification** (`analysis/cam_v2_check.py` → `results/diagnostics/cam_v2_check.json`; validation slices, no test data): under the v2 FOV crop the gland fills about 16% of the slice and the full-res CAM is a sharp peak. Only 0.6% of pixels reach half its maximum, so IoU@0.5 ≈ 0.02 even though 73% of the CAM mass lies in the gland and the pointing game is 0.83. IoU@0.5 then measures peak sharpness, not localisation. On synthetic data a perfect model's IoU@0.5 also falls from 0.93–0.98 to 0.75–0.83 as the object grows, while its CAM mass in the object stays 0.999.
+    - **The original XFedGA is unchanged** (EC = IoU@0.5 in q_i and in its fitness) and is still reported. q_i (client-side, logged and unused in XFedGA+) keeps its definition.
+    - **XAI evaluation:** both EC definitions (`ec_iou_gradcam`, `ec_mass_gradcam`) are reported for every method; the round logs carry `val_ec` (IoU) and `val_ec_mass`. Unit and known-answer tests: `tests/test_ec_mass.py`.
+  - **Messages:** clients still send only weights, n_i, q_i and the client index. q_i is computed and logged, not used.
+  - **Aggregation:** alpha_i ∝ (n_i/N)·max(s_i, eps)^β, with **β = 0.5 and eps = 0.001 as in XFedGA (not re-screened)**.
+  - **GA over client mixing vectors m** (simplex): a candidate model is Σ_k m_k w_k.
+    - Individual 0 is m = alpha, i.e. w_agg unchanged. The others are drawn from Dirichlet(κ·alpha), **κ = 20 (fixed a priori, not tuned)**.
+    - Crossover with probability pc = 0.5: a convex blend u·m1 + (1−u)·m2, u ~ U(0, 1).
+    - Mutation (every offspring): Dirichlet(κ_g·m), κ_g = κ·exp(g/τ), τ = 10. This is the annealing analogue of XFedGA's σ0·exp(−g/τ).
+  - **Unchanged from XFedGA:** elitist top-half selection, P = 6, G = 5 and the elite-fitness cache, so **21 GA fitness evaluations per round, as XFedGA**. The fitness weights and subsample are identical, (w1, w2, w3) = (0.5, 0.3, 0.2); only the EC term's definition differs (EC_mass, above).
+  - **Declared extra cost:** scoring the K client models adds K fitness-subsample evaluations per round (K = 2 breast, 5 prostate_ms), logged as `score_s`.
+  - **With 2 clients (breast)** the mixing vector has one degree of freedom (λ, 1 − λ); with 5 (prostate_ms), four.
+- **Control `xfedga_plus_dsc`:** identical, but s_i = DSC_i. The EC_mass component is still computed (same cost) and logged, and the fitness EC term is EC_mass as in XFedGA+. XFedGA+ vs this control isolates the EC term of the score.
+- **Logged per round:** s_i, client DSC_i / EC_i on the fitness subsample, q_i, alpha_i, the winner's mixing vector `mix_i`, every candidate's mixing vector (`ga_candidates.jsonl`), and val_dsc_wagg if enabled.
+- **Validation-only screen:**
+  - **Runs:** FedGA (baseline), XFedGA, XFedGA+ and XFedGA+ (DSC-only), 2 tasks (breast, prostate_ms) × seeds 1–2, under the protocol adopted per task. No test evaluation.
+  - **Reused runs (breast only):** the breast FedGA and XFedGA cells reuse the existing runs of the adopted breast protocol (v1 headline or v2 screen, seeds 1–2). Their code path is unchanged; the regression pin and full suite pass at the XFedGA+ code commit. prostate_ms has no earlier runs: all four methods are run there (combined with the prostate_ms protocol screen, see its pre-registration).
+  - **Score:** max centred 3-round mean validation DSC per run, mean of seeds 1–2.
+  - **Pooled s.d.:** per task, sqrt(mean of the seed variances, ddof = 1) over the four method cells.
+- **Adoption rule (one decision, for all final experiments):** adopt XFedGA+ (and run its DSC-only control alongside) **only if** both conditions hold:
+  - XFedGA+ beats XFedGA on validation by more than the pooled s.d. on **≥ 1 task**;
+  - it is **not worse** than XFedGA by more than the pooled s.d. on the other task.
+  - Otherwise XFedGA+ is reported only as a screened, not adopted, variant.
+- **Endpoints if adopted:**
+  - **Primary unchanged:** XFedGA vs FedGA (baseline), test DSC.
+  - **Declared secondary:** XFedGA+ vs FedGA (baseline), test DSC, per task, with the same statistics.
+  - **Exploratory:** XFedGA+ vs XFedGA+ (DSC-only), the EC contribution.
+- **Root-cause logging** (evaluation only, it does not change the run): XFedGA+ screen runs set `evaluation.log_client_val = true` (each client model's validation DSC per round, for RC4) and `evaluation.log_wagg_val = true`.
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

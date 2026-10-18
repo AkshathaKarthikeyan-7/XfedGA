@@ -1,0 +1,52 @@
+{
+ "run_id": "prostate_fedga_seed3_be308424",
+ "task": "prostate",
+ "method": "fedga",
+ "method_switches": {
+  "topology": "federated",
+  "aggregation": "fedavg",
+  "q_source": null,
+  "search": "ga",
+  "fitness": "dsc",
+  "anneal": false,
+  "prox": false
+ },
+ "seed": 3,
+ "config_hash": "be30842477cb",
+ "git_commit": "b556334",
+ "selection": "centred moving-average validation DSC",
+ "clients": [
+  "PROMISE12_client1",
+  "PROMISE12_client2"
+ ],
+ "server_sizes": {
+  "fitness": 117,
+  "validation": 117,
+  "test": 241
+ },
+ "setup_s": 0.0,
+ "total_s": 888.0,
+ "selected_round": 6,
+ "smoothed_val_dsc": [
+  0.33257856278964915,
+  0.3851875386271919,
+  0.45247119453060475,
+  0.47987818148271727,
+  0.4741585636078103,
+  0.48081333378050944,
+  0.4724022360495103,
+  0.46434455806079605,
+  0.4674678701296738,
+  0.4413582434698206,
+  0.4324332859987228,
+  0.40661209528795683,
+  0.4341516955910903,
+  0.43458034077121716,
+  0.44675672573376835
+ ],
+ "n_i": [
+  379,
+  399
+ ],
+ "test_evaluated": true
+}

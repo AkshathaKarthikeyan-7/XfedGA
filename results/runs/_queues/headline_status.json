@@ -1,0 +1,518 @@
+{
+ "queue": "headline",
+ "code_root": "D:\\new repo\\xfedga_frozen\\b556334",
+ "code_commit": "b556334",
+ "repo": "D:\\new repo\\xfedga",
+ "runs": [
+  {
+   "run_id": "prostate_fedavg_seed1_532998da",
+   "task": "prostate",
+   "method": "fedavg",
+   "seed": 1,
+   "status": "done",
+   "minutes": 14.0,
+   "gpu": {
+    "busy_samples": 76,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 2730.0,
+    "median_power_W": 68.26,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 932.0
+   }
+  },
+  {
+   "run_id": "prostate_fedga_seed1_be308424",
+   "task": "prostate",
+   "method": "fedga",
+   "seed": 1,
+   "status": "done",
+   "minutes": 14.7,
+   "gpu": {
+    "busy_samples": 80,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 2730.0,
+    "median_power_W": 68.63,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 861.0
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed1_da079fb7",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 1,
+   "status": "done",
+   "minutes": 27.6,
+   "gpu": {
+    "busy_samples": 81,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 915.0,
+    "median_power_W": 67.42,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 875.0
+   }
+  },
+  {
+   "run_id": "breast_fedavg_seed1_c2398972",
+   "task": "breast",
+   "method": "fedavg",
+   "seed": 1,
+   "status": "done",
+   "minutes": 18.0,
+   "gpu": {
+    "busy_samples": 75,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.66,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 801.0
+   }
+  },
+  {
+   "run_id": "breast_fedga_seed1_e12fc677",
+   "task": "breast",
+   "method": "fedga",
+   "seed": 1,
+   "status": "done",
+   "minutes": 18.4,
+   "gpu": {
+    "busy_samples": 79,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 67.41,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 845.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed1_8bf4f80f",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 1,
+   "status": "done",
+   "minutes": 33.7,
+   "gpu": {
+    "busy_samples": 77,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 67.45,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 959.0
+   }
+  },
+  {
+   "run_id": "prostate_fedavg_seed2_532998da",
+   "task": "prostate",
+   "method": "fedavg",
+   "seed": 2,
+   "status": "done",
+   "minutes": 14.0,
+   "gpu": {
+    "busy_samples": 76,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 2730.0,
+    "median_power_W": 68.5,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 817.0
+   }
+  },
+  {
+   "run_id": "prostate_fedga_seed2_be308424",
+   "task": "prostate",
+   "method": "fedga",
+   "seed": 2,
+   "status": "done",
+   "minutes": 14.6,
+   "gpu": {
+    "busy_samples": 77,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 2730.0,
+    "median_power_W": 68.75,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 847.0
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed2_da079fb7",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 2,
+   "status": "done",
+   "minutes": 27.3,
+   "gpu": {
+    "busy_samples": 74,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 2730.0,
+    "median_power_W": 67.96,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 873.0
+   }
+  },
+  {
+   "run_id": "breast_fedavg_seed2_c2398972",
+   "task": "breast",
+   "method": "fedavg",
+   "seed": 2,
+   "status": "done",
+   "minutes": 17.6,
+   "gpu": {
+    "busy_samples": 72,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 480.0,
+    "median_power_W": 67.97,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 801.0
+   }
+  },
+  {
+   "run_id": "breast_fedga_seed2_e12fc677",
+   "task": "breast",
+   "method": "fedga",
+   "seed": 2,
+   "status": "done",
+   "minutes": 18.7,
+   "gpu": {
+    "busy_samples": 79,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.51,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 861.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed2_8bf4f80f",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 2,
+   "status": "done",
+   "minutes": 34.8,
+   "gpu": {
+    "busy_samples": 79,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 435.0,
+    "median_power_W": 66.95,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 959.0
+   }
+  },
+  {
+   "run_id": "prostate_fedavg_seed3_532998da",
+   "task": "prostate",
+   "method": "fedavg",
+   "seed": 3,
+   "status": "done",
+   "minutes": 14.2,
+   "gpu": {
+    "busy_samples": 77,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 2730.0,
+    "median_power_W": 68.22,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 817.0
+   }
+  },
+  {
+   "run_id": "prostate_fedga_seed3_be308424",
+   "task": "prostate",
+   "method": "fedga",
+   "seed": 3,
+   "status": "done",
+   "minutes": 14.9,
+   "gpu": {
+    "busy_samples": 79,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 1080.0,
+    "median_power_W": 68.48,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 845.0
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed3_da079fb7",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 3,
+   "status": "done",
+   "minutes": 29.0,
+   "gpu": {
+    "busy_samples": 76,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 675.0,
+    "median_power_W": 67.54,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 857.0
+   }
+  },
+  {
+   "run_id": "breast_fedavg_seed3_c2398972",
+   "task": "breast",
+   "method": "fedavg",
+   "seed": 3,
+   "status": "done",
+   "minutes": 18.2,
+   "gpu": {
+    "busy_samples": 75,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 465.0,
+    "median_power_W": 67.32,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 801.0
+   }
+  },
+  {
+   "run_id": "breast_fedga_seed3_e12fc677",
+   "task": "breast",
+   "method": "fedga",
+   "seed": 3,
+   "status": "done",
+   "minutes": 18.9,
+   "gpu": {
+    "busy_samples": 79,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 450.0,
+    "median_power_W": 67.51,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 845.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed3_8bf4f80f",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 3,
+   "status": "done",
+   "minutes": 35.0,
+   "gpu": {
+    "busy_samples": 80,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.27,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 959.0
+   }
+  },
+  {
+   "run_id": "prostate_fedavg_seed4_532998da",
+   "task": "prostate",
+   "method": "fedavg",
+   "seed": 4,
+   "status": "done",
+   "minutes": 14.3,
+   "gpu": {
+    "busy_samples": 76,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 1110.0,
+    "median_power_W": 68.01,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 817.0
+   }
+  },
+  {
+   "run_id": "prostate_fedga_seed4_be308424",
+   "task": "prostate",
+   "method": "fedga",
+   "seed": 4,
+   "status": "done",
+   "minutes": 15.0,
+   "gpu": {
+    "busy_samples": 78,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 2730.0,
+    "median_power_W": 67.85,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 847.0
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed4_da079fb7",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 4,
+   "status": "done",
+   "minutes": 31.5,
+   "gpu": {
+    "busy_samples": 79,
+    "median_sm_clock_MHz": 2625.0,
+    "min_sm_clock_MHz": 600.0,
+    "median_power_W": 59.78,
+    "share_busy_with_throttle_reason": 0.582,
+    "throttled": true,
+    "max_memory_used_MiB": 957.0
+   }
+  },
+  {
+   "run_id": "breast_fedavg_seed4_c2398972",
+   "task": "breast",
+   "method": "fedavg",
+   "seed": 4,
+   "status": "done",
+   "minutes": 18.6,
+   "gpu": {
+    "busy_samples": 77,
+    "median_sm_clock_MHz": 2550.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 59.65,
+    "share_busy_with_throttle_reason": 0.948,
+    "throttled": true,
+    "max_memory_used_MiB": 801.0
+   }
+  },
+  {
+   "run_id": "breast_fedga_seed4_e12fc677",
+   "task": "breast",
+   "method": "fedga",
+   "seed": 4,
+   "status": "done",
+   "minutes": 19.5,
+   "gpu": {
+    "busy_samples": 77,
+    "median_sm_clock_MHz": 2565.0,
+    "min_sm_clock_MHz": 1200.0,
+    "median_power_W": 59.62,
+    "share_busy_with_throttle_reason": 0.961,
+    "throttled": true,
+    "max_memory_used_MiB": 861.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed4_8bf4f80f",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 4,
+   "status": "done",
+   "minutes": 35.3,
+   "gpu": {
+    "busy_samples": 83,
+    "median_sm_clock_MHz": 2565.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 59.64,
+    "share_busy_with_throttle_reason": 0.867,
+    "throttled": true,
+    "max_memory_used_MiB": 951.0
+   }
+  },
+  {
+   "run_id": "prostate_fedavg_seed5_532998da",
+   "task": "prostate",
+   "method": "fedavg",
+   "seed": 5,
+   "status": "done",
+   "minutes": 14.5,
+   "gpu": {
+    "busy_samples": 77,
+    "median_sm_clock_MHz": 2535.0,
+    "min_sm_clock_MHz": 2460.0,
+    "median_power_W": 59.65,
+    "share_busy_with_throttle_reason": 0.987,
+    "throttled": true,
+    "max_memory_used_MiB": 817.0
+   }
+  },
+  {
+   "run_id": "prostate_fedga_seed5_be308424",
+   "task": "prostate",
+   "method": "fedga",
+   "seed": 5,
+   "status": "done",
+   "minutes": 15.3,
+   "gpu": {
+    "busy_samples": 81,
+    "median_sm_clock_MHz": 2505.0,
+    "min_sm_clock_MHz": 1620.0,
+    "median_power_W": 59.65,
+    "share_busy_with_throttle_reason": 0.975,
+    "throttled": true,
+    "max_memory_used_MiB": 859.0
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed5_da079fb7",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 5,
+   "status": "done",
+   "minutes": 28.5,
+   "gpu": {
+    "busy_samples": 79,
+    "median_sm_clock_MHz": 2550.0,
+    "min_sm_clock_MHz": 1125.0,
+    "median_power_W": 59.68,
+    "share_busy_with_throttle_reason": 0.987,
+    "throttled": true,
+    "max_memory_used_MiB": 951.0
+   }
+  },
+  {
+   "run_id": "breast_fedavg_seed5_c2398972",
+   "task": "breast",
+   "method": "fedavg",
+   "seed": 5,
+   "status": "done",
+   "minutes": 18.5,
+   "gpu": {
+    "busy_samples": 76,
+    "median_sm_clock_MHz": 2550.0,
+    "min_sm_clock_MHz": 525.0,
+    "median_power_W": 59.61,
+    "share_busy_with_throttle_reason": 0.934,
+    "throttled": true,
+    "max_memory_used_MiB": 801.0
+   }
+  },
+  {
+   "run_id": "breast_fedga_seed5_e12fc677",
+   "task": "breast",
+   "method": "fedga",
+   "seed": 5,
+   "status": "done",
+   "minutes": 19.2,
+   "gpu": {
+    "busy_samples": 79,
+    "median_sm_clock_MHz": 2550.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 59.57,
+    "share_busy_with_throttle_reason": 0.962,
+    "throttled": true,
+    "max_memory_used_MiB": 859.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed5_8bf4f80f",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 5,
+   "status": "done",
+   "minutes": 34.6,
+   "gpu": {
+    "busy_samples": 79,
+    "median_sm_clock_MHz": 2550.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 59.67,
+    "share_busy_with_throttle_reason": 0.848,
+    "throttled": true,
+    "max_memory_used_MiB": 959.0
+   }
+  }
+ ]
+}

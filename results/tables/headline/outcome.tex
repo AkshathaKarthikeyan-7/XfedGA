@@ -1,0 +1,8 @@
+\begin{tabular}{llccc}
+\hline
+task & accuracy & explanation (independent metrics) & stability & cost \\
+\hline
+prostate & TIE (ΔDSC +0.015, CI [-0.002, +0.033]) & pending (independent XAI metrics not computed) & seed s.d. 0.041 vs 0.070; last-5-round val s.d. 0.027 vs 0.024 & 114 s vs 58 s per round (+95\%) \\
+breast & LOSE (ΔDSC -0.007, CI [-0.011, -0.004]) & pending (independent XAI metrics not computed) & seed s.d. 0.014 vs 0.016; last-5-round val s.d. 0.013 vs 0.008 & 133 s vs 70 s per round (+89\%) \\
+\hline
+\end{tabular}

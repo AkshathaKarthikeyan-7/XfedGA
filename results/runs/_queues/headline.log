@@ -1,0 +1,62 @@
+2026-10-18 02:07:55 queue headline: 30 runs; code D:\new repo\xfedga_frozen\b556334 @ b556334; repo D:\new repo\xfedga
+2026-10-18 02:07:55 [1/30] start prostate_fedavg_seed1_532998da
+2026-10-18 02:21:55 [1/30] done prostate_fedavg_seed1_532998da in 14.0 min; GPU median 2730.0 MHz
+2026-10-18 02:21:55 [2/30] start prostate_fedga_seed1_be308424
+2026-10-18 02:36:36 [2/30] done prostate_fedga_seed1_be308424 in 14.7 min; GPU median 2730.0 MHz
+2026-10-18 02:36:36 [3/30] start prostate_xfedga_seed1_da079fb7
+2026-10-18 03:04:09 [3/30] done prostate_xfedga_seed1_da079fb7 in 27.6 min; GPU median 2730.0 MHz
+2026-10-18 03:04:09 [4/30] start breast_fedavg_seed1_c2398972
+2026-10-18 03:22:09 [4/30] done breast_fedavg_seed1_c2398972 in 18.0 min; GPU median 2730.0 MHz
+2026-10-18 03:22:09 [5/30] start breast_fedga_seed1_e12fc677
+2026-10-18 03:40:33 [5/30] done breast_fedga_seed1_e12fc677 in 18.4 min; GPU median 2730.0 MHz
+2026-10-18 03:40:33 [6/30] start breast_xfedga_seed1_8bf4f80f
+2026-10-18 04:14:13 [6/30] done breast_xfedga_seed1_8bf4f80f in 33.7 min; GPU median 2730.0 MHz
+2026-10-18 04:14:13 [7/30] start prostate_fedavg_seed2_532998da
+2026-10-18 04:28:11 [7/30] done prostate_fedavg_seed2_532998da in 14.0 min; GPU median 2730.0 MHz
+2026-10-18 04:28:11 [8/30] start prostate_fedga_seed2_be308424
+2026-10-18 04:42:48 [8/30] done prostate_fedga_seed2_be308424 in 14.6 min; GPU median 2730.0 MHz
+2026-10-18 04:42:48 [9/30] start prostate_xfedga_seed2_da079fb7
+2026-10-18 05:10:07 [9/30] done prostate_xfedga_seed2_da079fb7 in 27.3 min; GPU median 2730.0 MHz
+2026-10-18 05:10:07 [10/30] start breast_fedavg_seed2_c2398972
+2026-10-18 05:27:44 [10/30] done breast_fedavg_seed2_c2398972 in 17.6 min; GPU median 2730.0 MHz
+2026-10-18 05:27:44 [11/30] start breast_fedga_seed2_e12fc677
+2026-10-18 05:46:27 [11/30] done breast_fedga_seed2_e12fc677 in 18.7 min; GPU median 2730.0 MHz
+2026-10-18 05:46:27 [12/30] start breast_xfedga_seed2_8bf4f80f
+2026-10-18 06:21:15 [12/30] done breast_xfedga_seed2_8bf4f80f in 34.8 min; GPU median 2730.0 MHz
+2026-10-18 06:21:15 [13/30] start prostate_fedavg_seed3_532998da
+2026-10-18 06:35:29 [13/30] done prostate_fedavg_seed3_532998da in 14.2 min; GPU median 2730.0 MHz
+2026-10-18 06:35:29 [14/30] start prostate_fedga_seed3_be308424
+2026-10-18 06:50:24 [14/30] done prostate_fedga_seed3_be308424 in 14.9 min; GPU median 2730.0 MHz
+2026-10-18 06:50:24 [15/30] start prostate_xfedga_seed3_da079fb7
+2026-10-18 07:19:23 [15/30] done prostate_xfedga_seed3_da079fb7 in 29.0 min; GPU median 2730.0 MHz
+2026-10-18 07:19:23 [16/30] start breast_fedavg_seed3_c2398972
+2026-10-18 07:37:36 [16/30] done breast_fedavg_seed3_c2398972 in 18.2 min; GPU median 2730.0 MHz
+2026-10-18 07:37:36 [17/30] start breast_fedga_seed3_e12fc677
+2026-10-18 07:56:32 [17/30] done breast_fedga_seed3_e12fc677 in 18.9 min; GPU median 2730.0 MHz
+2026-10-18 07:56:32 [18/30] start breast_xfedga_seed3_8bf4f80f
+2026-10-18 08:31:35 [18/30] done breast_xfedga_seed3_8bf4f80f in 35.0 min; GPU median 2730.0 MHz
+2026-10-18 08:31:35 [19/30] start prostate_fedavg_seed4_532998da
+2026-10-18 08:45:53 [19/30] done prostate_fedavg_seed4_532998da in 14.3 min; GPU median 2730.0 MHz
+2026-10-18 08:45:53 [20/30] start prostate_fedga_seed4_be308424
+2026-10-18 09:00:52 [20/30] done prostate_fedga_seed4_be308424 in 15.0 min; GPU median 2730.0 MHz
+2026-10-18 09:00:52 [21/30] start prostate_xfedga_seed4_da079fb7
+2026-10-18 09:32:23 [21/30] done prostate_xfedga_seed4_da079fb7 in 31.5 min; GPU median 2625.0 MHz  ** THROTTLED **
+2026-10-18 09:32:23 [22/30] start breast_fedavg_seed4_c2398972
+2026-10-18 09:50:57 [22/30] done breast_fedavg_seed4_c2398972 in 18.6 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-18 09:50:57 [23/30] start breast_fedga_seed4_e12fc677
+2026-10-18 10:10:27 [23/30] done breast_fedga_seed4_e12fc677 in 19.5 min; GPU median 2565.0 MHz  ** THROTTLED **
+2026-10-18 10:10:27 [24/30] start breast_xfedga_seed4_8bf4f80f
+2026-10-18 10:45:44 [24/30] done breast_xfedga_seed4_8bf4f80f in 35.3 min; GPU median 2565.0 MHz  ** THROTTLED **
+2026-10-18 10:45:44 [25/30] start prostate_fedavg_seed5_532998da
+2026-10-18 11:00:14 [25/30] done prostate_fedavg_seed5_532998da in 14.5 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-18 11:00:14 [26/30] start prostate_fedga_seed5_be308424
+2026-10-18 11:15:34 [26/30] done prostate_fedga_seed5_be308424 in 15.3 min; GPU median 2505.0 MHz  ** THROTTLED **
+2026-10-18 11:15:34 [27/30] start prostate_xfedga_seed5_da079fb7
+2026-10-18 11:44:06 [27/30] done prostate_xfedga_seed5_da079fb7 in 28.5 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-18 11:44:06 [28/30] start breast_fedavg_seed5_c2398972
+2026-10-18 12:02:33 [28/30] done breast_fedavg_seed5_c2398972 in 18.5 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-18 12:02:33 [29/30] start breast_fedga_seed5_e12fc677
+2026-10-18 12:21:45 [29/30] done breast_fedga_seed5_e12fc677 in 19.2 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-18 12:21:45 [30/30] start breast_xfedga_seed5_8bf4f80f
+2026-10-18 12:56:20 [30/30] done breast_xfedga_seed5_8bf4f80f in 34.6 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-18 12:56:20 queue headline finished

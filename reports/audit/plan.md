@@ -189,6 +189,39 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
   - **Exploratory:** XFedGA+ vs XFedGA+ (DSC-only), the EC contribution.
 - **Root-cause logging** (evaluation only, it does not change the run): XFedGA+ screen runs set `evaluation.log_client_val = true` (each client model's validation DSC per round, for RC4) and `evaluation.log_wagg_val = true`.
 
+**Pre-registration: multi-site prostate `prostate_ms` (18 Oct 2026). The main prostate experiment (decision B); designed after the v1 results and the leakage finding.**
+- **Why:** PROMISE12 → Decathlon leaked (plan.md §0.L, `reports/audit/leakage_note.md`). `prostate_ms` replaces it. It is self-contained: no PROMISE12 or Decathlon data.
+- **Data** (`raw data/MultiSiteProstate`; inventory and duplicate audit in `reports/audit/multisite_inventory.md`):
+  - **Clients**, one per site, every case of the site as training data (gland slices): BIDMC 12 cases (261), HK 12 (158), I2CVB 19 (468), RUNMC 30 (421), UCL 13 (175).
+  - **Server:** the held-out site **BMC**, 30 cases, split case-level in gland-size blocks of 4 (fitness, validation, test, test). The 2 largest glands left over go to fitness and validation by seeded permutation (`splits.server_remainder_roles`), giving **8 / 8 / 14 cases** (106 / 105 / 173 slices). Data seed 42.
+  - **Labels:** zone labels (BMC, RUNMC: 1, 2) are merged into one gland mask.
+  - **Duplicates:** none across sites. BMC and I2CVB do not occur in PROMISE12 or Decathlon. BIDMC, HK and UCL are PROMISE12 scans, and RUNMC are Decathlon scans, which is harmless here because neither dataset is used. Results on those sites are not independent of the superseded setting.
+- **Pipeline:** as for prostate (SimpleITK, in-plane 0.5 mm resampling, slices with gland, 384×384). Code: `experiments/tasks.py::build_prostate_ms`, `configs/prostate_ms_clients.yaml`. The custom loop and `fl_dist` both handle 5 clients.
+- **Protocol screen (validation only; the old prostate v2 decision is void):**
+  - **v1:** 10 local epochs, fitness subsample 40, percentile clip + min-max, no crop.
+  - **v2:** 2 local epochs; fitness subsample 120, capped at the BMC fitness set = all 106 slices (flagged); FOV crop **S = 110 mm** + per-case z-score.
+    - S is re-derived by the pre-registered rule from the **multi-site client masks only**: max half-extent 50.5 mm, RUNMC/Case16 (`analysis/fov_crop_size.py --task prostate_ms` → `results/audit/fov_crop_prostate_ms.json`).
+    - The crop cuts 0% of the BMC fitness and validation gland pixels (test not read). The v1 and v2 slice sets are identical.
+  - **Rule (same as the pre-registered v2 adoption rule):** FedGA (baseline) and XFedGA, seeds 1–2, score = max centred 3-round mean validation DSC, mean of 2 seeds; pooled s.d. over the 4 cells. **Adopt v2 only if it beats v1 by more than the pooled s.d. for BOTH FedGA and XFedGA**; otherwise v1. Script: `analysis/v2_adoption.py` (tags `msv1screen`, `msv2screen`).
+  - **Combined with the XFedGA+ screen:** XFedGA+ and XFedGA+ (DSC-only) are run in the same queue under **both** protocols (seeds 1–2), so no second screen is needed. The XFedGA+ adoption rule (its pre-registration) is applied to the cells of the protocol adopted here.
+  - Runs: 4 methods × 2 protocols × 2 seeds = 16, no test evaluation. Logging: `log_wagg_val`, `log_client_val`.
+  - Cost: see the recost (`results/timing/recost_18oct.md`).
+- **Final `prostate_ms` experiments (after the screens):**
+  - FedAvg, FedGA (baseline), XFedGA (+ XFedGA+ and its control if adopted), **5 seeds**; the test set evaluated once per run.
+  - **Primary prostate endpoint:** XFedGA vs FedGA (baseline), test DSC, case-level cluster bootstrap over the 14 BMC test cases (same statistics as before). This replaces the superseded prostate primary.
+- **H-HET** (PROMISE12 acquisition partition) is superseded: `prostate_ms` itself is the heterogeneous setting.
+- **Cut order (extended 18 Oct 2026, before any screen result).** Applied in this order, and only while the final recost (`analysis/recost_18oct.py`) does not fit the GPU capacity to 27 Oct:
+  1. FedProx and the centralized / local-only bounds dropped;
+  2. Flower parity seeds 2–3 dropped (seed 1 = the Flower demo, kept);
+  3. ablations B, C, D, F + random search to 2 seeds;
+  4. H-ROB2 dropped;
+  5. the FedGA (paper GA settings) check dropped;
+  6. **XFedGA+ (DSC-only) control: 3 seeds in the final headline (not 5); it is not run in the dose-response;**
+  7. **ablations B, C, D, F + random search dropped.** If applied, this is reported as a limitation; the mechanism is then covered by XFedGA+ vs its DSC-only control and the root-cause report;
+  8. **dose-response p = 0.25 dropped** (p = 0, 0.5 and 1.0 kept).
+- **Never cut:** the final headline primary arms (5 seeds), `prostate_ms`, the dose-response at p = 0.5 and 1.0, and the Flower demo.
+- **Screen order:** `prostate_ms` seed-1 cells (8 runs), then breast XFedGA+ seed 1 (2 runs), then the seed-2 cells (8 + 2). No test evaluation. Code root: a frozen worktree at the commit of this pre-registration.
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

@@ -77,6 +77,42 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
   No multiplicity correction is applied to secondary comparisons. They are reported as exploratory and are not used to claim superiority.
 - **Sensitivity for the primary endpoint** (also reported for secondary comparisons): a case-level paired t-interval and a Wilcoxon signed-rank p-value. Any comparison where the bootstrap and t-interval disagree on WIN/TIE/LOSE is flagged in the table.
 
+**Pre-registration, 18 Oct 2026, 13:50 (before any XAI-metric, v2, robustness or heterogeneity run exists; your instruction after the headline and diagnostics v1).**
+
+*(a) Explanation endpoint (secondary).*
+- **Comparison:** XFedGA vs FedGA (baseline), per task, on the 5 headline seeds' validation-selected checkpoints.
+- **Images:** prostate, all test slices; breast, the fixed 300-patient, one-image-per-patient subsample (`analysis/xai_metrics.py`). The test set's images are evaluated once, for explanation only.
+- **Statistic:** case-level paired difference (seeds averaged within case), with a 95% cluster-bootstrap CI over cases, plus the paired t-interval and Wilcoxon p.
+- **Metrics:** two, each a separate secondary comparison:
+  - **H-XAI-1: Grad-CAM++ pointing game.** Higher is better; WIN if the CI excludes 0 upwards.
+  - **H-XAI-2: Spearman rank correlation between the original Grad-CAM and the Grad-CAM after FULL parameter randomisation** (every conv layer re-initialised, cascading from the output). Lower is more faithful; WIN if the CI excludes 0 downwards.
+- **Exploratory:** deletion/insertion AUC (context caveat).
+
+*(b) Robustness and heterogeneity hypotheses.* Each is reported whatever the outcome. Robustness uses breast with 3 seeds, the noisy / corrupted client being BUS-UCLM (client index 1, the smaller client). Heterogeneity uses 5 seeds. Every run uses the protocol adopted under (c).
+- **H-ROB1** (corrupted labels: BUS-UCLM masks shuffled among its own images):
+  - XFedGA's test-DSC drop vs its clean headline run is smaller than FedGA's. Per case, d = (X_clean − X_corrupt) − (F_clean − F_corrupt), seeds averaged within case; supported if the 95% cluster-bootstrap CI of mean(d) < 0.
+  - XFedGA gives the corrupted client a lower aggregation weight than sample-count weighting: its mean alpha over rounds and seeds is < n_1/N, with a 95% bootstrap CI over seeds × rounds.
+  - *Runs needed:* XFedGA and FedGA with the corrupted client. This replaces the earlier XFedGA + FedAvg design.
+- **H-ROB2** (noisy q_i: BUS-UCLM always reports q_i = 1): XFedGA's test-DSC drop vs its clean headline run lies within **±0.02**. Supported if the 95% cluster-bootstrap CI of the per-case drop lies inside [−0.02, +0.02].
+- **H-HET** (heterogeneous prostate partition by acquisition spacing, 22 / 28 cases): XFedGA − FedGA is larger than in the random split. Per test case, d = (X_het − F_het) − (X_rand − F_rand); supported if the 95% CI of mean(d) > 0.
+
+*(c) Protocol v2: exactly three changes, applied to ALL methods, plus one logging change.*
+1. **Fitness subsample 40 → 120** images: one fixed set of ids, shared by FedGA and XFedGA, chosen by the same rule as now (one per patient for breast; evenly spaced per fitness case for prostate).
+2. **Local epochs 10 → 2**; rounds stay 15.
+3. **Prostate only:** field-of-view crop + z-score intensities.
+   - **Crop rule (no ground truth at inference):** after the 0.5 mm in-plane resampling, crop a square of side **S mm centred on the image centre** of every slice, then resize to 384×384.
+   - **How S is chosen:** the smallest multiple of 10 mm that contains **every gland pixel of the client training masks** (PROMISE12). This uses training masks only, never validation or test.
+   - **Checks:** the share of fitness- and validation-set gland pixels cut by the crop is reported. If it is not 0, v2 cannot be compared fairly (see below).
+   - **Intensities:** z-score per case over the cropped volume, replacing percentile clip + min-max.
+4. **Logging only:** w_agg's validation DSC every round (for the GA-overfitting diagnostic).
+
+**v2 adoption rule.**
+- **Screen:** FedGA and XFedGA, 2 tasks × seeds 1–2, validation only, no test evaluation.
+- **Comparison:** each run's score is the max centred 3-round mean validation DSC, averaged over the 2 seeds. Compare v2 with v1 (the headline runs, seeds 1–2, same score).
+- **Pooled s.d.:** per task, over the four (method × protocol) cells.
+- **Decision:** adopt v2 for a task **only if v2 beats v1 by more than the pooled s.d. for BOTH FedGA and XFedGA**; otherwise keep v1 for that task.
+- **Measurement:** validation DSC is measured in each protocol's own pipeline. This is fair for the prostate crop only if the crop cuts no validation gland pixels (reported); predictions outside the crop are background by construction.
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

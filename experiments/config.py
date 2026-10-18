@@ -20,7 +20,8 @@ import yaml
 # frozen worktree runs with its own frozen configs while data, cache and results come from the cwd.
 CODE_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TASK_CONFIGS = {"breast": os.path.join(CODE_ROOT, "configs", "breast_clients.yaml"),
-                "prostate": os.path.join(CODE_ROOT, "configs", "prostate_clients.yaml")}
+                "prostate": os.path.join(CODE_ROOT, "configs", "prostate_clients.yaml"),
+                "prostate_ms": os.path.join(CODE_ROOT, "configs", "prostate_ms_clients.yaml")}
 REQUIRED = ["image_size", "seed", "clients", "server", "train", "aggregation", "ga", "fitness",
             "saliency", "evaluation", "splits", "loader", "method_options", "scenario"]
 
@@ -63,10 +64,12 @@ def validate(cfg):
         raise ValueError(f"scenario.partition must be random|acquisition, got {sc['partition']!r}")
     if sc["partition"] == "acquisition" and cfg.get("task") != "prostate_segmentation":
         raise ValueError("scenario.partition=acquisition is defined for the prostate task only")
-    n_clients = 2
+    n_clients = len(cfg["clients"])
     for key in ("noisy_qi_client", "corrupted_label_client"):
         if sc[key] is not None and not (0 <= sc[key] < n_clients):
             raise ValueError(f"scenario.{key} must be null or a client index in [0, {n_clients})")
+    if not (0.0 < sc.get("corrupted_label_fraction", 1.0) <= 1.0):
+        raise ValueError("scenario.corrupted_label_fraction must be in (0, 1]")
     if sc["dp"]["enabled"] and (sc["dp"]["clip_norm"] <= 0 or sc["dp"]["noise_multiplier"] < 0):
         raise ValueError("dp.clip_norm must be > 0 and dp.noise_multiplier >= 0")
     if cfg["fitness"].get("cam_target") not in ("all", "pred"):
@@ -78,13 +81,15 @@ def validate(cfg):
         raise ValueError("preprocessing.intensity must be minmax|zscore")
     if pp.get("fov_crop_mm") is not None and pp["fov_crop_mm"] <= 0:
         raise ValueError("preprocessing.fov_crop_mm must be null or > 0")
-    if pp and cfg.get("task") != "prostate_segmentation":
+    if pp and not str(cfg.get("task", "")).startswith("prostate_segmentation"):
         raise ValueError("preprocessing (FOV crop / z-score) is defined for the prostate task only")
     if cfg["method_options"]["fedprox_mu"] < 0:
         raise ValueError("fedprox_mu must be >= 0")
     g = cfg["ga"]
     if g["population"] < 1 or g["generations"] < 0 or not (0 <= g["pc"] <= 1) or not (0 <= g["pm"] <= 1):
         raise ValueError(f"invalid GA settings {g}")
+    if g.get("kappa", 1.0) <= 0:
+        raise ValueError("ga.kappa (XFedGA+ Dirichlet concentration) must be > 0")
     return cfg
 
 

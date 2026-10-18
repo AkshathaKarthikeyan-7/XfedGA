@@ -29,6 +29,24 @@ Contents:
 
 This section supersedes the Guide-Review-only plan (§0-old, kept below). §4, §5 and §8 remain as history.
 
+### 0.L SUPERSEDED: every PROMISE12 → Decathlon prostate result (leakage; decision B, 18 Oct 2026)
+- **Finding:** 12 of the 50 PROMISE12 client training cases are the same scans as Decathlon Task05 cases (full-resolution r = 1.000). 8 of those are in our server sets: 2 of 8 fitness, 2 of 8 validation, **4 of 16 test** (`reports/audit/promise12_decathlon_overlap.md`, `reports/audit/leakage_note.md`).
+- **SUPERSEDED, kept on disk, used for no claim:** every run of task `prostate` and everything derived from it:
+  - the prostate β screen and β decision;
+  - the prostate rows of the v1 headline (incl. the prostate PRIMARY TIE), H-XAI, diagnostics v1 and fitness-weight Step 0;
+  - the prostate CAM check (`cam_v2_check.json`, real-slice part) and the prostate v2 screen runs and v2 decision. The 2 void prostate seed-2 v2 runs could not be skipped: run 5 had finished and run 6 was running when the leak was known, so the original queue was left to finish (no remainder queue).
+- **The prostate CAM finding is still used only as a mechanism:** IoU@0.5 measures peak sharpness on large objects; that is shown on synthetic data in the same script.
+- **Replacement (main prostate experiment):** multi-site prostate `prostate_ms` (clients BIDMC, HK, I2CVB, RUNMC, UCL; server BMC 8 / 8 / 14). It is self-contained, with no PROMISE12 or Decathlon data, and pre-registered in its own commit before any run.
+- **Fallback:** if `prostate_ms` is not tested and running by **Tue 20 Oct 09:00**, Option A: drop the 12 duplicated PROMISE12 cases from the clients, keep the Decathlon server splits unchanged (the user is told if this happens).
+- **Breast:** the same duplicate audit found **no** train/server or cross-split duplicates (`reports/audit/breast_duplicates.md`); breast results stand.
+
+### 0.V Protocol v2 decision, breast (18 Oct 2026, `analysis/v2_adoption.py` → `results/protocol_v2/v2_adoption.md`)
+- **Breast: keep v1.** Validation only, seeds 1–2, pooled s.d. 0.0077. v2 − v1: FedGA (baseline) +0.0112 (beats v1 by more than the pooled s.d.), XFedGA +0.0052 (does not). The pre-registered rule needs both, so v1 is kept.
+- **The breast v1 headline (`49bf2ad`) stands as the final breast headline.** The breast XFedGA+ screen runs under v1, reusing the v1 headline FedGA and XFedGA seeds 1–2.
+- **w_agg vs GA winner** (breast v2 runs, validation DSC per round): the winner is above w_agg on average (+0.003 to +0.008) but below it in 13–20% of rounds.
+- The prostate v2 decision is void (leakage, §0.L). `prostate_ms` gets its own protocol screen (its pre-registration).
+- **fl_dist with 5 clients** (`prostate_ms`): CUDA OOM on the 6 GB GPU (5 client processes + server). This is a known limitation for now: the test is xfail, the Flower demo and parity stay on breast (2 clients), and a fix (cross-process GPU lock) is in preparation.
+
 ### 0.0 Decisions and schedule of 17 Oct 2026 (binding; supersede §0.1–0.4 where they differ)
 
 **Decisions (approved 15/17 Oct):**

@@ -148,6 +148,55 @@ def build_prostate(cfg, part="all"):
     return TaskData(clients, server, fit_idx, val_idx, log)
 
 
+def build_prostate_ms(cfg, part="all"):
+    """
+    Multi-site prostate (the main prostate experiment from 18 Oct 2026; replaces PROMISE12 -> Decathlon, which leaked:
+    reports/audit/promise12_decathlon_overlap.md). One client per site (cfg["clients"]: BIDMC, HK, I2CVB, RUNMC, UCL;
+    every case of the site is client training data); server = one held-out site (BMC), split case-level into
+    fitness / validation / test in gland-size blocks (splits.server_block_roles + splits.server_remainder_roles).
+    No PROMISE12 or Decathlon data.
+    """
+    size, seed = tuple(cfg["image_size"]), cfg["seed"]
+    clients, log = [], {"clients": {}, "server": {}}
+    pp = cfg.get("preprocessing") or {}
+    pre = {"fov_crop_mm": pp.get("fov_crop_mm"), "intensity": pp.get("intensity", "minmax")}
+    log["partition"] = "site"
+    for k, c in enumerate(cfg["clients"]):
+        if part == "server" or (isinstance(part, int) and part != k):
+            continue
+        name = f"MS_{c['name']}"
+        cases = PROSTATE_INDEXERS[name](c["path"])
+        cache = prostate_cache(name, c["path"], size, **pre)
+        ds = ProstateClientDataset(name, c["path"], size=size, cases=cases, **pre)
+        qi = random_subsample(len(ds), cfg["saliency"]["subsample"], seed=seed + 1000 + k)
+        ids, _, _ = _case_ids(cases, cache)
+        clients.append(ClientData(c["name"], ds, qi, len(cases)))
+        log["clients"][c["name"]] = {"n_cases": len(cases), "n_slices": len(ds),
+                                     "cases": sorted(_stem(p).replace(".nii", "") for p, _ in cases),
+                                     "qi_subsample": [ids[i] for i in qi]}
+    if isinstance(part, int):
+        return TaskData(clients, {}, [], [], log)
+    s = cfg["server"]
+    sname = f"MS_{s['name']}"
+    cases = PROSTATE_INDEXERS[sname](s["path"])
+    s_cache = prostate_cache(sname, s["path"], size, **pre)
+    sizes = {c: len(s_cache.rows(c)) for c, _ in cases}
+    sp = cfg["splits"]
+    split = decathlon_case_split(cases, sizes, seed, tuple(sp["server_block_roles"]),
+                                 tuple(sp["server_remainder_roles"]) if sp.get("server_remainder_roles") else None)
+    server, group_sizes = {}, {}
+    for role in ROLES:
+        ids, groups, gsz = _case_ids(split[role], s_cache)
+        server[role] = ServerSet(ProstateClientDataset(sname, s["path"], size=size, cases=split[role], **pre), ids, groups)
+        group_sizes[role] = gsz
+        log["server"][role] = {"n_cases": len(split[role]), "n_slices": len(ids), "cases": sorted(set(groups))}
+    fit_idx = evenly_spaced_per_group(group_sizes["fitness"], cfg["fitness"]["subsample"])
+    val_idx = evenly_spaced_per_group(group_sizes["validation"], cfg["evaluation"]["explain_samples"])
+    log["fitness_subsample"] = [server["fitness"].image_ids[i] for i in fit_idx]
+    log["val_explain_subsample"] = [server["validation"].image_ids[i] for i in val_idx]
+    return TaskData(clients, server, fit_idx, val_idx, log)
+
+
 def split_summary(data):
     """The run-independent part of the split log: client and server case/patient ids and counts
     (no subsamples, which depend on subsample-size settings). Identical for every run with the
@@ -163,12 +212,16 @@ def build_task(task, cfg, part="all"):
            "server": server fitness / validation / test sets only (fl_dist server);
            k (int) : client k only, and nothing else (fl_dist client k loads only its own data).
     """
-    data = {"breast": build_breast, "prostate": build_prostate}[task](cfg, part)
+    data = {"breast": build_breast, "prostate": build_prostate, "prostate_ms": build_prostate_ms}[task](cfg, part)
     k = cfg["scenario"]["corrupted_label_client"]
     if k is not None and part in ("all", k):   # robustness scenario: client k's masks shuffled across its own images
         idx = k if part == "all" else 0
         c = data.clients[idx]
-        data.clients[idx] = ClientData(c.name, ShuffledMaskDataset(c.train, cfg["seed"] + 777), c.qi_indices,
+        data.clients[idx] = ClientData(c.name, ShuffledMaskDataset(c.train, cfg["seed"] + 777,
+                                                                 cfg["scenario"].get("corrupted_label_fraction", 1.0)),
+                                       c.qi_indices,
                                        c.n_train_groups)
         data.split_log["corrupted_label_client"] = c.name
+        data.split_log["corrupted_label_fraction"] = cfg["scenario"].get("corrupted_label_fraction", 1.0)
+        data.split_log["corrupted_items"] = int(len(data.clients[idx].train.corrupted))
     return data

@@ -1,0 +1,214 @@
+{
+ "v1_headline/breast/fedavg": {
+  "seeds": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "RC5_peak_round_per_seed": [
+   2,
+   2,
+   2,
+   3,
+   3
+  ],
+  "RC5_peak_val_dsc_mean": 0.6657189854037744,
+  "RC5_last_round_val_dsc_mean": 0.5901746976818407,
+  "RC5_drop_peak_to_last_mean": 0.07554428772193375
+ },
+ "v1_headline/breast/fedga": {
+  "seeds": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "RC1_mean_abs_alpha_minus_nN_per_client": [
+   0.0,
+   0.0
+  ],
+  "RC1_max_abs_alpha_minus_nN": 4.1426611796513413e-07,
+  "RC5_peak_round_per_seed": [
+   2,
+   4,
+   2,
+   3,
+   2
+  ],
+  "RC5_peak_val_dsc_mean": 0.6753686177327902,
+  "RC5_last_round_val_dsc_mean": 0.5974505260550868,
+  "RC5_drop_peak_to_last_mean": 0.07791809167770343
+ },
+ "v1_headline/breast/xfedga": {
+  "seeds": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "RC1_mean_abs_alpha_minus_nN_per_client": [
+   0.0185,
+   0.0185
+  ],
+  "RC1_max_abs_alpha_minus_nN": 0.103004414266118,
+  "RC5_peak_round_per_seed": [
+   2,
+   2,
+   2,
+   2,
+   2
+  ],
+  "RC5_peak_val_dsc_mean": 0.6790547601086894,
+  "RC5_last_round_val_dsc_mean": 0.5936766097118488,
+  "RC5_drop_peak_to_last_mean": 0.08537815039684046
+ },
+ "v1_headline/prostate/fedavg": {
+  "seeds": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "RC5_peak_round_per_seed": [
+   8,
+   13,
+   4,
+   6,
+   1
+  ],
+  "RC5_peak_val_dsc_mean": 0.43989228687485793,
+  "RC5_last_round_val_dsc_mean": 0.3536376883275577,
+  "RC5_drop_peak_to_last_mean": 0.0862545985473003
+ },
+ "v1_headline/prostate/fedga": {
+  "seeds": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "RC1_mean_abs_alpha_minus_nN_per_client": [
+   0.0,
+   0.0
+  ],
+  "RC1_max_abs_alpha_minus_nN": 4.7043701800753013e-07,
+  "RC5_peak_round_per_seed": [
+   5,
+   5,
+   5,
+   1,
+   1
+  ],
+  "RC5_peak_val_dsc_mean": 0.4324274947228305,
+  "RC5_last_round_val_dsc_mean": 0.3511746695191996,
+  "RC5_drop_peak_to_last_mean": 0.08125282520363082
+ },
+ "v1_headline/prostate/xfedga": {
+  "seeds": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "RC1_mean_abs_alpha_minus_nN_per_client": [
+   0.01224,
+   0.01224
+  ],
+  "RC1_max_abs_alpha_minus_nN": 0.05660647043701805,
+  "RC5_peak_round_per_seed": [
+   5,
+   5,
+   7,
+   2,
+   3
+  ],
+  "RC5_peak_val_dsc_mean": 0.46059079477038606,
+  "RC5_last_round_val_dsc_mean": 0.34539926307148106,
+  "RC5_drop_peak_to_last_mean": 0.11519153169890499
+ },
+ "_v2screen/breast/fedga": {
+  "seeds": [
+   1
+  ],
+  "RC1_mean_abs_alpha_minus_nN_per_client": [
+   0.0,
+   0.0
+  ],
+  "RC1_max_abs_alpha_minus_nN": 4.1426611796513413e-07,
+  "RC2_share_rounds_winner_below_wagg": 0.13333333333333333,
+  "RC3_mean_winner_minus_wagg_val_dsc": 0.005430059907548783,
+  "RC3_rounds": 15,
+  "RC5_peak_round_per_seed": [
+   9
+  ],
+  "RC5_peak_val_dsc_mean": 0.6791170968103831,
+  "RC5_last_round_val_dsc_mean": 0.601341392060766,
+  "RC5_drop_peak_to_last_mean": 0.07777570474961715
+ },
+ "_v2screen/breast/xfedga": {
+  "seeds": [
+   1
+  ],
+  "RC1_mean_abs_alpha_minus_nN_per_client": [
+   0.02798,
+   0.02798
+  ],
+  "RC1_max_abs_alpha_minus_nN": 0.05763241426611798,
+  "RC2_share_rounds_winner_below_wagg": 0.2,
+  "RC3_mean_winner_minus_wagg_val_dsc": 0.004686864732110041,
+  "RC3_rounds": 15,
+  "RC5_peak_round_per_seed": [
+   5
+  ],
+  "RC5_peak_val_dsc_mean": 0.683368480077534,
+  "RC5_last_round_val_dsc_mean": 0.630009265255392,
+  "RC5_drop_peak_to_last_mean": 0.05335921482214201
+ },
+ "_v2screen/prostate/fedga": {
+  "seeds": [
+   1,
+   2
+  ],
+  "RC1_mean_abs_alpha_minus_nN_per_client": [
+   0.0,
+   0.0
+  ],
+  "RC1_max_abs_alpha_minus_nN": 4.7043701800753013e-07,
+  "RC2_share_rounds_winner_below_wagg": 0.4,
+  "RC3_mean_winner_minus_wagg_val_dsc": 0.0013089923125268429,
+  "RC3_rounds": 30,
+  "RC5_peak_round_per_seed": [
+   15,
+   15
+  ],
+  "RC5_peak_val_dsc_mean": 0.6493726480625772,
+  "RC5_last_round_val_dsc_mean": 0.6493726480625772,
+  "RC5_drop_peak_to_last_mean": 0.0
+ },
+ "_v2screen/prostate/xfedga": {
+  "seeds": [
+   1
+  ],
+  "RC1_mean_abs_alpha_minus_nN_per_client": [
+   0.0368,
+   0.0368
+  ],
+  "RC1_max_abs_alpha_minus_nN": 0.09323047043701804,
+  "RC2_share_rounds_winner_below_wagg": 0.5333333333333333,
+  "RC3_mean_winner_minus_wagg_val_dsc": 0.001262048891210643,
+  "RC3_rounds": 15,
+  "RC5_peak_round_per_seed": [
+   15
+  ],
+  "RC5_peak_val_dsc_mean": 0.6377628975483934,
+  "RC5_last_round_val_dsc_mean": 0.6377628975483934,
+  "RC5_drop_peak_to_last_mean": 0.0
+ }
+}

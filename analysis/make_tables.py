@@ -42,7 +42,8 @@ COMPARISONS = {
     "baselines": [("xfedga", "fedprox"), ("fedprox", "fedavg")],
 }
 METRICS = ["dsc", "hd95_norm", "ec", "pg"]
-XAI_METRICS = ["pg_gradcampp", "rho_after_all_layers", "pg_gradcam", "deletion_auc", "insertion_auc"]
+XAI_METRICS = ["pg_gradcampp", "rho_after_all_layers", "pg_gradcam", "ec_iou_gradcam", "ec_mass_gradcam",
+               "deletion_auc", "insertion_auc"]   # both EC definitions for every method (18 Oct 2026)
 XAI_PREREGISTERED = {"pg_gradcampp": "H-XAI-1", "rho_after_all_layers": "H-XAI-2"}   # plan.md, commit 661a173
 EXPLORATORY = {"deletion_auc", "insertion_auc"}   # context caveat: plan.md section 0.0, analysis/xai_metrics.py
 
@@ -157,6 +158,8 @@ def comparison_table(runs, tasks, pairs, n_boot):
                 rows.append(_cmp_row(task, a, b, c))
             xa, xb = by(runs, task, a, "xai"), by(runs, task, b, "xai")
             for metric in XAI_METRICS if xa and xb else []:
+                if not all(metric in r["xai"][0] for r in xa + xb):   # e.g. EC columns added after a run's XAI pass
+                    continue
                 c = compare([r["xai"] for r in xa], [r["xai"] for r in xb], metric, n_boot=n_boot)
                 data.append({"task": task, "method": a, "comparator": b, **c})
                 rows.append(_cmp_row(task, a, b, c))

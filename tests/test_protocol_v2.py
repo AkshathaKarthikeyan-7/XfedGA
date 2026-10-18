@@ -86,8 +86,10 @@ def test_v2_options_run_and_wagg_logging_does_not_change_the_run(tmp_path):
     require_path("raw data/PROMISE12")
     from tests.test_switches import _run
     base = _run(tmp_path / "a", "xfedga")["rounds"][0]
-    logged = _run(tmp_path / "b", "xfedga", ["evaluation.log_wagg_val=true"])["rounds"][0]
+    logged = _run(tmp_path / "b", "xfedga", ["evaluation.log_wagg_val=true",
+                                             "evaluation.log_client_val=true"])["rounds"][0]
     assert "val_dsc_wagg" not in base and 0.0 <= logged["val_dsc_wagg"] <= 1.0
+    assert len(json.loads(logged["client_val_dsc_i"])) == 2
     for k in ("val_dsc", "q_i", "alpha_i", "ga_best_per_gen"):     # evaluation only: same RNG stream, same result
         assert base[k] == logged[k], k
     v2 = _run(tmp_path / "c", "fedga", ["preprocessing.fov_crop_mm=100", "preprocessing.intensity=zscore",

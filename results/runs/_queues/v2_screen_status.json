@@ -1,0 +1,208 @@
+{
+ "queue": "v2_screen",
+ "code_root": "D:\\new repo\\xfedga_frozen\\76f194e",
+ "code_commit": "76f194e",
+ "repo": "D:\\new repo\\xfedga",
+ "runs": [
+  {
+   "run_id": "prostate_fedga_seed1_5666ea23_v2screen",
+   "task": "prostate",
+   "method": "fedga",
+   "seed": 1,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "evaluation.log_wagg_val=true",
+    "preprocessing.fov_crop_mm=100",
+    "preprocessing.intensity=zscore"
+   ],
+   "no_test": true,
+   "tag": "v2screen",
+   "status": "done",
+   "minutes": 7.0,
+   "gpu": {
+    "busy_samples": 25,
+    "median_sm_clock_MHz": 2640.0,
+    "min_sm_clock_MHz": 2385.0,
+    "median_power_W": 56.58,
+    "share_busy_with_throttle_reason": 0.88,
+    "throttled": true,
+    "max_memory_used_MiB": 1035.0
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed1_2a059f3e_v2screen",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "evaluation.log_wagg_val=true",
+    "preprocessing.fov_crop_mm=100",
+    "preprocessing.intensity=zscore"
+   ],
+   "no_test": true,
+   "tag": "v2screen",
+   "status": "done",
+   "minutes": 52.6,
+   "gpu": {
+    "busy_samples": 66,
+    "median_sm_clock_MHz": 2610.0,
+    "min_sm_clock_MHz": 1065.0,
+    "median_power_W": 58.71,
+    "share_busy_with_throttle_reason": 0.712,
+    "throttled": true,
+    "max_memory_used_MiB": 3541.0
+   }
+  },
+  {
+   "run_id": "breast_fedga_seed1_019627d6_v2screen",
+   "task": "breast",
+   "method": "fedga",
+   "seed": 1,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "evaluation.log_wagg_val=true"
+   ],
+   "no_test": true,
+   "tag": "v2screen",
+   "status": "done",
+   "minutes": 12.8,
+   "gpu": {
+    "busy_samples": 33,
+    "median_sm_clock_MHz": 2550.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 54.33,
+    "share_busy_with_throttle_reason": 0.667,
+    "throttled": true,
+    "max_memory_used_MiB": 1186.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed1_bb69b34e_v2screen",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "evaluation.log_wagg_val=true"
+   ],
+   "no_test": true,
+   "tag": "v2screen",
+   "status": "done",
+   "minutes": 58.1,
+   "gpu": {
+    "busy_samples": 31,
+    "median_sm_clock_MHz": 2430.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 20.36,
+    "share_busy_with_throttle_reason": 0.484,
+    "throttled": true,
+    "max_memory_used_MiB": 1079.0
+   }
+  },
+  {
+   "run_id": "prostate_fedga_seed2_5666ea23_v2screen",
+   "task": "prostate",
+   "method": "fedga",
+   "seed": 2,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "evaluation.log_wagg_val=true",
+    "preprocessing.fov_crop_mm=100",
+    "preprocessing.intensity=zscore"
+   ],
+   "no_test": true,
+   "tag": "v2screen",
+   "status": "done",
+   "minutes": 6.7,
+   "gpu": {
+    "busy_samples": 26,
+    "median_sm_clock_MHz": 2535.0,
+    "min_sm_clock_MHz": 1035.0,
+    "median_power_W": 58.2,
+    "share_busy_with_throttle_reason": 0.923,
+    "throttled": true,
+    "max_memory_used_MiB": 1021.0
+   }
+  },
+  {
+   "run_id": "prostate_xfedga_seed2_2a059f3e_v2screen",
+   "task": "prostate",
+   "method": "xfedga",
+   "seed": 2,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "evaluation.log_wagg_val=true",
+    "preprocessing.fov_crop_mm=100",
+    "preprocessing.intensity=zscore"
+   ],
+   "no_test": true,
+   "tag": "v2screen",
+   "status": "done",
+   "minutes": 48.2,
+   "gpu": {
+    "busy_samples": 23,
+    "median_sm_clock_MHz": 2535.0,
+    "min_sm_clock_MHz": 435.0,
+    "median_power_W": 59.51,
+    "share_busy_with_throttle_reason": 0.565,
+    "throttled": true,
+    "max_memory_used_MiB": 917.0
+   }
+  },
+  {
+   "run_id": "breast_fedga_seed2_019627d6_v2screen",
+   "task": "breast",
+   "method": "fedga",
+   "seed": 2,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "evaluation.log_wagg_val=true"
+   ],
+   "no_test": true,
+   "tag": "v2screen",
+   "status": "done",
+   "minutes": 12.4,
+   "gpu": {
+    "busy_samples": 38,
+    "median_sm_clock_MHz": 2580.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 51.53,
+    "share_busy_with_throttle_reason": 0.579,
+    "throttled": true,
+    "max_memory_used_MiB": 1027.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed2_bb69b34e_v2screen",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 2,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "evaluation.log_wagg_val=true"
+   ],
+   "no_test": true,
+   "tag": "v2screen",
+   "status": "done",
+   "minutes": 54.0,
+   "gpu": {
+    "busy_samples": 34,
+    "median_sm_clock_MHz": 1335.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 13.08,
+    "share_busy_with_throttle_reason": 0.382,
+    "throttled": true,
+    "max_memory_used_MiB": 1237.0
+   }
+  }
+ ]
+}

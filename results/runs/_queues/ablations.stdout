@@ -1,0 +1,9 @@
+2026-10-18 12:56:54 queue ablations: 50 runs; code D:\new repo\xfedga_frozen\b556334 @ b556334; repo D:\new repo\xfedga
+2026-10-18 12:56:54 [1/50] start prostate_abl_B_seed1_c50f53de
+2026-10-18 13:12:07 [1/50] done prostate_abl_B_seed1_c50f53de in 15.2 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-18 13:12:07 [2/50] start prostate_abl_C_seed1_c588da6f
+2026-10-18 13:39:24 [2/50] done prostate_abl_C_seed1_c588da6f in 27.3 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-18 13:39:24 [3/50] start prostate_abl_D_seed1_01da1adb
+2026-10-18 13:55:01 [3/50] done prostate_abl_D_seed1_01da1adb in 15.6 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-18 13:55:01 STOP file found; stopping before prostate_abl_F_seed1_b5c487bc
+2026-10-18 13:55:01 queue ablations finished

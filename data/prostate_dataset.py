@@ -140,6 +140,37 @@ def _extract_slices_decathlon(volume_nii_path, min_fg_fraction=0.0):
     return slices
 
 
+MULTISITE_SITES = ("BIDMC", "BMC", "HK", "I2CVB", "RUNMC", "UCL")
+
+
+def _multisite_mask_path(image_path):
+    for suffix in ("_segmentation.nii.gz", "_Segmentation.nii.gz"):
+        p = image_path.replace(".nii.gz", suffix)
+        if os.path.exists(p):
+            return p
+    raise FileNotFoundError(f"no segmentation for {image_path}")
+
+
+def _index_multisite(root):
+    """Multi-site prostate (raw data/MultiSiteProstate/<SITE>/CaseNN.nii.gz + CaseNN_[Ss]egmentation.nii.gz)."""
+    paths = sorted(p for p in glob.glob(os.path.join(root, "Case*.nii.gz"))
+                   if "egmentation" not in os.path.basename(p) and not os.path.basename(p).startswith("._"))
+    return [(p, "multisite") for p in paths]
+
+
+def _extract_slices_multisite(volume_path, min_fg_fraction=0.0):
+    """As PROMISE12: SimpleITK, in-plane resampling to 0.5 mm; zone labels (BMC, RUNMC: 1, 2) merged (> 0)."""
+    img_sitk = _resample_to_spacing_sitk(sitk.ReadImage(volume_path))
+    mask_sitk = _resample_to_spacing_sitk(sitk.ReadImage(_multisite_mask_path(volume_path)), is_mask=True)
+    img_vol, mask_vol = sitk.GetArrayFromImage(img_sitk), sitk.GetArrayFromImage(mask_sitk)
+    slices = []
+    for z in range(img_vol.shape[0]):
+        mask_slice = (mask_vol[z] > 0).astype(np.float32)
+        if mask_slice.sum() / mask_slice.size > min_fg_fraction:
+            slices.append((img_vol[z], mask_slice))
+    return slices
+
+
 def split_promise12_clients(root, seed=42):
     all_cases = _index_promise12(root)
     rng = np.random.RandomState(seed)
@@ -150,14 +181,18 @@ def split_promise12_clients(root, seed=42):
     return client1, client2
 
 
-INDEXERS = {"PROMISE12": _index_promise12, "Decathlon": _index_decathlon}
-EXTRACTORS = {"promise12": _extract_slices_promise12, "decathlon": _extract_slices_decathlon}
+INDEXERS = {"PROMISE12": _index_promise12, "Decathlon": _index_decathlon,
+            **{f"MS_{s}": _index_multisite for s in MULTISITE_SITES}}
+EXTRACTORS = {"promise12": _extract_slices_promise12, "decathlon": _extract_slices_decathlon,
+              "multisite": _extract_slices_multisite}
 
 
 def _case_files(case_path, dataset_tag):
     if dataset_tag == "promise12":
         seg = case_path.replace(".mhd", "_segmentation.mhd")
         return [case_path, case_path[:-4] + ".raw", seg, seg[:-4] + ".raw"]
+    if dataset_tag == "multisite":
+        return [case_path, _multisite_mask_path(case_path)]
     return [case_path, case_path.replace("imagesTr", "labelsTr")]
 
 
@@ -211,6 +246,8 @@ def prostate_cache(client_name, root, size=(384, 384), min_fg_fraction=0.0, cach
             "code": source_hash(_resample_to_spacing_sitk, _resample_to_spacing_nib,
                                 _resample_to_spacing_nib_nearest, _normalize_and_resize,
                                 _extract_slices_promise12, _extract_slices_decathlon),
+            **({"code_ms": source_hash(_extract_slices_multisite, _multisite_mask_path)}
+               if client_name.startswith("MS_") else {}),
             "files": file_fingerprint([f for c, tag in cases for f in _case_files(c, tag)])}
     if not v1:
         spec.update({"fov_crop_mm": fov_crop_mm, "intensity": intensity,
@@ -241,6 +278,7 @@ class ProstateClientDataset(Dataset):
         case_list = cases if cases is not None else self.INDEXERS[client_name](root)
         if len(case_list) == 0:
             raise RuntimeError(f"No cases found for {client_name} at {root}.")
+        self.cases = list(case_list)
 
         if not cache_root and (fov_crop_mm is not None or intensity != "minmax"):
             raise ValueError("protocol v2 preprocessing (FOV crop / z-score) is only implemented through the cache")

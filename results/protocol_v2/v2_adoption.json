@@ -1,0 +1,204 @@
+{
+ "rule": "adopt v2 for a task only if v2 beats v1 (mean of seeds 1-2 of the max centred 3-round mean validation DSC) by more than the task's pooled seed s.d. (4 cells) for BOTH FedGA and XFedGA",
+ "preregistered": "plan.md, 18 Oct 2026, commit 661a173",
+ "decision": {
+  "breast": {
+   "cells": {
+    "fedga/v1": {
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.6712671078747953,
+      0.662205238698244
+     ],
+     "mean": 0.6667361732865196,
+     "var": 4.1058736486465034e-05
+    },
+    "fedga/v2": {
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.6698196980023986,
+      0.6859627222663418
+     ],
+     "mean": 0.6778912101343701,
+     "var": 0.00013029861619312955
+    },
+    "xfedga/v1": {
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.6745311148265782,
+      0.6629327104409851
+     ],
+     "mean": 0.6687319126337816,
+     "var": 6.726149214587286e-05
+    },
+    "xfedga/v2": {
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.6745787713908427,
+      0.6733239498198236
+     ],
+     "mean": 0.6739513606053331,
+     "var": 7.87288587547399e-07
+    }
+   },
+   "pooled_sd": 0.007736377275783137,
+   "margin_v2_minus_v1": {
+    "fedga": 0.011155036847850575,
+    "xfedga": 0.005219447971551494
+   },
+   "beats_by_more_than_pooled_sd": {
+    "fedga": true,
+    "xfedga": false
+   },
+   "adopt_v2": false,
+   "complete": true,
+   "outcome": "keep v1: v2 does not beat v1 by more than the pooled s.d. for XFedGA"
+  },
+  "prostate_ms": {
+   "cells": {
+    "fedga/v1": {
+     "seeds": [],
+     "scores": [],
+     "mean": NaN,
+     "var": NaN
+    },
+    "fedga/v2": {
+     "seeds": [],
+     "scores": [],
+     "mean": NaN,
+     "var": NaN
+    },
+    "xfedga/v1": {
+     "seeds": [],
+     "scores": [],
+     "mean": NaN,
+     "var": NaN
+    },
+    "xfedga/v2": {
+     "seeds": [],
+     "scores": [],
+     "mean": NaN,
+     "var": NaN
+    }
+   },
+   "pooled_sd": NaN,
+   "margin_v2_minus_v1": {
+    "fedga": NaN,
+    "xfedga": NaN
+   },
+   "beats_by_more_than_pooled_sd": {
+    "fedga": false,
+    "xfedga": false
+   },
+   "adopt_v2": false,
+   "complete": false,
+   "outcome": "undecided: screen incomplete"
+  }
+ },
+ "runs": [
+  {
+   "task": "breast",
+   "method": "fedga",
+   "seed": 1,
+   "protocol": "v1",
+   "run_id": "breast_fedga_seed1_e12fc677",
+   "score": 0.6712671078747953,
+   "selected_round": 1,
+   "test_evaluated": true
+  },
+  {
+   "task": "breast",
+   "method": "fedga",
+   "seed": 2,
+   "protocol": "v1",
+   "run_id": "breast_fedga_seed2_e12fc677",
+   "score": 0.662205238698244,
+   "selected_round": 3,
+   "test_evaluated": true
+  },
+  {
+   "task": "breast",
+   "method": "fedga",
+   "seed": 1,
+   "protocol": "v2",
+   "run_id": "breast_fedga_seed1_019627d6_v2screen",
+   "score": 0.6698196980023986,
+   "selected_round": 5,
+   "test_evaluated": false,
+   "mean_val_dsc_winner": 0.6403076432247921,
+   "mean_val_dsc_wagg": 0.6348775833172433,
+   "share_rounds_winner_below_wagg": 0.13333333333333333
+  },
+  {
+   "task": "breast",
+   "method": "fedga",
+   "seed": 2,
+   "protocol": "v2",
+   "run_id": "breast_fedga_seed2_019627d6_v2screen",
+   "score": 0.6859627222663418,
+   "selected_round": 6,
+   "test_evaluated": false,
+   "mean_val_dsc_winner": 0.6519957735613348,
+   "mean_val_dsc_wagg": 0.6442298213130121,
+   "share_rounds_winner_below_wagg": 0.13333333333333333
+  },
+  {
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 1,
+   "protocol": "v1",
+   "run_id": "breast_xfedga_seed1_8bf4f80f",
+   "score": 0.6745311148265782,
+   "selected_round": 1,
+   "test_evaluated": true
+  },
+  {
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 2,
+   "protocol": "v1",
+   "run_id": "breast_xfedga_seed2_8bf4f80f",
+   "score": 0.6629327104409851,
+   "selected_round": 3,
+   "test_evaluated": true
+  },
+  {
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 1,
+   "protocol": "v2",
+   "run_id": "breast_xfedga_seed1_bb69b34e_v2screen",
+   "score": 0.6745787713908427,
+   "selected_round": 5,
+   "test_evaluated": false,
+   "mean_val_dsc_winner": 0.6405488416466629,
+   "mean_val_dsc_wagg": 0.6358619769145529,
+   "share_rounds_winner_below_wagg": 0.2
+  },
+  {
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 2,
+   "protocol": "v2",
+   "run_id": "breast_xfedga_seed2_bb69b34e_v2screen",
+   "score": 0.6733239498198236,
+   "selected_round": 6,
+   "test_evaluated": false,
+   "mean_val_dsc_winner": 0.6476443265033356,
+   "mean_val_dsc_wagg": 0.6446410313482803,
+   "share_rounds_winner_below_wagg": 0.2
+  }
+ ]
+}

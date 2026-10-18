@@ -1,0 +1,286 @@
+{
+ "synthetic": {
+  "small square ~3-8%, [0,1]": {
+   "dice": 1.0,
+   "pg": 1.0,
+   "ec": 0.932,
+   "mass": 0.999,
+   "hot_frac": 0.041,
+   "gt_frac": 0.045
+  },
+  "small square ~3-8%, z-scored": {
+   "dice": 1.0,
+   "pg": 1.0,
+   "ec": 0.981,
+   "mass": 0.999,
+   "hot_frac": 0.044,
+   "gt_frac": 0.045
+  },
+  "gland-sized square ~10-19%, [0,1]": {
+   "dice": 1.0,
+   "pg": 1.0,
+   "ec": 0.746,
+   "mass": 0.999,
+   "hot_frac": 0.099,
+   "gt_frac": 0.134
+  },
+  "gland-sized square ~10-19%, z-scored": {
+   "dice": 1.0,
+   "pg": 1.0,
+   "ec": 0.83,
+   "mass": 0.999,
+   "hot_frac": 0.112,
+   "gt_frac": 0.134
+  }
+ },
+ "real": {
+  "v1": {
+   "run": "prostate_xfedga_seed1_da079fb7",
+   "indices": [
+    5,
+    20,
+    40,
+    60,
+    80,
+    100
+   ],
+   "slices": [
+    {
+     "x_range": [
+      0.0,
+      1.0
+     ],
+     "cam_range": [
+      0.0,
+      1.0
+     ],
+     "gt_frac": 0.071,
+     "pred_frac": 0.056,
+     "hot_frac": 0.034,
+     "ec": 0.483,
+     "pg": 1.0,
+     "mass_in_gt": 0.445,
+     "dsc": 0.826
+    },
+    {
+     "x_range": [
+      0.0,
+      1.0
+     ],
+     "cam_range": [
+      0.0,
+      1.0
+     ],
+     "gt_frac": 0.037,
+     "pred_frac": 0.035,
+     "hot_frac": 0.019,
+     "ec": 0.499,
+     "pg": 1.0,
+     "mass_in_gt": 0.315,
+     "dsc": 0.821
+    },
+    {
+     "x_range": [
+      0.0,
+      1.0
+     ],
+     "cam_range": [
+      0.0,
+      1.0
+     ],
+     "gt_frac": 0.056,
+     "pred_frac": 0.003,
+     "hot_frac": 0.004,
+     "ec": 0.022,
+     "pg": 1.0,
+     "mass_in_gt": 0.073,
+     "dsc": 0.071
+    },
+    {
+     "x_range": [
+      0.0,
+      1.0
+     ],
+     "cam_range": [
+      0.0,
+      1.0
+     ],
+     "gt_frac": 0.004,
+     "pred_frac": 0.0,
+     "hot_frac": 0.031,
+     "ec": 0.004,
+     "pg": 0.0,
+     "mass_in_gt": 0.005,
+     "dsc": 0.0
+    },
+    {
+     "x_range": [
+      0.0,
+      1.0
+     ],
+     "cam_range": [
+      0.0,
+      1.0
+     ],
+     "gt_frac": 0.057,
+     "pred_frac": 0.051,
+     "hot_frac": 0.021,
+     "ec": 0.363,
+     "pg": 1.0,
+     "mass_in_gt": 0.403,
+     "dsc": 0.897
+    },
+    {
+     "x_range": [
+      0.0,
+      1.0
+     ],
+     "cam_range": [
+      0.0,
+      1.0
+     ],
+     "gt_frac": 0.026,
+     "pred_frac": 0.004,
+     "hot_frac": 0.002,
+     "ec": 0.015,
+     "pg": 0.0,
+     "mass_in_gt": 0.035,
+     "dsc": 0.053
+    }
+   ],
+   "mean": {
+    "gt_frac": 0.042,
+    "pred_frac": 0.025,
+    "hot_frac": 0.019,
+    "ec": 0.231,
+    "pg": 0.667,
+    "mass_in_gt": 0.213,
+    "dsc": 0.445
+   }
+  },
+  "v2": {
+   "run": "prostate_xfedga_seed1_2a059f3e_v2screen",
+   "indices": [
+    5,
+    20,
+    40,
+    60,
+    80,
+    100
+   ],
+   "slices": [
+    {
+     "x_range": [
+      -1.69,
+      3.08
+     ],
+     "cam_range": [
+      0.0,
+      1.0
+     ],
+     "gt_frac": 0.261,
+     "pred_frac": 0.209,
+     "hot_frac": 0.003,
+     "ec": 0.011,
+     "pg": 1.0,
+     "mass_in_gt": 0.993,
+     "dsc": 0.875
+    },
+    {
+     "x_range": [
+      -1.43,
+      2.8
+     ],
+     "cam_range": [
+      0.0,
+      1.0
+     ],
+     "gt_frac": 0.147,
+     "pred_frac": 0.129,
+     "hot_frac": 0.004,
+     "ec": 0.026,
+     "pg": 1.0,
+     "mass_in_gt": 0.935,
+     "dsc": 0.845
+    },
+    {
+     "x_range": [
+      -2.11,
+      4.75
+     ],
+     "cam_range": [
+      0.0,
+      1.0
+     ],
+     "gt_frac": 0.222,
+     "pred_frac": 0.202,
+     "hot_frac": 0.019,
+     "ec": 0.051,
+     "pg": 1.0,
+     "mass_in_gt": 0.764,
+     "dsc": 0.747
+    },
+    {
+     "x_range": [
+      -1.72,
+      2.74
+     ],
+     "cam_range": [
+      0.0,
+      1.0
+     ],
+     "gt_frac": 0.016,
+     "pred_frac": 0.126,
+     "hot_frac": 0.005,
+     "ec": 0.0,
+     "pg": 0.0,
+     "mass_in_gt": 0.086,
+     "dsc": 0.221
+    },
+    {
+     "x_range": [
+      -1.7,
+      2.66
+     ],
+     "cam_range": [
+      0.0,
+      1.0
+     ],
+     "gt_frac": 0.229,
+     "pred_frac": 0.231,
+     "hot_frac": 0.004,
+     "ec": 0.017,
+     "pg": 1.0,
+     "mass_in_gt": 0.97,
+     "dsc": 0.956
+    },
+    {
+     "x_range": [
+      -1.81,
+      2.69
+     ],
+     "cam_range": [
+      0.0,
+      1.0
+     ],
+     "gt_frac": 0.095,
+     "pred_frac": 0.167,
+     "hot_frac": 0.001,
+     "ec": 0.014,
+     "pg": 1.0,
+     "mass_in_gt": 0.622,
+     "dsc": 0.652
+    }
+   ],
+   "mean": {
+    "gt_frac": 0.162,
+    "pred_frac": 0.177,
+    "hot_frac": 0.006,
+    "ec": 0.02,
+    "pg": 0.833,
+    "mass_in_gt": 0.728,
+    "dsc": 0.716
+   }
+  }
+ }
+}

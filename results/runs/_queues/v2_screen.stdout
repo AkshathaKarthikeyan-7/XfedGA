@@ -1,0 +1,18 @@
+2026-10-18 15:11:50 queue v2_screen: 8 runs; code D:\new repo\xfedga_frozen\76f194e @ 76f194e; repo D:\new repo\xfedga
+2026-10-18 15:11:50 [1/8] start prostate_fedga_seed1_5666ea23_v2screen
+2026-10-18 15:18:53 [1/8] done prostate_fedga_seed1_5666ea23_v2screen in 7.0 min; GPU median 2640.0 MHz  ** THROTTLED **
+2026-10-18 15:18:53 [2/8] start prostate_xfedga_seed1_2a059f3e_v2screen
+2026-10-18 16:11:26 [2/8] done prostate_xfedga_seed1_2a059f3e_v2screen in 52.6 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-18 16:11:26 [3/8] start breast_fedga_seed1_019627d6_v2screen
+2026-10-18 16:24:16 [3/8] done breast_fedga_seed1_019627d6_v2screen in 12.8 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-18 16:24:16 [4/8] start breast_xfedga_seed1_bb69b34e_v2screen
+2026-10-18 17:22:22 [4/8] done breast_xfedga_seed1_bb69b34e_v2screen in 58.1 min; GPU median 2430.0 MHz  ** THROTTLED **
+2026-10-18 17:22:22 [5/8] start prostate_fedga_seed2_5666ea23_v2screen
+2026-10-18 17:29:01 [5/8] done prostate_fedga_seed2_5666ea23_v2screen in 6.7 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-18 17:29:01 [6/8] start prostate_xfedga_seed2_2a059f3e_v2screen
+2026-10-18 18:17:15 [6/8] done prostate_xfedga_seed2_2a059f3e_v2screen in 48.2 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-18 18:17:15 [7/8] start breast_fedga_seed2_019627d6_v2screen
+2026-10-18 18:29:40 [7/8] done breast_fedga_seed2_019627d6_v2screen in 12.4 min; GPU median 2580.0 MHz  ** THROTTLED **
+2026-10-18 18:29:40 [8/8] start breast_xfedga_seed2_bb69b34e_v2screen
+2026-10-18 19:23:38 [8/8] done breast_xfedga_seed2_bb69b34e_v2screen in 54.0 min; GPU median 1335.0 MHz  ** THROTTLED **
+2026-10-18 19:23:38 queue v2_screen finished

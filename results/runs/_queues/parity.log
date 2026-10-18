@@ -1,0 +1,8 @@
+2026-10-17 12:33:36 queue parity: 3 runs; code D:\new repo\xfedga @ 21fbb1d; repo D:\new repo\xfedga
+2026-10-17 12:33:37 [1/3] pending breast_xfedga_seed1_425b88a2_fl
+2026-10-17 12:33:37 [2/3] pending breast_xfedga_seed2_425b88a2_fl
+2026-10-17 12:33:37 [3/3] pending breast_xfedga_seed3_425b88a2_fl
+2026-10-17 12:33:37 queue parity finished
+2026-10-18 13:55:04 queue parity: 3 runs; code D:\new repo\xfedga_frozen\b556334 @ b556334; repo D:\new repo\xfedga
+2026-10-18 13:55:04 STOP file found; stopping before breast_xfedga_seed1_8bf4f80f_fl
+2026-10-18 13:55:04 queue parity finished

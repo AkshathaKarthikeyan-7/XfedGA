@@ -90,6 +90,16 @@ def get_attention_map(attention_unet_output_hook):
     )
 
 
+def cam_mass_in_mask(saliency_map, ground_truth_mask):
+    """
+    EC_mass: share of the saliency map's total mass inside the ground-truth mask (energy-based pointing game).
+    Unlike EC (IoU of the map thresholded at 0.5 of its maximum), it does not depend on how peaked the map is.
+    Used as EC by XFedGA+ (pre-registered 18 Oct 2026; justification: analysis/cam_v2_check.py). 0 if the map is 0.
+    """
+    total = float(np.sum(saliency_map))
+    return float(np.sum(saliency_map[ground_truth_mask > 0]) / total) if total > 0 else 0.0
+
+
 def pointing_game_accuracy(saliency_map, ground_truth_mask):
     """
     Does the single highest-saliency pixel fall inside the ground-truth mask?

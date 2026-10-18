@@ -32,19 +32,38 @@ def split_promise12_by_acquisition(root, threshold_mm=0.45):
     return fine, coarse
 
 
-class ShuffledMaskDataset(Dataset):
-    """Wraps a dataset so item i returns (image_i, mask_perm[i]) with perm a seeded derangement."""
+def _derangement(n, rng):
+    perm = rng.permutation(n)
+    fixed = np.where(perm == np.arange(n))[0]
+    for i in fixed:  # break fixed points so no image keeps its own mask
+        j = (i + 1) % n
+        perm[i], perm[j] = perm[j], perm[i]
+    return perm
 
-    def __init__(self, dataset, seed):
+
+class ShuffledMaskDataset(Dataset):
+    """
+    Wraps a dataset so item i returns (image_i, mask_perm[i]).
+    fraction = 1.0: perm is a seeded derangement of all items (the original scenario, unchanged).
+    fraction p < 1: a seeded subset of round(p * n) items (at least 2) is chosen and their masks are deranged
+    among themselves; every other item keeps its own mask (dose-response, master plan item 5).
+    """
+
+    def __init__(self, dataset, seed, fraction=1.0):
         self.dataset = dataset
         n = len(dataset)
         rng = np.random.RandomState(seed)
-        perm = rng.permutation(n)
-        fixed = np.where(perm == np.arange(n))[0]
-        for i in fixed:  # break fixed points so no image keeps its own mask
-            j = (i + 1) % n
-            perm[i], perm[j] = perm[j], perm[i]
+        if fraction >= 1.0:
+            perm = _derangement(n, rng)
+        else:
+            k = int(round(fraction * n))
+            if k < 2:
+                raise ValueError(f"corruption fraction {fraction} of {n} items corrupts fewer than 2")
+            sub = np.sort(rng.permutation(n)[:k])
+            perm = np.arange(n)
+            perm[sub] = sub[_derangement(k, rng)]
         self.perm = perm
+        self.corrupted = np.where(perm != np.arange(n))[0]
 
     def __len__(self):
         return len(self.dataset)

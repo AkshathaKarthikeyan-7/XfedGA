@@ -39,9 +39,9 @@ from data.splits import write_split_log  # noqa: E402
 from experiments.config import config_hash, git_commit, load_config, seed_everything, torch_generator  # noqa: E402
 from experiments.tasks import ClientData, build_task, split_summary  # noqa: E402
 from fedga.client import client_saliency_score, local_update, privatize_update  # noqa: E402
-from fedga.evaluation import FixedSet, build_fitness_fn, per_image_metrics  # noqa: E402
+from fedga.evaluation import FixedSet, build_fitness_fn, per_image_metrics, server_client_scores  # noqa: E402
 from fedga.fedavg import aggregate, aggregation_weights  # noqa: E402
-from fedga.ga_optimizer import ga_evaluation_count, random_search, run_ga  # noqa: E402
+from fedga.ga_optimizer import ga_evaluation_count, random_search, run_ga, run_mix_ga  # noqa: E402
 from fedga.losses import build_loss  # noqa: E402
 from models.residual_unet import build_residual_unet  # noqa: E402
 
@@ -50,13 +50,16 @@ log = logging.getLogger("run_federated")
 # A method is a combination of switches; ablations are rows here, never new code paths.
 #   topology:    federated | centralized (pooled client data, upper bound) | local_only (no communication)
 #   aggregation: fedavg (n_i/N) | saliency ((n_i/N) * max(q_i, eps)^beta)
+#                | server_score ((n_i/N) * max(s_i, eps)^beta; s_i scored by the server on the fitness subsample,
+#                  score = dsc_ec (s_i = DSC_i * EC_i) | dsc (s_i = DSC_i); q_i still computed and logged, not used)
 #   q_source:    gradcam (client-side Grad-CAM EC) | random (U(0,1) per client per round; ablation F)
 #   search:      none | ga | random (GA-free control, same number of fitness evaluations)
+#                | mix_ga (GA over client mixing vectors around alpha, same fitness budget as ga)
 #   fitness:     dsc | multi (w1*DSC - w2*HD95_norm + w3*EC);  anneal: GA sigma0*exp(-g/tau)
 #   prox:        FedProx proximal term (method_options.fedprox_mu)
 # Ablation A = fedga, ablation E = xfedga (spec section 5).
 _BASE = {"topology": "federated", "aggregation": "fedavg", "q_source": None, "search": "none",
-         "fitness": None, "anneal": False, "prox": False}
+         "fitness": None, "anneal": False, "prox": False, "score": None, "ec": "iou"}
 
 
 def _m(**kw):
@@ -73,6 +76,12 @@ METHODS = {
     "abl_F": _m(aggregation="saliency", q_source="random", search="ga", fitness="multi", anneal=True),
     "random_search": _m(search="random", fitness="multi"),
     "fedprox": _m(prox=True),
+    # XFedGA+ (declared post-v1 variant, plan.md) and its DSC-only control
+    # EC for XFedGA+ = share of CAM mass inside the mask (ec="mass"), in s_i and in the fitness EC term
+    "xfedga_plus": _m(aggregation="server_score", score="dsc_ec", q_source="gradcam", search="mix_ga",
+                      fitness="multi", anneal=True, ec="mass"),
+    "xfedga_plus_dsc": _m(aggregation="server_score", score="dsc", q_source="gradcam", search="mix_ga",
+                          fitness="multi", anneal=True, ec="mass"),
     "centralized": _m(topology="centralized"),
     "local_only": _m(topology="local_only"),
 }
@@ -100,7 +109,7 @@ class ServerEval:
                                      **loader_kwargs(cfg))
         self.val_explain = Subset(data.server["validation"].dataset, data.val_explain_subsample)
         self.fixed = (FixedSet(data.server["fitness"].dataset, data.fitness_subsample, device)
-                      if spec["search"] in ("ga", "random") else None)
+                      if spec["search"] in ("ga", "random", "mix_ga") else None)
 
 
 def server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device, cand_log=None):
@@ -118,8 +127,24 @@ def server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device
     if qs and sc["noisy_qi_client"] is not None:   # robustness: this client always reports q_i = 1
         qs[sc["noisy_qi_client"]] = 1.0
     agg = cfg["aggregation"]
-    alpha = aggregation_weights(sizes, qs if spec["aggregation"] == "saliency" else None, agg["beta"], agg["eps"])
+    scores = None
+    if spec["aggregation"] == "server_score":   # XFedGA+: server-verified client score on the fitness subsample
+        ts = time.time()
+        scores = server_client_scores(model, srv.fixed, client_states, spec["score"], fit_cfg["hd95_normalizer"],
+                                      fit_cfg["cam_threshold"], fit_cfg["cam_target"], fit_cfg["cam_layer"],
+                                      spec["ec"])
+        rt["score_s"] = time.time() - ts
+        alpha = aggregation_weights(sizes, [s["s"] for s in scores], agg["beta"], agg["eps"])
+    else:
+        alpha = aggregation_weights(sizes, qs if spec["aggregation"] == "saliency" else None, agg["beta"], agg["eps"])
     w_agg = aggregate(client_states, alpha)
+    client_val = None
+    if cfg["evaluation"].get("log_client_val"):   # root-cause check RC4: each client model's validation DSC
+        client_val = []
+        for st in client_states:
+            model.load_state_dict(st)
+            client_val.append(_mean(per_image_metrics(model, srv.val_loader, device, fit_cfg["hd95_normalizer"],
+                                                      with_cam=False), "dsc"))
     wagg_val = None
     if cfg["evaluation"].get("log_wagg_val"):   # protocol v2: validation DSC of w_agg (GA-overfitting diagnostic)
         model.load_state_dict(w_agg)
@@ -127,16 +152,24 @@ def server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device
                          "dsc")
 
     ts = time.time()
-    history, candidates = [], []
-    if spec["search"] in ("ga", "random"):
+    history, candidates, best_mix = [], [], None
+    if spec["search"] in ("ga", "random", "mix_ga"):
         fitness_fn = build_fitness_fn(model, srv.fixed, spec["fitness"], fit_cfg["weights"],
                                       fit_cfg["hd95_normalizer"], fit_cfg["cam_threshold"], record=candidates,
-                                      cam_target=fit_cfg["cam_target"], cam_layer=fit_cfg["cam_layer"])
+                                      cam_target=fit_cfg["cam_target"], cam_layer=fit_cfg["cam_layer"],
+                                      ec_kind=spec["ec"])
     if spec["search"] == "ga":
         best, history = run_ga(w_agg, fitness_fn, mode="xfedga" if spec["anneal"] else "base",
                                population_size=ga_cfg["population"], generations=ga_cfg["generations"],
                                pc=ga_cfg["pc"], pm=ga_cfg["pm"], sigma0=ga_cfg["sigma0"], tau=ga_cfg["tau"],
                                cache_elite_fitness=ga_cfg["cache_elite_fitness"], return_history=True)
+    elif spec["search"] == "mix_ga":
+        best, best_mix, history, mixes = run_mix_ga(
+            client_states, alpha, fitness_fn, population_size=ga_cfg["population"], generations=ga_cfg["generations"],
+            pc=ga_cfg["pc"], kappa=ga_cfg["kappa"], tau=ga_cfg["tau"], anneal=spec["anneal"],
+            cache_elite_fitness=ga_cfg["cache_elite_fitness"])
+        for c, m in zip(candidates, mixes):
+            c["mix"] = [round(x, 6) for x in m]
     elif spec["search"] == "random":
         n_eval = ga_evaluation_count(ga_cfg["population"], ga_cfg["generations"], ga_cfg["cache_elite_fitness"])
         best, history = random_search(w_agg, fitness_fn, n_eval, ga_cfg["sigma0"])
@@ -157,12 +190,21 @@ def server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device
     rt["val_s"] = time.time() - ts
     row = {"round": t, "val_dsc": _mean(val, "dsc"), "val_hd95_norm": _mean(val, "hd95_norm"),
            "val_hd95_px": _mean(val, "hd95_px"), "val_ec": _mean(expl, "ec"), "val_pg": _mean(expl, "pg"),
+           "val_ec_mass": _mean(expl, "ec_mass"),
            "q_i": json.dumps([round(q, 6) for q in qs]), "alpha_i": json.dumps([round(a, 6) for a in alpha]),
            "ga_best_per_gen": json.dumps([round(h["best"], 6) for h in history]),
            "ga_mean_per_gen": json.dumps([round(h["mean"], 6) for h in history]),
            "fitness_evals": sum(h["evaluations"] for h in history), **{k: round(v, 2) for k, v in rt.items()}}
     if wagg_val is not None:
         row["val_dsc_wagg"] = wagg_val
+    if client_val is not None:
+        row["client_val_dsc_i"] = json.dumps([round(x, 6) for x in client_val])
+    if scores is not None:
+        row["s_i"] = json.dumps([round(s["s"], 6) for s in scores])
+        row["client_fit_dsc_i"] = json.dumps([round(s["dsc"], 6) for s in scores])
+        row["client_fit_ec_i"] = json.dumps([round(s["ec"], 6) for s in scores])
+    if best_mix is not None:
+        row["mix_i"] = json.dumps([round(x, 6) for x in best_mix])
     return row, best_state
 
 
@@ -310,7 +352,7 @@ def run_experiment(task, method, seed, overrides=None, out_root="results/runs", 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--task", choices=["breast", "prostate"], required=True)
+    ap.add_argument("--task", choices=["breast", "prostate", "prostate_ms"], required=True)
     ap.add_argument("--method", choices=sorted(METHODS), required=True)
     ap.add_argument("--seed", type=int, required=True)
     ap.add_argument("--set", nargs="*", default=[], metavar="KEY=VALUE", help="config overrides, dotted keys")

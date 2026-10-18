@@ -1,0 +1,59 @@
+{
+ "queue": "ablations",
+ "code_root": "D:\\new repo\\xfedga_frozen\\b556334",
+ "code_commit": "b556334",
+ "repo": "D:\\new repo\\xfedga",
+ "runs": [
+  {
+   "run_id": "prostate_abl_B_seed1_c50f53de",
+   "task": "prostate",
+   "method": "abl_B",
+   "seed": 1,
+   "status": "done",
+   "minutes": 15.2,
+   "gpu": {
+    "busy_samples": 75,
+    "median_sm_clock_MHz": 2550.0,
+    "min_sm_clock_MHz": 2445.0,
+    "median_power_W": 59.7,
+    "share_busy_with_throttle_reason": 0.987,
+    "throttled": true,
+    "max_memory_used_MiB": 801.0
+   }
+  },
+  {
+   "run_id": "prostate_abl_C_seed1_c588da6f",
+   "task": "prostate",
+   "method": "abl_C",
+   "seed": 1,
+   "status": "done",
+   "minutes": 27.3,
+   "gpu": {
+    "busy_samples": 81,
+    "median_sm_clock_MHz": 2550.0,
+    "min_sm_clock_MHz": 1065.0,
+    "median_power_W": 59.7,
+    "share_busy_with_throttle_reason": 0.951,
+    "throttled": true,
+    "max_memory_used_MiB": 943.0
+   }
+  },
+  {
+   "run_id": "prostate_abl_D_seed1_01da1adb",
+   "task": "prostate",
+   "method": "abl_D",
+   "seed": 1,
+   "status": "done",
+   "minutes": 15.6,
+   "gpu": {
+    "busy_samples": 90,
+    "median_sm_clock_MHz": 2550.0,
+    "min_sm_clock_MHz": 2445.0,
+    "median_power_W": 59.66,
+    "share_busy_with_throttle_reason": 0.978,
+    "throttled": true,
+    "max_memory_used_MiB": 1666.0
+   }
+  }
+ ]
+}

@@ -9,6 +9,9 @@ Protocol v2 adoption decision (plan.md, pre-registration of 18 Oct 2026, commit 
 Also reported (not used in the decision): the selected rounds and, for v2, w_agg's validation DSC vs the GA
 winner's (val_dsc_wagg vs val_dsc, mean over rounds) as the GA-overfitting diagnostic.
 
+Tasks and run groups (18 Oct 2026): breast v1 = the untagged headline runs, v2 = *_v2screen; prostate_ms (the main
+prostate experiment after the PROMISE12 -> Decathlon leak) v1 = *_msv1screen, v2 = *_msv2screen. The old task
+"prostate" is SUPERSEDED (plan.md section 0.L) and is not decided here.
 Reads results/runs; writes results/protocol_v2/v2_adoption.json and v2_adoption.md.
     & $py analysis/v2_adoption.py
 """
@@ -28,6 +31,8 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUNS = os.path.join(REPO, "results", "runs")
 OUT = os.path.join(REPO, "results", "protocol_v2")
 METHODS = ["fedga", "xfedga"]
+TASKS = ["breast", "prostate_ms"]
+TAGS = {"breast": {"v1": "", "v2": "_v2screen"}, "prostate_ms": {"v1": "_msv1screen", "v2": "_msv2screen"}}
 SEEDS = [1, 2]
 LABEL = {"fedga": "FedGA (baseline)", "xfedga": "XFedGA"}
 
@@ -37,12 +42,16 @@ def load_runs():
     for meta_path in glob.glob(os.path.join(RUNS, "*", "run_meta.json")):
         d = os.path.dirname(meta_path)
         name = os.path.basename(d)
-        m = re.fullmatch(r"(prostate|breast)_(fedga|xfedga)_seed([12])_[0-9a-f]{8}(_v2screen)?", name)
+        m = re.fullmatch(r"(prostate_ms|breast)_(fedga|xfedga)_seed([12])_[0-9a-f]{8}(_[a-z0-9]+)?", name)
         if not m or not uses_current_cam(d):
+            continue
+        tag = m.group(4) or ""
+        proto = {v: k for k, v in TAGS[m.group(1)].items()}.get(tag)
+        if proto is None:
             continue
         meta = json.load(open(meta_path, encoding="utf-8"))
         rows = list(csv.DictReader(open(os.path.join(d, "round_log.csv"), encoding="utf-8")))
-        protocol = "v2" if m.group(4) else "v1"
+        protocol = proto
         r = {"task": m.group(1), "method": m.group(2), "seed": int(m.group(3)), "protocol": protocol,
              "run_id": name, "score": max(meta["smoothed_val_dsc"]), "selected_round": meta["selected_round"],
              "test_evaluated": bool(meta.get("test_evaluated"))}
@@ -83,8 +92,8 @@ def decide(runs, task):
 
 def main():
     runs = load_runs()
-    assert not any(r["test_evaluated"] for r in runs if r["protocol"] == "v2"), "v2 screen runs must not evaluate test"
-    dec = {t: decide(runs, t) for t in ["prostate", "breast"]}
+    assert not any(r["test_evaluated"] for r in runs if r["protocol"] == "v2" or r["task"] == "prostate_ms"),         "screen runs must not evaluate the test set"
+    dec = {t: decide(runs, t) for t in TASKS}
     out = {"rule": "adopt v2 for a task only if v2 beats v1 (mean of seeds 1-2 of the max centred 3-round mean "
                    "validation DSC) by more than the task's pooled seed s.d. (4 cells) for BOTH FedGA and XFedGA",
            "preregistered": "plan.md, 18 Oct 2026, commit 661a173", "decision": dec,
@@ -102,8 +111,9 @@ def main():
                          f"{d['beats_by_more_than_pooled_sd'][m]} |")
         lines.append(f"| {task} | pooled s.d. = {d['pooled_sd']:.4f} | | | | **{d['outcome']}** |")
     lines += ["", "Validation only. Score = max centred 3-round mean validation DSC per run, mean of seeds 1–2; each "
-              "protocol is measured in its own pipeline (prostate v2 crop cuts no fitness/validation gland pixels: "
-              "results/audit/fov_crop.json).", "",
+              "protocol is measured in its own pipeline (prostate_ms v2 crop, S = 110 mm, cuts no BMC fitness/validation "
+              "gland pixels: results/audit/fov_crop_prostate_ms.json). The old task `prostate` (PROMISE12 -> Decathlon) "
+              "is SUPERSEDED and not decided here.", "",
               "| v2 run | Mean val DSC: GA winner | Mean val DSC: w_agg | Rounds winner < w_agg |", "|---|---|---|---|"]
     for r in out["runs"]:
         if "mean_val_dsc_wagg" in r:

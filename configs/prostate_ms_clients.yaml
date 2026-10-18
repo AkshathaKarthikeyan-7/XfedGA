@@ -1,0 +1,112 @@
+# Multi-site prostate: the MAIN prostate experiment from 18 Oct 2026 (decision B). It replaces PROMISE12 -> Decathlon,
+# which leaked (12 PROMISE12 client cases = Decathlon cases, 8 of them in the server sets:
+# reports/audit/promise12_decathlon_overlap.md). Self-contained: no PROMISE12 or Decathlon data.
+# Sites from raw data/MultiSiteProstate (inventory + duplicate audit: reports/audit/multisite_inventory.md):
+# one client per site; the held-out server site BMC is split case-level 8 fitness / 8 validation / 14 test.
+# Every multi-site volume is 384 x 384 in-plane; our pipeline resamples to 0.5 mm, as for PROMISE12.
+
+task: prostate_segmentation_multisite
+image_size: [384, 384]
+channels: 1
+
+clients:
+  - {id: client_1, name: BIDMC, path: "raw data/MultiSiteProstate/BIDMC"}
+  - {id: client_2, name: HK, path: "raw data/MultiSiteProstate/HK"}
+  - {id: client_3, name: I2CVB, path: "raw data/MultiSiteProstate/I2CVB"}
+  - {id: client_4, name: RUNMC, path: "raw data/MultiSiteProstate/RUNMC"}
+  - {id: client_5, name: UCL, path: "raw data/MultiSiteProstate/UCL"}
+
+server:
+  # held-out site, never trained on; zone labels (1, 2) merged into one gland mask
+  name: BMC
+  path: "raw data/MultiSiteProstate/BMC"
+  notes: "30 cases; case-level fitness / validation / test 8 / 8 / 14 in gland-size blocks"
+
+train_val_split: 0.8
+seed: 42
+
+loader:
+  # Preprocessed tensors are cached under cache/ (data/cache.py), keyed by a hash of the
+  # preprocessing code, parameters and raw files.
+  # num_workers: 0 -- decided 15 Oct 2026 (approved) from a measurement on the cached datasets
+  # (RTX 4050 laptop, Windows): steady training epoch with 0 / 2 / 4 workers = 1.96 / 1.99 / 2.00 s
+  # (PROMISE12 client 1) and 2.68 / 2.70 / 2.73 s (BUSI), i.e. no gain, because the loop is
+  # GPU-bound once the cache is used; worker start-up under Windows spawn added 8-30 s per loader.
+  # Workers > 0 are supported and tested (tests/test_cache.py::test_dataloader_workers_match_single_process).
+  num_workers: 0
+  persistent_workers: true
+  pin_memory: false
+
+# ---------------------------------------------------------------------------
+# Experiment settings (loaded and validated in one place: experiments/config.py).
+# The data-split seed is `seed` above; the run seed is passed per run (--seed).
+train:
+  rounds: 15
+  local_epochs: 10
+  lr: 0.001
+  adam_betas: [0.9, 0.99]
+  batch_size: 8
+
+aggregation:
+  beta: 0.5          # saliency-weighting exponent: alpha_i ~ (n_i/N) * max(q_i, eps)^beta
+  eps: 0.001
+
+ga:
+  population: 6
+  generations: 5
+  pc: 0.5            # crossover probability
+  pm: 0.1            # per-weight mutation probability
+  sigma0: 0.01
+  tau: 10.0          # annealing: sigma_g = sigma0 * exp(-g / tau) (XFedGA only)
+  cache_elite_fitness: true    # decision Q7: enabled 15 Oct 2026 -- tests/test_determinism.py passed (repeatable fitness)
+  kappa: 20                 # XFedGA+ only: Dirichlet concentration of the mixing-vector GA (fixed a priori, not tuned)
+
+fitness:
+  weights: [0.5, 0.3, 0.2]   # fitness weights (w1, w2, w3) on DSC, HD95_norm, EC; sum to 1
+  subsample: 40              # fixed fitness subsample, shared by FedGA (baseline) and XFedGA
+  # Every image and mask is resized to image_size (384 x 384) before any metric is
+  # computed, so HD95 is in pixels of that grid; HD95_norm = min(HD95_px / 384, 1).
+  hd95_normalizer: 384
+  cam_threshold: 0.5         # EC = IoU(Grad-CAM >= threshold, mask)
+  # XFedGA CAM definition (decision 17 Oct 2026, plan.md section 0.0; known-answer test):
+  #   cam_layer:  fullres = full-resolution decoder up-conv | halfres = the layer of every run before 17 Oct
+  #   cam_target: pred = sum of class-1 logits over the predicted foreground | all = over every pixel (before 17 Oct)
+  # One definition for q_i, the EC fitness term, validation/test logging and all XAI metrics.
+  cam_layer: fullres
+  cam_target: pred
+
+saliency:
+  subsample: 40              # fixed q_i subsample per client (training images)
+
+evaluation:
+  explain_samples: 30        # per-round EC / pointing-game logging on a fixed validation subsample
+  selection_smoothing: 3     # checkpoint = round with the best centred 3-round mean validation DSC
+  log_wagg_val: false        # protocol v2: also log w_agg's validation DSC every round (evaluation only)
+  log_client_val: false      # root-cause RC4: log each client model's validation DSC every round (evaluation only)
+
+preprocessing:
+  # protocol v2 options (pre-registered 18 Oct 2026). v1 = null / minmax.
+  fov_crop_mm: null          # v2: 100 = image-centred 100 mm square after 0.5 mm resampling (S must be re-derived from the multi-site CLIENT masks; null until then)
+  intensity: minmax          # minmax (v1: per-slice 1st/99th-percentile clip + min-max) | zscore (v2: per-case volume)
+
+splits:
+  # Decision 18 Oct 2026: BMC cases in blocks of 4 of similar gland size (non-empty slice count),
+  # each block giving 1 fitness, 1 validation, 2 test.
+  server_block_roles: [fitness, validation, test, test]
+  # 30 BMC cases: 7 blocks of 4 (7 / 7 / 14) + the 2 largest glands -> 1 fitness, 1 validation (seeded): 8 / 8 / 14
+  server_remainder_roles: [fitness, validation]
+
+method_options:
+  fedprox_mu: 0.01           # FedProx proximal weight (mu / 2) * ||w - w_global||^2 (method fedprox)
+
+scenario:
+  # Defaults = the main experiments. Robustness / heterogeneity runs override these.
+  partition: random          # prostate_ms: unused (one client per site); kept so the shared validation passes
+  acquisition_threshold_mm: 0.45
+  noisy_qi_client: null      # client index (0-based) that always reports q_i = 1.0
+  corrupted_label_client: null   # client index whose masks are shuffled across its own images
+  corrupted_label_fraction: 1.0  # share p of that client's images whose masks are deranged among themselves (1.0 = all)
+  dp:
+    enabled: false           # client-side clip + Gaussian noise on the update (no formal guarantee claimed)
+    clip_norm: 1.0           # L2 clip of w_i - w_global; to be set from measured update norms before DP runs
+    noise_multiplier: 0.1    # noise std = noise_multiplier * clip_norm

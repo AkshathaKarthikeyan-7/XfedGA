@@ -65,20 +65,29 @@ def busbra_patient_split(pairs, metadata_csv, fractions=(0.15, 0.25), seed=42):
     return split, patients, patient_of
 
 
-def decathlon_case_split(cases, slices_per_case, seed=42, block_roles=("fitness", "validation", "test", "test")):
+def decathlon_case_split(cases, slices_per_case, seed=42, block_roles=("fitness", "validation", "test", "test"),
+                         remainder_roles=None):
     """
     cases: list of (case_path, tag); slices_per_case: {case_path: n non-empty slices}.
+    Cases sorted by gland size (slice count) fill blocks of len(block_roles); each block's roles are permuted.
+    remainder_roles: roles for the cases left after the last full block (the largest glands), assigned by a seeded
+    permutation drawn after the blocks (the block assignment is unchanged); required if cases remain.
     Returns {role: [cases]}.
     """
     order = sorted(cases, key=lambda c: (slices_per_case[c[0]], os.path.basename(c[0])))
-    if len(order) % len(block_roles):
-        raise ValueError(f"{len(order)} cases do not fill blocks of {len(block_roles)}")
+    rem = len(order) % len(block_roles)
+    if rem and (remainder_roles is None or len(remainder_roles) != rem):
+        raise ValueError(f"{len(order)} cases do not fill blocks of {len(block_roles)}; give {rem} remainder_roles")
     rng = np.random.RandomState(seed)
     split = {r: [] for r in ROLES}
-    for b in range(0, len(order), len(block_roles)):
+    full = len(order) - rem
+    for b in range(0, full, len(block_roles)):
         block = order[b:b + len(block_roles)]
         for case, k in zip(block, rng.permutation(len(block_roles))):
             split[block_roles[k]].append(case)
+    if rem:
+        for case, k in zip(order[full:], rng.permutation(rem)):
+            split[remainder_roles[k]].append(case)
     return {r: sorted(v) for r, v in split.items()}
 
 

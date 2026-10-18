@@ -1,0 +1,330 @@
+{
+ "pairs_screened_ge_r": 0.9,
+ "candidates": [
+  {
+   "promise12": "Case13",
+   "decathlon": "Decathlon_imagesTr/prostate_00",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 0.9535,
+   "duplicate": true,
+   "client": "PROMISE12_client1",
+   "server_role": "test"
+  },
+  {
+   "promise12": "Case14",
+   "decathlon": "Decathlon_imagesTr/prostate_01",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 0.9845,
+   "duplicate": true,
+   "client": "PROMISE12_client2",
+   "server_role": "fitness"
+  },
+  {
+   "promise12": "Case15",
+   "decathlon": "Decathlon_imagesTs/prostate_05",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": null,
+   "duplicate": true,
+   "client": "PROMISE12_client1",
+   "server_role": "not used (imagesTs)"
+  },
+  {
+   "promise12": "Case17",
+   "decathlon": "Decathlon_imagesTr/prostate_07",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 0.8904,
+   "duplicate": true,
+   "client": "PROMISE12_client1",
+   "server_role": "validation"
+  },
+  {
+   "promise12": "Case18",
+   "decathlon": "Decathlon_imagesTs/prostate_09",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": null,
+   "duplicate": true,
+   "client": "PROMISE12_client2",
+   "server_role": "not used (imagesTs)"
+  },
+  {
+   "promise12": "Case19",
+   "decathlon": "Decathlon_imagesTs/prostate_11",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": null,
+   "duplicate": true,
+   "client": "PROMISE12_client1",
+   "server_role": "not used (imagesTs)"
+  },
+  {
+   "promise12": "Case20",
+   "decathlon": "Decathlon_imagesTr/prostate_13",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 0.952,
+   "duplicate": true,
+   "client": "PROMISE12_client2",
+   "server_role": "test"
+  },
+  {
+   "promise12": "Case21",
+   "decathlon": "Decathlon_imagesTr/prostate_14",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 0.9494,
+   "duplicate": true,
+   "client": "PROMISE12_client2",
+   "server_role": "fitness"
+  },
+  {
+   "promise12": "Case22",
+   "decathlon": "Decathlon_imagesTs/prostate_15",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": null,
+   "duplicate": true,
+   "client": "PROMISE12_client2",
+   "server_role": "not used (imagesTs)"
+  },
+  {
+   "promise12": "Case23",
+   "decathlon": "Decathlon_imagesTr/prostate_16",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 1.0,
+   "duplicate": true,
+   "client": "PROMISE12_client2",
+   "server_role": "validation"
+  },
+  {
+   "promise12": "Case24",
+   "decathlon": "Decathlon_imagesTr/prostate_17",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 0.9264,
+   "duplicate": true,
+   "client": "PROMISE12_client1",
+   "server_role": "test"
+  },
+  {
+   "promise12": "Case25",
+   "decathlon": "Decathlon_imagesTr/prostate_18",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 0.9394,
+   "duplicate": true,
+   "client": "PROMISE12_client1",
+   "server_role": "test"
+  }
+ ],
+ "duplicates": [
+  {
+   "promise12": "Case13",
+   "decathlon": "Decathlon_imagesTr/prostate_00",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 0.9535,
+   "duplicate": true,
+   "client": "PROMISE12_client1",
+   "server_role": "test"
+  },
+  {
+   "promise12": "Case14",
+   "decathlon": "Decathlon_imagesTr/prostate_01",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 0.9845,
+   "duplicate": true,
+   "client": "PROMISE12_client2",
+   "server_role": "fitness"
+  },
+  {
+   "promise12": "Case15",
+   "decathlon": "Decathlon_imagesTs/prostate_05",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": null,
+   "duplicate": true,
+   "client": "PROMISE12_client1",
+   "server_role": "not used (imagesTs)"
+  },
+  {
+   "promise12": "Case17",
+   "decathlon": "Decathlon_imagesTr/prostate_07",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 0.8904,
+   "duplicate": true,
+   "client": "PROMISE12_client1",
+   "server_role": "validation"
+  },
+  {
+   "promise12": "Case18",
+   "decathlon": "Decathlon_imagesTs/prostate_09",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": null,
+   "duplicate": true,
+   "client": "PROMISE12_client2",
+   "server_role": "not used (imagesTs)"
+  },
+  {
+   "promise12": "Case19",
+   "decathlon": "Decathlon_imagesTs/prostate_11",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": null,
+   "duplicate": true,
+   "client": "PROMISE12_client1",
+   "server_role": "not used (imagesTs)"
+  },
+  {
+   "promise12": "Case20",
+   "decathlon": "Decathlon_imagesTr/prostate_13",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 0.952,
+   "duplicate": true,
+   "client": "PROMISE12_client2",
+   "server_role": "test"
+  },
+  {
+   "promise12": "Case21",
+   "decathlon": "Decathlon_imagesTr/prostate_14",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 0.9494,
+   "duplicate": true,
+   "client": "PROMISE12_client2",
+   "server_role": "fitness"
+  },
+  {
+   "promise12": "Case22",
+   "decathlon": "Decathlon_imagesTs/prostate_15",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": null,
+   "duplicate": true,
+   "client": "PROMISE12_client2",
+   "server_role": "not used (imagesTs)"
+  },
+  {
+   "promise12": "Case23",
+   "decathlon": "Decathlon_imagesTr/prostate_16",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 1.0,
+   "duplicate": true,
+   "client": "PROMISE12_client2",
+   "server_role": "validation"
+  },
+  {
+   "promise12": "Case24",
+   "decathlon": "Decathlon_imagesTr/prostate_17",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 0.9264,
+   "duplicate": true,
+   "client": "PROMISE12_client1",
+   "server_role": "test"
+  },
+  {
+   "promise12": "Case25",
+   "decathlon": "Decathlon_imagesTr/prostate_18",
+   "r_screen": 1.0,
+   "r_full": 1.0,
+   "resampled": false,
+   "mask_dice": 0.9394,
+   "duplicate": true,
+   "client": "PROMISE12_client1",
+   "server_role": "test"
+  }
+ ],
+ "duplicated_promise12_cases": [
+  "Case13",
+  "Case14",
+  "Case15",
+  "Case17",
+  "Case18",
+  "Case19",
+  "Case20",
+  "Case21",
+  "Case22",
+  "Case23",
+  "Case24",
+  "Case25"
+ ],
+ "duplicated_decathlon_cases_by_role": {
+  "test": [
+   "prostate_00",
+   "prostate_13",
+   "prostate_17",
+   "prostate_18"
+  ],
+  "fitness": [
+   "prostate_01",
+   "prostate_14"
+  ],
+  "not used (imagesTs)": [
+   "prostate_05",
+   "prostate_09",
+   "prostate_11",
+   "prostate_15"
+  ],
+  "validation": [
+   "prostate_07",
+   "prostate_16"
+  ]
+ },
+ "server_role_sizes": {
+  "validation": 8,
+  "test": 16,
+  "fitness": 8
+ },
+ "clients_of_duplicated_cases": {
+  "PROMISE12_client1": [
+   "Case13",
+   "Case15",
+   "Case17",
+   "Case19",
+   "Case24",
+   "Case25"
+  ],
+  "PROMISE12_client2": [
+   "Case14",
+   "Case18",
+   "Case20",
+   "Case21",
+   "Case22",
+   "Case23"
+  ]
+ }
+}

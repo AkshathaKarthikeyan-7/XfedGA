@@ -1,0 +1,1735 @@
+{
+ "inventory": {
+  "BIDMC": {
+   "cases": 12,
+   "missing_masks": [],
+   "slices": {
+    "min": 34,
+    "max": 54,
+    "total": 521
+   },
+   "slices_with_gland": 261,
+   "inplane_shapes": [
+    "384x384"
+   ],
+   "spacing_xy_mm": [
+    "0.365x0.365",
+    "0.417x0.417"
+   ],
+   "spacing_z_mm": [
+    2.2,
+    2.8,
+    3.0
+   ],
+   "mask_labels": [
+    0,
+    1
+   ]
+  },
+  "BMC": {
+   "cases": 30,
+   "missing_masks": [],
+   "slices": {
+    "min": 23,
+    "max": 38,
+    "total": 966
+   },
+   "slices_with_gland": 384,
+   "inplane_shapes": [
+    "384x384"
+   ],
+   "spacing_xy_mm": [
+    "0.417x0.417",
+    "0.443x0.443"
+   ],
+   "spacing_z_mm": [
+    3.0,
+    4.0
+   ],
+   "mask_labels": [
+    0,
+    1,
+    2
+   ]
+  },
+  "HK": {
+   "cases": 12,
+   "missing_masks": [],
+   "slices": {
+    "min": 24,
+    "max": 24,
+    "total": 288
+   },
+   "slices_with_gland": 158,
+   "inplane_shapes": [
+    "384x384"
+   ],
+   "spacing_xy_mm": [
+    "0.521x0.521"
+   ],
+   "spacing_z_mm": [
+    3.6
+   ],
+   "mask_labels": [
+    0,
+    1
+   ]
+  },
+  "I2CVB": {
+   "cases": 19,
+   "missing_masks": [],
+   "slices": {
+    "min": 64,
+    "max": 64,
+    "total": 1216
+   },
+   "slices_with_gland": 468,
+   "inplane_shapes": [
+    "384x384"
+   ],
+   "spacing_xy_mm": [
+    "0.534x0.401",
+    "0.534x0.428",
+    "0.534x0.429",
+    "0.534x0.439",
+    "0.570x0.468",
+    "0.617x0.507"
+   ],
+   "spacing_z_mm": [
+    1.25
+   ],
+   "mask_labels": [
+    0,
+    1
+   ]
+  },
+  "RUNMC": {
+   "cases": 30,
+   "missing_masks": [],
+   "slices": {
+    "min": 15,
+    "max": 24,
+    "total": 578
+   },
+   "slices_with_gland": 421,
+   "inplane_shapes": [
+    "384x384"
+   ],
+   "spacing_xy_mm": [
+    "0.500x0.500",
+    "0.521x0.521"
+   ],
+   "spacing_z_mm": [
+    3.6,
+    4.0
+   ],
+   "mask_labels": [
+    0,
+    1,
+    2
+   ]
+  },
+  "UCL": {
+   "cases": 13,
+   "missing_masks": [],
+   "slices": {
+    "min": 23,
+    "max": 29,
+    "total": 318
+   },
+   "slices_with_gland": 175,
+   "inplane_shapes": [
+    "384x384"
+   ],
+   "spacing_xy_mm": [
+    "0.469x0.469",
+    "0.521x0.521"
+   ],
+   "spacing_z_mm": [
+    3.0,
+    3.3,
+    3.33,
+    3.6
+   ],
+   "mask_labels": [
+    0,
+    1
+   ]
+  }
+ },
+ "audit": {
+  "BIDMC": {
+   "cases": [
+    {
+     "case": "Case00",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case00",
+       "exact_hash": false,
+       "r_screen": 0.9996,
+       "r_full": 0.99871,
+       "resampled": true,
+       "mask_dice": 0.9937,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case00"
+     ]
+    },
+    {
+     "case": "Case02",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case02",
+       "exact_hash": false,
+       "r_screen": 0.9996,
+       "r_full": 0.99867,
+       "resampled": true,
+       "mask_dice": 0.9921,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case02"
+     ]
+    },
+    {
+     "case": "Case03",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case03",
+       "exact_hash": false,
+       "r_screen": 0.9995,
+       "r_full": 0.99788,
+       "resampled": true,
+       "mask_dice": 0.9919,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case03"
+     ]
+    },
+    {
+     "case": "Case04",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case04",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99882,
+       "resampled": true,
+       "mask_dice": 0.9922,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case04"
+     ]
+    },
+    {
+     "case": "Case05",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case05",
+       "exact_hash": false,
+       "r_screen": 0.9994,
+       "r_full": 0.99759,
+       "resampled": true,
+       "mask_dice": 0.9939,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case05"
+     ]
+    },
+    {
+     "case": "Case06",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case06",
+       "exact_hash": false,
+       "r_screen": 0.9995,
+       "r_full": 0.99849,
+       "resampled": true,
+       "mask_dice": 0.9945,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case06"
+     ]
+    },
+    {
+     "case": "Case07",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case07",
+       "exact_hash": false,
+       "r_screen": 0.9995,
+       "r_full": 0.99817,
+       "resampled": true,
+       "mask_dice": 0.9938,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case07"
+     ]
+    },
+    {
+     "case": "Case08",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case08",
+       "exact_hash": false,
+       "r_screen": 0.9996,
+       "r_full": 0.99868,
+       "resampled": true,
+       "mask_dice": 0.9912,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case08"
+     ]
+    },
+    {
+     "case": "Case09",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case09",
+       "exact_hash": false,
+       "r_screen": 0.9996,
+       "r_full": 0.99851,
+       "resampled": true,
+       "mask_dice": 0.9939,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case09"
+     ]
+    },
+    {
+     "case": "Case10",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case10",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99888,
+       "resampled": true,
+       "mask_dice": 0.9925,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case10"
+     ]
+    },
+    {
+     "case": "Case11",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case11",
+       "exact_hash": false,
+       "r_screen": 0.9995,
+       "r_full": 0.99838,
+       "resampled": true,
+       "mask_dice": 0.9932,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case11"
+     ]
+    },
+    {
+     "case": "Case12",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case12",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99894,
+       "resampled": true,
+       "mask_dice": 0.9931,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case12"
+     ]
+    }
+   ],
+   "n_duplicate_cases": 12,
+   "duplicate_of_sets": [
+    "PROMISE12"
+   ],
+   "cross_site_duplicates": [],
+   "clean_vs_promise12_and_decathlon": false
+  },
+  "BMC": {
+   "cases": [
+    {
+     "case": "Case00",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case01",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case02",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case03",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case04",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case05",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case06",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case07",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case08",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case09",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case10",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case11",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case12",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case13",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case14",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case15",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case16",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case17",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case18",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case19",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case20",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case21",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case22",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case23",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case24",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case25",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case26",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case27",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case28",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case29",
+     "matches": [],
+     "duplicate_of": []
+    }
+   ],
+   "n_duplicate_cases": 0,
+   "duplicate_of_sets": [],
+   "cross_site_duplicates": [],
+   "clean_vs_promise12_and_decathlon": true
+  },
+  "HK": {
+   "cases": [
+    {
+     "case": "Case38",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case38",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.9992,
+       "resampled": true,
+       "mask_dice": 0.9866,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case38"
+     ]
+    },
+    {
+     "case": "Case39",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case39",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99916,
+       "resampled": true,
+       "mask_dice": 0.9834,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case39"
+     ]
+    },
+    {
+     "case": "Case40",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case40",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99926,
+       "resampled": true,
+       "mask_dice": 0.9792,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case40"
+     ]
+    },
+    {
+     "case": "Case41",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case41",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99919,
+       "resampled": true,
+       "mask_dice": 0.9822,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case41"
+     ]
+    },
+    {
+     "case": "Case42",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case42",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99908,
+       "resampled": true,
+       "mask_dice": 0.9832,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case42"
+     ]
+    },
+    {
+     "case": "Case43",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case43",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99923,
+       "resampled": true,
+       "mask_dice": 0.9823,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case43"
+     ]
+    },
+    {
+     "case": "Case44",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case44",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99918,
+       "resampled": true,
+       "mask_dice": 0.981,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case44"
+     ]
+    },
+    {
+     "case": "Case45",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case45",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.9991,
+       "resampled": true,
+       "mask_dice": 0.976,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case45"
+     ]
+    },
+    {
+     "case": "Case46",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case46",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99895,
+       "resampled": true,
+       "mask_dice": 0.9847,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case46"
+     ]
+    },
+    {
+     "case": "Case47",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case47",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99909,
+       "resampled": true,
+       "mask_dice": 0.981,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case47"
+     ]
+    },
+    {
+     "case": "Case48",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case48",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99915,
+       "resampled": true,
+       "mask_dice": 0.9833,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case48"
+     ]
+    },
+    {
+     "case": "Case49",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case49",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99927,
+       "resampled": true,
+       "mask_dice": 0.9854,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case49"
+     ]
+    }
+   ],
+   "n_duplicate_cases": 12,
+   "duplicate_of_sets": [
+    "PROMISE12"
+   ],
+   "cross_site_duplicates": [],
+   "clean_vs_promise12_and_decathlon": false
+  },
+  "I2CVB": {
+   "cases": [
+    {
+     "case": "Case00",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case01",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case02",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case03",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case04",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case05",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case06",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case07",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case08",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case09",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case10",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case11",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case12",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case13",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case14",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case15",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case16",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case17",
+     "matches": [],
+     "duplicate_of": []
+    },
+    {
+     "case": "Case18",
+     "matches": [],
+     "duplicate_of": []
+    }
+   ],
+   "n_duplicate_cases": 0,
+   "duplicate_of_sets": [],
+   "cross_site_duplicates": [],
+   "clean_vs_promise12_and_decathlon": true
+  },
+  "RUNMC": {
+   "cases": [
+    {
+     "case": "Case00",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case13",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99922,
+       "resampled": true,
+       "mask_dice": 0.9335,
+       "duplicate": true
+      },
+      {
+       "ref": "Decathlon_imagesTr/prostate_00",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99922,
+       "resampled": true,
+       "mask_dice": 0.9452,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_00",
+      "PROMISE12/Case13"
+     ]
+    },
+    {
+     "case": "Case01",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case14",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.9988,
+       "resampled": true,
+       "mask_dice": 0.9364,
+       "duplicate": true
+      },
+      {
+       "ref": "Decathlon_imagesTr/prostate_01",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.9988,
+       "resampled": true,
+       "mask_dice": 0.9284,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_01",
+      "PROMISE12/Case14"
+     ]
+    },
+    {
+     "case": "Case02",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTr/prostate_02",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99889,
+       "resampled": true,
+       "mask_dice": 0.9536,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_02"
+     ]
+    },
+    {
+     "case": "Case03",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTs/prostate_03",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99892,
+       "resampled": true,
+       "mask_dice": null,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTs/prostate_03"
+     ]
+    },
+    {
+     "case": "Case04",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case15",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.9991,
+       "resampled": true,
+       "mask_dice": 0.9438,
+       "duplicate": true
+      },
+      {
+       "ref": "Decathlon_imagesTs/prostate_05",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.9991,
+       "resampled": true,
+       "mask_dice": null,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTs/prostate_05",
+      "PROMISE12/Case15"
+     ]
+    },
+    {
+     "case": "Case05",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTr/prostate_06",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99884,
+       "resampled": true,
+       "mask_dice": 0.8949,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_06"
+     ]
+    },
+    {
+     "case": "Case06",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case17",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99848,
+       "resampled": true,
+       "mask_dice": 0.9177,
+       "duplicate": true
+      },
+      {
+       "ref": "Decathlon_imagesTr/prostate_07",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99848,
+       "resampled": true,
+       "mask_dice": 0.9008,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_07",
+      "PROMISE12/Case17"
+     ]
+    },
+    {
+     "case": "Case07",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTs/prostate_08",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99926,
+       "resampled": true,
+       "mask_dice": null,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTs/prostate_08"
+     ]
+    },
+    {
+     "case": "Case08",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case18",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99934,
+       "resampled": true,
+       "mask_dice": 0.9473,
+       "duplicate": true
+      },
+      {
+       "ref": "Decathlon_imagesTs/prostate_09",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99934,
+       "resampled": true,
+       "mask_dice": null,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTs/prostate_09",
+      "PROMISE12/Case18"
+     ]
+    },
+    {
+     "case": "Case09",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTr/prostate_10",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99908,
+       "resampled": true,
+       "mask_dice": 0.8396,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_10"
+     ]
+    },
+    {
+     "case": "Case10",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case19",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99908,
+       "resampled": true,
+       "mask_dice": 0.9043,
+       "duplicate": true
+      },
+      {
+       "ref": "Decathlon_imagesTs/prostate_11",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99908,
+       "resampled": true,
+       "mask_dice": null,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTs/prostate_11",
+      "PROMISE12/Case19"
+     ]
+    },
+    {
+     "case": "Case11",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTs/prostate_12",
+       "exact_hash": false,
+       "r_screen": 0.9999,
+       "r_full": 0.99931,
+       "resampled": true,
+       "mask_dice": null,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTs/prostate_12"
+     ]
+    },
+    {
+     "case": "Case12",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTr/prostate_04",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.9994,
+       "resampled": true,
+       "mask_dice": 0.9306,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_04"
+     ]
+    },
+    {
+     "case": "Case13",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case20",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99889,
+       "resampled": true,
+       "mask_dice": 0.8765,
+       "duplicate": true
+      },
+      {
+       "ref": "Decathlon_imagesTr/prostate_13",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99889,
+       "resampled": true,
+       "mask_dice": 0.8628,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_13",
+      "PROMISE12/Case20"
+     ]
+    },
+    {
+     "case": "Case14",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case21",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99893,
+       "resampled": true,
+       "mask_dice": 0.9285,
+       "duplicate": true
+      },
+      {
+       "ref": "Decathlon_imagesTr/prostate_14",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99893,
+       "resampled": true,
+       "mask_dice": 0.9099,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_14",
+      "PROMISE12/Case21"
+     ]
+    },
+    {
+     "case": "Case15",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case22",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99885,
+       "resampled": true,
+       "mask_dice": 0.9393,
+       "duplicate": true
+      },
+      {
+       "ref": "Decathlon_imagesTs/prostate_15",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99885,
+       "resampled": true,
+       "mask_dice": null,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTs/prostate_15",
+      "PROMISE12/Case22"
+     ]
+    },
+    {
+     "case": "Case16",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case23",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99876,
+       "resampled": true,
+       "mask_dice": 0.9834,
+       "duplicate": true
+      },
+      {
+       "ref": "Decathlon_imagesTr/prostate_16",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99876,
+       "resampled": true,
+       "mask_dice": 0.9861,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_16",
+      "PROMISE12/Case23"
+     ]
+    },
+    {
+     "case": "Case17",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case24",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99895,
+       "resampled": true,
+       "mask_dice": 0.9333,
+       "duplicate": true
+      },
+      {
+       "ref": "Decathlon_imagesTr/prostate_17",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99895,
+       "resampled": true,
+       "mask_dice": 0.8958,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_17",
+      "PROMISE12/Case24"
+     ]
+    },
+    {
+     "case": "Case18",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case25",
+       "exact_hash": false,
+       "r_screen": 0.9987,
+       "r_full": 0.99553,
+       "resampled": true,
+       "mask_dice": 0.9583,
+       "duplicate": true
+      },
+      {
+       "ref": "Decathlon_imagesTr/prostate_18",
+       "exact_hash": false,
+       "r_screen": 0.9987,
+       "r_full": 0.99553,
+       "resampled": true,
+       "mask_dice": 0.9389,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_18",
+      "PROMISE12/Case25"
+     ]
+    },
+    {
+     "case": "Case19",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTs/prostate_19",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99891,
+       "resampled": true,
+       "mask_dice": null,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTs/prostate_19"
+     ]
+    },
+    {
+     "case": "Case20",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTr/prostate_20",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99875,
+       "resampled": true,
+       "mask_dice": 0.9452,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_20"
+     ]
+    },
+    {
+     "case": "Case21",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTr/prostate_21",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99909,
+       "resampled": true,
+       "mask_dice": 0.9003,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_21"
+     ]
+    },
+    {
+     "case": "Case22",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTs/prostate_23",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99883,
+       "resampled": true,
+       "mask_dice": null,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTs/prostate_23"
+     ]
+    },
+    {
+     "case": "Case23",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTr/prostate_24",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99893,
+       "resampled": true,
+       "mask_dice": 0.9575,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_24"
+     ]
+    },
+    {
+     "case": "Case24",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTr/prostate_25",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99874,
+       "resampled": true,
+       "mask_dice": 0.918,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_25"
+     ]
+    },
+    {
+     "case": "Case25",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTs/prostate_26",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99895,
+       "resampled": true,
+       "mask_dice": null,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTs/prostate_26"
+     ]
+    },
+    {
+     "case": "Case26",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTs/prostate_27",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99904,
+       "resampled": true,
+       "mask_dice": null,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTs/prostate_27"
+     ]
+    },
+    {
+     "case": "Case27",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTr/prostate_29",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99934,
+       "resampled": true,
+       "mask_dice": 0.955,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_29"
+     ]
+    },
+    {
+     "case": "Case28",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTr/prostate_31",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99899,
+       "resampled": true,
+       "mask_dice": 0.8941,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_31"
+     ]
+    },
+    {
+     "case": "Case29",
+     "matches": [
+      {
+       "ref": "Decathlon_imagesTr/prostate_44",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.999,
+       "resampled": true,
+       "mask_dice": 0.8701,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "Decathlon_imagesTr/prostate_44"
+     ]
+    }
+   ],
+   "n_duplicate_cases": 30,
+   "duplicate_of_sets": [
+    "Decathlon_imagesTr",
+    "Decathlon_imagesTs",
+    "PROMISE12"
+   ],
+   "cross_site_duplicates": [],
+   "clean_vs_promise12_and_decathlon": false
+  },
+  "UCL": {
+   "cases": [
+    {
+     "case": "Case01",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case01",
+       "exact_hash": false,
+       "r_screen": 0.9996,
+       "r_full": 0.99875,
+       "resampled": true,
+       "mask_dice": 0.992,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case01"
+     ]
+    },
+    {
+     "case": "Case26",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case26",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99915,
+       "resampled": true,
+       "mask_dice": 0.9925,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case26"
+     ]
+    },
+    {
+     "case": "Case27",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case27",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99935,
+       "resampled": true,
+       "mask_dice": 0.9915,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case27"
+     ]
+    },
+    {
+     "case": "Case28",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case28",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99931,
+       "resampled": true,
+       "mask_dice": 0.9919,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case28"
+     ]
+    },
+    {
+     "case": "Case29",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case29",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99923,
+       "resampled": true,
+       "mask_dice": 0.9932,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case29"
+     ]
+    },
+    {
+     "case": "Case30",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case30",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99923,
+       "resampled": true,
+       "mask_dice": 0.9929,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case30"
+     ]
+    },
+    {
+     "case": "Case31",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case31",
+       "exact_hash": false,
+       "r_screen": 0.9997,
+       "r_full": 0.99903,
+       "resampled": true,
+       "mask_dice": 0.9911,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case31"
+     ]
+    },
+    {
+     "case": "Case32",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case32",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.9993,
+       "resampled": true,
+       "mask_dice": 0.9898,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case32"
+     ]
+    },
+    {
+     "case": "Case33",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case33",
+       "exact_hash": false,
+       "r_screen": 0.9995,
+       "r_full": 0.99816,
+       "resampled": true,
+       "mask_dice": 0.9921,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case33"
+     ]
+    },
+    {
+     "case": "Case34",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case34",
+       "exact_hash": false,
+       "r_screen": 1.0,
+       "r_full": 1.0,
+       "resampled": false,
+       "mask_dice": 1.0,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case34"
+     ]
+    },
+    {
+     "case": "Case35",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case35",
+       "exact_hash": false,
+       "r_screen": 0.9987,
+       "r_full": 0.99431,
+       "resampled": true,
+       "mask_dice": 0.9817,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case35"
+     ]
+    },
+    {
+     "case": "Case36",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case36",
+       "exact_hash": false,
+       "r_screen": 0.9996,
+       "r_full": 0.99863,
+       "resampled": true,
+       "mask_dice": 0.9907,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case36"
+     ]
+    },
+    {
+     "case": "Case37",
+     "matches": [
+      {
+       "ref": "PROMISE12/Case37",
+       "exact_hash": false,
+       "r_screen": 0.9998,
+       "r_full": 0.99901,
+       "resampled": true,
+       "mask_dice": 0.982,
+       "duplicate": true
+      }
+     ],
+     "duplicate_of": [
+      "PROMISE12/Case37"
+     ]
+    }
+   ],
+   "n_duplicate_cases": 13,
+   "duplicate_of_sets": [
+    "PROMISE12"
+   ],
+   "cross_site_duplicates": [],
+   "clean_vs_promise12_and_decathlon": false
+  }
+ },
+ "cross_site_candidates": [],
+ "reference_sets": {
+  "PROMISE12": 50,
+  "Decathlon_imagesTr": 32,
+  "Decathlon_imagesTs": 16
+ },
+ "thresholds": {
+  "screen_r_96px": 0.9,
+  "duplicate_r_same_grid": 0.99,
+  "duplicate_r_resampled": 0.95
+ }
+}

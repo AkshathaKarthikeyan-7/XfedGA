@@ -1,5 +1,8 @@
 # Diagnostics v1: headline runs (18 Oct 2026)
 
+> **SUPERSEDED for prostate (18 Oct 2026):** every PROMISE12 → Decathlon prostate result here is superseded because of train/server leakage (12 PROMISE12 client cases are Decathlon scans; 8 are in the server sets, 4 of 16 test). Kept for the record, used for no claim. See `reports/audit/leakage_note.md`. Breast results are unaffected.
+
+
 **Scope:** validation data, training logs and client / server-fitness / server-validation masks only. **No test data was read.** No training: item 4 uses inference with the saved validation-selected checkpoints on validation slices.
 - **Source:** `analysis/diagnostics_v1.py` → `results/diagnostics/v1.json`.
 - **Runs:** the 30 headline runs (frozen code `b556334`, new CAM, β = 0.5).

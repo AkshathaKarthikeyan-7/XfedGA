@@ -15,7 +15,8 @@ import torch
 from monai.metrics import HausdorffDistanceMetric
 
 from fedga.ga_optimizer import dice_score, multi_objective_fitness
-from xai.explainability import cam_layer as get_cam_layer, explanation_consistency, get_gradcam, pointing_game_accuracy
+from xai.explainability import cam_layer as get_cam_layer, cam_mass_in_mask, explanation_consistency, get_gradcam, \
+    pointing_game_accuracy
 
 _HD95 = HausdorffDistanceMetric(percentile=95, include_background=False, reduction="mean")
 
@@ -76,8 +77,9 @@ def per_image_metrics(model, batches, device, hd95_normalizer, cam_threshold=0.5
                     cam = get_gradcam(model, layer, imgs[k:k + 1].to(device), target_class=1, cam_target=cam_target)
                     row["ec"] = explanation_consistency(cam, masks[k].numpy(), threshold=cam_threshold)
                     row["pg"] = pointing_game_accuracy(cam, masks[k].numpy())
+                    row["ec_mass"] = cam_mass_in_mask(cam, masks[k].numpy())
                 except Exception:  # noqa: BLE001 -- recorded as NaN, never silently dropped
-                    row["ec"], row["pg"] = float("nan"), float("nan")
+                    row["ec"], row["pg"], row["ec_mass"] = float("nan"), float("nan"), float("nan")
             rows.append(row)
     return rows
 
@@ -93,23 +95,30 @@ def fitness_dsc(model, fixed, record=None):
 
 
 def fitness_multi(model, fixed, weights, hd95_normalizer, cam_threshold, record=None, cam_target="pred",
-                  cam_layer="fullres"):
+                  cam_layer="fullres", ec_kind="iou"):
     """XFedGA fitness: w1*mean DSC - w2*mean HD95_norm + w3*mean EC over the fixed subsample.
-    With `record`, appends the components so the candidate pool can be re-ranked offline under
-    other fitness weights (fitness-weight Step 0)."""
+    ec_kind: "iou" (EC = IoU of the CAM thresholded at cam_threshold; XFedGA) | "mass" (EC = share of CAM mass
+    inside the mask; XFedGA+). With `record`, appends the components so the candidate pool can be re-ranked offline
+    under other fitness weights (fitness-weight Step 0); with ec_kind "mass" both EC values are recorded."""
+    if ec_kind not in ("iou", "mass"):
+        raise ValueError(f"ec_kind must be iou|mass, got {ec_kind!r}")
     rows = per_image_metrics(model, [(fixed.images[i:i + 1], fixed.masks[i:i + 1]) for i in range(len(fixed))],
                              fixed.images.device, hd95_normalizer, cam_threshold, with_cam=True, cam_target=cam_target,
                              cam_layer=cam_layer)
-    ec = [0.0 if np.isnan(r["ec"]) else r["ec"] for r in rows]
+    key = "ec" if ec_kind == "iou" else "ec_mass"
+    ec = [0.0 if np.isnan(r[key]) else r[key] for r in rows]
     dsc, hd, e = float(np.mean([r["dsc"] for r in rows])), float(np.mean([r["hd95_norm"] for r in rows])), float(np.mean(ec))
     f = multi_objective_fitness(dsc, hd, e, weights=tuple(weights))
     if record is not None:
-        record.append({"dsc": dsc, "hd95_norm": hd, "ec": e, "fitness": f})
+        rec = {"dsc": dsc, "hd95_norm": hd, "ec": e, "fitness": f}
+        if ec_kind == "mass":
+            rec["ec_iou"] = float(np.mean([0.0 if np.isnan(r["ec"]) else r["ec"] for r in rows]))
+        record.append(rec)
     return f
 
 
 def build_fitness_fn(model_template, fixed, kind, weights=(0.5, 0.3, 0.2), hd95_normalizer=384.0, cam_threshold=0.5,
-                     record=None, cam_target="pred", cam_layer="fullres"):
+                     record=None, cam_target="pred", cam_layer="fullres", ec_kind="iou"):
     """state_dict -> fitness, reusing one evaluation model. kind: 'dsc' or 'multi'.
     record: optional list; every evaluation appends its components (in evaluation order)."""
     model = copy.deepcopy(model_template).to(fixed.images.device)
@@ -119,6 +128,27 @@ def build_fitness_fn(model_template, fixed, kind, weights=(0.5, 0.3, 0.2), hd95_
         if kind == "dsc":
             return fitness_dsc(model, fixed, record)
         if kind == "multi":
-            return fitness_multi(model, fixed, weights, hd95_normalizer, cam_threshold, record, cam_target, cam_layer)
+            return fitness_multi(model, fixed, weights, hd95_normalizer, cam_threshold, record, cam_target, cam_layer,
+                                 ec_kind)
         raise ValueError(f"unknown fitness kind {kind!r}")
     return evaluate
+
+
+def server_client_scores(model_template, fixed, client_states, kind, hd95_normalizer=384.0, cam_threshold=0.5,
+                         cam_target="pred", cam_layer="fullres", ec_kind="iou"):
+    """
+    XFedGA+ server-verified client score: each client model is evaluated by the SERVER on the fixed fitness
+    subsample (server data; no validation or test data). kind "dsc_ec": s_i = DSC_i * EC_i; kind "dsc": s_i = DSC_i
+    (control). Both kinds compute the same components, so the cost is identical. Returns one dict per client.
+    """
+    if kind not in ("dsc_ec", "dsc"):
+        raise ValueError(f"unknown server score kind {kind!r}")
+    rec = []
+    fn = build_fitness_fn(model_template, fixed, "multi", (1.0, 0.0, 0.0), hd95_normalizer, cam_threshold, rec,
+                          cam_target, cam_layer, ec_kind)
+    out = []
+    for st in client_states:
+        fn(st)
+        r = rec[-1]
+        out.append({"dsc": r["dsc"], "ec": r["ec"], "s": r["dsc"] * r["ec"] if kind == "dsc_ec" else r["dsc"]})
+    return out

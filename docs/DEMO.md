@@ -4,7 +4,7 @@
 
 **What it shows:**
 - XFedGA running as a **multi-process federation on a single machine over loopback gRPC** (Flower 1.7.0);
-- one server process and two client processes (the two PROMISE12 clients);
+- one server process and two client processes (the two breast clients, BUSI and BUS-UCLM; 5-client Flower on this 6 GB GPU is a known limitation for now);
 - each client trains only on its own scans and sends its model update with its Grad-CAM saliency score q_i;
 - the server weights clients by q_i, runs the GA, validates and broadcasts.
 
@@ -19,7 +19,8 @@ git pull; git log --oneline -1                     # the commit you are demoing
 nvidia-smi --query-gpu=name,clocks.sm,power.draw --format=csv
 ```
 - Windows power mode: **Best performance**. Laptop on mains. Close other GPU programs, and stop the experiment queue: create `results\runs\STOP`, then wait for the current run to finish.
-- Do one **rehearsal run**: the command in step 3 with `--tag rehearsal` instead of `--tag demo`. It gets its own folder (`resultsuns\*_rehearsal`), which the live run cannot overwrite; keep it as the fallback. Delete any old `*_demo` folder, so the live run starts clean.
+- Do one **rehearsal run**: the command in step 3 with `--tag rehearsal` instead of `--tag demo`. It gets its own folder (`results
+uns\*_rehearsal`), which the live run cannot overwrite; keep it as the fallback. Delete any old `*_demo` folder, so the live run starts clean.
 - Arrange 3 PowerShell windows: **A** the launcher, **B** the server log, **C** the client logs. Have `ARCHITECTURE.md` open in the IDE preview.
 
 ## Script
@@ -27,7 +28,7 @@ nvidia-smi --query-gpu=name,clocks.sm,power.draw --format=csv
 |---|---|---|---|---|
 | 1 | 0:00 | IDE | Show the diagram in `ARCHITECTURE.md` | "Each hospital trains locally and computes q_i: how well its Grad-CAM agrees with its own lesion masks. The server weights clients by data size and q_i, then a genetic algorithm searches around the aggregate using a fitness that combines Dice, boundary error and explanation consistency. The best candidate, never worse than the plain aggregate on the server's fitness set, becomes the global model." |
 | 2 | 1:00 | IDE | Show the table "What fl_dist sends" in `ARCHITECTURE.md` | "This is the whole protocol. Clients send weights, n_i, q_i and their index. The server sends weights and the round number. No images or masks leave a client." |
-| 3 | 1:30 | A | `& $py fl_dist/launch.py --task prostate --method xfedga --seed 1 --tag demo --set train.rounds=2 train.local_epochs=2` | "One command starts a server and one OS process per hospital, on this laptop, talking over loopback gRPC." |
+| 3 | 1:30 | A | `& $py fl_dist/launch.py --task breast --method xfedga --seed 1 --tag demo --set train.rounds=2 train.local_epochs=2` | "One command starts a server and one OS process per hospital, on this laptop, talking over loopback gRPC." |
 | 4 | 1:40 | A | Point at `server listening` and `client 1/2 started`, each with a PID | "Three independent processes; each client loads only its own scans." |
 | 5 | 1:50 | C | `Get-Content (Get-ChildItem results\runs\*_demo\client_1.log).FullName -Wait -Tail 5` | "Client 1 trains locally, then computes q_i on a fixed set of its own images. Only that number leaves the client." |
 | 6 | 2:40 | B | `Get-Content (Get-ChildItem results\runs\*_demo\server.log).FullName -Wait -Tail 8` | "The server aggregates with q_i weights, runs the GA on its own fitness set, and scores the winner on a separate validation set. The test set is used once, at the end." |
@@ -35,7 +36,7 @@ nvidia-smi --query-gpu=name,clocks.sm,power.draw --format=csv
 | 8 | 4:40 | A | `Get-Content (Get-ChildItem results\runs\*_demo\message_audit.json).FullName -TotalCount 14` | "The server audited every message: 63 float32 weight arrays (6.5 MB per client per round), n_i, q_i and the index. Nothing else is accepted; anything else would stop the run." |
 | 9 | 5:10 | A | `Import-Csv (Get-ChildItem results\runs\*_demo\round_log.csv).FullName \| Select round,val_dsc,q_i,alpha_i \| Format-Table` | "Per round: validation Dice, each client's q_i, and the aggregation weight it earned." |
 | 10 | 5:40 | A | `& $py -m pytest tests/test_fl_dist.py -q` (about 50 s) | "This test runs the same federation and checks it is bit-identical to our single-process simulation, so every result we report from the simulation also holds for this federated implementation." |
-| 11 | 6:40 | IDE | Open the results summary prepared for the review (Session 5; filled from `results/`) | Present the results that exist by then. State each as WIN / TIE / LOSE with its confidence interval. Prostate is expected to be a TIE (pre-registered). |
+| 11 | 6:40 | IDE | Open the results summary prepared for the review (Session 5; filled from `results/`) | Present the results that exist by then. State each as WIN / TIE / LOSE with its confidence interval. The earlier prostate TIE is superseded (leakage); prostate results come from the multi-site experiment `prostate_ms`. |
 | 12 | 7:40 | – | Close | "The algorithm lives in `fedga/` and `xai/`; the simulation and the Flower federation call the same functions. All numbers come from scripts in `analysis/` reading `results/`." |
 
 **If the live run fails:**

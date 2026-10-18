@@ -46,7 +46,7 @@ from data.splits import one_per_group_subsample  # noqa: E402
 from experiments.config import load_config  # noqa: E402
 from experiments.tasks import build_task  # noqa: E402
 from models.residual_unet import build_residual_unet  # noqa: E402
-from xai.explainability import (CAM_LAYERS, cam_layer, explanation_consistency, get_gradcam, get_gradcam_pp,  # noqa: E402
+from xai.explainability import (CAM_LAYERS, cam_layer, cam_mass_in_mask, explanation_consistency, get_gradcam, get_gradcam_pp,  # noqa: E402
                                 insertion_deletion_auc, pointing_game_accuracy, randomization_check)
 
 OUT = os.path.join(REPO, "results", "xai")
@@ -104,6 +104,8 @@ def process(run_dir, args, device):
         rows.append({"image_id": test.image_ids[i], "group_id": test.group_ids[i],
                      "pg_gradcam": pointing_game_accuracy(cam, m), "pg_gradcampp": pointing_game_accuracy(campp, m),
                      "iou_gradcampp": explanation_consistency(campp, m, threshold=thr),
+                     "ec_iou_gradcam": explanation_consistency(cam, m, threshold=thr),     # EC as XFedGA (IoU@thr)
+                     "ec_mass_gradcam": cam_mass_in_mask(cam, m),                           # EC as XFedGA+ (mass)
                      "deletion_auc": insertion_deletion_auc(model, x, cam, gt_mask=m, mode="deletion"),
                      "insertion_auc": insertion_deletion_auc(model, x, cam, gt_mask=m, mode="insertion")})
         if args.randomization_images < 0 or n < args.randomization_images:

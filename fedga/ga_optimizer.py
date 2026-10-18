@@ -173,3 +173,61 @@ def random_search(base_state_dict, evaluate_fn, n_evaluations, sigma0=0.01):
         if f > best_fit:
             best, best_fit = cand, f
     return best, [{"best": best_fit, "mean": float(np.mean(fits)), "evaluations": len(fits)}]
+
+
+def _dirichlet(conc):
+    return np.random.dirichlet(np.maximum(np.asarray(conc, dtype=np.float64), 1e-3))
+
+
+def run_mix_ga(client_states, alpha, evaluate_fn, population_size=10, generations=20, pc=0.5, kappa=20.0,
+               tau=10.0, anneal=True, cache_elite_fitness=False):
+    """
+    XFedGA+ (declared post-v1 variant, plan.md): elitist GA over CLIENT MIXING VECTORS m on the simplex;
+    a candidate model is sum_k m_k w_k. Individual 0 is m = alpha, i.e. exactly w_agg; the others are drawn
+    from Dirichlet(kappa * alpha). Same selection, population, generations and elite caching as run_ga
+    (P + G*P/2 evaluations with the cache), so the fitness budget equals XFedGA's.
+      crossover (prob. pc): convex blend u*m1 + (1-u)*m2, u ~ U(0, 1)
+      mutation (every offspring): m' ~ Dirichlet(kappa_g * m); kappa_g = kappa * exp(g / tau) if anneal
+                                  (the analogue of XFedGA's sigma0 * exp(-g / tau): smaller steps later)
+    Returns (best_state, best_mix, history, evaluated_mixes); history as run_ga(return_history=True).
+    """
+    from fedga.fedavg import aggregate
+
+    alpha = np.asarray(alpha, dtype=np.float64)
+    population = [alpha.copy()] + [_dirichlet(kappa * alpha) for _ in range(population_size - 1)]
+    known = [None] * len(population)
+    history, evaluated = [], []
+
+    def score(mixes, known):
+        fits, n = [], 0
+        for m, f in zip(mixes, known):
+            if f is None:
+                f = evaluate_fn(aggregate(client_states, m.tolist()))
+                evaluated.append(m.tolist())
+                n += 1
+            fits.append(f)
+        return fits, n
+
+    for g in range(generations):
+        kg = kappa * math.exp(g / tau) if anneal else kappa
+        fitnesses, n_eval = score(population, known)
+        history.append({"best": max(fitnesses), "mean": float(np.mean(fitnesses)), "evaluations": n_eval})
+        ranked = sorted(zip(population, fitnesses), key=lambda x: x[1], reverse=True)
+        parents = [m for m, _ in ranked[: population_size // 2]]
+        parent_fitness = [f for _, f in ranked[: population_size // 2]]
+        offspring = []
+        while len(offspring) < population_size - len(parents):
+            p1, p2 = parents[np.random.randint(len(parents))], parents[np.random.randint(len(parents))]
+            if np.random.rand() < pc:
+                u = np.random.rand()
+                child = u * p1 + (1 - u) * p2
+            else:
+                child = p1.copy()
+            offspring.append(_dirichlet(kg * child))
+        population = parents + offspring
+        known = (parent_fitness if cache_elite_fitness else [None] * len(parents)) + [None] * len(offspring)
+
+    final, n_eval = score(population, known)
+    history.append({"best": max(final), "mean": float(np.mean(final)), "evaluations": n_eval})
+    best_mix = population[int(np.argmax(final))]
+    return aggregate(client_states, best_mix.tolist()), best_mix.tolist(), history, evaluated

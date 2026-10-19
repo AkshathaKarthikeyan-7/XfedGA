@@ -1,0 +1,274 @@
+name: post_e_ablations
+out: results/runs
+note: e. Ablations B, C, D, F + random search (pre-registered, plan.md).
+runs:
+- task: prostate_ms
+  method: abl_B
+  seed: 1
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms
+  method: abl_C
+  seed: 1
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms
+  method: abl_D
+  seed: 1
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms
+  method: abl_F
+  seed: 1
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms
+  method: random_search
+  seed: 1
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: abl_B
+  seed: 1
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: abl_C
+  seed: 1
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: abl_D
+  seed: 1
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: abl_F
+  seed: 1
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: random_search
+  seed: 1
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms
+  method: abl_B
+  seed: 2
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms
+  method: abl_C
+  seed: 2
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms
+  method: abl_D
+  seed: 2
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms
+  method: abl_F
+  seed: 2
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms
+  method: random_search
+  seed: 2
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: abl_B
+  seed: 2
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: abl_C
+  seed: 2
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: abl_D
+  seed: 2
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: abl_F
+  seed: 2
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: random_search
+  seed: 2
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms
+  method: abl_B
+  seed: 3
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms
+  method: abl_C
+  seed: 3
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms
+  method: abl_D
+  seed: 3
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms
+  method: abl_F
+  seed: 3
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms
+  method: random_search
+  seed: 3
+  tag: abl
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: abl_B
+  seed: 3
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: abl_C
+  seed: 3
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: abl_D
+  seed: 3
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: abl_F
+  seed: 3
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: random_search
+  seed: 3
+  tag: abl
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true

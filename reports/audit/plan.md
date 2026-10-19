@@ -273,6 +273,12 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - **H-ROB2:** a method's test-DSC drop against its clean run (XFedGA: v1 headline seeds 1–3; XFedGA+: final-headline seeds 1–3) lies within ±0.02. **Supported if the 95% cluster-bootstrap CI of the per-patient drop lies inside [−0.02, +0.02].** Tested for XFedGA (primary of this item) and XFedGA+ (secondary).
 - **Note, stated before the runs:** XFedGA+ computes q_i but does not use it (its weights come from the server-verified s_i), so its noisy-q_i run is expected to reproduce its clean run; it is run as a check of that design property.
 
+**Pre-registration (e): ablations (19 Oct 2026).**
+- **Runs:** ablation B (q_i-weighted aggregation only), C (FedAvg aggregation + GA with the multi-objective fitness), D (FedGA + annealing), F (XFedGA with random q_i) and the GA-free random search (equal fitness evaluations); breast (v1) and `prostate_ms` (v2); seeds 1–3; tag `abl`. Queue `queues/post_e_ablations.yaml` (30 runs).
+- **A = FedGA (baseline) and E = XFedGA** are reused: breast = v1 headline seeds 1–3; `prostate_ms` = final-headline seeds 1–3.
+- **Comparisons (secondary, test DSC; HD95 and XAI reported):** B vs FedAvg (q_i weighting alone); C vs FedGA (multi-objective fitness alone); D vs FedGA (annealing alone); C vs random search (GA vs equal-budget random search); XFedGA vs F (informative vs random q_i); XFedGA vs C (q_i weighting on top of the GA). All reported whatever the outcome.
+- **Cut rule:** cut items 3 (2 seeds) and 7 (dropped; reported as a limitation, the mechanism then covered by XFedGA+ vs its DSC-only control and the root-cause report) apply only if a recost does not fit.
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

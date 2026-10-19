@@ -257,6 +257,16 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
   - **equivalence:** per-patient paired test-DSC difference (fl_dist − custom loop, seeds averaged within patient); TOST with margin ±0.02: equivalent if the 90% CI lies inside [−0.02, +0.02];
   - also reported: max |Δ| of the per-round validation DSC (bit-identical expected, as `tests/test_fl_dist.py`).
 
+**Pre-registration (c): FedGA (paper GA settings) fairness check (19 Oct 2026).**
+- **Settings quoted from the FedGA PDF** (`D:\Amrita\Project\Literature review\FedGA_Genetic_Algorithm-Guided_Federated_Learning_for_Medical_Image_Segmentation_with_Non-IID_Features.pdf`):
+  - **population 10:** p.5, "N is the size of the population, which is 10 in our case."
+  - **generations 20:** p.8, "For both tasks, the GA was executed for 20 generations."
+  - **rounds 20:** p.8, "Federated training was conducted over 20 communication rounds, and each client performed 10 local epochs per round."
+  - **batch size 128:** p.8, "a batch size of 128." **DECLARED DEVIATION: we use batch 8**, the shared pipeline setting of all methods. 128 does not fit the 6 GB GPU: batch 96 already needs 6,491 MiB reserved > 6,140 MiB (`results/timing/batch_memcheck.json`).
+  - **Local epochs and every other shared setting** come from the adopted protocol of each task (the paper's 10 local epochs are not used for `prostate_ms` v2). The GA operators are unchanged (FedGA (baseline) code, `mode=base`, Pc 0.5 / Pm 0.1, p.8).
+- **Runs:** FedGA, `ga.population=10 ga.generations=20 train.rounds=20`, `prostate_ms` (v2) and breast (v1), seeds 1–3, tag `paperga`. Queue `queues/post_c_paperga.yaml` (6 runs).
+- **Secondary comparisons (test DSC):** XFedGA vs FedGA (paper GA settings), and XFedGA+ vs FedGA (paper GA settings), using the final-headline / v1-headline seeds 1–3; FedGA (paper settings) vs FedGA (our settings). The GA budget is about 5× ours (110 vs 21 fitness evaluations per round with the elite cache), and is reported.
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

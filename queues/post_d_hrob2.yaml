@@ -1,0 +1,52 @@
+name: post_d_hrob2
+out: results/runs
+note: d. H-ROB2 noisy-q_i client (pre-registered 661a173 + plan.md).
+runs:
+- task: breast
+  method: xfedga
+  seed: 1
+  tag: hrob2
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.noisy_qi_client=1
+- task: breast
+  method: xfedga_plus
+  seed: 1
+  tag: hrob2
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.noisy_qi_client=1
+- task: breast
+  method: xfedga
+  seed: 2
+  tag: hrob2
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.noisy_qi_client=1
+- task: breast
+  method: xfedga_plus
+  seed: 2
+  tag: hrob2
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.noisy_qi_client=1
+- task: breast
+  method: xfedga
+  seed: 3
+  tag: hrob2
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.noisy_qi_client=1
+- task: breast
+  method: xfedga_plus
+  seed: 3
+  tag: hrob2
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.noisy_qi_client=1

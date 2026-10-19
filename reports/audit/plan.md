@@ -267,6 +267,12 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - **Runs:** FedGA, `ga.population=10 ga.generations=20 train.rounds=20`, `prostate_ms` (v2) and breast (v1), seeds 1–3, tag `paperga`. Queue `queues/post_c_paperga.yaml` (6 runs).
 - **Secondary comparisons (test DSC):** XFedGA vs FedGA (paper GA settings), and XFedGA+ vs FedGA (paper GA settings), using the final-headline / v1-headline seeds 1–3; FedGA (paper settings) vs FedGA (our settings). The GA budget is about 5× ours (110 vs 21 fitness evaluations per round with the elite cache), and is reported.
 
+**Pre-registration (d): H-ROB2 noisy q_i (19 Oct 2026; hypothesis as pre-registered in `661a173`).**
+- **Scenario:** breast (v1). BUS-UCLM (client index 1) always reports q_i = 1 (`scenario.noisy_qi_client=1`).
+- **Runs:** XFedGA and XFedGA+, seeds 1–3, tag `hrob2`. Queue `queues/post_d_hrob2.yaml` (6 runs).
+- **H-ROB2:** a method's test-DSC drop against its clean run (XFedGA: v1 headline seeds 1–3; XFedGA+: final-headline seeds 1–3) lies within ±0.02. **Supported if the 95% cluster-bootstrap CI of the per-patient drop lies inside [−0.02, +0.02].** Tested for XFedGA (primary of this item) and XFedGA+ (secondary).
+- **Note, stated before the runs:** XFedGA+ computes q_i but does not use it (its weights come from the server-verified s_i), so its noisy-q_i run is expected to reproduce its clean run; it is run as a check of that design property.
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

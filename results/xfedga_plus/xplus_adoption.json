@@ -1,0 +1,156 @@
+{
+ "rule": "adopt XFedGA+ iff it beats XFedGA by > pooled s.d. on >= 1 task and is not worse by > pooled s.d. on the other (validation score, seeds 1-2)",
+ "preregistered": "plan.md, XFedGA+ (18 Oct 2026)",
+ "decision": {
+  "breast": {
+   "protocol": "v1",
+   "cells": {
+    "fedga": {
+     "runs": [
+      "breast_fedga_seed1_e12fc677",
+      "breast_fedga_seed2_e12fc677"
+     ],
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.6712671078747953,
+      0.662205238698244
+     ],
+     "mean": 0.6667361732865196,
+     "var": 4.1058736486465034e-05
+    },
+    "xfedga": {
+     "runs": [
+      "breast_xfedga_seed1_8bf4f80f",
+      "breast_xfedga_seed2_8bf4f80f"
+     ],
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.6745311148265782,
+      0.6629327104409851
+     ],
+     "mean": 0.6687319126337816,
+     "var": 6.726149214587286e-05
+    },
+    "xfedga_plus": {
+     "runs": [
+      "breast_xfedga_plus_seed1_79fc5bde_xplusscreen",
+      "breast_xfedga_plus_seed2_79fc5bde_xplusscreen"
+     ],
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.6799180284438062,
+      0.6798329471270054
+     ],
+     "mean": 0.6798754877854059,
+     "var": 3.6194152342833157e-09
+    },
+    "xfedga_plus_dsc": {
+     "runs": [
+      "breast_xfedga_plus_dsc_seed1_3a9f4384_xplusscreen",
+      "breast_xfedga_plus_dsc_seed2_3a9f4384_xplusscreen"
+     ],
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.6796007993764661,
+      0.6697658933916935
+     ],
+     "mean": 0.6746833463840798,
+     "var": 4.836268786465852e-05
+    }
+   },
+   "pooled_sd": 0.00625872462871292,
+   "complete": true,
+   "margin_xplus_minus_xfedga": 0.01114357515162423,
+   "beats": true,
+   "worse": false
+  },
+  "prostate_ms": {
+   "protocol": "v2",
+   "cells": {
+    "fedga": {
+     "runs": [
+      "prostate_ms_fedga_seed1_c83f1ad3_msv2screen",
+      "prostate_ms_fedga_seed2_c83f1ad3_msv2screen"
+     ],
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.8386714989940325,
+      0.8416273543522471
+     ],
+     "mean": 0.8401494266731397,
+     "var": 4.368540449343074e-06
+    },
+    "xfedga": {
+     "runs": [
+      "prostate_ms_xfedga_seed1_ea92b08b_msv2screen",
+      "prostate_ms_xfedga_seed2_ea92b08b_msv2screen"
+     ],
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.8368231369625954,
+      0.8294737760985399
+     ],
+     "mean": 0.8331484565305676,
+     "var": 2.7006552555055048e-05
+    },
+    "xfedga_plus": {
+     "runs": [
+      "prostate_ms_xfedga_plus_seed1_07e935e4_msv2screen",
+      "prostate_ms_xfedga_plus_seed2_07e935e4_msv2screen"
+     ],
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.851303470880077,
+      0.847646672739869
+     ],
+     "mean": 0.8494750718099731,
+     "var": 6.686086319114042e-06
+    },
+    "xfedga_plus_dsc": {
+     "runs": [
+      "prostate_ms_xfedga_plus_dsc_seed1_dbc93fba_msv2screen",
+      "prostate_ms_xfedga_plus_dsc_seed2_dbc93fba_msv2screen"
+     ],
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.8508076174369466,
+      0.847461956047586
+     ],
+     "mean": 0.8491347867422663,
+     "var": 5.596725066128961e-06
+    }
+   },
+   "pooled_sd": 0.0033037064181628308,
+   "complete": true,
+   "margin_xplus_minus_xfedga": 0.016326615279405488,
+   "beats": true,
+   "worse": false
+  }
+ },
+ "adopt_xfedga_plus": true,
+ "outcome": "adopt XFedGA+"
+}

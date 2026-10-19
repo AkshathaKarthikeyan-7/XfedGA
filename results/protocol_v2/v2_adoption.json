@@ -69,42 +69,66 @@
   "prostate_ms": {
    "cells": {
     "fedga/v1": {
-     "seeds": [],
-     "scores": [],
-     "mean": NaN,
-     "var": NaN
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.7232673642996659,
+      0.6664225277629895
+     ],
+     "mean": 0.6948449460313277,
+     "var": 0.0016156677204407289
     },
     "fedga/v2": {
-     "seeds": [],
-     "scores": [],
-     "mean": NaN,
-     "var": NaN
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.8386714989940325,
+      0.8416273543522471
+     ],
+     "mean": 0.8401494266731397,
+     "var": 4.368540449343074e-06
     },
     "xfedga/v1": {
-     "seeds": [],
-     "scores": [],
-     "mean": NaN,
-     "var": NaN
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.6624141558186222,
+      0.6712198042132433
+     ],
+     "mean": 0.6668169800159327,
+     "var": 3.8769721824847176e-05
     },
     "xfedga/v2": {
-     "seeds": [],
-     "scores": [],
-     "mean": NaN,
-     "var": NaN
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.8368231369625954,
+      0.8294737760985399
+     ],
+     "mean": 0.8331484565305676,
+     "var": 2.7006552555055048e-05
     }
    },
-   "pooled_sd": NaN,
+   "pooled_sd": 0.020529323754510123,
    "margin_v2_minus_v1": {
-    "fedga": NaN,
-    "xfedga": NaN
+    "fedga": 0.145304480641812,
+    "xfedga": 0.16633147651463487
    },
    "beats_by_more_than_pooled_sd": {
-    "fedga": false,
-    "xfedga": false
+    "fedga": true,
+    "xfedga": true
    },
-   "adopt_v2": false,
-   "complete": false,
-   "outcome": "undecided: screen incomplete"
+   "adopt_v2": true,
+   "complete": true,
+   "outcome": "adopt v2: beats v1 by more than the pooled s.d. for both FedGA and XFedGA"
   }
  },
  "runs": [
@@ -199,6 +223,110 @@
    "mean_val_dsc_winner": 0.6476443265033356,
    "mean_val_dsc_wagg": 0.6446410313482803,
    "share_rounds_winner_below_wagg": 0.2
+  },
+  {
+   "task": "prostate_ms",
+   "method": "fedga",
+   "seed": 1,
+   "protocol": "v1",
+   "run_id": "prostate_ms_fedga_seed1_82c70851_msv1screen",
+   "score": 0.7232673642996659,
+   "selected_round": 4,
+   "test_evaluated": false,
+   "mean_val_dsc_winner": 0.638301319235779,
+   "mean_val_dsc_wagg": 0.6285441174755001,
+   "share_rounds_winner_below_wagg": 0.06666666666666667
+  },
+  {
+   "task": "prostate_ms",
+   "method": "fedga",
+   "seed": 2,
+   "protocol": "v1",
+   "run_id": "prostate_ms_fedga_seed2_82c70851_msv1screen",
+   "score": 0.6664225277629895,
+   "selected_round": 9,
+   "test_evaluated": false,
+   "mean_val_dsc_winner": 0.6052885334185227,
+   "mean_val_dsc_wagg": 0.5983114915832932,
+   "share_rounds_winner_below_wagg": 0.3333333333333333
+  },
+  {
+   "task": "prostate_ms",
+   "method": "fedga",
+   "seed": 1,
+   "protocol": "v2",
+   "run_id": "prostate_ms_fedga_seed1_c83f1ad3_msv2screen",
+   "score": 0.8386714989940325,
+   "selected_round": 15,
+   "test_evaluated": false,
+   "mean_val_dsc_winner": 0.7638624705795999,
+   "mean_val_dsc_wagg": 0.7506844590404141,
+   "share_rounds_winner_below_wagg": 0.13333333333333333
+  },
+  {
+   "task": "prostate_ms",
+   "method": "fedga",
+   "seed": 2,
+   "protocol": "v2",
+   "run_id": "prostate_ms_fedga_seed2_c83f1ad3_msv2screen",
+   "score": 0.8416273543522471,
+   "selected_round": 15,
+   "test_evaluated": false,
+   "mean_val_dsc_winner": 0.7629332795977963,
+   "mean_val_dsc_wagg": 0.7580563828174586,
+   "share_rounds_winner_below_wagg": 0.2
+  },
+  {
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 1,
+   "protocol": "v1",
+   "run_id": "prostate_ms_xfedga_seed1_45a979a4_msv1screen",
+   "score": 0.6624141558186222,
+   "selected_round": 4,
+   "test_evaluated": false,
+   "mean_val_dsc_winner": 0.6136904340915914,
+   "mean_val_dsc_wagg": 0.6008573434745063,
+   "share_rounds_winner_below_wagg": 0.2
+  },
+  {
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 2,
+   "protocol": "v1",
+   "run_id": "prostate_ms_xfedga_seed2_45a979a4_msv1screen",
+   "score": 0.6712198042132433,
+   "selected_round": 4,
+   "test_evaluated": false,
+   "mean_val_dsc_winner": 0.5966226039322223,
+   "mean_val_dsc_wagg": 0.5902077900595266,
+   "share_rounds_winner_below_wagg": 0.2
+  },
+  {
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 1,
+   "protocol": "v2",
+   "run_id": "prostate_ms_xfedga_seed1_ea92b08b_msv2screen",
+   "score": 0.8368231369625954,
+   "selected_round": 15,
+   "test_evaluated": false,
+   "mean_val_dsc_winner": 0.7683604854598266,
+   "mean_val_dsc_wagg": 0.7600058265895092,
+   "share_rounds_winner_below_wagg": 0.13333333333333333
+  },
+  {
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 2,
+   "protocol": "v2",
+   "run_id": "prostate_ms_xfedga_seed2_ea92b08b_msv2screen",
+   "score": 0.8294737760985399,
+   "selected_round": 13,
+   "test_evaluated": false,
+   "mean_val_dsc_winner": 0.7557766726871193,
+   "mean_val_dsc_wagg": 0.7495609177743284,
+   "share_rounds_winner_below_wagg": 0.26666666666666666
   }
  ]
 }

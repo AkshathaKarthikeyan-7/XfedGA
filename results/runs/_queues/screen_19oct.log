@@ -1,0 +1,64 @@
+2026-10-18 20:07:48 queue screen_19oct: 20 runs; code D:\new repo\xfedga_frozen\f33af35 @ f33af35; repo D:\new repo\xfedga
+2026-10-18 20:07:48 [1/20] pending prostate_ms_fedga_seed1_82c70851_msv1screen
+2026-10-18 20:07:48 [2/20] pending prostate_ms_xfedga_seed1_45a979a4_msv1screen
+2026-10-18 20:07:48 [3/20] pending prostate_ms_xfedga_plus_seed1_1a1a6e4a_msv1screen
+2026-10-18 20:07:48 [4/20] pending prostate_ms_xfedga_plus_dsc_seed1_1f7f6891_msv1screen
+2026-10-18 20:07:48 [5/20] pending prostate_ms_fedga_seed1_c83f1ad3_msv2screen
+2026-10-18 20:07:48 [6/20] pending prostate_ms_xfedga_seed1_ea92b08b_msv2screen
+2026-10-18 20:07:48 [7/20] pending prostate_ms_xfedga_plus_seed1_07e935e4_msv2screen
+2026-10-18 20:07:48 [8/20] pending prostate_ms_xfedga_plus_dsc_seed1_dbc93fba_msv2screen
+2026-10-18 20:07:48 [9/20] pending breast_xfedga_plus_seed1_79fc5bde_xplusscreen
+2026-10-18 20:07:48 [10/20] pending breast_xfedga_plus_dsc_seed1_3a9f4384_xplusscreen
+2026-10-18 20:07:48 [11/20] pending prostate_ms_fedga_seed2_82c70851_msv1screen
+2026-10-18 20:07:48 [12/20] pending prostate_ms_xfedga_seed2_45a979a4_msv1screen
+2026-10-18 20:07:48 [13/20] pending prostate_ms_xfedga_plus_seed2_1a1a6e4a_msv1screen
+2026-10-18 20:07:48 [14/20] pending prostate_ms_xfedga_plus_dsc_seed2_1f7f6891_msv1screen
+2026-10-18 20:07:48 [15/20] pending prostate_ms_fedga_seed2_c83f1ad3_msv2screen
+2026-10-18 20:07:48 [16/20] pending prostate_ms_xfedga_seed2_ea92b08b_msv2screen
+2026-10-18 20:07:48 [17/20] pending prostate_ms_xfedga_plus_seed2_07e935e4_msv2screen
+2026-10-18 20:07:48 [18/20] pending prostate_ms_xfedga_plus_dsc_seed2_dbc93fba_msv2screen
+2026-10-18 20:07:48 [19/20] pending breast_xfedga_plus_seed2_79fc5bde_xplusscreen
+2026-10-18 20:07:48 [20/20] pending breast_xfedga_plus_dsc_seed2_3a9f4384_xplusscreen
+2026-10-18 20:07:48 queue screen_19oct finished
+2026-10-18 20:07:56 queue screen_19oct: 20 runs; code D:\new repo\xfedga_frozen\f33af35 @ f33af35; repo D:\new repo\xfedga
+2026-10-18 20:07:56 [1/20] start prostate_ms_fedga_seed1_82c70851_msv1screen
+2026-10-18 20:39:10 [1/20] done prostate_ms_fedga_seed1_82c70851_msv1screen in 31.2 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-18 20:39:10 [2/20] start prostate_ms_xfedga_seed1_45a979a4_msv1screen
+2026-10-18 21:24:38 [2/20] done prostate_ms_xfedga_seed1_45a979a4_msv1screen in 45.5 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-18 21:24:38 [3/20] start prostate_ms_xfedga_plus_seed1_1a1a6e4a_msv1screen
+2026-10-18 22:12:04 [3/20] done prostate_ms_xfedga_plus_seed1_1a1a6e4a_msv1screen in 47.4 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-18 22:12:04 [4/20] start prostate_ms_xfedga_plus_dsc_seed1_1f7f6891_msv1screen
+2026-10-18 23:00:08 [4/20] done prostate_ms_xfedga_plus_dsc_seed1_1f7f6891_msv1screen in 48.1 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-18 23:00:08 [5/20] start prostate_ms_fedga_seed1_c83f1ad3_msv2screen
+2026-10-18 23:12:28 [5/20] done prostate_ms_fedga_seed1_c83f1ad3_msv2screen in 12.3 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-18 23:12:28 [6/20] start prostate_ms_xfedga_seed1_ea92b08b_msv2screen
+2026-10-19 00:01:03 [6/20] done prostate_ms_xfedga_seed1_ea92b08b_msv2screen in 48.6 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-19 00:01:03 [7/20] start prostate_ms_xfedga_plus_seed1_07e935e4_msv2screen
+2026-10-19 00:58:18 [7/20] done prostate_ms_xfedga_plus_seed1_07e935e4_msv2screen in 57.2 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-19 00:58:18 [8/20] start prostate_ms_xfedga_plus_dsc_seed1_dbc93fba_msv2screen
+2026-10-19 01:55:35 [8/20] done prostate_ms_xfedga_plus_dsc_seed1_dbc93fba_msv2screen in 57.3 min; GPU median 2580.0 MHz  ** THROTTLED **
+2026-10-19 01:55:35 [9/20] start breast_xfedga_plus_seed1_79fc5bde_xplusscreen
+2026-10-19 02:41:15 [9/20] done breast_xfedga_plus_seed1_79fc5bde_xplusscreen in 45.7 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-19 02:41:15 [10/20] start breast_xfedga_plus_dsc_seed1_3a9f4384_xplusscreen
+2026-10-19 03:28:26 [10/20] done breast_xfedga_plus_dsc_seed1_3a9f4384_xplusscreen in 47.2 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-19 03:28:26 [11/20] start prostate_ms_fedga_seed2_82c70851_msv1screen
+2026-10-19 03:59:08 [11/20] done prostate_ms_fedga_seed2_82c70851_msv1screen in 30.7 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-19 03:59:08 [12/20] start prostate_ms_xfedga_seed2_45a979a4_msv1screen
+2026-10-19 04:44:27 [12/20] done prostate_ms_xfedga_seed2_45a979a4_msv1screen in 45.3 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-19 04:44:27 [13/20] start prostate_ms_xfedga_plus_seed2_1a1a6e4a_msv1screen
+2026-10-19 05:32:27 [13/20] done prostate_ms_xfedga_plus_seed2_1a1a6e4a_msv1screen in 48.0 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-19 05:32:27 [14/20] start prostate_ms_xfedga_plus_dsc_seed2_1f7f6891_msv1screen
+2026-10-19 06:20:30 [14/20] done prostate_ms_xfedga_plus_dsc_seed2_1f7f6891_msv1screen in 48.0 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-19 06:20:30 [15/20] start prostate_ms_fedga_seed2_c83f1ad3_msv2screen
+2026-10-19 06:33:13 [15/20] done prostate_ms_fedga_seed2_c83f1ad3_msv2screen in 12.7 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-19 06:33:13 [16/20] start prostate_ms_xfedga_seed2_ea92b08b_msv2screen
+2026-10-19 07:21:51 [16/20] done prostate_ms_xfedga_seed2_ea92b08b_msv2screen in 48.6 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-19 07:21:51 [17/20] start prostate_ms_xfedga_plus_seed2_07e935e4_msv2screen
+2026-10-19 08:18:10 [17/20] done prostate_ms_xfedga_plus_seed2_07e935e4_msv2screen in 56.3 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-19 08:18:10 [18/20] start prostate_ms_xfedga_plus_dsc_seed2_dbc93fba_msv2screen
+2026-10-19 09:14:50 [18/20] done prostate_ms_xfedga_plus_dsc_seed2_dbc93fba_msv2screen in 56.7 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-19 09:14:50 [19/20] start breast_xfedga_plus_seed2_79fc5bde_xplusscreen
+2026-10-19 10:09:47 [19/20] done breast_xfedga_plus_seed2_79fc5bde_xplusscreen in 55.0 min; GPU median 2550.0 MHz  ** THROTTLED **
+2026-10-19 10:09:47 [20/20] start breast_xfedga_plus_dsc_seed2_3a9f4384_xplusscreen
+2026-10-19 10:54:53 [20/20] done breast_xfedga_plus_dsc_seed2_3a9f4384_xplusscreen in 45.1 min; GPU median 2730.0 MHz  ** THROTTLED **
+2026-10-19 10:54:53 queue screen_19oct finished

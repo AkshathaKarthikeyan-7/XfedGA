@@ -279,6 +279,11 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - **Comparisons (secondary, test DSC; HD95 and XAI reported):** B vs FedAvg (q_i weighting alone); C vs FedGA (multi-objective fitness alone); D vs FedGA (annealing alone); C vs random search (GA vs equal-budget random search); XFedGA vs F (informative vs random q_i); XFedGA vs C (q_i weighting on top of the GA). All reported whatever the outcome.
 - **Cut rule:** cut items 3 (2 seeds) and 7 (dropped; reported as a limitation, the mechanism then covered by XFedGA+ vs its DSC-only control and the root-cause report) apply only if a recost does not fit.
 
+**Pre-registration (f): FedProx and the bounds (19 Oct 2026).**
+- **Runs:** FedProx (μ = 0.01, `method_options.fedprox_mu`), seeds 1–5; centralized (one model on the pooled client data: upper bound) and local-only (each client alone: lower bound; one test evaluation per client model), seeds 1–3; breast (v1) and `prostate_ms` (v2); tags `fedprox` / `bounds`. Queue `queues/post_f_fedprox_bounds.yaml` (22 runs).
+- **Comparisons (secondary, test DSC):** XFedGA vs FedProx and XFedGA+ vs FedProx; FedProx vs FedAvg. The bounds are reported descriptively (mean ± s.d. over seeds), not tested.
+- **Cut rule:** first in the cut order; dropped only if a recost does not fit.
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

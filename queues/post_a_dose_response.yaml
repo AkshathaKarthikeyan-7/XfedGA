@@ -1,0 +1,328 @@
+name: post_a_dose_response
+out: results/runs
+note: a. Dose-response (pre-registered, plan.md). Test evaluated once per run.
+runs:
+- task: breast
+  method: fedavg
+  seed: 1
+  tag: dose_p050
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.5
+- task: breast
+  method: fedga
+  seed: 1
+  tag: dose_p050
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.5
+- task: breast
+  method: xfedga
+  seed: 1
+  tag: dose_p050
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.5
+- task: breast
+  method: xfedga_plus
+  seed: 1
+  tag: dose_p050
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.5
+- task: breast
+  method: fedavg
+  seed: 2
+  tag: dose_p050
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.5
+- task: breast
+  method: fedga
+  seed: 2
+  tag: dose_p050
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.5
+- task: breast
+  method: xfedga
+  seed: 2
+  tag: dose_p050
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.5
+- task: breast
+  method: xfedga_plus
+  seed: 2
+  tag: dose_p050
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.5
+- task: breast
+  method: fedavg
+  seed: 3
+  tag: dose_p050
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.5
+- task: breast
+  method: fedga
+  seed: 3
+  tag: dose_p050
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.5
+- task: breast
+  method: xfedga
+  seed: 3
+  tag: dose_p050
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.5
+- task: breast
+  method: xfedga_plus
+  seed: 3
+  tag: dose_p050
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.5
+- task: breast
+  method: fedavg
+  seed: 1
+  tag: dose_p100
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=1.0
+- task: breast
+  method: fedga
+  seed: 1
+  tag: dose_p100
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=1.0
+- task: breast
+  method: xfedga
+  seed: 1
+  tag: dose_p100
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=1.0
+- task: breast
+  method: xfedga_plus
+  seed: 1
+  tag: dose_p100
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=1.0
+- task: breast
+  method: fedavg
+  seed: 2
+  tag: dose_p100
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=1.0
+- task: breast
+  method: fedga
+  seed: 2
+  tag: dose_p100
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=1.0
+- task: breast
+  method: xfedga
+  seed: 2
+  tag: dose_p100
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=1.0
+- task: breast
+  method: xfedga_plus
+  seed: 2
+  tag: dose_p100
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=1.0
+- task: breast
+  method: fedavg
+  seed: 3
+  tag: dose_p100
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=1.0
+- task: breast
+  method: fedga
+  seed: 3
+  tag: dose_p100
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=1.0
+- task: breast
+  method: xfedga
+  seed: 3
+  tag: dose_p100
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=1.0
+- task: breast
+  method: xfedga_plus
+  seed: 3
+  tag: dose_p100
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=1.0
+- task: breast
+  method: fedavg
+  seed: 1
+  tag: dose_p025
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.25
+- task: breast
+  method: fedga
+  seed: 1
+  tag: dose_p025
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.25
+- task: breast
+  method: xfedga
+  seed: 1
+  tag: dose_p025
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.25
+- task: breast
+  method: xfedga_plus
+  seed: 1
+  tag: dose_p025
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.25
+- task: breast
+  method: fedavg
+  seed: 2
+  tag: dose_p025
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.25
+- task: breast
+  method: fedga
+  seed: 2
+  tag: dose_p025
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.25
+- task: breast
+  method: xfedga
+  seed: 2
+  tag: dose_p025
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.25
+- task: breast
+  method: xfedga_plus
+  seed: 2
+  tag: dose_p025
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.25
+- task: breast
+  method: fedavg
+  seed: 3
+  tag: dose_p025
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.25
+- task: breast
+  method: fedga
+  seed: 3
+  tag: dose_p025
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.25
+- task: breast
+  method: xfedga
+  seed: 3
+  tag: dose_p025
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.25
+- task: breast
+  method: xfedga_plus
+  seed: 3
+  tag: dose_p025
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - scenario.corrupted_label_client=1
+  - scenario.corrupted_label_fraction=0.25

@@ -240,6 +240,15 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - **If adopted:** it is an additional final-headline arm (5 seeds, both tasks, test once). Declared secondary endpoint: acceptance version vs FedGA (baseline), test DSC; exploratory: vs the selected method. It is not part of the dose-response, and not in the agreed cut order (`analysis/recost_18oct.py`; the recost fits without cuts).
 - **Reporting:** every screened variant (XFedGA+, its DSC-only control, the acceptance check) is reported in the thesis, adopted or not.
 
+**Pre-registration (a): corrupted-client dose-response (19 Oct 2026). Declared post-v1; replaces the single-level H-ROB1 of `661a173`, which is not run.**
+- **Common to all post-headline items:** adopted protocols (breast v1, `prostate_ms` v2; overrides `analysis/protocol_sets.py`); validation-selected checkpoint (centred 3-round mean validation DSC); test evaluated once per run; patient / case-level paired differences with 95% cluster-bootstrap CIs (10,000) and WIN / TIE / LOSE (`analysis/stats.py`); every outcome reported. Queue order after the final headline: XAI metrics on the final checkpoints → a → b → c → d → e → f. Recost (`results/timing/recost_20oct.md`): 61.8 of 112.9 GPU-h to 27 Oct → no cuts. If a later recost does not fit, the pre-registered cut order applies.
+- **Scenario:** breast (v1). BUS-UCLM (client index 1) has a share p of its training images given another corrupted image's mask (`scenario.corrupted_label_fraction`; seeded subset, `data/scenarios.py::ShuffledMaskDataset`; p = 1.0 is the original all-image derangement).
+- **p ∈ {0, 0.25, 0.5, 1.0}.** p = 0 is REUSED: FedAvg, FedGA (baseline) and XFedGA = the v1 breast headline seeds 1–3 (`49bf2ad`); XFedGA+ = the final-headline breast seeds 1–3. Run order: p = 0.5 and 1.0 first, then p = 0.25 (cut item 8).
+- **Methods:** FedAvg, FedGA (baseline), XFedGA, XFedGA+ (adopted). Not the DSC-only control. **Seeds 1–3.** Queue `queues/post_a_dose_response.yaml` (36 runs).
+- **Test D1 (primary of this experiment):** per test patient, the seed-averaged test DSC at each p; the OLS slope of DSC on p per patient and method. Paired per-patient difference slope(XFedGA) − slope(FedGA); 95% cluster bootstrap over patients. **Supported if the CI lies above 0** (XFedGA degrades less). Secondary, same test: XFedGA+ vs FedGA.
+- **Test D2 (mechanism):** the corrupted client's alpha (mean over rounds) per seed at each p; OLS slope over the 3 seeds × 4 p points. **Supported if the slope's 95% t-interval lies below 0**, separately for XFedGA (alpha from q_i) and XFedGA+ (alpha from s_i).
+- **Figure:** q_i / s_i / alpha of both clients per round at each p.
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

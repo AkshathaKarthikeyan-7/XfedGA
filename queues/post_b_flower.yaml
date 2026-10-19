@@ -1,0 +1,46 @@
+name: post_b_flower
+out: results/runs
+note: b. Flower demo (seed 1) + parity (seeds 2-3), fl_dist, breast (pre-registered, plan.md).
+runs:
+- task: breast
+  method: xfedga
+  seed: 1
+  tag: fl
+  runner: fl_dist
+  set: []
+- task: breast
+  method: xfedga_plus
+  seed: 1
+  tag: fl
+  runner: fl_dist
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: xfedga
+  seed: 2
+  tag: fl
+  runner: fl_dist
+  set: []
+- task: breast
+  method: xfedga_plus
+  seed: 2
+  tag: fl
+  runner: fl_dist
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: xfedga
+  seed: 3
+  tag: fl
+  runner: fl_dist
+  set: []
+- task: breast
+  method: xfedga_plus
+  seed: 3
+  tag: fl
+  runner: fl_dist
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true

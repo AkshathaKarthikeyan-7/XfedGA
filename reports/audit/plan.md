@@ -249,6 +249,14 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - **Test D2 (mechanism):** the corrupted client's alpha (mean over rounds) per seed at each p; OLS slope over the 3 seeds × 4 p points. **Supported if the slope's 95% t-interval lies below 0**, separately for XFedGA (alpha from q_i) and XFedGA+ (alpha from s_i).
 - **Figure:** q_i / s_i / alpha of both clients per round at each p.
 
+**Pre-registration (b): Flower demo and parity (19 Oct 2026).**
+- **Setting:** multi-process federation on a single machine over loopback gRPC (`fl_dist/`, Flower 1.7.0), breast (v1), 2 clients. The 5-client `prostate_ms` fl_dist run is a known single-GPU limitation (CUDA OOM in one client process even with the GPU lock; test xfail; not debugged before 30 Oct).
+- **Runs:** XFedGA and XFedGA+, seed 1 = the demo run, seeds 2–3 = parity. Settings equal to the custom-loop comparators: XFedGA = the v1 breast headline seeds 1–3 (no logging flags); XFedGA+ = the final-headline breast seeds 1–3 (with logging flags). Queue `queues/post_b_flower.yaml` (6 runs, `runner: fl_dist`, tag `fl`).
+- **Parity criteria** (per method, seeds 1–3 against the same-seed custom-loop run):
+  - the message audit shows exactly weights, n_i, q_i and the client index;
+  - **equivalence:** per-patient paired test-DSC difference (fl_dist − custom loop, seeds averaged within patient); TOST with margin ±0.02: equivalent if the 90% CI lies inside [−0.02, +0.02];
+  - also reported: max |Δ| of the per-round validation DSC (bit-identical expected, as `tests/test_fl_dist.py`).
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

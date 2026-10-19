@@ -94,7 +94,8 @@ def main():
             logs.append(f)
             procs.append(subprocess.Popen([args.python, os.path.join(CODE_ROOT, "fl_dist", "client.py"), *common,
                                            "--client", str(k), "--server_address", address,
-                                           "--audit_out", os.path.join(out_dir, f"client_{k + 1}_audit.json")],
+                                           "--audit_out", os.path.join(out_dir, f"client_{k + 1}_audit.json"),
+                                           "--gpu_lock", os.path.join(out_dir, "gpu.lock")],
                                           stdout=f, stderr=subprocess.STDOUT))
             print(f"[launch] client {k + 1} started (pid {procs[-1].pid})", flush=True)
         while True:

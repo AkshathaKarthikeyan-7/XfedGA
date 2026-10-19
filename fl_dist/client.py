@@ -11,6 +11,7 @@ import json
 import logging
 import os
 import sys
+import time
 
 import flwr as fl
 import numpy as np
@@ -25,6 +26,7 @@ from experiments.run_federated import METHODS  # noqa: E402
 from experiments.tasks import build_task  # noqa: E402
 from fedga.client import client_saliency_score, local_update, privatize_update  # noqa: E402
 from fedga.losses import build_loss  # noqa: E402
+from fl_dist.gpu_lock import gpu_lock, release_cached_gpu_memory  # noqa: E402
 from models.residual_unet import build_residual_unet  # noqa: E402
 
 log = logging.getLogger("fl_dist.client")
@@ -39,7 +41,7 @@ def ndarrays_to_state(keys, arrays, device):
 
 
 class XFedGAClient(fl.client.NumPyClient):
-    def __init__(self, task, method, seed, client, overrides, device):
+    def __init__(self, task, method, seed, client, overrides, device, lock_path=None):
         self.cfg = load_config(task, overrides)
         self.spec = METHODS[method]
         if self.spec["topology"] != "federated":
@@ -57,6 +59,7 @@ class XFedGAClient(fl.client.NumPyClient):
         self.keys = list(self.model.state_dict().keys())
         self.loss_fn = build_loss()
         self.received = []                                       # message audit, client side
+        self.lock_path, self.lock_log = lock_path, []           # cross-process GPU lock (fl_dist/gpu_lock.py)
         log.info("client %d (%s): %d training samples", client, self.data.name, len(self.data.train))
 
     def get_parameters(self, config):
@@ -66,6 +69,15 @@ class XFedGAClient(fl.client.NumPyClient):
         self.received.append({"round": config.get("round"), "config_keys": sorted(config.keys()),
                               "n_arrays": len(parameters)})
         t = int(config["round"])
+        with gpu_lock(self.lock_path) as waited:   # one client on the GPU at a time; results unchanged, timing only
+            t_held = time.time()
+            out = self._fit(parameters, t)
+            release_cached_gpu_memory()           # idle clients must not hold cached GPU memory
+        self.lock_log.append({"round": t, "waited_s": round(waited, 2), "held_s": round(time.time() - t_held, 2)})
+        log.info("round %d: GPU lock waited %.1f s, held %.1f s", t, waited, time.time() - t_held)
+        return out
+
+    def _fit(self, parameters, t):
         tr, sc = self.cfg["train"], self.cfg["scenario"]
         global_state = ndarrays_to_state(self.keys, parameters, self.device)
         self.model.load_state_dict(global_state)
@@ -98,15 +110,16 @@ def main():
     ap.add_argument("--server_address", required=True)
     ap.add_argument("--set", nargs="*", default=[])
     ap.add_argument("--audit_out", default=None)
+    ap.add_argument("--gpu_lock", default=None, help="lock file shared by the clients of one run (launch.py sets it)")
     args = ap.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
     seed_everything(args.seed)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    client = XFedGAClient(args.task, args.method, args.seed, args.client, args.set, device)
+    client = XFedGAClient(args.task, args.method, args.seed, args.client, args.set, device, args.gpu_lock)
     fl.client.start_numpy_client(server_address=args.server_address, client=client)
     if args.audit_out:
         with open(args.audit_out, "w", encoding="utf-8") as f:
-            json.dump({"client": args.client, "received": client.received,
+            json.dump({"client": args.client, "received": client.received, "gpu_lock": client.lock_log,
                        "peak_reserved_MiB": round(torch.cuda.max_memory_reserved() / 2**20) if device.type == "cuda" else 0},
                       f, indent=1)
     log.info("client %d finished", args.client)

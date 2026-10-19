@@ -6,7 +6,9 @@
     "xfedga": 132.58613333333332,
     "fedavg": 66.6192,
     "xfedga_plus": 157.48515555555554,
-    "fedga_paper": 82.11478730158731
+    "fedga_paper": 82.11478730158731,
+    "xfedga_acc": 103.9831111111111,
+    "xfedga_plus_acc": 128.88213333333331
    },
    "setup_s": 1.2600000000000002,
    "test_s": {
@@ -29,7 +31,9 @@
     "xfedga": 223.37966666666668,
     "fedavg": 41.757333333333335,
     "xfedga_plus": 257.12520634920634,
-    "fedga_paper": 80.33066666666667
+    "fedga_paper": 80.33066666666667,
+    "xfedga_acc": 142.12043650793655,
+    "xfedga_plus_acc": 175.8659761904762
    },
    "setup_s": 1.0,
    "test_s": {
@@ -53,7 +57,9 @@
     "xfedga": 163.31756724452356,
     "fedavg": 101.17815141607892,
     "xfedga_plus": 186.4745171834735,
-    "fedga_paper": 116.01942125734874
+    "fedga_paper": 116.01942125734874,
+    "xfedga_acc": 138.16898629214262,
+    "xfedga_plus_acc": 161.32593623109256
    },
    "setup_s": 0.0,
    "test_s": {
@@ -79,7 +85,9 @@
     "xfedga": 198.1062628772732,
     "fedavg": 29.264042647155765,
     "xfedga_plus": 250.06829211346908,
-    "fedga_paper": 63.75524329835641
+    "fedga_paper": 63.75524329835641,
+    "xfedga_acc": 125.54502057636422,
+    "xfedga_plus_acc": 177.5070498125601
    },
    "setup_s": 0.15000000000000002,
    "test_s": {
@@ -135,12 +143,13 @@
   "breast_xfedga_seed2_bb69b34e_v2screen": "GPU throttled: median SM clock 1335 MHz (queue log)"
  },
  "scenarios": {
-  "overnight: breast v1, prostate_ms v1, XFedGA+ not adopted": {
+  "overnight: breast v1, prostate_ms v1, XFedGA+ not adopted, acceptance not adopted": {
    "protocol": {
     "breast": "v1",
     "prostate_ms": "v1"
    },
    "xfedga_plus_adopted": false,
+   "acceptance_adopted": false,
    "capacity_mode": "overnight",
    "capacity_h": 144.6,
    "items": [
@@ -165,6 +174,18 @@
     {
      "item": "headline_xplus_dsc",
      "label": "XFedGA+ (DSC-only) control x 5 seeds, both tasks (if adopted)",
+     "raw_h": 0.0,
+     "with_contingency_h": 0.0
+    },
+    {
+     "item": "acceptance_screen",
+     "label": "acceptance-check version of the selected method, 2 tasks x 2 seeds, no test",
+     "raw_h": 2.0186341450271144,
+     "with_contingency_h": 2.422360974032537
+    },
+    {
+     "item": "headline_accept",
+     "label": "acceptance-check arm x 5 seeds, both tasks (if adopted; not in the cut order)",
      "raw_h": 0.0,
      "with_contingency_h": 0.0
     },
@@ -211,17 +232,112 @@
      "with_contingency_h": 9.564855854855296
     }
    ],
-   "total_before_cuts_h": 76.05897937923731,
+   "total_before_cuts_h": 78.48134035326984,
    "cuts_applied": [],
-   "total_after_cuts_h": 76.05897937923731,
+   "total_after_cuts_h": 78.48134035326984,
    "fits": true
   },
-  "overnight: breast v1, prostate_ms v1, XFedGA+ adopted": {
+  "overnight: breast v1, prostate_ms v1, XFedGA+ not adopted, acceptance adopted": {
+   "protocol": {
+    "breast": "v1",
+    "prostate_ms": "v1"
+   },
+   "xfedga_plus_adopted": false,
+   "acceptance_adopted": true,
+   "capacity_mode": "overnight",
+   "capacity_h": 144.6,
+   "items": [
+    {
+     "item": "screens",
+     "label": "prostate_ms protocol + XFedGA+ screen (FedGA, XFedGA, XFedGA+ x2 variants; v1 + v2; 2 seeds; no test) + breast XFedGA+ screen (2 variants x 2 seeds, adopted breast protocol)",
+     "raw_h": 14.079566424867041,
+     "with_contingency_h": 16.895479709840448
+    },
+    {
+     "item": "final_headline",
+     "label": "primary arms: prostate_ms FedAvg / FedGA / XFedGA x 5 seeds (breast v1 headline reused)",
+     "raw_h": 7.7229360323144505,
+     "with_contingency_h": 9.26752323877734
+    },
+    {
+     "item": "headline_xplus",
+     "label": "XFedGA+ x 5 seeds, both tasks (if adopted)",
+     "raw_h": 0.0,
+     "with_contingency_h": 0.0
+    },
+    {
+     "item": "headline_xplus_dsc",
+     "label": "XFedGA+ (DSC-only) control x 5 seeds, both tasks (if adopted)",
+     "raw_h": 0.0,
+     "with_contingency_h": 0.0
+    },
+    {
+     "item": "acceptance_screen",
+     "label": "acceptance-check version of the selected method, 2 tasks x 2 seeds, no test",
+     "raw_h": 2.0186341450271144,
+     "with_contingency_h": 2.422360974032537
+    },
+    {
+     "item": "headline_accept",
+     "label": "acceptance-check arm x 5 seeds, both tasks (if adopted; not in the cut order)",
+     "raw_h": 5.171551383775716,
+     "with_contingency_h": 6.205861660530859
+    },
+    {
+     "item": "dose_p050_p100",
+     "label": "dose-response breast p = 0.5, 1.0 x 3 methods x 3 seeds (p = 0 reused)",
+     "raw_h": 7.131666666666667,
+     "with_contingency_h": 8.558
+    },
+    {
+     "item": "dose_p025",
+     "label": "dose-response breast p = 0.25 x 3 methods x 3 seeds",
+     "raw_h": 3.5658333333333334,
+     "with_contingency_h": 4.279
+    },
+    {
+     "item": "fedga_paper",
+     "label": "FedGA (paper GA settings: P 10, G 20, 20 rounds; batch 8 declared), 2 tasks x 3 seeds",
+     "raw_h": 3.377953123285172,
+     "with_contingency_h": 4.053543747942206
+    },
+    {
+     "item": "h_rob2",
+     "label": "noisy-q_i client: XFedGA, breast, 3 seeds",
+     "raw_h": 1.7244,
+     "with_contingency_h": 2.06928
+    },
+    {
+     "item": "ablations",
+     "label": "ablations B, C, D, F + random search, 2 tasks x 3 seeds (A, E from the headline)",
+     "raw_h": 15.826354023185022,
+     "with_contingency_h": 18.991624827822026
+    },
+    {
+     "item": "parity",
+     "label": "Flower fl_dist XFedGA, breast, 3 seeds (x1.15); seed 1 = Flower demo",
+     "raw_h": 1.98306,
+     "with_contingency_h": 2.379672
+    },
+    {
+     "item": "fedprox_bounds",
+     "label": "FedProx 2 tasks x 5 seeds; centralized + local-only 2 tasks x 3 seeds",
+     "raw_h": 7.9707132123794135,
+     "with_contingency_h": 9.564855854855296
+    }
+   ],
+   "total_before_cuts_h": 84.6872020138007,
+   "cuts_applied": [],
+   "total_after_cuts_h": 84.6872020138007,
+   "fits": true
+  },
+  "overnight: breast v1, prostate_ms v1, XFedGA+ adopted, acceptance not adopted": {
    "protocol": {
     "breast": "v1",
     "prostate_ms": "v1"
    },
    "xfedga_plus_adopted": true,
+   "acceptance_adopted": false,
    "capacity_mode": "overnight",
    "capacity_h": 144.6,
    "items": [
@@ -248,6 +364,18 @@
      "label": "XFedGA+ (DSC-only) control x 5 seeds, both tasks (if adopted)",
      "raw_h": 7.292542536604369,
      "with_contingency_h": 8.751051043925242
+    },
+    {
+     "item": "acceptance_screen",
+     "label": "acceptance-check version of the selected method, 2 tasks x 2 seeds, no test",
+     "raw_h": 2.4191005797035485,
+     "with_contingency_h": 2.902920695644258
+    },
+    {
+     "item": "headline_accept",
+     "label": "acceptance-check arm x 5 seeds, both tasks (if adopted; not in the cut order)",
+     "raw_h": 0.0,
+     "with_contingency_h": 0.0
     },
     {
      "item": "dose_p050_p100",
@@ -292,17 +420,112 @@
      "with_contingency_h": 9.564855854855296
     }
    ],
-   "total_before_cuts_h": 100.8893774670878,
+   "total_before_cuts_h": 103.79229816273205,
    "cuts_applied": [],
-   "total_after_cuts_h": 100.8893774670878,
+   "total_after_cuts_h": 103.79229816273205,
    "fits": true
   },
-  "overnight: breast v1, prostate_ms v2, XFedGA+ not adopted": {
+  "overnight: breast v1, prostate_ms v1, XFedGA+ adopted, acceptance adopted": {
+   "protocol": {
+    "breast": "v1",
+    "prostate_ms": "v1"
+   },
+   "xfedga_plus_adopted": true,
+   "acceptance_adopted": true,
+   "capacity_mode": "overnight",
+   "capacity_h": 144.6,
+   "items": [
+    {
+     "item": "screens",
+     "label": "prostate_ms protocol + XFedGA+ screen (FedGA, XFedGA, XFedGA+ x2 variants; v1 + v2; 2 seeds; no test) + breast XFedGA+ screen (2 variants x 2 seeds, adopted breast protocol)",
+     "raw_h": 14.079566424867041,
+     "with_contingency_h": 16.895479709840448
+    },
+    {
+     "item": "final_headline",
+     "label": "primary arms: prostate_ms FedAvg / FedGA / XFedGA x 5 seeds (breast v1 headline reused)",
+     "raw_h": 7.7229360323144505,
+     "with_contingency_h": 9.26752323877734
+    },
+    {
+     "item": "headline_xplus",
+     "label": "XFedGA+ x 5 seeds, both tasks (if adopted)",
+     "raw_h": 7.292542536604369,
+     "with_contingency_h": 8.751051043925242
+    },
+    {
+     "item": "headline_xplus_dsc",
+     "label": "XFedGA+ (DSC-only) control x 5 seeds, both tasks (if adopted)",
+     "raw_h": 7.292542536604369,
+     "with_contingency_h": 8.751051043925242
+    },
+    {
+     "item": "acceptance_screen",
+     "label": "acceptance-check version of the selected method, 2 tasks x 2 seeds, no test",
+     "raw_h": 2.4191005797035485,
+     "with_contingency_h": 2.902920695644258
+    },
+    {
+     "item": "headline_accept",
+     "label": "acceptance-check arm x 5 seeds, both tasks (if adopted; not in the cut order)",
+     "raw_h": 6.172717470466802,
+     "with_contingency_h": 7.407260964560162
+    },
+    {
+     "item": "dose_p050_p100",
+     "label": "dose-response breast p = 0.5, 1.0 x 4 methods x 3 seeds (p = 0 reused)",
+     "raw_h": 11.202942222222223,
+     "with_contingency_h": 13.443530666666668
+    },
+    {
+     "item": "dose_p025",
+     "label": "dose-response breast p = 0.25 x 4 methods x 3 seeds",
+     "raw_h": 5.6014711111111115,
+     "with_contingency_h": 6.721765333333334
+    },
+    {
+     "item": "fedga_paper",
+     "label": "FedGA (paper GA settings: P 10, G 20, 20 rounds; batch 8 declared), 2 tasks x 3 seeds",
+     "raw_h": 3.377953123285172,
+     "with_contingency_h": 4.053543747942206
+    },
+    {
+     "item": "h_rob2",
+     "label": "noisy-q_i client: XFedGA, breast, 3 seeds",
+     "raw_h": 1.7244,
+     "with_contingency_h": 2.06928
+    },
+    {
+     "item": "ablations",
+     "label": "ablations B, C, D, F + random search, 2 tasks x 3 seeds (A, E from the headline)",
+     "raw_h": 15.826354023185022,
+     "with_contingency_h": 18.991624827822026
+    },
+    {
+     "item": "parity",
+     "label": "Flower fl_dist XFedGA, breast, 3 seeds (x1.15); seed 1 = Flower demo",
+     "raw_h": 1.98306,
+     "with_contingency_h": 2.379672
+    },
+    {
+     "item": "fedprox_bounds",
+     "label": "FedProx 2 tasks x 5 seeds; centralized + local-only 2 tasks x 3 seeds",
+     "raw_h": 7.9707132123794135,
+     "with_contingency_h": 9.564855854855296
+    }
+   ],
+   "total_before_cuts_h": 111.19955912729223,
+   "cuts_applied": [],
+   "total_after_cuts_h": 111.19955912729223,
+   "fits": true
+  },
+  "overnight: breast v1, prostate_ms v2, XFedGA+ not adopted, acceptance not adopted": {
    "protocol": {
     "breast": "v1",
     "prostate_ms": "v2"
    },
    "xfedga_plus_adopted": false,
+   "acceptance_adopted": false,
    "capacity_mode": "overnight",
    "capacity_h": 144.6,
    "items": [
@@ -327,6 +550,18 @@
     {
      "item": "headline_xplus_dsc",
      "label": "XFedGA+ (DSC-only) control x 5 seeds, both tasks (if adopted)",
+     "raw_h": 0.0,
+     "with_contingency_h": 0.0
+    },
+    {
+     "item": "acceptance_screen",
+     "label": "acceptance-check version of the selected method, 2 tasks x 2 seeds, no test",
+     "raw_h": 1.9135177640622945,
+     "with_contingency_h": 2.296221316874753
+    },
+    {
+     "item": "headline_accept",
+     "label": "acceptance-check arm x 5 seeds, both tasks (if adopted; not in the cut order)",
      "raw_h": 0.0,
      "with_contingency_h": 0.0
     },
@@ -373,17 +608,112 @@
      "with_contingency_h": 5.610129872564522
     }
    ],
-   "total_before_cuts_h": 67.94902410404958,
+   "total_before_cuts_h": 70.24524542092435,
    "cuts_applied": [],
-   "total_after_cuts_h": 67.94902410404958,
+   "total_after_cuts_h": 70.24524542092435,
    "fits": true
   },
-  "overnight: breast v1, prostate_ms v2, XFedGA+ adopted": {
+  "overnight: breast v1, prostate_ms v2, XFedGA+ not adopted, acceptance adopted": {
+   "protocol": {
+    "breast": "v1",
+    "prostate_ms": "v2"
+   },
+   "xfedga_plus_adopted": false,
+   "acceptance_adopted": true,
+   "capacity_mode": "overnight",
+   "capacity_h": 144.6,
+   "items": [
+    {
+     "item": "screens",
+     "label": "prostate_ms protocol + XFedGA+ screen (FedGA, XFedGA, XFedGA+ x2 variants; v1 + v2; 2 seeds; no test) + breast XFedGA+ screen (2 variants x 2 seeds, adopted breast protocol)",
+     "raw_h": 14.079566424867041,
+     "with_contingency_h": 16.895479709840448
+    },
+    {
+     "item": "final_headline",
+     "label": "primary arms: prostate_ms FedAvg / FedGA / XFedGA x 5 seeds (breast v1 headline reused)",
+     "raw_h": 5.530057459861403,
+     "with_contingency_h": 6.636068951833684
+    },
+    {
+     "item": "headline_xplus",
+     "label": "XFedGA+ x 5 seeds, both tasks (if adopted)",
+     "raw_h": 0.0,
+     "with_contingency_h": 0.0
+    },
+    {
+     "item": "headline_xplus_dsc",
+     "label": "XFedGA+ (DSC-only) control x 5 seeds, both tasks (if adopted)",
+     "raw_h": 0.0,
+     "with_contingency_h": 0.0
+    },
+    {
+     "item": "acceptance_screen",
+     "label": "acceptance-check version of the selected method, 2 tasks x 2 seeds, no test",
+     "raw_h": 1.9135177640622945,
+     "with_contingency_h": 2.296221316874753
+    },
+    {
+     "item": "headline_accept",
+     "label": "acceptance-check arm x 5 seeds, both tasks (if adopted; not in the cut order)",
+     "raw_h": 4.908760431363666,
+     "with_contingency_h": 5.890512517636399
+    },
+    {
+     "item": "dose_p050_p100",
+     "label": "dose-response breast p = 0.5, 1.0 x 3 methods x 3 seeds (p = 0 reused)",
+     "raw_h": 7.131666666666667,
+     "with_contingency_h": 8.558
+    },
+    {
+     "item": "dose_p025",
+     "label": "dose-response breast p = 0.25 x 3 methods x 3 seeds",
+     "raw_h": 3.5658333333333334,
+     "with_contingency_h": 4.279
+    },
+    {
+     "item": "fedga_paper",
+     "label": "FedGA (paper GA settings: P 10, G 20, 20 rounds; batch 8 declared), 2 tasks x 3 seeds",
+     "raw_h": 2.5070084906353003,
+     "with_contingency_h": 3.0084101887623604
+    },
+    {
+     "item": "h_rob2",
+     "label": "noisy-q_i client: XFedGA, breast, 3 seeds",
+     "raw_h": 1.7244,
+     "with_contingency_h": 2.06928
+    },
+    {
+     "item": "ablations",
+     "label": "ablations B, C, D, F + random search, 2 tasks x 3 seeds (A, E from the headline)",
+     "raw_h": 15.427486150873815,
+     "with_contingency_h": 18.512983381048578
+    },
+    {
+     "item": "parity",
+     "label": "Flower fl_dist XFedGA, breast, 3 seeds (x1.15); seed 1 = Flower demo",
+     "raw_h": 1.98306,
+     "with_contingency_h": 2.379672
+    },
+    {
+     "item": "fedprox_bounds",
+     "label": "FedProx 2 tasks x 5 seeds; centralized + local-only 2 tasks x 3 seeds",
+     "raw_h": 4.675108227137102,
+     "with_contingency_h": 5.610129872564522
+    }
+   ],
+   "total_before_cuts_h": 76.13575793856074,
+   "cuts_applied": [],
+   "total_after_cuts_h": 76.13575793856074,
+   "fits": true
+  },
+  "overnight: breast v1, prostate_ms v2, XFedGA+ adopted, acceptance not adopted": {
    "protocol": {
     "breast": "v1",
     "prostate_ms": "v2"
    },
    "xfedga_plus_adopted": true,
+   "acceptance_adopted": false,
    "capacity_mode": "overnight",
    "capacity_h": 144.6,
    "items": [
@@ -410,6 +740,18 @@
      "label": "XFedGA+ (DSC-only) control x 5 seeds, both tasks (if adopted)",
      "raw_h": 8.617621180979278,
      "with_contingency_h": 10.341145417175133
+    },
+    {
+     "item": "acceptance_screen",
+     "label": "acceptance-check version of the selected method, 2 tasks x 2 seeds, no test",
+     "raw_h": 2.5540265262157784,
+     "with_contingency_h": 3.064831831458934
+    },
+    {
+     "item": "headline_accept",
+     "label": "acceptance-check arm x 5 seeds, both tasks (if adopted; not in the cut order)",
+     "raw_h": 0.0,
+     "with_contingency_h": 0.0
     },
     {
      "item": "dose_p050_p100",
@@ -454,9 +796,103 @@
      "with_contingency_h": 5.610129872564522
     }
    ],
-   "total_before_cuts_h": 95.95961093839986,
+   "total_before_cuts_h": 99.02444276985881,
    "cuts_applied": [],
-   "total_after_cuts_h": 95.95961093839986,
+   "total_after_cuts_h": 99.02444276985881,
+   "fits": true
+  },
+  "overnight: breast v1, prostate_ms v2, XFedGA+ adopted, acceptance adopted": {
+   "protocol": {
+    "breast": "v1",
+    "prostate_ms": "v2"
+   },
+   "xfedga_plus_adopted": true,
+   "acceptance_adopted": true,
+   "capacity_mode": "overnight",
+   "capacity_h": 144.6,
+   "items": [
+    {
+     "item": "screens",
+     "label": "prostate_ms protocol + XFedGA+ screen (FedGA, XFedGA, XFedGA+ x2 variants; v1 + v2; 2 seeds; no test) + breast XFedGA+ screen (2 variants x 2 seeds, adopted breast protocol)",
+     "raw_h": 14.079566424867041,
+     "with_contingency_h": 16.895479709840448
+    },
+    {
+     "item": "final_headline",
+     "label": "primary arms: prostate_ms FedAvg / FedGA / XFedGA x 5 seeds (breast v1 headline reused)",
+     "raw_h": 5.530057459861403,
+     "with_contingency_h": 6.636068951833684
+    },
+    {
+     "item": "headline_xplus",
+     "label": "XFedGA+ x 5 seeds, both tasks (if adopted)",
+     "raw_h": 8.617621180979278,
+     "with_contingency_h": 10.341145417175133
+    },
+    {
+     "item": "headline_xplus_dsc",
+     "label": "XFedGA+ (DSC-only) control x 5 seeds, both tasks (if adopted)",
+     "raw_h": 8.617621180979278,
+     "with_contingency_h": 10.341145417175133
+    },
+    {
+     "item": "acceptance_screen",
+     "label": "acceptance-check version of the selected method, 2 tasks x 2 seeds, no test",
+     "raw_h": 2.5540265262157784,
+     "with_contingency_h": 3.064831831458934
+    },
+    {
+     "item": "headline_accept",
+     "label": "acceptance-check arm x 5 seeds, both tasks (if adopted; not in the cut order)",
+     "raw_h": 6.510032336747376,
+     "with_contingency_h": 7.812038804096851
+    },
+    {
+     "item": "dose_p050_p100",
+     "label": "dose-response breast p = 0.5, 1.0 x 4 methods x 3 seeds (p = 0 reused)",
+     "raw_h": 11.202942222222223,
+     "with_contingency_h": 13.443530666666668
+    },
+    {
+     "item": "dose_p025",
+     "label": "dose-response breast p = 0.25 x 4 methods x 3 seeds",
+     "raw_h": 5.6014711111111115,
+     "with_contingency_h": 6.721765333333334
+    },
+    {
+     "item": "fedga_paper",
+     "label": "FedGA (paper GA settings: P 10, G 20, 20 rounds; batch 8 declared), 2 tasks x 3 seeds",
+     "raw_h": 2.5070084906353003,
+     "with_contingency_h": 3.0084101887623604
+    },
+    {
+     "item": "h_rob2",
+     "label": "noisy-q_i client: XFedGA, breast, 3 seeds",
+     "raw_h": 1.7244,
+     "with_contingency_h": 2.06928
+    },
+    {
+     "item": "ablations",
+     "label": "ablations B, C, D, F + random search, 2 tasks x 3 seeds (A, E from the headline)",
+     "raw_h": 15.427486150873815,
+     "with_contingency_h": 18.512983381048578
+    },
+    {
+     "item": "parity",
+     "label": "Flower fl_dist XFedGA, breast, 3 seeds (x1.15); seed 1 = Flower demo",
+     "raw_h": 1.98306,
+     "with_contingency_h": 2.379672
+    },
+    {
+     "item": "fedprox_bounds",
+     "label": "FedProx 2 tasks x 5 seeds; centralized + local-only 2 tasks x 3 seeds",
+     "raw_h": 4.675108227137102,
+     "with_contingency_h": 5.610129872564522
+    }
+   ],
+   "total_before_cuts_h": 106.83648157395567,
+   "cuts_applied": [],
+   "total_after_cuts_h": 106.83648157395567,
    "fits": true
   }
  }

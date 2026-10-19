@@ -70,6 +70,7 @@ ga:
   tau: 10.0          # annealing: sigma_g = sigma0 * exp(-g / tau) (XFedGA only)
   cache_elite_fitness: true    # decision Q7: enabled 15 Oct 2026 -- tests/test_determinism.py passed (repeatable fitness)
   kappa: 20                 # XFedGA+ only: Dirichlet concentration of the mixing-vector GA (fixed a priori, not tuned)
+  acceptance_check: false   # pre-registered 18 Oct 2026: GA on fitness half A; winner kept only if fitness on half B >= w_agg's (XFedGA / XFedGA+ only)
 
 fitness:
   weights: [0.5, 0.3, 0.2]   # fitness weights (w1, w2, w3) on DSC, HD95_norm, EC; sum to 1

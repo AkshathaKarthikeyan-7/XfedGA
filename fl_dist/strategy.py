@@ -19,6 +19,7 @@ import torch
 from flwr.common import ndarrays_to_parameters, parameters_to_ndarrays
 
 from experiments.run_federated import server_step
+from fl_dist.gpu_lock import release_cached_gpu_memory
 
 ALLOWED_METRICS = {"q_i", "client_index"}
 
@@ -73,6 +74,7 @@ class XFedGAStrategy(fl.server.strategy.FedAvg):
                     "peak_reserved_MiB": round(torch.cuda.max_memory_reserved() / 2**20) if self.device.type == "cuda" else 0})
         self.rows.append(row)
         self.states.append(best)
+        release_cached_gpu_memory()   # memory only: the server holds no cached GPU memory while clients train
         self.sizes = sizes
         return ndarrays_to_parameters([v.numpy() for v in best.values()]), {}
 

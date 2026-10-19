@@ -91,6 +91,30 @@ def decathlon_case_split(cases, slices_per_case, seed=42, block_roles=("fitness"
     return {r: sorted(v) for r, v in split.items()}
 
 
+def fitness_halves(groups, sizes, seed=42):
+    """
+    Acceptance check (pre-registered 18 Oct 2026): split the fitness subsample into two fixed CASE-level halves A, B.
+    groups: case / patient id of each subsample image; sizes: its foreground (gland / lesion) fraction.
+    Cases are sorted by mean size and taken in blocks of 2, one to A and one to B by a seeded permutation (as the other
+    gland-size block splits); an odd last case goes to A. Returns (positions in A, positions in B), both sorted.
+    """
+    case_size = {}
+    for g, s in zip(groups, sizes):
+        case_size.setdefault(g, []).append(float(s))
+    order = sorted(case_size, key=lambda c: (float(np.mean(case_size[c])), str(c)))
+    rng = np.random.RandomState(seed)
+    a, b = set(), set()
+    for k in range(0, len(order), 2):
+        block = order[k:k + 2]
+        if len(block) == 1:
+            a.add(block[0])
+            continue
+        p = rng.permutation(2)
+        a.add(block[p[0]])
+        b.add(block[p[1]])
+    return [i for i, g in enumerate(groups) if g in a], [i for i, g in enumerate(groups) if g in b]
+
+
 def group_split(items, group_of, val_fraction=0.2, seed=42):
     """Client train/validation split by group (e.g. BUS-UCLM patient prefix). Returns (train, val)."""
     groups = sorted({group_of(i) for i in items})

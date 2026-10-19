@@ -42,6 +42,7 @@ from fedga.client import client_saliency_score, local_update, privatize_update  
 from fedga.evaluation import FixedSet, build_fitness_fn, per_image_metrics, server_client_scores  # noqa: E402
 from fedga.fedavg import aggregate, aggregation_weights  # noqa: E402
 from fedga.ga_optimizer import ga_evaluation_count, random_search, run_ga, run_mix_ga  # noqa: E402
+from data.splits import fitness_halves  # noqa: E402
 from fedga.losses import build_loss  # noqa: E402
 from models.residual_unet import build_residual_unet  # noqa: E402
 
@@ -110,6 +111,28 @@ class ServerEval:
         self.val_explain = Subset(data.server["validation"].dataset, data.val_explain_subsample)
         self.fixed = (FixedSet(data.server["fitness"].dataset, data.fitness_subsample, device)
                       if spec["search"] in ("ga", "random", "mix_ga") else None)
+        self.fixed_a = self.fixed_b = None
+        if cfg["ga"].get("acceptance_check") and self.fixed is not None:
+            # acceptance check: the GA (and XFedGA+'s s_i) use half A; half B is used only to accept / reject the winner
+            fs = data.server["fitness"]
+            groups = [fs.group_ids[i] for i in data.fitness_subsample]
+            sizes = [float(self.fixed.masks[k].float().mean()) for k in range(len(self.fixed))]
+            pa, pb = fitness_halves(groups, sizes, seed=cfg["seed"])
+            self.fixed_a = FixedSet(fs.dataset, [data.fitness_subsample[p] for p in pa], device)
+            self.fixed_b = FixedSet(fs.dataset, [data.fitness_subsample[p] for p in pb], device)
+            self.halves = {"A": sorted({groups[p] for p in pa}), "B": sorted({groups[p] for p in pb}),
+                           "n_images": [len(pa), len(pb)]}
+
+
+ACCEPTANCE_METHODS = ("xfedga", "xfedga_plus", "xfedga_plus_dsc")
+
+
+def acceptance_decision(best, w_agg, fitness_b):
+    """Keep the GA winner only if its fitness on half B is >= w_agg's; otherwise the round's model is w_agg.
+    Returns (state, accepted, fitness_B(winner), fitness_B(w_agg)); 2 fitness evaluations."""
+    fb_win, fb_agg = fitness_b(best), fitness_b(w_agg)
+    accepted = fb_win >= fb_agg
+    return (best if accepted else w_agg), accepted, fb_win, fb_agg
 
 
 def server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device, cand_log=None):
@@ -130,7 +153,8 @@ def server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device
     scores = None
     if spec["aggregation"] == "server_score":   # XFedGA+: server-verified client score on the fitness subsample
         ts = time.time()
-        scores = server_client_scores(model, srv.fixed, client_states, spec["score"], fit_cfg["hd95_normalizer"],
+        scores = server_client_scores(model, srv.fixed_a or srv.fixed, client_states, spec["score"],
+                                      fit_cfg["hd95_normalizer"],
                                       fit_cfg["cam_threshold"], fit_cfg["cam_target"], fit_cfg["cam_layer"],
                                       spec["ec"])
         rt["score_s"] = time.time() - ts
@@ -154,7 +178,7 @@ def server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device
     ts = time.time()
     history, candidates, best_mix = [], [], None
     if spec["search"] in ("ga", "random", "mix_ga"):
-        fitness_fn = build_fitness_fn(model, srv.fixed, spec["fitness"], fit_cfg["weights"],
+        fitness_fn = build_fitness_fn(model, srv.fixed_a or srv.fixed, spec["fitness"], fit_cfg["weights"],
                                       fit_cfg["hd95_normalizer"], fit_cfg["cam_threshold"], record=candidates,
                                       cam_target=fit_cfg["cam_target"], cam_layer=fit_cfg["cam_layer"],
                                       ec_kind=spec["ec"])
@@ -175,6 +199,15 @@ def server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device
         best, history = random_search(w_agg, fitness_fn, n_eval, ga_cfg["sigma0"])
     else:
         best = w_agg
+    accept = None
+    if srv.fixed_b is not None and spec["search"] in ("ga", "mix_ga"):
+        fitness_b = build_fitness_fn(model, srv.fixed_b, spec["fitness"], fit_cfg["weights"], fit_cfg["hd95_normalizer"],
+                                     fit_cfg["cam_threshold"], cam_target=fit_cfg["cam_target"],
+                                     cam_layer=fit_cfg["cam_layer"], ec_kind=spec["ec"])
+        best, accepted, fb_win, fb_agg = acceptance_decision(best, w_agg, fitness_b)
+        accept = {"accepted": int(accepted), "fit_B_winner": round(fb_win, 6), "fit_B_wagg": round(fb_agg, 6)}
+        if not accepted and best_mix is not None:
+            best_mix = [round(float(a), 6) for a in alpha]
     rt["ga_s"] = time.time() - ts
     if candidates and cand_log is not None:   # every evaluated candidate, for offline fitness-weight re-ranking
         cand_log.write(json.dumps({"round": t, "candidates": candidates}) + "\n")
@@ -205,6 +238,8 @@ def server_step(cfg, spec, seed, t, model, client_states, sizes, qs, srv, device
         row["client_fit_ec_i"] = json.dumps([round(s["ec"], 6) for s in scores])
     if best_mix is not None:
         row["mix_i"] = json.dumps([round(x, 6) for x in best_mix])
+    if accept is not None:
+        row.update(accept)
     return row, best_state
 
 
@@ -291,6 +326,8 @@ def run_experiment(task, method, seed, overrides=None, out_root="results/runs", 
     seed_everything(seed)
     cfg = load_config(task, overrides)
     spec = METHODS[method]
+    if cfg["ga"].get("acceptance_check") and method not in ACCEPTANCE_METHODS:
+        raise ValueError(f"ga.acceptance_check is pre-registered for {ACCEPTANCE_METHODS} only, not {method}")
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     chash = config_hash({"cfg": cfg, "method": method})
     run_id = f"{task}_{method}_seed{seed}_{chash[:8]}" + (f"_{tag}" if tag else "")

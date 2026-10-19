@@ -98,6 +98,10 @@ def method_rounds(src, v1, proto, k_clients, scale=None):
     val_pass = xg["val_s"] * sc["val"] / 2
     r["xfedga_plus"] = r["xfedga"] + k_clients * ga_eval + k_clients * val_pass
     r["fedga_paper"] = r["fedga"] + fg["ga_s"] * sc["ga"][proto] * (110 / 21 - 1)
+    # acceptance check (pre-registered 18 Oct 2026): GA on half A (about half the GA time) + 2 evaluations on half B
+    ga_x = xg["ga_s"] * sc["ga"][proto]
+    r["xfedga_acc"] = r["xfedga"] - 0.5 * ga_x + 2 * 0.5 * ga_eval
+    r["xfedga_plus_acc"] = r["xfedga_plus"] - 0.5 * ga_x + 2 * 0.5 * ga_eval
     return r
 
 
@@ -126,12 +130,13 @@ def costs():
 
 def run_h(c, task, proto, method, seeds, rounds=15, test=True, factor=1.0):
     k = c[(task, proto)]
-    base = {"xfedga_plus": "xfedga", "fedga_paper": "fedga"}.get(method, method)
+    base = {"xfedga_plus": "xfedga", "fedga_paper": "fedga", "xfedga_acc": "xfedga",
+            "xfedga_plus_acc": "xfedga"}.get(method, method)
     t = k["test_s"].get(base, k["test_s"]["xfedga"]) if test else 0.0
     return factor * seeds * (k["setup_s"] + rounds * k["round_s"][method] + t) / 3600
 
 
-def plan(c, proto, xplus):
+def plan(c, proto, xplus, accept=False):
     """proto: task -> 'v1' | 'v2' (adopted). Items in queue order."""
     P = lambda t: proto[t]
     items = [
@@ -150,6 +155,11 @@ def plan(c, proto, xplus):
                   sum(run_h(c, t, P(t), "xfedga_plus", 5) for t in TASKS) if xplus else 0.0))
     items.append(("headline_xplus_dsc", "XFedGA+ (DSC-only) control x 5 seeds, both tasks (if adopted)",
                   sum(run_h(c, t, P(t), "xfedga_plus", 5) for t in TASKS) if xplus else 0.0))
+    acc_m = "xfedga_plus_acc" if xplus else "xfedga_acc"     # acceptance version of the method selected per task
+    items.append(("acceptance_screen", "acceptance-check version of the selected method, 2 tasks x 2 seeds, no test",
+                  sum(run_h(c, t, P(t), acc_m, 2, test=False) for t in TASKS)))
+    items.append(("headline_accept", "acceptance-check arm x 5 seeds, both tasks (if adopted; not in the cut order)",
+                  sum(run_h(c, t, P(t), acc_m, 5) for t in TASKS) if accept else 0.0))
     dm = ["fedavg", "fedga", "xfedga"] + (["xfedga_plus"] if xplus else [])     # the DSC-only control is not run here
     per_p = sum(run_h(c, "breast", P("breast"), m, 3) for m in dm)
     items.append(("dose_p050_p100", f"dose-response breast p = 0.5, 1.0 x {len(dm)} methods x 3 seeds (p = 0 reused)",
@@ -190,8 +200,8 @@ def capacity(mode, start=dt.date(2026, 10, 19)):
     return round(cap, 1)
 
 
-def evaluate(c, proto, xplus, mode):
-    items, cuts = plan(c, proto, xplus)
+def evaluate(c, proto, xplus, mode, accept=False):
+    items, cuts = plan(c, proto, xplus, accept)
     cap = capacity(mode)
     orig = {k: v * CONTINGENCY for k, _, v in items}
     h = dict(orig)
@@ -206,7 +216,7 @@ def evaluate(c, proto, xplus, mode):
         applied.append({"item": k, "saved_h": h[k] - new, "to": "dropped" if keep == 0 else f"x{keep:.2f}"})
         total -= h[k] - new
         h[k] = new
-    return {"protocol": proto, "xfedga_plus_adopted": xplus, "capacity_mode": mode, "capacity_h": cap,
+    return {"protocol": proto, "xfedga_plus_adopted": xplus, "acceptance_adopted": accept, "capacity_mode": mode, "capacity_h": cap,
             "items": [{"item": k, "label": lab, "raw_h": v, "with_contingency_h": v * CONTINGENCY} for k, lab, v in items],
             "total_before_cuts_h": sum(v * CONTINGENCY for _, _, v in items), "cuts_applied": applied,
             "total_after_cuts_h": total, "fits": total <= cap}
@@ -228,19 +238,21 @@ def main():
         "tonight_h": TONIGHT_H, "evening_h": EVENING_HOURS, "full_days": {str(k): v for k, v in DAY_HOURS_17OCT.items()},
         "deadline": str(DEADLINE), "contingency": CONTINGENCY, "prostate_ms_scaling": MS_SCALE},
         "contaminated_runs": CONTAMINATED, "scenarios": {}}
-    for mode, b, ms, xp in itertools.product(MODES, breast_opts, ["v1", "v2"], [False, True]):
-        name = f"{mode}: breast {b}, prostate_ms {ms}, XFedGA+ " + ("adopted" if xp else "not adopted")
-        out["scenarios"][name] = evaluate(c, {"breast": b, "prostate_ms": ms}, xp, mode)
+    for mode, b, ms, xp, ac in itertools.product(MODES, breast_opts, ["v1", "v2"], [False, True], [False, True]):
+        name = (f"{mode}: breast {b}, prostate_ms {ms}, XFedGA+ " + ("adopted" if xp else "not adopted")
+                + ", acceptance " + ("adopted" if ac else "not adopted"))
+        out["scenarios"][name] = evaluate(c, {"breast": b, "prostate_ms": ms}, xp, mode, ac)
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(OUT, "recost_18oct.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, indent=1, default=str)
-    L = ["| Task / protocol | FedAvg | FedGA | XFedGA | XFedGA+ | FedGA paper GA | Clean measurement? |",
-         "|---|---|---|---|---|---|---|"]
+    L = ["| Task / protocol | FedAvg | FedGA | XFedGA | XFedGA+ | FedGA paper GA | XFedGA acc. | XFedGA+ acc. | Clean measurement? |",
+         "|---|---|---|---|---|---|---|---|---|"]
     for (t, p), v in sorted(c.items()):
         r, dv = v["round_s"], v["derived"]
         lab = lambda m: f"{r[m]:.0f} s" + (" (derived)" if m in dv else "")
         L.append(f"| {t} {p} | {lab('fedavg')} | {lab('fedga')} | {lab('xfedga')} | {lab('xfedga_plus')} | "
-                 f"{lab('fedga_paper')} | " + ", ".join(f"{m}: {'yes' if ok else 'NO'}" for m, ok in v["clean"].items()) + " |")
+                 f"{lab('fedga_paper')} | {r['xfedga_acc']:.0f} s (derived) | {r['xfedga_plus_acc']:.0f} s (derived) | "
+                 + ", ".join(f"{m}: {'yes' if ok else 'NO'}" for m, ok in v["clean"].items()) + " |")
     first = next(iter(out["scenarios"].values()))
     L += ["", "| Scenario | " + " | ".join(i["item"] for i in first["items"]) + " | Total (×1.2, h) | Capacity (h) | Cuts |",
           "|---" * (len(first["items"]) + 4) + "|"]

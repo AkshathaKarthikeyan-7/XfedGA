@@ -1,0 +1,222 @@
+{
+ "deck": "D:\\Amrita\\Project\\Literature review\\Panel review -2\\XFedGA_Panel_Review_2.pptx",
+ "slide": "ppt/slides/slide10.xml",
+ "deck_header": [
+  "Metric",
+  "Base FedGA",
+  "XFedGA",
+  "Interpretation"
+ ],
+ "deck_subtitle": "n = 937 OOD test images \u2022 Base FedGA vs XFedGA \u2022 per-image paired tests",
+ "deck_rows": {
+  "dsc": {
+   "fedga": "0.646",
+   "xfedga": "0.650",
+   "interpretation": "Tied (p = 0.30)"
+  },
+  "hd95_norm": {
+   "fedga": "0.280",
+   "xfedga": "0.263",
+   "interpretation": "Better (p < 0.0001)"
+  },
+  "ec": {
+   "fedga": "0.145",
+   "xfedga": "0.153",
+   "interpretation": "Better (p = 0.0066)"
+  },
+  "pg": {
+   "fedga": "57.6%",
+   "xfedga": "71.7%",
+   "interpretation": "Better (p < 0.0001)"
+  }
+ },
+ "corrected": {
+  "dsc": {
+   "fedga": [
+    0.6383409804739668,
+    0.014494313577894498
+   ],
+   "xfedga": [
+    0.6313825570435013,
+    0.014972588485704375
+   ],
+   "per_seed": {
+    "fedga": [
+     0.6404967339920441,
+     0.6444741807991066,
+     0.6448815520554246,
+     0.648889243622347,
+     0.6129631919009114
+    ],
+    "xfedga": [
+     0.6393442020288658,
+     0.6449520148137489,
+     0.6155544823225102,
+     0.6423586501048284,
+     0.6147034359475536
+    ]
+   },
+   "metric": "dsc",
+   "n_cases": 638,
+   "mean_diff": -0.007186788778488297,
+   "ci_low": -0.010851906444775341,
+   "ci_high": -0.0035389172555554604,
+   "effect_dz": -0.15229678296402802,
+   "outcome": "LOSE",
+   "t_ci_low": -0.010855452154981852,
+   "t_ci_high": -0.003518125401994742,
+   "t_outcome": "LOSE",
+   "wilcoxon_p": 0.0009435671319903907,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  "hd95_norm": {
+   "fedga": [
+    0.24727264972493446,
+    0.014315629096074195
+   ],
+   "xfedga": [
+    0.25849202689498496,
+    0.0225875379780473
+   ],
+   "per_seed": {
+    "fedga": [
+     0.22662975965356974,
+     0.2531117407494318,
+     0.24035038044128026,
+     0.25198766727554694,
+     0.2642837005048435
+    ],
+    "xfedga": [
+     0.22751909995292352,
+     0.24515628891274516,
+     0.28480508916258496,
+     0.26252367914370867,
+     0.27245597730296245
+    ]
+   },
+   "metric": "hd95_norm",
+   "n_cases": 638,
+   "mean_diff": 0.011469693232012393,
+   "ci_low": 0.008272024902518521,
+   "ci_high": 0.014699026879690524,
+   "effect_dz": 0.2792142593583267,
+   "outcome": "LOSE",
+   "t_ci_low": 0.008276112336888693,
+   "t_ci_high": 0.014663274127136094,
+   "t_outcome": "LOSE",
+   "wilcoxon_p": 2.918960597347078e-12,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  "ec": {
+   "fedga": [
+    0.21164774679974913,
+    0.0809021345175111
+   ],
+   "xfedga": [
+    0.22259907213215513,
+    0.08416102823305446
+   ],
+   "per_seed": {
+    "fedga": [
+     0.2939137413604036,
+     0.21242093812091983,
+     0.20201548825204296,
+     0.08377065510068435,
+     0.26611791116469485
+    ],
+    "xfedga": [
+     0.30336432313474854,
+     0.1869385241943124,
+     0.26428619645907014,
+     0.09250429091603439,
+     0.2659020259566101
+    ]
+   },
+   "metric": "ec",
+   "n_cases": 638,
+   "mean_diff": 0.011049226592983803,
+   "ci_low": 0.008454400041225716,
+   "ci_high": 0.013665551201322172,
+   "effect_dz": 0.33059047432931504,
+   "outcome": "WIN",
+   "t_ci_low": 0.008450831082027889,
+   "t_ci_high": 0.013647622103939718,
+   "t_outcome": "WIN",
+   "wilcoxon_p": 1.1727272490752495e-16,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  },
+  "ec_mass": null,
+  "pg": {
+   "fedga": [
+    0.8001774622892635,
+    0.0314050596526322
+   ],
+   "xfedga": [
+    0.7898846495119788,
+    0.024982190346582354
+   ],
+   "per_seed": {
+    "fedga": [
+     0.8322981366459627,
+     0.7497781721384206,
+     0.8189884649511979,
+     0.80301685891748,
+     0.7968056787932565
+    ],
+    "xfedga": [
+     0.8278615794143744,
+     0.7595385980479148,
+     0.7950310559006211,
+     0.7870452528837621,
+     0.7799467613132209
+    ]
+   },
+   "metric": "pg",
+   "n_cases": 638,
+   "mean_diff": -0.011755485893416929,
+   "ci_low": -0.021316614420062694,
+   "ci_high": -0.0021943573667711604,
+   "effect_dz": -0.09625129573420417,
+   "outcome": "LOSE",
+   "t_ci_low": -0.021250545881036618,
+   "t_ci_high": -0.0022604259057972392,
+   "t_outcome": "LOSE",
+   "wilcoxon_p": 0.01169074395213189,
+   "n_seeds": [
+    5,
+    5
+   ],
+   "bootstrap_t_disagree": false
+  }
+ },
+ "runs": {
+  "fedga": [
+   "breast_fedga_seed1_e12fc677",
+   "breast_fedga_seed2_e12fc677",
+   "breast_fedga_seed3_e12fc677",
+   "breast_fedga_seed4_e12fc677",
+   "breast_fedga_seed5_e12fc677"
+  ],
+  "xfedga": [
+   "breast_xfedga_seed1_8bf4f80f",
+   "breast_xfedga_seed2_8bf4f80f",
+   "breast_xfedga_seed3_8bf4f80f",
+   "breast_xfedga_seed4_8bf4f80f",
+   "breast_xfedga_seed5_8bf4f80f"
+  ]
+ },
+ "n_test_images": 1127,
+ "n_test_patients": 638
+}

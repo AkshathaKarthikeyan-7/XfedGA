@@ -88,6 +88,8 @@ def validate(cfg):
     g = cfg["ga"]
     if g["population"] < 1 or g["generations"] < 0 or not (0 <= g["pc"] <= 1) or not (0 <= g["pm"] <= 1):
         raise ValueError(f"invalid GA settings {g}")
+    if not isinstance(g.get("acceptance_check", False), bool):
+        raise ValueError("ga.acceptance_check must be true or false")
     if g.get("kappa", 1.0) <= 0:
         raise ValueError("ga.kappa (XFedGA+ Dirichlet concentration) must be > 0")
     return cfg

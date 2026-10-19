@@ -1,0 +1,112 @@
+{
+ "queue": "acceptance_screen",
+ "code_root": "D:\\new repo\\xfedga_frozen\\4ad7aed",
+ "code_commit": "4ad7aed",
+ "repo": "D:\\new repo\\xfedga",
+ "runs": [
+  {
+   "run_id": "breast_xfedga_plus_seed1_e9cc731b_accscreen",
+   "task": "breast",
+   "method": "xfedga_plus",
+   "seed": 1,
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "ga.acceptance_check=true"
+   ],
+   "no_test": true,
+   "tag": "accscreen",
+   "status": "done",
+   "minutes": 38.2,
+   "gpu": {
+    "busy_samples": 91,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 66.7,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 981.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_plus_seed1_e9ffe7c4_accscreen",
+   "task": "prostate_ms",
+   "method": "xfedga_plus",
+   "seed": 1,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "ga.acceptance_check=true"
+   ],
+   "no_test": true,
+   "tag": "accscreen",
+   "status": "done",
+   "minutes": 36.5,
+   "gpu": {
+    "busy_samples": 41,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 66.23,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1021.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_seed2_e9cc731b_accscreen",
+   "task": "breast",
+   "method": "xfedga_plus",
+   "seed": 2,
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "ga.acceptance_check=true"
+   ],
+   "no_test": true,
+   "tag": "accscreen",
+   "status": "done",
+   "minutes": 38.2,
+   "gpu": {
+    "busy_samples": 98,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 66.72,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 981.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_plus_seed2_e9ffe7c4_accscreen",
+   "task": "prostate_ms",
+   "method": "xfedga_plus",
+   "seed": 2,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "ga.acceptance_check=true"
+   ],
+   "no_test": true,
+   "tag": "accscreen",
+   "status": "done",
+   "minutes": 35.8,
+   "gpu": {
+    "busy_samples": 39,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 65.65,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1021.0
+   }
+  }
+ ]
+}

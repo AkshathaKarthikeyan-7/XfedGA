@@ -10,10 +10,12 @@ Corrected: the breast v1 headline runs (FedGA (baseline) and XFedGA, seeds 1-5, 
   (XFedGA - FedGA; seeds averaged within patient) with 95% cluster-bootstrap CI (10,000) and WIN / TIE / LOSE
   (analysis/stats.py, as the headline tables).
   EC (IoU@0.5) = `ec` (the Review-2 definition); pointing game = `pg` (Grad-CAM, full-res layer, predicted target).
-  EC_mass is NOT available for these runs without re-evaluating the test set (it was introduced on 18 Oct 2026).
+  EC_mass: from the declared evaluation of the same fixed checkpoints (analysis/ec_mass_headline.py ->
+  results/xai_ec/<run_id>/ec_per_image.csv, every test image; 19 Oct 2026), merged by image id.
 Writes reports/review/review2_vs_corrected.md and results/review/review2_vs_corrected.json.
     & $py analysis/review2_vs_corrected.py
 """
+import csv
 import glob
 import json
 import os
@@ -49,10 +51,17 @@ AUDIT = [
     (6, "Grad-CAM layer failed a known-answer test (old half-resolution layer, all-pixel target)",
      "Explanation Consistency and Pointing-Game rows of slides 10 and 11; slide 12 explanation conclusions; and, via q_i "
      "and the EC fitness term, every XFedGA number on slides 10 and 11."),
-    (7, "PROVISIONAL — PROMISE12 client cases are Decathlon server scans: 12 duplicated cases, 8 in the server sets "
+    (7, "PROMISE12 client cases are Decathlon server scans: 12 duplicated cases, 8 in the server sets "
         "(`reports/audit/leakage_note.md`)",
      "Prostate: every number on slide 11; prostate rows of slides 8–9; the prostate parts of slides 12 and 18. "
      "Breast numbers are not affected (`reports/audit/breast_duplicates.md`)."),
+    (8, "Unequal fitness data: XFedGA scored fitness on the first 40 images of the unshuffled fitness loader, FedGA "
+        "(baseline) on the whole fitness set (audit #37, D-5)",
+     "Every FedGA-vs-XFedGA comparison: all rows of slides 10 and 11 and the conclusions on slides 12 and 18 (the two "
+     "methods differed in fitness data as well as in method)."),
+    (9, "\"Gradient-aware perturbation\" claimed but not implemented (audit §2.9)",
+     "None: the phrase is not in the Review-2 deck, so no Review-2 number depends on it. It affects the novelty "
+     "statement only."),
 ]
 DECK_ROWS = {"DSC": "dsc", "HD95 (normalized)": "hd95_norm", "Explanation Consistency": "ec", "Pointing-Game": "pg"}
 
@@ -80,6 +89,13 @@ def main():
     n_img = len(by["fedga"][0]["test"])
     n_pat = len({row["group_id"] for row in by["fedga"][0]["test"]})
     res = {}
+    for m in by:                                   # EC_mass from the declared evaluation of the same checkpoints
+        for r in by[m]:
+            path = os.path.join(REPO, "results", "xai_ec", r["run_id"], "ec_per_image.csv")
+            if os.path.exists(path):
+                ecm = {x["image_id"]: x["ec_mass"] for x in csv.DictReader(open(path, encoding="utf-8"))}
+                for row in r["test"]:
+                    row["ec_mass"] = ecm[row["image_id"]]
     for key, _ in METRICS:
         if key not in by["fedga"][0]["test"][0]:
             res[key] = None
@@ -129,9 +145,8 @@ def main():
           "the per-run mean over test images. The pointing game and EC here use the corrected Grad-CAM (full-resolution "
           "decoder layer, predicted-foreground target)."]
     L += ["", "## Which Review-2 numbers each audit item affects", "",
-          "Items 1–6 are `reports/audit/reaudit.md`. **Item 7 is PROVISIONAL**: the thesis Chapter 4 list is not in the "
-          "repository; item 7 is taken to be the leakage found on 18 Oct 2026 — please check the numbering. Slide numbers "
-          "refer to the Review-2 deck.", "",
+          "Items 1–9 follow `reports/audit/reaudit.md` (thesis Chapter 4 numbering, confirmed 18 Oct 2026). Slide "
+          "numbers refer to the Review-2 deck.", "",
           "| Item | Issue | Review-2 numbers affected |", "|---|---|---|"] + [f"| {i} | {issue} | {aff} |" for i, issue, aff in AUDIT]
     os.makedirs(os.path.join(REPO, "reports", "review"), exist_ok=True)
     with open(os.path.join(REPO, "reports", "review", "review2_vs_corrected.md"), "w", encoding="utf-8") as f:

@@ -1,0 +1,10 @@
+2026-10-19 11:24:48 queue acceptance_screen: 4 runs; code D:\new repo\xfedga_frozen\4ad7aed @ 4ad7aed; repo D:\new repo\xfedga
+2026-10-19 11:24:48 [1/4] start breast_xfedga_plus_seed1_e9cc731b_accscreen
+2026-10-19 12:03:02 [1/4] done breast_xfedga_plus_seed1_e9cc731b_accscreen in 38.2 min; GPU median 2730.0 MHz
+2026-10-19 12:03:02 [2/4] start prostate_ms_xfedga_plus_seed1_e9ffe7c4_accscreen
+2026-10-19 12:39:33 [2/4] done prostate_ms_xfedga_plus_seed1_e9ffe7c4_accscreen in 36.5 min; GPU median 2730.0 MHz
+2026-10-19 12:39:33 [3/4] start breast_xfedga_plus_seed2_e9cc731b_accscreen
+2026-10-19 13:17:45 [3/4] done breast_xfedga_plus_seed2_e9cc731b_accscreen in 38.2 min; GPU median 2730.0 MHz
+2026-10-19 13:17:46 [4/4] start prostate_ms_xfedga_plus_seed2_e9ffe7c4_accscreen
+2026-10-19 13:53:36 [4/4] done prostate_ms_xfedga_plus_seed2_e9ffe7c4_accscreen in 35.8 min; GPU median 2730.0 MHz
+2026-10-19 13:53:36 queue acceptance_screen finished

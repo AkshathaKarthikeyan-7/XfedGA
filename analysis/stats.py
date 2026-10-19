@@ -23,7 +23,7 @@ import numpy as np
 DIRECTION = {"dsc": +1, "hd95_norm": -1, "hd95_px": -1, "ec": +1, "pg": +1,
              "pg_gradcam": +1, "pg_gradcampp": +1, "iou_gradcampp": +1, "deletion_auc": -1, "insertion_auc": +1,
              "rho_after_all_layers": -1,   # lower rank correlation after full randomisation = more faithful
-             "ec_iou_gradcam": +1, "ec_mass_gradcam": +1, "ec_mass": +1}
+             "ec_iou_gradcam": +1, "ec_mass_gradcam": +1, "ec_mass": +1, "ec_iou": +1}
 
 
 def case_means(rows, metric):

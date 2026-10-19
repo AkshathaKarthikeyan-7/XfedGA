@@ -1,0 +1,176 @@
+{
+ "n_images": 329,
+ "n_patients": 206,
+ "excluded_patients_in_old_fitness_half": 432,
+ "test_patients_total": 638,
+ "metrics": {
+  "dsc": {
+   "mean": {
+    "fedga": 0.5627190084207242,
+    "xfedga": 0.533658268493365
+   },
+   "corrected": {
+    "metric": "dsc",
+    "n_cases": 206,
+    "mean_diff": -0.02701818382807518,
+    "ci_low": -0.04820841794258006,
+    "ci_high": -0.005737762257414233,
+    "effect_dz": -0.17521419839790175,
+    "outcome": "LOSE",
+    "t_ci_low": -0.04820046976540661,
+    "t_ci_high": -0.005835897890743749,
+    "t_outcome": "LOSE",
+    "wilcoxon_p": 0.00413511699143539,
+    "n_seeds": [
+     1,
+     1
+    ],
+    "bootstrap_t_disagree": false
+   },
+   "review2_style": {
+    "test": "Wilcoxon",
+    "p": 0.004503553968945232,
+    "shapiro_p": 3.467157453340228e-08,
+    "n": 329
+   },
+   "review2_style_verdict": "Worse",
+   "review2_claim": "Tied (p = 0.30)",
+   "claim_survives": false
+  },
+  "hd95_norm": {
+   "mean": {
+    "fedga": 0.3413264484360829,
+    "xfedga": 0.382918799237519
+   },
+   "corrected": {
+    "metric": "hd95_norm",
+    "n_cases": 206,
+    "mean_diff": 0.03960019982688153,
+    "ci_low": 0.02356311209254196,
+    "ci_high": 0.05563521733692875,
+    "effect_dz": 0.34519612461030175,
+    "outcome": "LOSE",
+    "t_ci_low": 0.023841606933811984,
+    "t_ci_high": 0.055358792719951075,
+    "t_outcome": "LOSE",
+    "wilcoxon_p": 1.5417754425670411e-07,
+    "n_seeds": [
+     1,
+     1
+    ],
+    "bootstrap_t_disagree": false
+   },
+   "review2_style": {
+    "test": "Wilcoxon",
+    "p": 3.615535143142068e-10,
+    "shapiro_p": 2.4350611287012235e-12,
+    "n": 329
+   },
+   "review2_style_verdict": "Worse",
+   "review2_claim": "Better (p < 0.0001)",
+   "claim_survives": false
+  },
+  "ec": {
+   "mean": {
+    "fedga": 0.13778001264024614,
+    "xfedga": 0.04090988563825513
+   },
+   "corrected": {
+    "metric": "ec",
+    "n_cases": 206,
+    "mean_diff": -0.09565353559111003,
+    "ci_low": -0.10415520919048413,
+    "ci_high": -0.08712302750310667,
+    "effect_dz": -1.5357899418054646,
+    "outcome": "LOSE",
+    "t_ci_low": -0.10420922831106433,
+    "t_ci_high": -0.08709784287115574,
+    "t_outcome": "LOSE",
+    "wilcoxon_p": 3.723219735287905e-33,
+    "n_seeds": [
+     1,
+     1
+    ],
+    "bootstrap_t_disagree": false
+   },
+   "review2_style": {
+    "test": "paired t-test",
+    "p": 1.2883765322536263e-78,
+    "shapiro_p": 0.3552084118945461,
+    "n": 329
+   },
+   "review2_style_verdict": "Worse",
+   "review2_claim": "Better (p = 0.0066)",
+   "claim_survives": false
+  },
+  "ec_mass": {
+   "mean": {
+    "fedga": 0.2531756972136869,
+    "xfedga": 0.5605811285906688
+   },
+   "corrected": {
+    "metric": "ec_mass",
+    "n_cases": 206,
+    "mean_diff": 0.3021008157398491,
+    "ci_low": 0.27128120276293416,
+    "ci_high": 0.3329531991930797,
+    "effect_dz": 1.3036344296890847,
+    "outcome": "WIN",
+    "t_ci_low": 0.2702674875883991,
+    "t_ci_high": 0.3339341438912991,
+    "t_outcome": "WIN",
+    "wilcoxon_p": 1.9916636426721642e-32,
+    "n_seeds": [
+     1,
+     1
+    ],
+    "bootstrap_t_disagree": false
+   },
+   "review2_style": {
+    "test": "Wilcoxon",
+    "p": 1.6030890263351795e-47,
+    "shapiro_p": 3.4028608066068946e-05,
+    "n": 329
+   },
+   "review2_style_verdict": "Better",
+   "review2_claim": null,
+   "claim_survives": null
+  },
+  "pg": {
+   "mean": {
+    "fedga": 0.7386018237082067,
+    "xfedga": 0.6899696048632219
+   },
+   "corrected": {
+    "metric": "pg",
+    "n_cases": 206,
+    "mean_diff": -0.03640776699029126,
+    "ci_low": -0.08980582524271845,
+    "ci_high": 0.01699029126213592,
+    "effect_dz": -0.09147099649923972,
+    "outcome": "TIE",
+    "t_ci_low": -0.09108375035950876,
+    "t_ci_high": 0.01826821637892624,
+    "t_outcome": "TIE",
+    "wilcoxon_p": 0.29139887244905693,
+    "n_seeds": [
+     1,
+     1
+    ],
+    "bootstrap_t_disagree": false
+   },
+   "review2_style": {
+    "test": "exact McNemar",
+    "p": 0.08050685743008208,
+    "n": 329,
+    "discordant": [
+     29,
+     45
+    ]
+   },
+   "review2_style_verdict": "Tied",
+   "review2_claim": "Better (p < 0.0001)",
+   "claim_survives": false
+  }
+ }
+}

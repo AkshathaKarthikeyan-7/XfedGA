@@ -1,0 +1,24 @@
+{
+ "protocols": {
+  "breast": "v1",
+  "prostate_ms": "v2"
+ },
+ "xfedga_plus_adopted": true,
+ "acceptance_adopted": false,
+ "selected_method": "xfedga_plus",
+ "arms": {
+  "prostate_ms": [
+   "fedavg",
+   "fedga",
+   "xfedga",
+   "xfedga_plus",
+   "xfedga_plus_dsc"
+  ],
+  "breast": [
+   "xfedga_plus",
+   "xfedga_plus_dsc"
+  ]
+ },
+ "n_runs": 35,
+ "breast_primary_arms_reused_from": "v1 headline (commit 49bf2ad)"
+}

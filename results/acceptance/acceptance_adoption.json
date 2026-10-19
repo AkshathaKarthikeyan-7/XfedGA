@@ -1,0 +1,92 @@
+{
+ "preregistered": "plan.md, acceptance check (commit a689890)",
+ "selected_method": "xfedga_plus",
+ "decision": {
+  "breast": {
+   "protocol": "v1",
+   "cells": {
+    "selected": {
+     "runs": [
+      "breast_xfedga_plus_seed1_79fc5bde_xplusscreen",
+      "breast_xfedga_plus_seed2_79fc5bde_xplusscreen"
+     ],
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.6799180284438062,
+      0.6798329471270054
+     ],
+     "mean": 0.6798754877854059,
+     "var": 3.6194152342833157e-09
+    },
+    "acceptance": {
+     "runs": [
+      "breast_xfedga_plus_seed1_e9cc731b_accscreen",
+      "breast_xfedga_plus_seed2_e9cc731b_accscreen"
+     ],
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.6752157590776325,
+      0.655551981489679
+     ],
+     "mean": 0.6653838702836558,
+     "var": 0.00019333207451425251
+    }
+   },
+   "pooled_sd": 0.00983198082609722,
+   "complete": true,
+   "margin_acceptance_minus_selected": -0.014491617501750098,
+   "beats": false,
+   "worse": true
+  },
+  "prostate_ms": {
+   "protocol": "v2",
+   "cells": {
+    "selected": {
+     "runs": [
+      "prostate_ms_xfedga_plus_seed1_07e935e4_msv2screen",
+      "prostate_ms_xfedga_plus_seed2_07e935e4_msv2screen"
+     ],
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.851303470880077,
+      0.847646672739869
+     ],
+     "mean": 0.8494750718099731,
+     "var": 6.686086319114042e-06
+    },
+    "acceptance": {
+     "runs": [
+      "prostate_ms_xfedga_plus_seed1_e9ffe7c4_accscreen",
+      "prostate_ms_xfedga_plus_seed2_e9ffe7c4_accscreen"
+     ],
+     "seeds": [
+      1,
+      2
+     ],
+     "scores": [
+      0.843144931597363,
+      0.8486397049966312
+     ],
+     "mean": 0.8458923182969971,
+     "var": 1.5096267354652608e-05
+    }
+   },
+   "pooled_sd": 0.0033001783038016787,
+   "complete": true,
+   "margin_acceptance_minus_selected": -0.003582753512975989,
+   "beats": false,
+   "worse": true
+  }
+ },
+ "adopt_acceptance": false,
+ "outcome": "do not adopt the acceptance check (reported as screened)"
+}

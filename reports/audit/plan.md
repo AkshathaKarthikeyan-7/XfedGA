@@ -306,6 +306,20 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - Reported whatever the outcome.
 - **Queue order (user, 20 Oct):** a (running) → b → g → g2 → h → i → c → d → e → f. **g, g2, h and i are never cut**; the pre-registered cut order applies only to c–f, and only if the recost does not fit (`results/timing/recost_20oct.md`).
 
+**Pre-registration (h): fitness-weight sensitivity (20 Oct 2026; panel question on λ1–λ3 = w1, w2, w3).**
+- **Offline part (done):** `reports/review/fitness_weights_sensitivity.md` from the existing Step 0 re-ranking (breast v1 headline; superseded prostate excluded).
+- **Screen (validation only, no test):** `prostate_ms` (v2), XFedGA, seeds 1–2.
+  - (w1, w2, w3) ∈ {(1, 0, 0), (0.5, 0.3, 0.2) [reused: the `*_msv2screen` XFedGA runs], (0.6, 0.2, 0.2), (0.4, 0.4, 0.2)}.
+  - (1, 0, 0) switches the EC term off.
+  - Tags `fw100` / `fw622` / `fw442`. Queue `queues/post_h_fw_screen.yaml` (6 runs).
+- **Score and pooled s.d.:** score per run = max centred 3-round mean validation DSC; per combination = mean of seeds 1–2; pooled s.d. = sqrt(mean of the 4 combinations' seed variances, ddof = 1). Script: `analysis/sensitivity_screens.py`.
+- **Rule:**
+  - If a combination beats (0.5, 0.3, 0.2) by more than the pooled s.d., it is run once with 5 seeds on test (`prostate_ms` v2, XFedGA) as a **declared secondary**. If several do, the highest-scoring one is run (tie-break added here, flagged).
+  - That follow-up queue is generated from the decision file and committed before it is launched.
+  - Otherwise the report says "insensitive".
+  - Nothing is selected on test.
+- **Queue order (user, 20 Oct):** a (running) → b → g → g2 → h → i → c → d → e → f. **g, g2, h and i are never cut**; the pre-registered cut order applies only to c–f, and only if the recost does not fit (`results/timing/recost_20oct.md`).
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

@@ -1,0 +1,878 @@
+{
+ "queue": "final_headline",
+ "code_root": "D:\\new repo\\xfedga_frozen\\35e344d",
+ "code_commit": "35e344d",
+ "repo": "D:\\new repo\\xfedga",
+ "runs": [
+  {
+   "run_id": "prostate_ms_fedavg_seed1_544eedaa_final",
+   "task": "prostate_ms",
+   "method": "fedavg",
+   "seed": 1,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 11.0,
+   "gpu": {
+    "busy_samples": 37,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 66.35,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 871.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_fedga_seed1_0b8c0e47_final",
+   "task": "prostate_ms",
+   "method": "fedga",
+   "seed": 1,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 12.4,
+   "gpu": {
+    "busy_samples": 44,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 66.3,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1033.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed1_066485cd_final",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 1,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 48.9,
+   "gpu": {
+    "busy_samples": 40,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 66.52,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1055.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_plus_seed1_2980772a_final",
+   "task": "prostate_ms",
+   "method": "xfedga_plus",
+   "seed": 1,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 57.4,
+   "gpu": {
+    "busy_samples": 38,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 375.0,
+    "median_power_W": 64.94,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 879.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_plus_dsc_seed1_7a714c21_final",
+   "task": "prostate_ms",
+   "method": "xfedga_plus_dsc",
+   "seed": 1,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 58.2,
+   "gpu": {
+    "busy_samples": 44,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 56.19,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 877.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_seed1_42cd5466_final",
+   "task": "breast",
+   "method": "xfedga_plus",
+   "seed": 1,
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 47.2,
+   "gpu": {
+    "busy_samples": 94,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 375.0,
+    "median_power_W": 67.38,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 835.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_dsc_seed1_dcb63169_final",
+   "task": "breast",
+   "method": "xfedga_plus_dsc",
+   "seed": 1,
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 46.6,
+   "gpu": {
+    "busy_samples": 94,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 375.0,
+    "median_power_W": 67.45,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 835.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_fedavg_seed2_544eedaa_final",
+   "task": "prostate_ms",
+   "method": "fedavg",
+   "seed": 2,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 11.0,
+   "gpu": {
+    "busy_samples": 37,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 375.0,
+    "median_power_W": 66.78,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 871.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_fedga_seed2_0b8c0e47_final",
+   "task": "prostate_ms",
+   "method": "fedga",
+   "seed": 2,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 12.8,
+   "gpu": {
+    "busy_samples": 44,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 66.26,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1033.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed2_066485cd_final",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 2,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 49.1,
+   "gpu": {
+    "busy_samples": 37,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 63.48,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1055.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_plus_seed2_2980772a_final",
+   "task": "prostate_ms",
+   "method": "xfedga_plus",
+   "seed": 2,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 57.6,
+   "gpu": {
+    "busy_samples": 39,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 58.41,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 879.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_plus_dsc_seed2_7a714c21_final",
+   "task": "prostate_ms",
+   "method": "xfedga_plus_dsc",
+   "seed": 2,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 58.1,
+   "gpu": {
+    "busy_samples": 50,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 54.84,
+    "share_busy_with_throttle_reason": 0.04,
+    "throttled": false,
+    "max_memory_used_MiB": 877.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_seed2_42cd5466_final",
+   "task": "breast",
+   "method": "xfedga_plus",
+   "seed": 2,
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 46.9,
+   "gpu": {
+    "busy_samples": 95,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.13,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 835.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_dsc_seed2_dcb63169_final",
+   "task": "breast",
+   "method": "xfedga_plus_dsc",
+   "seed": 2,
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 46.4,
+   "gpu": {
+    "busy_samples": 96,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.17,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 835.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_fedavg_seed3_544eedaa_final",
+   "task": "prostate_ms",
+   "method": "fedavg",
+   "seed": 3,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 11.2,
+   "gpu": {
+    "busy_samples": 44,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 66.39,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 873.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_fedga_seed3_0b8c0e47_final",
+   "task": "prostate_ms",
+   "method": "fedga",
+   "seed": 3,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 12.6,
+   "gpu": {
+    "busy_samples": 42,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 66.72,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1033.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed3_066485cd_final",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 3,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 50.5,
+   "gpu": {
+    "busy_samples": 40,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 65.32,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1067.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_plus_seed3_2980772a_final",
+   "task": "prostate_ms",
+   "method": "xfedga_plus",
+   "seed": 3,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 58.8,
+   "gpu": {
+    "busy_samples": 49,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 57.62,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 879.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_plus_dsc_seed3_7a714c21_final",
+   "task": "prostate_ms",
+   "method": "xfedga_plus_dsc",
+   "seed": 3,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 59.2,
+   "gpu": {
+    "busy_samples": 44,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 60.38,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 877.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_seed3_42cd5466_final",
+   "task": "breast",
+   "method": "xfedga_plus",
+   "seed": 3,
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 47.1,
+   "gpu": {
+    "busy_samples": 82,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.38,
+    "share_busy_with_throttle_reason": 0.012,
+    "throttled": false,
+    "max_memory_used_MiB": 835.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_dsc_seed3_dcb63169_final",
+   "task": "breast",
+   "method": "xfedga_plus_dsc",
+   "seed": 3,
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 46.6,
+   "gpu": {
+    "busy_samples": 96,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 66.94,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 835.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_fedavg_seed4_544eedaa_final",
+   "task": "prostate_ms",
+   "method": "fedavg",
+   "seed": 4,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 10.9,
+   "gpu": {
+    "busy_samples": 39,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 66.57,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 871.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_fedga_seed4_0b8c0e47_final",
+   "task": "prostate_ms",
+   "method": "fedga",
+   "seed": 4,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 12.4,
+   "gpu": {
+    "busy_samples": 44,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 66.61,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1011.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed4_066485cd_final",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 4,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 49.3,
+   "gpu": {
+    "busy_samples": 41,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 65.46,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1065.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_plus_seed4_2980772a_final",
+   "task": "prostate_ms",
+   "method": "xfedga_plus",
+   "seed": 4,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 57.5,
+   "gpu": {
+    "busy_samples": 36,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 375.0,
+    "median_power_W": 66.52,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 877.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_plus_dsc_seed4_7a714c21_final",
+   "task": "prostate_ms",
+   "method": "xfedga_plus_dsc",
+   "seed": 4,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 57.7,
+   "gpu": {
+    "busy_samples": 43,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 65.54,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 877.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_seed4_42cd5466_final",
+   "task": "breast",
+   "method": "xfedga_plus",
+   "seed": 4,
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 46.2,
+   "gpu": {
+    "busy_samples": 93,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.29,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 835.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_dsc_seed4_dcb63169_final",
+   "task": "breast",
+   "method": "xfedga_plus_dsc",
+   "seed": 4,
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 46.2,
+   "gpu": {
+    "busy_samples": 99,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 66.79,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 835.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_fedavg_seed5_544eedaa_final",
+   "task": "prostate_ms",
+   "method": "fedavg",
+   "seed": 5,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 12.9,
+   "gpu": {
+    "busy_samples": 35,
+    "median_sm_clock_MHz": 2580.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 59.41,
+    "share_busy_with_throttle_reason": 0.629,
+    "throttled": true,
+    "max_memory_used_MiB": 871.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_fedga_seed5_0b8c0e47_final",
+   "task": "prostate_ms",
+   "method": "fedga",
+   "seed": 5,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 12.7,
+   "gpu": {
+    "busy_samples": 44,
+    "median_sm_clock_MHz": 2565.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 59.46,
+    "share_busy_with_throttle_reason": 0.841,
+    "throttled": true,
+    "max_memory_used_MiB": 1033.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed5_066485cd_final",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 5,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 50.1,
+   "gpu": {
+    "busy_samples": 45,
+    "median_sm_clock_MHz": 2520.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 59.29,
+    "share_busy_with_throttle_reason": 0.622,
+    "throttled": true,
+    "max_memory_used_MiB": 987.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_plus_seed5_2980772a_final",
+   "task": "prostate_ms",
+   "method": "xfedga_plus",
+   "seed": 5,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 58.3,
+   "gpu": {
+    "busy_samples": 41,
+    "median_sm_clock_MHz": 2505.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 54.63,
+    "share_busy_with_throttle_reason": 0.585,
+    "throttled": true,
+    "max_memory_used_MiB": 877.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_plus_dsc_seed5_7a714c21_final",
+   "task": "prostate_ms",
+   "method": "xfedga_plus_dsc",
+   "seed": 5,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 58.5,
+   "gpu": {
+    "busy_samples": 34,
+    "median_sm_clock_MHz": 2535.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 59.55,
+    "share_busy_with_throttle_reason": 0.706,
+    "throttled": true,
+    "max_memory_used_MiB": 877.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_seed5_42cd5466_final",
+   "task": "breast",
+   "method": "xfedga_plus",
+   "seed": 5,
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 47.0,
+   "gpu": {
+    "busy_samples": 92,
+    "median_sm_clock_MHz": 2535.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 59.65,
+    "share_busy_with_throttle_reason": 0.804,
+    "throttled": true,
+    "max_memory_used_MiB": 835.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_dsc_seed5_dcb63169_final",
+   "task": "breast",
+   "method": "xfedga_plus_dsc",
+   "seed": 5,
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "tag": "final",
+   "status": "done",
+   "minutes": 47.3,
+   "gpu": {
+    "busy_samples": 92,
+    "median_sm_clock_MHz": 2535.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 59.66,
+    "share_busy_with_throttle_reason": 0.804,
+    "throttled": true,
+    "max_memory_used_MiB": 835.0
+   }
+  }
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "run_id": "prostate_ms_xfedga_plus_seed5_2980772a_final",
+ "task": "prostate_ms",
+ "method": "xfedga_plus",
+ "method_switches": {
+  "topology": "federated",
+  "aggregation": "server_score",
+  "q_source": "gradcam",
+  "search": "mix_ga",
+  "fitness": "multi",
+  "anneal": true,
+  "prox": false,
+  "score": "dsc_ec",
+  "ec": "mass"
+ },
+ "seed": 5,
+ "config_hash": "2980772a623b",
+ "git_commit": "35e344d",
+ "selection": "centred moving-average validation DSC",
+ "clients": [
+  "BIDMC",
+  "HK",
+  "I2CVB",
+  "RUNMC",
+  "UCL"
+ ],
+ "server_sizes": {
+  "fitness": 106,
+  "validation": 105,
+  "test": 173
+ },
+ "setup_s": 0.1,
+ "total_s": 3469.9,
+ "selected_round": 15,
+ "smoothed_val_dsc": [
+  0.654432577950725,
+  0.6746512618158796,
+  0.7088185407288902,
+  0.7280025444458663,
+  0.7447900777540964,
+  0.7684067739622268,
+  0.7849753115156569,
+  0.8008892051762584,
+  0.8132398522805119,
+  0.8233471987036399,
+  0.8305264416677485,
+  0.8369733924432796,
+  0.8413270963564434,
+  0.8433460266653349,
+  0.8440124901747048
+ ],
+ "n_i": [
+  261,
+  158,
+  468,
+  421,
+  175
+ ],
+ "test_evaluated": true
+}

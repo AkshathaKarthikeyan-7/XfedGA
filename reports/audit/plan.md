@@ -320,6 +320,16 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
   - Nothing is selected on test.
 - **Queue order (user, 20 Oct):** a (running) → b → g → g2 → h → i → c → d → e → f. **g, g2, h and i are never cut**; the pre-registered cut order applies only to c–f, and only if the recost does not fit (`results/timing/recost_20oct.md`).
 
+**Pre-registration (i): beta sensitivity on `prostate_ms` (20 Oct 2026). The earlier prostate β screen is superseded by the leakage (plan.md §0.L).**
+- **Screen (validation only, no test):** `prostate_ms` (v2), XFedGA, seeds 1–2, β ∈ {0, 0.2, 0.5 [reused: the `*_msv2screen` XFedGA runs], 1.0}; tags `ms_betascreen_b0p0` / `b0p2` / `b1p0`. Queue `queues/post_i_beta_screen.yaml` (6 runs).
+- **Rule:** the pre-registered β rule of `b556334` (`analysis/beta_decision.py::decide`, applied by `analysis/sensitivity_screens.py`):
+  - keep β = 0.5 unless another β beats it by more than the pooled s.d.;
+  - if several do, take the highest;
+  - ties within one pooled s.d. are broken by the lower round-to-round q_i variance.
+  - Reported as a sensitivity analysis. The final `prostate_ms` runs already used β = 0.5. If the rule selects another β, that is reported as a sensitivity finding and nothing is re-run.
+- **Also:** the existing breast β-screen table is exported for the slides (`reports/review/beta_breast_table.md`).
+- **Queue order (user, 20 Oct):** a (running) → b → g → g2 → h → i → c → d → e → f. **g, g2, h and i are never cut**; the pre-registered cut order applies only to c–f, and only if the recost does not fit (`results/timing/recost_20oct.md`).
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

@@ -1,0 +1,82 @@
+name: post_i_beta_screen
+out: results/runs
+note: i. Beta sensitivity screen, prostate_ms, VALIDATION ONLY (pre-registered, plan.md).
+runs:
+- task: prostate_ms
+  method: xfedga
+  seed: 1
+  tag: ms_betascreen_b0p0
+  no_test: true
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - aggregation.beta=0.0
+- task: prostate_ms
+  method: xfedga
+  seed: 1
+  tag: ms_betascreen_b0p2
+  no_test: true
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - aggregation.beta=0.2
+- task: prostate_ms
+  method: xfedga
+  seed: 1
+  tag: ms_betascreen_b1p0
+  no_test: true
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - aggregation.beta=1.0
+- task: prostate_ms
+  method: xfedga
+  seed: 2
+  tag: ms_betascreen_b0p0
+  no_test: true
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - aggregation.beta=0.0
+- task: prostate_ms
+  method: xfedga
+  seed: 2
+  tag: ms_betascreen_b0p2
+  no_test: true
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - aggregation.beta=0.2
+- task: prostate_ms
+  method: xfedga
+  seed: 2
+  tag: ms_betascreen_b1p0
+  no_test: true
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=110
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+  - aggregation.beta=1.0

@@ -1,0 +1,114 @@
+{
+ "final_headline": {
+  "runs_done": 4,
+  "runs_total": 35,
+  "hours_left_est": 21.892395833333335,
+  "eta": "2026-10-20 14:58:22.699288"
+ },
+ "capacity_from": "2026-10-20 16:43:22.699288",
+ "capacity_h": 112.9,
+ "test_s": {
+  "breast": 79.22800000000015,
+  "prostate_ms": 10.789999999999964
+ },
+ "derived": {
+  "prostate_ms_test": false,
+  "breast_fedavg": false,
+  "prostate_ms_fedavg": false
+ },
+ "round_s": {
+  "breast": {
+   "fedavg": 66.6192,
+   "fedga": 70.00626666666668,
+   "xfedga": 132.58613333333332,
+   "xfedga_plus": 199.99566666666666,
+   "abl_B": 69.27133333333335,
+   "abl_C": 129.934,
+   "abl_D": 70.00626666666668,
+   "abl_F": 132.58613333333332,
+   "random_search": 129.934,
+   "fedprox": 66.6192,
+   "centralized": 66.6192,
+   "local_only": 85.46600000000001,
+   "fedga_paper": 82.11478730158731,
+   "xfedga_plus_dsc": 199.99566666666666,
+   "_setup": 1.2600000000000002
+  },
+  "prostate_ms": {
+   "fedavg": 42.787333333333336,
+   "fedga": 49.61633333333333,
+   "xfedga": 193.93900000000002,
+   "xfedga_plus": 226.6603333333333,
+   "abl_B": 48.982,
+   "abl_C": 187.74433333333334,
+   "abl_D": 49.61633333333333,
+   "abl_F": 193.93900000000002,
+   "random_search": 187.74433333333334,
+   "fedprox": 42.787333333333336,
+   "centralized": 42.787333333333336,
+   "local_only": 60.30733333333333,
+   "fedga_paper": 77.48180952380952,
+   "xfedga_plus_dsc": 226.6603333333333,
+   "_setup": 0.1
+  }
+ },
+ "items": [
+  {
+   "item": "xai_final",
+   "label": "XAI metrics on the 35 final checkpoints (no training; ~3 min per run measured 18 Oct)",
+   "h_with_contingency": 2.1,
+   "after_cuts_h": 2.1
+  },
+  {
+   "item": "dose_p050_p100",
+   "label": "a. dose-response breast p = 0.5, 1.0 x 4 methods x 3 seeds",
+   "h_with_contingency": 14.720122000000002,
+   "after_cuts_h": 14.720122000000002
+  },
+  {
+   "item": "dose_p025",
+   "label": "a. dose-response breast p = 0.25 x 4 methods x 3 seeds",
+   "h_with_contingency": 7.360061000000001,
+   "after_cuts_h": 7.360061000000001
+  },
+  {
+   "item": "flower_demo",
+   "label": "b. fl_dist breast XFedGA+ and XFedGA, seed 1 (demo)",
+   "h_with_contingency": 1.9740528166666667,
+   "after_cuts_h": 1.9740528166666667
+  },
+  {
+   "item": "parity",
+   "label": "b. fl_dist breast XFedGA+ and XFedGA, seeds 2-3 (parity)",
+   "h_with_contingency": 3.9481056333333333,
+   "after_cuts_h": 3.9481056333333333
+  },
+  {
+   "item": "fedga_paper",
+   "label": "c. FedGA paper GA settings (P 10, G 20, 20 rounds), 2 tasks x 3 seeds",
+   "h_with_contingency": 3.283309936507936,
+   "after_cuts_h": 3.283309936507936
+  },
+  {
+   "item": "h_rob2",
+   "label": "d. H-ROB2 noisy-q_i client, breast, XFedGA and XFedGA+ x 3 seeds",
+   "h_with_contingency": 5.149703,
+   "after_cuts_h": 5.149703
+  },
+  {
+   "item": "ablations",
+   "label": "e. ablations B, C, D, F + random search, 2 tasks x 3 seeds",
+   "h_with_contingency": 18.453256,
+   "after_cuts_h": 18.453256
+  },
+  {
+   "item": "fedprox_bounds",
+   "label": "f. FedProx 2 tasks x 5 seeds; centralized + local-only 2 tasks x 3 seeds",
+   "h_with_contingency": 6.897914000000001,
+   "after_cuts_h": 6.897914000000001
+  }
+ ],
+ "total_after_cuts_h": 61.78652438650794,
+ "cuts_applied": [],
+ "fits": true
+}

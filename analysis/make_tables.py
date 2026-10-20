@@ -34,13 +34,18 @@ from stats import DIRECTION, case_means, compare, mean_sd_over_seeds  # noqa: E4
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NAMES = {"fedavg": "FedAvg", "fedga": "FedGA (baseline)", "xfedga": "XFedGA", "abl_B": "B: weighted agg. only",
          "abl_C": "C: FedAvg + GA (multi)", "abl_D": "D: FedGA + annealing", "abl_F": "F: XFedGA, random $q_i$",
-         "random_search": "random search", "fedprox": "FedProx", "centralized": "centralized", "local_only": "local only"}
+         "random_search": "random search", "xfedga_plus": "XFedGA+", "xfedga_plus_dsc": "XFedGA+ (DSC-only)", "fedprox": "FedProx", "centralized": "centralized", "local_only": "local only"}
 COMPARISONS = {
     "headline": [("xfedga", "fedga"), ("xfedga", "fedavg"), ("fedga", "fedavg")],
     "ablations": [("abl_B", "fedavg"), ("abl_C", "fedga"), ("abl_D", "fedga"), ("abl_C", "random_search"),
                   ("xfedga", "abl_F"), ("xfedga", "abl_C")],
     "baselines": [("xfedga", "fedprox"), ("fedprox", "fedavg")],
+    # final headline (19 Oct 2026): primary, declared secondary (XFedGA+), exploratory (EC term of the s_i score)
+    "final": [("xfedga", "fedga"), ("xfedga_plus", "fedga"), ("xfedga_plus", "xfedga_plus_dsc"), ("xfedga", "fedavg"),
+              ("fedga", "fedavg")],
 }
+DECLARED_SECONDARY = ("xfedga_plus", "fedga", "dsc")      # XFedGA+ pre-registration (commit e922835)
+EXPLORATORY_PAIRS = {("xfedga_plus", "xfedga_plus_dsc")}  # EC contribution (XFedGA+ pre-registration)
 METRICS = ["dsc", "hd95_norm", "ec", "pg"]
 XAI_METRICS = ["pg_gradcampp", "rho_after_all_layers", "pg_gradcam", "ec_iou_gradcam", "ec_mass_gradcam",
                "deletion_auc", "insertion_auc"]   # both EC definitions for every method (18 Oct 2026)
@@ -134,6 +139,8 @@ PRIMARY = ("xfedga", "fedga", "dsc")   # pre-registered primary endpoint (plan.m
 
 def _cmp_row(task, a, b, c):
     endpoint = ("PRIMARY" if (a, b, c["metric"]) == PRIMARY else
+                "DECLARED SECONDARY (XFedGA+, post-v1 variant)" if (a, b, c["metric"]) == DECLARED_SECONDARY else
+                "exploratory (EC term of s_i)" if (a, b) in EXPLORATORY_PAIRS else
                 f"secondary, pre-registered {XAI_PREREGISTERED[c['metric']]}"
                 if c["metric"] in XAI_PREREGISTERED and (a, b) == PRIMARY[:2] else
                 "exploratory (context caveat)" if c["metric"] in EXPLORATORY else "secondary")
@@ -234,20 +241,23 @@ def figures(runs, tasks, methods, out):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--runs", default=os.path.join(REPO, "results", "runs", "*"))
-    ap.add_argument("--group", default="main", help="run tag group (glob), e.g. main, hetero, 'betascreen_*'")
+    ap.add_argument("--group", default="main", help="run tag group glob(s), comma-separated, e.g. main or main,final")
+    ap.add_argument("--tasks", default="prostate,breast,prostate_ms",
+                    help="tasks to include, comma-separated (the task 'prostate' is SUPERSEDED: plan.md 0.L)")
     ap.add_argument("--comparisons", default="headline", choices=sorted(COMPARISONS))
     ap.add_argument("--validation_only", action="store_true", help="no test data: validation curves and scores only")
     ap.add_argument("--n_boot", type=int, default=10000)
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
-    runs = load_runs(args.runs, args.group)
+    runs = {r["run_id"]: r for g in args.group.split(",") for r in load_runs(args.runs, g)}
+    runs = [r for r in runs.values() if r["task"] in args.tasks.split(",")]
     in_comp = {m for pair in COMPARISONS[args.comparisons] for m in pair}
     runs = [r for r in runs if r["method"] in in_comp]   # only the methods of the selected comparisons
     if not runs:
         print("no runs match")
         return
     os.makedirs(args.out, exist_ok=True)
-    tasks = [t for t in ["prostate", "breast"] if any(r["task"] == t for r in runs)]
+    tasks = [t for t in ["prostate", "breast", "prostate_ms"] if any(r["task"] == t for r in runs)]
     methods = [m for m in NAMES if any(r["method"] == m for r in runs)]
     header, rows, summary = summary_table(runs, tasks, methods, args.validation_only)
     write_table(os.path.join(args.out, "summary"), header, rows,

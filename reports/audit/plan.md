@@ -299,6 +299,13 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - All outcomes are reported, whatever they are.
 - **Queue order (user, 20 Oct):** a (running) → b → g → g2 → h → i → c → d → e → f. **g, g2, h and i are never cut**; the pre-registered cut order applies only to c–f, and only if the recost does not fit (`results/timing/recost_20oct.md`).
 
+**Pre-registration (g2): breast replication (20 Oct 2026). DECLARED POST HOC IN ORIGIN; WEAKER THAN g.**
+- **Runs:** XFedGA+ (DSC-only) vs FedGA (baseline), **NEW seeds 6–10**, breast (v1), test evaluated once per run; tag `rep`. Queue `queues/post_g2_breast_replication.yaml` (10 runs; both arms new, with the evaluation-only logging flags).
+- **Weaker than g, stated before any run:** this is a replication on the SAME 638 BUS-BRA test patients that produced the motivating observation. Only the training seeds are new, so it tests seed robustness, not generalisation to new patients.
+- **PRIMARY of g2:** XFedGA+ (DSC-only) vs FedGA (baseline), test DSC, patient-level paired difference (seeds 6–10 averaged within patient), 95% cluster bootstrap (10,000). **Supported if the CI lies above 0.**
+- Reported whatever the outcome.
+- **Queue order (user, 20 Oct):** a (running) → b → g → g2 → h → i → c → d → e → f. **g, g2, h and i are never cut**; the pre-registered cut order applies only to c–f, and only if the recost does not fit (`results/timing/recost_20oct.md`).
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

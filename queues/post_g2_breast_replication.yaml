@@ -1,0 +1,74 @@
+name: post_g2_breast_replication
+out: results/runs
+note: g2. Breast replication, NEW seeds 6-10 (pre-registered, plan.md). Test once per run.
+runs:
+- task: breast
+  method: fedga
+  seed: 6
+  tag: rep
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: xfedga_plus_dsc
+  seed: 6
+  tag: rep
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: fedga
+  seed: 7
+  tag: rep
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: xfedga_plus_dsc
+  seed: 7
+  tag: rep
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: fedga
+  seed: 8
+  tag: rep
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: xfedga_plus_dsc
+  seed: 8
+  tag: rep
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: fedga
+  seed: 9
+  tag: rep
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: xfedga_plus_dsc
+  seed: 9
+  tag: rep
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: fedga
+  seed: 10
+  tag: rep
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: breast
+  method: xfedga_plus_dsc
+  seed: 10
+  tag: rep
+  set:
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true

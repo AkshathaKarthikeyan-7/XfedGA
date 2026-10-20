@@ -284,6 +284,21 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - **Comparisons (secondary, test DSC):** XFedGA vs FedProx and XFedGA+ vs FedProx; FedProx vs FedAvg. The bounds are reported descriptively (mean ± s.d. over seeds), not tested.
 - **Cut rule:** first in the cut order; dropped only if a recost does not fit.
 
+**Pre-registration (g): independent-site confirmation, prostate (20 Oct 2026). DECLARED POST HOC IN ORIGIN.**
+- **Motivation (stated before any run):** in the final headline, XFedGA+ (DSC-only) had the highest mean test DSC on both tasks, but that comparison against FedGA (baseline) was NOT pre-registered (`results/tables/final/summary.md`). Item g tests it on an independent held-out site.
+- **New task `prostate_ms_runmc`** (`configs/prostate_ms_runmc_clients.yaml`; same multi-site pipeline as `prostate_ms`):
+  - **server = RUNMC** (30 cases; case-level 8 fitness / 8 validation / 14 test in gland-size blocks with the remainder rule, data seed 42: 117 / 114 / 190 slices);
+  - **clients = BIDMC, BMC, HK, I2CVB, UCL.** No PROMISE12 or Decathlon data. RUNMC cases are Decathlon scans (`reports/audit/multisite_inventory.md`); no Decathlon data is used, and no model in g sees RUNMC in training.
+- **Protocol v2, as adopted for `prostate_ms`:** 2 local epochs; fitness subsample 120 (capped at the fitness set); z-score.
+  - **FOV crop re-derived from the NEW client masks only** by the pre-registered rule: **S = 130 mm** (max half-extent 62.5 mm, BMC/Case19). It cuts 0% of the RUNMC fitness and validation gland pixels; the test set was not read (`analysis/fov_crop_size.py --task prostate_ms_runmc` → `results/audit/fov_crop_prostate_ms_runmc.json`).
+  - v1 and v2 slice sets are identical.
+- **Methods:** FedGA (baseline), XFedGA+ (DSC-only), XFedGA+, XFedGA; **seeds 1–5**; test evaluated once per run; tag `runmc`. Queue `queues/post_g_site_runmc.yaml` (20 runs), run from a frozen worktree at the commit that adds the task code.
+- **PRIMARY of g:** XFedGA+ (DSC-only) vs FedGA (baseline), test DSC, case-level paired difference (seeds averaged within case), 95% cluster bootstrap (10,000). **Supported if the CI lies above 0.**
+- **Secondary:** XFedGA+ vs FedGA; XFedGA vs FedGA (same statistics).
+- **Power:** 14 test cases.
+- All outcomes are reported, whatever they are.
+- **Queue order (user, 20 Oct):** a (running) → b → g → g2 → h → i → c → d → e → f. **g, g2, h and i are never cut**; the pre-registered cut order applies only to c–f, and only if the recost does not fit (`results/timing/recost_20oct.md`).
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

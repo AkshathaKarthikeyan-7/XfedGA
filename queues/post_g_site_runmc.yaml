@@ -1,0 +1,224 @@
+name: post_g_site_runmc
+out: results/runs
+note: g. Independent-site confirmation, prostate_ms_runmc (pre-registered, plan.md). Test once per run.
+runs:
+- task: prostate_ms_runmc
+  method: fedga
+  seed: 1
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga_plus_dsc
+  seed: 1
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga_plus
+  seed: 1
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga
+  seed: 1
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: fedga
+  seed: 2
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga_plus_dsc
+  seed: 2
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga_plus
+  seed: 2
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga
+  seed: 2
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: fedga
+  seed: 3
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga_plus_dsc
+  seed: 3
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga_plus
+  seed: 3
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga
+  seed: 3
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: fedga
+  seed: 4
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga_plus_dsc
+  seed: 4
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga_plus
+  seed: 4
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga
+  seed: 4
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: fedga
+  seed: 5
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga_plus_dsc
+  seed: 5
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga_plus
+  seed: 5
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true
+- task: prostate_ms_runmc
+  method: xfedga
+  seed: 5
+  tag: runmc
+  set:
+  - fitness.subsample=120
+  - train.local_epochs=2
+  - preprocessing.fov_crop_mm=130
+  - preprocessing.intensity=zscore
+  - evaluation.log_wagg_val=true
+  - evaluation.log_client_val=true

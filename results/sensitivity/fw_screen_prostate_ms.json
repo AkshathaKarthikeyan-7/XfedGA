@@ -1,0 +1,73 @@
+{
+ "cells": {
+  "(0.5, 0.3, 0.2)": {
+   "runs": [
+    "prostate_ms_xfedga_seed1_ea92b08b_msv2screen",
+    "prostate_ms_xfedga_seed2_ea92b08b_msv2screen"
+   ],
+   "seeds": [
+    1,
+    2
+   ],
+   "scores": [
+    0.8368231369625954,
+    0.8294737760985399
+   ],
+   "mean": 0.8331484565305676,
+   "var": 2.7006552555055048e-05
+  },
+  "(1.0, 0.0, 0.0)": {
+   "runs": [
+    "prostate_ms_xfedga_seed1_4f84c4ae_fw100",
+    "prostate_ms_xfedga_seed2_4f84c4ae_fw100"
+   ],
+   "seeds": [
+    1,
+    2
+   ],
+   "scores": [
+    0.8332257718202614,
+    0.8378483399748802
+   ],
+   "mean": 0.8355370558975708,
+   "var": 1.0684068172047981e-05
+  },
+  "(0.6, 0.2, 0.2)": {
+   "runs": [
+    "prostate_ms_xfedga_seed1_b8c6dd9c_fw622",
+    "prostate_ms_xfedga_seed2_b8c6dd9c_fw622"
+   ],
+   "seeds": [
+    1,
+    2
+   ],
+   "scores": [
+    0.8345840900663345,
+    0.8362728021447622
+   ],
+   "mean": 0.8354284461055483,
+   "var": 1.425874241913784e-06
+  },
+  "(0.4, 0.4, 0.2)": {
+   "runs": [
+    "prostate_ms_xfedga_seed1_2d4e3ac0_fw442",
+    "prostate_ms_xfedga_seed2_2d4e3ac0_fw442"
+   ],
+   "seeds": [
+    1,
+    2
+   ],
+   "scores": [
+    0.8335794250288654,
+    0.8309930261165377
+   ],
+   "mean": 0.8322862255727015,
+   "var": 3.344729666844963e-06
+  }
+ },
+ "pooled_sd": 0.003258113895947385,
+ "complete": true,
+ "beats_current": [],
+ "follow_up_weights": null,
+ "outcome": "insensitive"
+}

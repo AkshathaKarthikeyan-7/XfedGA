@@ -1,0 +1,54 @@
+{
+ "run_id": "breast_xfedga_plus_dsc_seed7_dcb63169_rep",
+ "task": "breast",
+ "method": "xfedga_plus_dsc",
+ "method_switches": {
+  "topology": "federated",
+  "aggregation": "server_score",
+  "q_source": "gradcam",
+  "search": "mix_ga",
+  "fitness": "multi",
+  "anneal": true,
+  "prox": false,
+  "score": "dsc",
+  "ec": "mass"
+ },
+ "seed": 7,
+ "config_hash": "dcb63169b942",
+ "git_commit": "9f0225f",
+ "selection": "centred moving-average validation DSC",
+ "clients": [
+  "BUSI",
+  "BUS-UCLM"
+ ],
+ "server_sizes": {
+  "fitness": 278,
+  "validation": 470,
+  "test": 1127
+ },
+ "setup_s": 1.9,
+ "total_s": 3443.9,
+ "selected_round": 3,
+ "smoothed_val_dsc": [
+  0.6576398271075494,
+  0.6675365364902749,
+  0.6706968939726511,
+  0.6492327178959476,
+  0.6346290182087829,
+  0.628459938805948,
+  0.6404479419219883,
+  0.6303932079238216,
+  0.6275308056462942,
+  0.6155821003030307,
+  0.6148581323308697,
+  0.6094618510005452,
+  0.6050239803220555,
+  0.6058424787352337,
+  0.6071152765528751
+ ],
+ "n_i": [
+  518,
+  211
+ ],
+ "test_evaluated": true
+}

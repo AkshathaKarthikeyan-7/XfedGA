@@ -330,6 +330,18 @@ At that moment 1 of 16 screen runs had finished and none had been analysed. The 
 - **Also:** the existing breast β-screen table is exported for the slides (`reports/review/beta_breast_table.md`).
 - **Queue order (user, 20 Oct):** a (running) → b → g → g2 → h → i → c → d → e → f. **g, g2, h and i are never cut**; the pre-registered cut order applies only to c–f, and only if the recost does not fit (`results/timing/recost_20oct.md`).
 
+**DECLARED DEVIATION (20–21 Oct 2026): chain incidents and order of the post-headline items.**
+- **Incident 1 (Tue 16:12–16:38):** the dry runs of the new queues had written "queue … finished" into their logs, and the handover chain (chain 2) read that as "item b finished". It held STOP: item a stopped cleanly after its 3rd run (no run killed), and items b and c–f stopped before their first run. Item a resumed at 16:50 (chain 3).
+- **Incident 2 (Tue 16:50 – Wed ~21:30):** stopping chain 2 at 16:38 did not stop it. It kept running its own queue **in parallel** with chain 3, so **two runs shared the GPU** for that whole period.
+  - Chain 2 ran g2 (10), h (6), i (6), its decisions (`c00b447`), XAI on g2, c (6) and d (4 of 6, plus 1 orphaned run finishing).
+  - Its bash and queue processes were killed by process ID on Wed 21:20 (user decision); one queue at a time from then on.
+- **Order deviation:** g2, h, i, c and d ran **before** b and g (pre-registered order: a → b → g → g2 → h → i → c → d → e → f). g runs after b, through chain 4.
+- **Effect:**
+  - **Timing only.** Every run is a separate seeded, deterministic process (deterministic cuDNN), with the same code (frozen worktrees `9f0225f` / `fcf54ee`; identical algorithm code) and the same settings as pre-registered.
+  - No run failed, and no setting, rule or decision depended on the order.
+  - Run times with two runs on the GPU were about 56–60 min instead of about 45 min. Those timings are not used for costing.
+- **A wrong commit message:** `23d69e5` says the fast suite passed; one test failed under memory pressure and passes alone (recorded in `reports/status/2026-10-20.md`).
+
 **Frozen-code rule.**
 - Every queue runs from a git worktree at a fixed commit (`D:\new repo\xfedga_frozen\<sha>`).
 - Data, cache and results come from the main checkout; the code root is recorded in each run's `run_meta.json` / queue log.

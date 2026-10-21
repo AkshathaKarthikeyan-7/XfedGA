@@ -1,0 +1,25 @@
+2026-10-20 16:12:21 item b finished; holding STOP until chain 1 ends (its c-f stop before their first run)
+2026-10-20 16:37:46 chain 1 finished; its items c-f: 4 stopped before their first run
+2026-10-20 16:49:55 full suite rc=1: 5 failed, 156 passed, 3 xfailed in 727.44s (0:12:07)
+2026-10-20 16:49:56 SUITE FAILED: nothing committed; item g (needs the new code) SKIPPED; g2, h, i, c-f run from the last pre-registration commit
+2026-10-20 16:49:56 start item g2_breast_replication (code D:/new repo/xfedga_frozen/9f0225f)
+2026-10-21 01:14:40 end item g2_breast_replication done=10 failed=0
+2026-10-21 01:14:41 start item h_fw_screen (code D:/new repo/xfedga_frozen/9f0225f)
+2026-10-21 06:54:42 end item h_fw_screen done=6 failed=0
+2026-10-21 06:54:43 start item i_beta_screen (code D:/new repo/xfedga_frozen/9f0225f)
+2026-10-21 12:37:41 end item i_beta_screen done=6 failed=0
+2026-10-21 12:37:42 h / i decisions rc=0: Pooled s.d. = 0.0039. **Decision (complete): beta 0.0 beats the default by more than the pooled s.d..** Rule of b556334. prostate_ms (v2), XFedGA, validation only; reported as sensitivity. Pooled s.d. = 0.0033. **Decision: insensitive.** prostate_ms (v2), XFedGA, validation only. 
+2026-10-21 12:37:46 h: no follow-up (exit 3); decisions committed c00b447
+2026-10-21 12:41:16 xai breast_fedga_seed10_303db34d_rep rc=0
+2026-10-21 12:44:48 xai breast_fedga_seed6_303db34d_rep rc=0
+2026-10-21 12:48:17 xai breast_fedga_seed7_303db34d_rep rc=0
+2026-10-21 12:51:46 xai breast_fedga_seed8_303db34d_rep rc=0
+2026-10-21 12:55:17 xai breast_fedga_seed9_303db34d_rep rc=0
+2026-10-21 12:58:43 xai breast_xfedga_plus_dsc_seed10_dcb63169_rep rc=0
+2026-10-21 13:02:05 xai breast_xfedga_plus_dsc_seed6_dcb63169_rep rc=0
+2026-10-21 13:05:30 xai breast_xfedga_plus_dsc_seed7_dcb63169_rep rc=0
+2026-10-21 13:09:01 xai breast_xfedga_plus_dsc_seed8_dcb63169_rep rc=0
+2026-10-21 13:12:32 xai breast_xfedga_plus_dsc_seed9_dcb63169_rep rc=0
+2026-10-21 13:12:32 start item c_paperga (code D:/new repo/xfedga_frozen/9f0225f)
+2026-10-21 18:09:09 end item c_paperga done=6 failed=0
+2026-10-21 18:09:09 start item d_hrob2 (code D:/new repo/xfedga_frozen/9f0225f)

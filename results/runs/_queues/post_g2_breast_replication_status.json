@@ -1,0 +1,228 @@
+{
+ "queue": "post_g2_breast_replication",
+ "code_root": "D:\\new repo\\xfedga_frozen\\9f0225f",
+ "code_commit": "9f0225f",
+ "repo": "D:\\new repo\\xfedga",
+ "runs": [
+  {
+   "run_id": "breast_fedga_seed6_303db34d_rep",
+   "task": "breast",
+   "method": "fedga",
+   "seed": 6,
+   "tag": "rep",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 41.2,
+   "gpu": {
+    "busy_samples": 164,
+    "median_sm_clock_MHz": 2595.0,
+    "min_sm_clock_MHz": 960.0,
+    "median_power_W": 59.77,
+    "share_busy_with_throttle_reason": 0.744,
+    "throttled": true,
+    "max_memory_used_MiB": 1682.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_dsc_seed6_dcb63169_rep",
+   "task": "breast",
+   "method": "xfedga_plus_dsc",
+   "seed": 6,
+   "tag": "rep",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 61.0,
+   "gpu": {
+    "busy_samples": 205,
+    "median_sm_clock_MHz": 2595.0,
+    "min_sm_clock_MHz": 540.0,
+    "median_power_W": 59.79,
+    "share_busy_with_throttle_reason": 0.659,
+    "throttled": true,
+    "max_memory_used_MiB": 1690.0
+   }
+  },
+  {
+   "run_id": "breast_fedga_seed7_303db34d_rep",
+   "task": "breast",
+   "method": "fedga",
+   "seed": 7,
+   "tag": "rep",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 42.4,
+   "gpu": {
+    "busy_samples": 180,
+    "median_sm_clock_MHz": 2625.0,
+    "min_sm_clock_MHz": 930.0,
+    "median_power_W": 59.84,
+    "share_busy_with_throttle_reason": 0.65,
+    "throttled": true,
+    "max_memory_used_MiB": 1708.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_dsc_seed7_dcb63169_rep",
+   "task": "breast",
+   "method": "xfedga_plus_dsc",
+   "seed": 7,
+   "tag": "rep",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 57.6,
+   "gpu": {
+    "busy_samples": 190,
+    "median_sm_clock_MHz": 2610.0,
+    "min_sm_clock_MHz": 675.0,
+    "median_power_W": 59.75,
+    "share_busy_with_throttle_reason": 0.7,
+    "throttled": true,
+    "max_memory_used_MiB": 1708.0
+   }
+  },
+  {
+   "run_id": "breast_fedga_seed8_303db34d_rep",
+   "task": "breast",
+   "method": "fedga",
+   "seed": 8,
+   "tag": "rep",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 40.2,
+   "gpu": {
+    "busy_samples": 158,
+    "median_sm_clock_MHz": 2595.0,
+    "min_sm_clock_MHz": 840.0,
+    "median_power_W": 59.75,
+    "share_busy_with_throttle_reason": 0.734,
+    "throttled": true,
+    "max_memory_used_MiB": 1716.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_dsc_seed8_dcb63169_rep",
+   "task": "breast",
+   "method": "xfedga_plus_dsc",
+   "seed": 8,
+   "tag": "rep",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 58.4,
+   "gpu": {
+    "busy_samples": 225,
+    "median_sm_clock_MHz": 2580.0,
+    "min_sm_clock_MHz": 900.0,
+    "median_power_W": 59.7,
+    "share_busy_with_throttle_reason": 0.702,
+    "throttled": true,
+    "max_memory_used_MiB": 1690.0
+   }
+  },
+  {
+   "run_id": "breast_fedga_seed9_303db34d_rep",
+   "task": "breast",
+   "method": "fedga",
+   "seed": 9,
+   "tag": "rep",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 48.8,
+   "gpu": {
+    "busy_samples": 196,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 645.0,
+    "median_power_W": 64.93,
+    "share_busy_with_throttle_reason": 0.362,
+    "throttled": true,
+    "max_memory_used_MiB": 1690.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_dsc_seed9_dcb63169_rep",
+   "task": "breast",
+   "method": "xfedga_plus_dsc",
+   "seed": 9,
+   "tag": "rep",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 55.8,
+   "gpu": {
+    "busy_samples": 189,
+    "median_sm_clock_MHz": 2580.0,
+    "min_sm_clock_MHz": 795.0,
+    "median_power_W": 59.73,
+    "share_busy_with_throttle_reason": 0.772,
+    "throttled": true,
+    "max_memory_used_MiB": 1708.0
+   }
+  },
+  {
+   "run_id": "breast_fedga_seed10_303db34d_rep",
+   "task": "breast",
+   "method": "fedga",
+   "seed": 10,
+   "tag": "rep",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 40.2,
+   "gpu": {
+    "busy_samples": 164,
+    "median_sm_clock_MHz": 2580.0,
+    "min_sm_clock_MHz": 780.0,
+    "median_power_W": 59.8,
+    "share_busy_with_throttle_reason": 0.683,
+    "throttled": true,
+    "max_memory_used_MiB": 1720.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_dsc_seed10_dcb63169_rep",
+   "task": "breast",
+   "method": "xfedga_plus_dsc",
+   "seed": 10,
+   "tag": "rep",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 58.9,
+   "gpu": {
+    "busy_samples": 214,
+    "median_sm_clock_MHz": 2595.0,
+    "min_sm_clock_MHz": 705.0,
+    "median_power_W": 59.76,
+    "share_busy_with_throttle_reason": 0.631,
+    "throttled": true,
+    "max_memory_used_MiB": 1690.0
+   }
+  }
+ ]
+}

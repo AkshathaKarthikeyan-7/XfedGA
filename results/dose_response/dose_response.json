@@ -1,0 +1,130 @@
+{
+ "mean_dsc": {
+  "fedavg": {
+   "0.0": 0.638087810157136,
+   "0.25": 0.6123430342420665,
+   "0.5": 0.6229115996811714,
+   "1.0": 0.6016085655867479
+  },
+  "fedga": {
+   "0.0": 0.6410823181038793,
+   "0.25": 0.6281157620424678,
+   "0.5": 0.6045305086398346,
+   "1.0": 0.6076496531573234
+  },
+  "xfedga": {
+   "0.0": 0.6299618369969485,
+   "0.25": 0.6261271531241449,
+   "0.5": 0.6180957419409063,
+   "1.0": 0.6159530222629426
+  },
+  "xfedga_plus": {
+   "0.0": 0.6431792328754944,
+   "0.25": 0.618025625455104,
+   "0.5": 0.6220374523609064,
+   "1.0": 0.6092329793923118
+  }
+ },
+ "mean_slope": {
+  "fedavg": -0.030429152441628665,
+  "fedga": -0.03411955723415002,
+  "xfedga": -0.01445044297642135,
+  "xfedga_plus": -0.028708255954521294
+ },
+ "D1": {
+  "xfedga": {
+   "role": "D1 primary",
+   "n_patients": 638,
+   "mean_diff_slope": 0.01966911425772867,
+   "ci_low": 0.014503148948868623,
+   "ci_high": 0.02468640489958155,
+   "supported": true
+  },
+  "xfedga_plus": {
+   "role": "D1 secondary",
+   "n_patients": 638,
+   "mean_diff_slope": 0.0054113012796287215,
+   "ci_low": -0.0007201985356817153,
+   "ci_high": 0.011566368685538881,
+   "supported": false
+  }
+ },
+ "D2": {
+  "xfedga": {
+   "slope": -0.06756387301587301,
+   "ci_low": -0.09692202323834984,
+   "ci_high": -0.03820572279339617,
+   "n_points": 12,
+   "mean_alpha_by_p": {
+    "0.0": 0.2917447111111111,
+    "0.25": 0.2744029111111111,
+    "0.5": 0.26434762222222224,
+    "1.0": 0.22332113333333337
+   },
+   "supported": true
+  },
+  "xfedga_plus": {
+   "slope": -0.16794133079365078,
+   "ci_low": -0.18514853832563824,
+   "ci_high": -0.15073412326166333,
+   "n_points": 12,
+   "mean_alpha_by_p": {
+    "0.0": 0.30421386666666667,
+    "0.25": 0.2465580888888889,
+    "0.5": 0.2176916888888889,
+    "1.0": 0.13133255555555556
+   },
+   "supported": true
+  }
+ },
+ "runs": {
+  "fedavg/seed1/p0.0": "breast_fedavg_seed1_c2398972",
+  "fedavg/seed1/p0.25": "breast_fedavg_seed1_74a8f954_dose_p025",
+  "fedavg/seed1/p0.5": "breast_fedavg_seed1_f0312245_dose_p050",
+  "fedavg/seed1/p1.0": "breast_fedavg_seed1_6632a891_dose_p100",
+  "fedavg/seed2/p0.0": "breast_fedavg_seed2_c2398972",
+  "fedavg/seed2/p0.25": "breast_fedavg_seed2_74a8f954_dose_p025",
+  "fedavg/seed2/p0.5": "breast_fedavg_seed2_f0312245_dose_p050",
+  "fedavg/seed2/p1.0": "breast_fedavg_seed2_6632a891_dose_p100",
+  "fedavg/seed3/p0.0": "breast_fedavg_seed3_c2398972",
+  "fedavg/seed3/p0.25": "breast_fedavg_seed3_74a8f954_dose_p025",
+  "fedavg/seed3/p0.5": "breast_fedavg_seed3_f0312245_dose_p050",
+  "fedavg/seed3/p1.0": "breast_fedavg_seed3_6632a891_dose_p100",
+  "fedga/seed1/p0.0": "breast_fedga_seed1_e12fc677",
+  "fedga/seed1/p0.25": "breast_fedga_seed1_524fc955_dose_p025",
+  "fedga/seed1/p0.5": "breast_fedga_seed1_0562c720_dose_p050",
+  "fedga/seed1/p1.0": "breast_fedga_seed1_a28136c4_dose_p100",
+  "fedga/seed2/p0.0": "breast_fedga_seed2_e12fc677",
+  "fedga/seed2/p0.25": "breast_fedga_seed2_524fc955_dose_p025",
+  "fedga/seed2/p0.5": "breast_fedga_seed2_0562c720_dose_p050",
+  "fedga/seed2/p1.0": "breast_fedga_seed2_a28136c4_dose_p100",
+  "fedga/seed3/p0.0": "breast_fedga_seed3_e12fc677",
+  "fedga/seed3/p0.25": "breast_fedga_seed3_524fc955_dose_p025",
+  "fedga/seed3/p0.5": "breast_fedga_seed3_0562c720_dose_p050",
+  "fedga/seed3/p1.0": "breast_fedga_seed3_a28136c4_dose_p100",
+  "xfedga/seed1/p0.0": "breast_xfedga_seed1_8bf4f80f",
+  "xfedga/seed1/p0.25": "breast_xfedga_seed1_1df14195_dose_p025",
+  "xfedga/seed1/p0.5": "breast_xfedga_seed1_0c7a78f9_dose_p050",
+  "xfedga/seed1/p1.0": "breast_xfedga_seed1_8f07a8d8_dose_p100",
+  "xfedga/seed2/p0.0": "breast_xfedga_seed2_8bf4f80f",
+  "xfedga/seed2/p0.25": "breast_xfedga_seed2_1df14195_dose_p025",
+  "xfedga/seed2/p0.5": "breast_xfedga_seed2_0c7a78f9_dose_p050",
+  "xfedga/seed2/p1.0": "breast_xfedga_seed2_8f07a8d8_dose_p100",
+  "xfedga/seed3/p0.0": "breast_xfedga_seed3_8bf4f80f",
+  "xfedga/seed3/p0.25": "breast_xfedga_seed3_1df14195_dose_p025",
+  "xfedga/seed3/p0.5": "breast_xfedga_seed3_0c7a78f9_dose_p050",
+  "xfedga/seed3/p1.0": "breast_xfedga_seed3_8f07a8d8_dose_p100",
+  "xfedga_plus/seed1/p0.0": "breast_xfedga_plus_seed1_42cd5466_final",
+  "xfedga_plus/seed1/p0.25": "breast_xfedga_plus_seed1_b856f407_dose_p025",
+  "xfedga_plus/seed1/p0.5": "breast_xfedga_plus_seed1_dbb9680f_dose_p050",
+  "xfedga_plus/seed1/p1.0": "breast_xfedga_plus_seed1_7e57569d_dose_p100",
+  "xfedga_plus/seed2/p0.0": "breast_xfedga_plus_seed2_42cd5466_final",
+  "xfedga_plus/seed2/p0.25": "breast_xfedga_plus_seed2_b856f407_dose_p025",
+  "xfedga_plus/seed2/p0.5": "breast_xfedga_plus_seed2_dbb9680f_dose_p050",
+  "xfedga_plus/seed2/p1.0": "breast_xfedga_plus_seed2_7e57569d_dose_p100",
+  "xfedga_plus/seed3/p0.0": "breast_xfedga_plus_seed3_42cd5466_final",
+  "xfedga_plus/seed3/p0.25": "breast_xfedga_plus_seed3_b856f407_dose_p025",
+  "xfedga_plus/seed3/p0.5": "breast_xfedga_plus_seed3_dbb9680f_dose_p050",
+  "xfedga_plus/seed3/p1.0": "breast_xfedga_plus_seed3_7e57569d_dose_p100"
+ }
+}

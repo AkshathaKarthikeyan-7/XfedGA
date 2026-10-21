@@ -1,0 +1,54 @@
+{
+ "run_id": "breast_xfedga_seed2_8f07a8d8_dose_p100",
+ "task": "breast",
+ "method": "xfedga",
+ "method_switches": {
+  "topology": "federated",
+  "aggregation": "saliency",
+  "q_source": "gradcam",
+  "search": "ga",
+  "fitness": "multi",
+  "anneal": true,
+  "prox": false,
+  "score": null,
+  "ec": "iou"
+ },
+ "seed": 2,
+ "config_hash": "8f07a8d8ee37",
+ "git_commit": "fcf54ee",
+ "selection": "centred moving-average validation DSC",
+ "clients": [
+  "BUSI",
+  "BUS-UCLM"
+ ],
+ "server_sizes": {
+  "fitness": 278,
+  "validation": 470,
+  "test": 1127
+ },
+ "setup_s": 2.0,
+ "total_s": 3391.0,
+ "selected_round": 1,
+ "smoothed_val_dsc": [
+  0.6025575289166636,
+  0.5767096642280545,
+  0.5539340126408381,
+  0.5492631346729662,
+  0.5466538961392362,
+  0.5342854210916983,
+  0.518294446918434,
+  0.5158065137125155,
+  0.4986769816675616,
+  0.5031631259569308,
+  0.4953603708533702,
+  0.5098420766176434,
+  0.502482363868417,
+  0.5046320907732337,
+  0.4969497951910112
+ ],
+ "n_i": [
+  518,
+  211
+ ],
+ "test_evaluated": true
+}

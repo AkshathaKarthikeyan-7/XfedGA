@@ -1,0 +1,118 @@
+2026-10-19 17:05:52 queue post_a_dose_response: 36 runs; code D:\new repo\xfedga @ d9760c6; repo D:\new repo\xfedga
+2026-10-19 17:05:52 [1/36] pending breast_fedavg_seed1_f0312245_dose_p050
+2026-10-19 17:05:52 [2/36] pending breast_fedga_seed1_0562c720_dose_p050
+2026-10-19 17:05:52 [3/36] pending breast_xfedga_seed1_0c7a78f9_dose_p050
+2026-10-19 17:05:52 [4/36] pending breast_xfedga_plus_seed1_dbb9680f_dose_p050
+2026-10-19 17:05:52 [5/36] pending breast_fedavg_seed2_f0312245_dose_p050
+2026-10-19 17:05:52 [6/36] pending breast_fedga_seed2_0562c720_dose_p050
+2026-10-19 17:05:52 [7/36] pending breast_xfedga_seed2_0c7a78f9_dose_p050
+2026-10-19 17:05:52 [8/36] pending breast_xfedga_plus_seed2_dbb9680f_dose_p050
+2026-10-19 17:05:52 [9/36] pending breast_fedavg_seed3_f0312245_dose_p050
+2026-10-19 17:05:52 [10/36] pending breast_fedga_seed3_0562c720_dose_p050
+2026-10-19 17:05:52 [11/36] pending breast_xfedga_seed3_0c7a78f9_dose_p050
+2026-10-19 17:05:52 [12/36] pending breast_xfedga_plus_seed3_dbb9680f_dose_p050
+2026-10-19 17:05:53 [13/36] pending breast_fedavg_seed1_6632a891_dose_p100
+2026-10-19 17:05:53 [14/36] pending breast_fedga_seed1_a28136c4_dose_p100
+2026-10-19 17:05:53 [15/36] pending breast_xfedga_seed1_8f07a8d8_dose_p100
+2026-10-19 17:05:53 [16/36] pending breast_xfedga_plus_seed1_7e57569d_dose_p100
+2026-10-19 17:05:53 [17/36] pending breast_fedavg_seed2_6632a891_dose_p100
+2026-10-19 17:05:53 [18/36] pending breast_fedga_seed2_a28136c4_dose_p100
+2026-10-19 17:05:53 [19/36] pending breast_xfedga_seed2_8f07a8d8_dose_p100
+2026-10-19 17:05:53 [20/36] pending breast_xfedga_plus_seed2_7e57569d_dose_p100
+2026-10-19 17:05:53 [21/36] pending breast_fedavg_seed3_6632a891_dose_p100
+2026-10-19 17:05:53 [22/36] pending breast_fedga_seed3_a28136c4_dose_p100
+2026-10-19 17:05:53 [23/36] pending breast_xfedga_seed3_8f07a8d8_dose_p100
+2026-10-19 17:05:53 [24/36] pending breast_xfedga_plus_seed3_7e57569d_dose_p100
+2026-10-19 17:05:53 [25/36] pending breast_fedavg_seed1_74a8f954_dose_p025
+2026-10-19 17:05:53 [26/36] pending breast_fedga_seed1_524fc955_dose_p025
+2026-10-19 17:05:53 [27/36] pending breast_xfedga_seed1_1df14195_dose_p025
+2026-10-19 17:05:53 [28/36] pending breast_xfedga_plus_seed1_b856f407_dose_p025
+2026-10-19 17:05:53 [29/36] pending breast_fedavg_seed2_74a8f954_dose_p025
+2026-10-19 17:05:53 [30/36] pending breast_fedga_seed2_524fc955_dose_p025
+2026-10-19 17:05:53 [31/36] pending breast_xfedga_seed2_1df14195_dose_p025
+2026-10-19 17:05:53 [32/36] pending breast_xfedga_plus_seed2_b856f407_dose_p025
+2026-10-19 17:05:53 [33/36] pending breast_fedavg_seed3_74a8f954_dose_p025
+2026-10-19 17:05:53 [34/36] pending breast_fedga_seed3_524fc955_dose_p025
+2026-10-19 17:05:53 [35/36] pending breast_xfedga_seed3_1df14195_dose_p025
+2026-10-19 17:05:53 [36/36] pending breast_xfedga_plus_seed3_b856f407_dose_p025
+2026-10-19 17:05:53 queue post_a_dose_response finished
+2026-10-20 14:40:34 queue post_a_dose_response: 36 runs; code D:\new repo\xfedga_frozen\fcf54ee @ fcf54ee; repo D:\new repo\xfedga
+2026-10-20 14:40:34 [1/36] start breast_fedavg_seed1_f0312245_dose_p050
+2026-10-20 15:11:45 [1/36] done breast_fedavg_seed1_f0312245_dose_p050 in 31.2 min; GPU median 2520.0 MHz  ** THROTTLED **
+2026-10-20 15:11:45 [2/36] start breast_fedga_seed1_0562c720_dose_p050
+2026-10-20 15:43:26 [2/36] done breast_fedga_seed1_0562c720_dose_p050 in 31.7 min; GPU median 2535.0 MHz  ** THROTTLED **
+2026-10-20 15:43:26 [3/36] start breast_xfedga_seed1_0c7a78f9_dose_p050
+2026-10-20 16:32:17 [3/36] done breast_xfedga_seed1_0c7a78f9_dose_p050 in 48.8 min; GPU median 2520.0 MHz  ** THROTTLED **
+2026-10-20 16:32:17 STOP file found; stopping before breast_xfedga_plus_seed1_dbb9680f_dose_p050
+2026-10-20 16:32:17 queue post_a_dose_response finished
+2026-10-20 16:50:02 queue post_a_dose_response: 36 runs; code D:\new repo\xfedga_frozen\fcf54ee @ fcf54ee; repo D:\new repo\xfedga
+2026-10-20 16:50:02 [1/36] skip finished breast_fedavg_seed1_f0312245_dose_p050
+2026-10-20 16:50:02 [2/36] skip finished breast_fedga_seed1_0562c720_dose_p050
+2026-10-20 16:50:02 [3/36] skip finished breast_xfedga_seed1_0c7a78f9_dose_p050
+2026-10-20 16:50:02 [4/36] start breast_xfedga_plus_seed1_dbb9680f_dose_p050
+2026-10-20 17:52:58 [4/36] done breast_xfedga_plus_seed1_dbb9680f_dose_p050 in 62.9 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-20 17:52:58 [5/36] start breast_fedavg_seed2_f0312245_dose_p050
+2026-10-20 18:33:36 [5/36] done breast_fedavg_seed2_f0312245_dose_p050 in 40.6 min; GPU median 2595.0 MHz  ** THROTTLED **
+2026-10-20 18:33:36 [6/36] start breast_fedga_seed2_0562c720_dose_p050
+2026-10-20 19:16:52 [6/36] done breast_fedga_seed2_0562c720_dose_p050 in 43.3 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-20 19:16:52 [7/36] start breast_xfedga_seed2_0c7a78f9_dose_p050
+2026-10-20 20:15:41 [7/36] done breast_xfedga_seed2_0c7a78f9_dose_p050 in 58.8 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-20 20:15:41 [8/36] start breast_xfedga_plus_seed2_dbb9680f_dose_p050
+2026-10-20 21:15:28 [8/36] done breast_xfedga_plus_seed2_dbb9680f_dose_p050 in 59.8 min; GPU median 2595.0 MHz  ** THROTTLED **
+2026-10-20 21:15:28 [9/36] start breast_fedavg_seed3_f0312245_dose_p050
+2026-10-20 21:55:44 [9/36] done breast_fedavg_seed3_f0312245_dose_p050 in 40.3 min; GPU median 2595.0 MHz  ** THROTTLED **
+2026-10-20 21:55:44 [10/36] start breast_fedga_seed3_0562c720_dose_p050
+2026-10-20 22:44:58 [10/36] done breast_fedga_seed3_0562c720_dose_p050 in 49.2 min; GPU median 2730.0 MHz  ** THROTTLED **
+2026-10-20 22:44:58 [11/36] start breast_xfedga_seed3_0c7a78f9_dose_p050
+2026-10-20 23:43:13 [11/36] done breast_xfedga_seed3_0c7a78f9_dose_p050 in 58.3 min; GPU median 2595.0 MHz  ** THROTTLED **
+2026-10-20 23:43:13 [12/36] start breast_xfedga_plus_seed3_dbb9680f_dose_p050
+2026-10-21 00:44:44 [12/36] done breast_xfedga_plus_seed3_dbb9680f_dose_p050 in 61.5 min; GPU median 2580.0 MHz  ** THROTTLED **
+2026-10-21 00:44:44 [13/36] start breast_fedavg_seed1_6632a891_dose_p100
+2026-10-21 01:24:35 [13/36] done breast_fedavg_seed1_6632a891_dose_p100 in 39.8 min; GPU median 2595.0 MHz  ** THROTTLED **
+2026-10-21 01:24:35 [14/36] start breast_fedga_seed1_a28136c4_dose_p100
+2026-10-21 02:06:02 [14/36] done breast_fedga_seed1_a28136c4_dose_p100 in 41.5 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 02:06:02 [15/36] start breast_xfedga_seed1_8f07a8d8_dose_p100
+2026-10-21 03:05:13 [15/36] done breast_xfedga_seed1_8f07a8d8_dose_p100 in 59.2 min; GPU median 2625.0 MHz  ** THROTTLED **
+2026-10-21 03:05:13 [16/36] start breast_xfedga_plus_seed1_7e57569d_dose_p100
+2026-10-21 04:05:24 [16/36] done breast_xfedga_plus_seed1_7e57569d_dose_p100 in 60.2 min; GPU median 2595.0 MHz  ** THROTTLED **
+2026-10-21 04:05:24 [17/36] start breast_fedavg_seed2_6632a891_dose_p100
+2026-10-21 04:45:28 [17/36] done breast_fedavg_seed2_6632a891_dose_p100 in 40.1 min; GPU median 2625.0 MHz  ** THROTTLED **
+2026-10-21 04:45:28 [18/36] start breast_fedga_seed2_a28136c4_dose_p100
+2026-10-21 05:26:38 [18/36] done breast_fedga_seed2_a28136c4_dose_p100 in 41.2 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 05:26:38 [19/36] start breast_xfedga_seed2_8f07a8d8_dose_p100
+2026-10-21 06:23:20 [19/36] done breast_xfedga_seed2_8f07a8d8_dose_p100 in 56.7 min; GPU median 2595.0 MHz  ** THROTTLED **
+2026-10-21 06:23:20 [20/36] start breast_xfedga_plus_seed2_7e57569d_dose_p100
+2026-10-21 07:23:14 [20/36] done breast_xfedga_plus_seed2_7e57569d_dose_p100 in 59.9 min; GPU median 2625.0 MHz  ** THROTTLED **
+2026-10-21 07:23:14 [21/36] start breast_fedavg_seed3_6632a891_dose_p100
+2026-10-21 08:03:28 [21/36] done breast_fedavg_seed3_6632a891_dose_p100 in 40.2 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 08:03:28 [22/36] start breast_fedga_seed3_a28136c4_dose_p100
+2026-10-21 08:45:04 [22/36] done breast_fedga_seed3_a28136c4_dose_p100 in 41.6 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 08:45:04 [23/36] start breast_xfedga_seed3_8f07a8d8_dose_p100
+2026-10-21 09:44:01 [23/36] done breast_xfedga_seed3_8f07a8d8_dose_p100 in 58.9 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 09:44:01 [24/36] start breast_xfedga_plus_seed3_7e57569d_dose_p100
+2026-10-21 10:44:57 [24/36] done breast_xfedga_plus_seed3_7e57569d_dose_p100 in 60.9 min; GPU median 2625.0 MHz  ** THROTTLED **
+2026-10-21 10:44:57 [25/36] start breast_fedavg_seed1_74a8f954_dose_p025
+2026-10-21 11:24:43 [25/36] done breast_fedavg_seed1_74a8f954_dose_p025 in 39.8 min; GPU median 2595.0 MHz  ** THROTTLED **
+2026-10-21 11:24:43 [26/36] start breast_fedga_seed1_524fc955_dose_p025
+2026-10-21 12:05:26 [26/36] done breast_fedga_seed1_524fc955_dose_p025 in 40.7 min; GPU median 2625.0 MHz  ** THROTTLED **
+2026-10-21 12:05:26 [27/36] start breast_xfedga_seed1_1df14195_dose_p025
+2026-10-21 13:01:58 [27/36] done breast_xfedga_seed1_1df14195_dose_p025 in 56.5 min; GPU median 2625.0 MHz  ** THROTTLED **
+2026-10-21 13:01:58 [28/36] start breast_xfedga_plus_seed1_b856f407_dose_p025
+2026-10-21 14:04:15 [28/36] done breast_xfedga_plus_seed1_b856f407_dose_p025 in 62.3 min; GPU median 2640.0 MHz  ** THROTTLED **
+2026-10-21 14:04:15 [29/36] start breast_fedavg_seed2_74a8f954_dose_p025
+2026-10-21 14:45:43 [29/36] done breast_fedavg_seed2_74a8f954_dose_p025 in 41.5 min; GPU median 2625.0 MHz  ** THROTTLED **
+2026-10-21 14:45:43 [30/36] start breast_fedga_seed2_524fc955_dose_p025
+2026-10-21 15:30:22 [30/36] done breast_fedga_seed2_524fc955_dose_p025 in 44.6 min; GPU median 2700.0 MHz  ** THROTTLED **
+2026-10-21 15:30:22 [31/36] start breast_xfedga_seed2_1df14195_dose_p025
+2026-10-21 16:30:47 [31/36] done breast_xfedga_seed2_1df14195_dose_p025 in 60.4 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 16:30:47 [32/36] start breast_xfedga_plus_seed2_b856f407_dose_p025
+2026-10-21 17:32:54 [32/36] done breast_xfedga_plus_seed2_b856f407_dose_p025 in 62.1 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 17:32:55 [33/36] start breast_fedavg_seed3_74a8f954_dose_p025
+2026-10-21 18:14:11 [33/36] done breast_fedavg_seed3_74a8f954_dose_p025 in 41.3 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 18:14:12 [34/36] start breast_fedga_seed3_524fc955_dose_p025
+2026-10-21 18:55:45 [34/36] done breast_fedga_seed3_524fc955_dose_p025 in 41.6 min; GPU median 2595.0 MHz  ** THROTTLED **
+2026-10-21 18:55:45 [35/36] start breast_xfedga_seed3_1df14195_dose_p025
+2026-10-21 19:56:31 [35/36] done breast_xfedga_seed3_1df14195_dose_p025 in 60.8 min; GPU median 2640.0 MHz  ** THROTTLED **
+2026-10-21 19:56:31 [36/36] start breast_xfedga_plus_seed3_b856f407_dose_p025
+2026-10-21 20:55:50 [36/36] done breast_xfedga_plus_seed3_b856f407_dose_p025 in 59.3 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 20:55:50 queue post_a_dose_response finished

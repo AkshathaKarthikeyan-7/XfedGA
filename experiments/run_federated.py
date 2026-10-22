@@ -389,7 +389,7 @@ def run_experiment(task, method, seed, overrides=None, out_root="results/runs", 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--task", choices=["breast", "prostate", "prostate_ms"], required=True)
+    ap.add_argument("--task", choices=["breast", "prostate", "prostate_ms", "prostate_ms_runmc"], required=True)
     ap.add_argument("--method", choices=sorted(METHODS), required=True)
     ap.add_argument("--seed", type=int, required=True)
     ap.add_argument("--set", nargs="*", default=[], metavar="KEY=VALUE", help="config overrides, dotted keys")

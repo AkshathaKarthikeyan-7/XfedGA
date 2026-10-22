@@ -212,7 +212,8 @@ def build_task(task, cfg, part="all"):
            "server": server fitness / validation / test sets only (fl_dist server);
            k (int) : client k only, and nothing else (fl_dist client k loads only its own data).
     """
-    data = {"breast": build_breast, "prostate": build_prostate, "prostate_ms": build_prostate_ms}[task](cfg, part)
+    data = {"breast": build_breast, "prostate": build_prostate, "prostate_ms": build_prostate_ms,
+            "prostate_ms_runmc": build_prostate_ms}[task](cfg, part)
     k = cfg["scenario"]["corrupted_label_client"]
     if k is not None and part in ("all", k):   # robustness scenario: client k's masks shuffled across its own images
         idx = k if part == "all" else 0

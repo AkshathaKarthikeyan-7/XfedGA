@@ -1,0 +1,80 @@
+{
+ "capacity_from": "2026-10-20 16:10:53.905612",
+ "capacity_h": 113.2,
+ "items": [
+  {
+   "item": "a_rest",
+   "label": "a. dose-response, remaining 34 of 36 runs",
+   "h_with_contingency": 21.343397000000003,
+   "after_cuts": 21.343397000000003
+  },
+  {
+   "item": "b",
+   "label": "b. Flower demo + parity",
+   "h_with_contingency": 5.92215845,
+   "after_cuts": 5.92215845
+  },
+  {
+   "item": "g",
+   "label": "g. prostate_ms_runmc: FedGA, XFedGA+ (DSC-only), XFedGA+, XFedGA x 5 seeds (derived from prostate_ms)",
+   "h_with_contingency": 17.50360404624277,
+   "after_cuts": 17.50360404624277
+  },
+  {
+   "item": "g2",
+   "label": "g2. breast FedGA + XFedGA+ (DSC-only) x seeds 6-10",
+   "h_with_contingency": 7.018341666666668,
+   "after_cuts": 7.018341666666668
+  },
+  {
+   "item": "h",
+   "label": "h. fitness-weight screen: 3 combinations x 2 seeds, no test",
+   "h_with_contingency": 5.81837,
+   "after_cuts": 5.81837
+  },
+  {
+   "item": "h_followup",
+   "label": "h. conditional follow-up: 5 seeds with test (counted as if needed)",
+   "h_with_contingency": 4.867088333333334,
+   "after_cuts": 4.867088333333334
+  },
+  {
+   "item": "i",
+   "label": "i. beta screen: 3 betas x 2 seeds, no test",
+   "h_with_contingency": 5.81837,
+   "after_cuts": 5.81837
+  },
+  {
+   "item": "fedga_paper",
+   "label": "c. FedGA paper GA settings",
+   "h_with_contingency": 3.2835879365079363,
+   "after_cuts": 3.2835879365079363
+  },
+  {
+   "item": "h_rob2",
+   "label": "d. H-ROB2",
+   "h_with_contingency": 5.149703,
+   "after_cuts": 5.149703
+  },
+  {
+   "item": "ablations",
+   "label": "e. ablations",
+   "h_with_contingency": 18.477828,
+   "after_cuts": 18.477828
+  },
+  {
+   "item": "fedprox_bounds",
+   "label": "f. FedProx + bounds",
+   "h_with_contingency": 6.9839340000000005,
+   "after_cuts": 6.9839340000000005
+  }
+ ],
+ "total_h": 102.18638243275073,
+ "cuts_applied": [],
+ "fits": true,
+ "derived": {
+  "prostate_ms_test": false,
+  "breast_fedavg": false,
+  "prostate_ms_fedavg": false
+ }
+}

@@ -3,7 +3,7 @@ Run overrides of each (task, protocol) exactly as used by the combined screen (a
 acceptance screen and the final headline use the same settings as the screen cells they are compared with.
   breast:      v1 = defaults; v2 = 2 local epochs + fitness subsample 120
   prostate_ms: v1 = defaults; v2 = 2 local epochs + fitness subsample 120 + FOV crop S (results/audit/
-               fov_crop_prostate_ms.json) + z-score
+               fov_crop_<task>.json) + z-score
 LOG (evaluation only, does not change a run): log_wagg_val, log_client_val.
 """
 import json
@@ -18,8 +18,8 @@ def overrides(task, proto, log=True):
     s = []
     if proto == "v2":
         s += V2_COMMON
-        if task == "prostate_ms":
-            side = json.load(open(os.path.join(REPO, "results", "audit", "fov_crop_prostate_ms.json"),
+        if task.startswith("prostate_ms"):      # each multi-site task: S from its own client masks
+            side = json.load(open(os.path.join(REPO, "results", "audit", f"fov_crop_{task}.json"),
                                   encoding="utf-8"))["side_mm"]
             s += [f"preprocessing.fov_crop_mm={side}", "preprocessing.intensity=zscore"]
     elif proto != "v1":

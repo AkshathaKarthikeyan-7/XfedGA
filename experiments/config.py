@@ -21,7 +21,8 @@ import yaml
 CODE_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TASK_CONFIGS = {"breast": os.path.join(CODE_ROOT, "configs", "breast_clients.yaml"),
                 "prostate": os.path.join(CODE_ROOT, "configs", "prostate_clients.yaml"),
-                "prostate_ms": os.path.join(CODE_ROOT, "configs", "prostate_ms_clients.yaml")}
+                "prostate_ms": os.path.join(CODE_ROOT, "configs", "prostate_ms_clients.yaml"),
+                "prostate_ms_runmc": os.path.join(CODE_ROOT, "configs", "prostate_ms_runmc_clients.yaml")}
 REQUIRED = ["image_size", "seed", "clients", "server", "train", "aggregation", "ga", "fitness",
             "saliency", "evaluation", "splits", "loader", "method_options", "scenario"]
 

@@ -1,0 +1,57 @@
+{
+ "capacity_h": 87.4,
+ "items": [
+  {
+   "item": "suite",
+   "label": "full suite before the g code commit",
+   "h": 0.36,
+   "after_cuts": 0.36
+  },
+  {
+   "item": "g",
+   "label": "g: prostate_ms_runmc, 4 methods x 5 seeds (derived from prostate_ms)",
+   "h": 17.50360404624277,
+   "after_cuts": 17.50360404624277
+  },
+  {
+   "item": "xai_g",
+   "label": "XAI metrics on the 20 g runs",
+   "h": 1.2,
+   "after_cuts": 1.2
+  },
+  {
+   "item": "d_rest",
+   "label": "d: remaining 3 runs (XFedGA+ seed 2, XFedGA and XFedGA+ seed 3)",
+   "h": 2.7433753333333337,
+   "after_cuts": 2.7433753333333337
+  },
+  {
+   "item": "b_demo",
+   "label": "b: Flower seed 1 (demo: XFedGA, XFedGA+)",
+   "h": 1.9740528166666667,
+   "after_cuts": 1.9740528166666667
+  },
+  {
+   "item": "b_parity",
+   "label": "b: Flower seeds 2-3 (parity)",
+   "h": 3.9481056333333333,
+   "after_cuts": 3.9481056333333333
+  },
+  {
+   "item": "e",
+   "label": "e: ablations, 2 tasks x 3 seeds",
+   "h": 18.477828,
+   "after_cuts": 18.477828
+  },
+  {
+   "item": "f",
+   "label": "f: FedProx + bounds",
+   "h": 6.9839340000000005,
+   "after_cuts": 6.9839340000000005
+  }
+ ],
+ "total_h": 53.190899829576104,
+ "cuts": [],
+ "fits": true,
+ "computed": "2026-10-22 06:52:51.055249"
+}

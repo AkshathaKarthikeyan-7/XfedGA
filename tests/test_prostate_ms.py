@@ -99,3 +99,19 @@ def test_prostate_ms_one_round_fl_dist(tmp_path):
     assert r.returncode == 0, r.stdout[-2000:] + r.stderr[-2000:]
     logs = [f for d, _, fs in os.walk(out) for f in fs if f.startswith("client_") and f.endswith(".log")]
     assert len(logs) == 5
+
+
+@pytest.mark.data
+def test_prostate_ms_runmc_config_and_split():
+    """Item g (20 Oct 2026): RUNMC held out as the server site; BMC becomes a client."""
+    require_path(MS)
+    from experiments.tasks import build_task, split_summary
+    cfg = load_config("prostate_ms_runmc")
+    assert [c["name"] for c in cfg["clients"]] == ["BIDMC", "BMC", "HK", "I2CVB", "UCL"]
+    assert cfg["server"]["name"] == "RUNMC"
+    paths = [c["path"] for c in cfg["clients"]] + [cfg["server"]["path"]]
+    assert all(p.startswith(MS) for p in paths) and not any("PROMISE12" in p or "Task05" in p for p in paths)
+    s = split_summary(build_task("prostate_ms_runmc", cfg, part="server"))
+    assert [s["server"][r]["n_cases"] for r in ("fitness", "validation", "test")] == [8, 8, 14]
+    roles = [set(s["server"][r]["cases"]) for r in ("fitness", "validation", "test")]
+    assert not (roles[0] & roles[1] or roles[0] & roles[2] or roles[1] & roles[2])

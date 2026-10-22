@@ -56,7 +56,7 @@ def terminate(procs):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--task", choices=["breast", "prostate", "prostate_ms"], required=True)
+    ap.add_argument("--task", choices=["breast", "prostate", "prostate_ms", "prostate_ms_runmc"], required=True)
     ap.add_argument("--method", default="xfedga")
     ap.add_argument("--seed", type=int, required=True)
     ap.add_argument("--set", nargs="*", default=[])

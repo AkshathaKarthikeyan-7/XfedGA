@@ -60,12 +60,12 @@ def multisite_mask(path):
     return sitk.GetArrayFromImage(_resample_to_spacing_sitk(m, is_mask=True)) > 0       # (z, y, x)
 
 
-def main_ms():
-    cfg = load_config("prostate_ms")
+def main_ms(task="prostate_ms"):
+    cfg = load_config(task)
     train = {f"{c['name']}/{os.path.basename(p).split('.')[0]}": half_extent_mm(multisite_mask(p))
              for c in cfg["clients"] for p, _ in _index_multisite(c["path"])}
     side = int(math.ceil(2 * max(train.values()) / 10.0) * 10)
-    srv = build_task("prostate_ms", cfg, part="server").split_log["server"]
+    srv = build_task(task, cfg, part="server").split_log["server"]
     cases = {os.path.basename(p).split(".")[0]: p for p, _ in _index_multisite(cfg["server"]["path"])}
     check = {}
     for role in ["fitness", "validation"]:          # the test set is not read
@@ -76,8 +76,9 @@ def main_ms():
                    "from the in-plane image centre, after 0.5 mm resampling",
            "train_half_extent_mm": {"max": max(train.values()), "median": float(np.median(list(train.values()))),
                                     "argmax": max(train, key=train.get), "per_case": train},
-           "side_mm": side, "side_px_at_0.5mm": int(side / TARGET_SPACING_MM), "check_server_BMC": check}
-    with open(os.path.join("results", "audit", "fov_crop_prostate_ms.json"), "w", encoding="utf-8") as f:
+           "task": task, "server": cfg["server"]["name"], "clients": [c["name"] for c in cfg["clients"]],
+           "side_mm": side, "side_px_at_0.5mm": int(side / TARGET_SPACING_MM), f"check_server_{cfg['server']['name']}": check}
+    with open(os.path.join("results", "audit", f"fov_crop_{task}.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, indent=1)
     print(json.dumps({k: v for k, v in out.items() if k != "train_half_extent_mm"}, indent=1),
           {k: v for k, v in out["train_half_extent_mm"].items() if k != "per_case"})
@@ -108,5 +109,6 @@ def main():
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--task", default="prostate", choices=["prostate", "prostate_ms"])
-    main_ms() if ap.parse_args().task == "prostate_ms" else main()
+    ap.add_argument("--task", default="prostate", choices=["prostate", "prostate_ms", "prostate_ms_runmc"])
+    t = ap.parse_args().task
+    main() if t == "prostate" else main_ms(t)

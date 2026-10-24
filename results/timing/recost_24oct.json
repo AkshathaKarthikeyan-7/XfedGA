@@ -1,0 +1,18 @@
+{
+ "computed": "2026-10-24 14:27:32.798868",
+ "capacity_h": 54.4,
+ "remaining_runs": {
+  "e_ablations": 13,
+  "f_fedprox_bounds": 22
+ },
+ "hours_with_contingency": {
+  "e_ablations": 7.9023959999999995,
+  "f_fedprox_bounds": 6.9839340000000005
+ },
+ "total_h": 14.88633,
+ "fits": true,
+ "eta": {
+  "e_ablations": "2026-10-24 22:21:41.424468",
+  "f_fedprox_bounds": "2026-10-25 05:20:43.586868"
+ }
+}

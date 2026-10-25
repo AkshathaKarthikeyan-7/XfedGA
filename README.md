@@ -3,9 +3,17 @@
 Explanation-aware federated learning with a server-side genetic algorithm (GA), for medical image segmentation.
 M.Tech project, Amrita Vishwa Vidyapeetham.
 
+Author: Akshatha K (CB.SC.P2AIE25001), M.Tech Artificial Intelligence, Amrita School of Computing, Amrita Vishwa Vidyapeetham, Coimbatore. Guide: Dr. Bagyammal T.
+
 - **FedGA (baseline)** (the base paper's algorithm): the server averages the client models (w_agg) and runs a GA around w_agg. Its fitness is DSC on a server fitness set.
 - **XFedGA**: each client also sends a Grad-CAM saliency score q_i. The server weights the clients by (n_i/N)·max(q_i, eps)^β and uses the fitness F = w1·DSC − w2·HD95_norm + w3·EC.
 - **XFedGA+** (a declared post-v1 variant): the server scores each client model itself (s_i), and the GA searches over client mixing weights.
+
+## Key findings
+- Independent hospital (prostate, server RUNMC, pre-registered): XFedGA+ (DSC-only) beats FedGA by +0.0166 test DSC [+0.0084, +0.0254]; XFedGA+ by +0.0221.
+- Breast replication (new seeds 6-10): XFedGA+ (DSC-only) beats FedGA by +0.0121 [+0.0068, +0.0172].
+- Corrupted client: XFedGA degrades less than FedGA as label corruption increases (slope difference +0.0197 [+0.0145, +0.0247]) and down-weights the corrupted client.
+- The original XFedGA does not improve clean accuracy over FedGA (primary endpoint LOSE on both tasks); see Limitations.
 
 Every experiment was pre-registered before its runs (`docs/protocol/plan.md`). Checkpoints are selected on validation only, and the test set is evaluated once per run.
 

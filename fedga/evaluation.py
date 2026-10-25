@@ -31,6 +31,7 @@ def hd95_px(pred, target):
 
 
 def hd95_norm(pred, target, normalizer):
+    """HD95 in pixels divided by `normalizer` (the image side), capped at 1; 0 if both masks are empty, 1 if one is."""
     if pred.sum() == 0 and target.sum() == 0:
         return 0.0
     raw = hd95_px(pred, target)

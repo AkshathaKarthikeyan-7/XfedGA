@@ -5,7 +5,7 @@ Two mutation schedules, selected via `mode`:
   - "base"   : FedGA (baseline) -- the GA operators of Algorithm 1 of the base FedGA paper
                (elitist top-half selection, uniform crossover, sparse Gaussian mutation with
                fixed sigma). Population size, generations and fitness set are our settings,
-               which differ from the paper (reports/audit/fedga_paper_comparison.md).
+               which differ from the paper (docs/protocol/fedga_paper_comparison.md).
   - "xfedga" : same operators, mutation sigma annealed per generation: sigma0 * exp(-g / tau).
 The fitness function is passed in (evaluate_fn); see fedga/evaluation.py.
 """
@@ -15,12 +15,12 @@ import torch
 import numpy as np
 from monai.metrics import HausdorffDistanceMetric
 
-from xai.explainability import explanation_consistency  # single source of truth
 
 _hd95_metric = HausdorffDistanceMetric(percentile=95, include_background=False, reduction="mean")
 
 
 def add_gaussian_noise(state_dict, sigma):
+    """Copy of `state_dict` with N(0, sigma^2) noise added to every floating-point tensor."""
     noisy = copy.deepcopy(state_dict)
     for key in noisy.keys():
         if noisy[key].dtype.is_floating_point:
@@ -29,6 +29,7 @@ def add_gaussian_noise(state_dict, sigma):
 
 
 def initial_population(base_state_dict, population_size=10, sigma=0.01):
+    """w_agg followed by (population_size - 1) Gaussian neighbours of it (std sigma)."""
     population = [copy.deepcopy(base_state_dict)]
     for _ in range(population_size - 1):
         population.append(add_gaussian_noise(base_state_dict, sigma))
@@ -36,6 +37,7 @@ def initial_population(base_state_dict, population_size=10, sigma=0.01):
 
 
 def uniform_crossover(parent1, parent2):
+    """Child that takes each weight from parent1 or parent2 with probability 0.5 (FedGA Eq. 6)."""
     child = copy.deepcopy(parent1)
     for key in child.keys():
         if child[key].dtype.is_floating_point:
@@ -45,6 +47,7 @@ def uniform_crossover(parent1, parent2):
 
 
 def mutate(state_dict, sigma, alpha):
+    """Sparse Gaussian mutation: each weight gets N(0, sigma^2) noise with probability alpha (FedGA Eq. 7)."""
     mutated = copy.deepcopy(state_dict)
     for key in mutated.keys():
         if mutated[key].dtype.is_floating_point:
@@ -55,6 +58,7 @@ def mutate(state_dict, sigma, alpha):
 
 
 def dice_score(pred, target, eps=1e-6):
+    """Soft Dice coefficient of two binary tensors (eps-smoothed)."""
     pred = pred.flatten()
     target = target.flatten()
     inter = (pred * target).sum()
@@ -89,6 +93,7 @@ def multi_objective_fitness(dsc, hd95_norm, ec, weights=(0.5, 0.3, 0.2)):
 
 
 def annealed_sigma(sigma0, generation, tau=10.0):
+    """Mutation scale of XFedGA at generation g: sigma0 * exp(-g / tau)."""
     return sigma0 * math.exp(-generation / tau)
 
 

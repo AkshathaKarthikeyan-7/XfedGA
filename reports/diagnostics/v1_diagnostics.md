@@ -1,6 +1,6 @@
 # Diagnostics v1: headline runs (18 Oct 2026)
 
-> **SUPERSEDED for prostate (18 Oct 2026):** every PROMISE12 → Decathlon prostate result here is superseded because of train/server leakage (12 PROMISE12 client cases are Decathlon scans; 8 are in the server sets, 4 of 16 test). Kept for the record, used for no claim. See `reports/audit/leakage_note.md`. Breast results are unaffected.
+> **SUPERSEDED for prostate (18 Oct 2026):** every PROMISE12 → Decathlon prostate result here is superseded because of train/server leakage (12 PROMISE12 client cases are Decathlon scans; 8 are in the server sets, 4 of 16 test). Kept for the record, used for no claim. See `docs/protocol/leakage_note.md`. Breast results are unaffected.
 
 
 **Scope:** validation data, training logs and client / server-fitness / server-validation masks only. **No test data was read.** No training: item 4 uses inference with the saved validation-selected checkpoints on validation slices.
@@ -44,7 +44,7 @@
 
 - **The gland is a small object: about 3–4% of each slice.**
 - **Ours:** resample to 0.5 mm in-plane → 1st/99th-percentile clip → min-max to [0,1] → resize the whole slice to 384×384, with no crop.
-- **The base FedGA paper** (`reports/audit/fedga_paper_comparison.md`, from the PDF p.6): "a consistent field of view centred on the prostate region", resized to 384×384, intensities **z-score** normalised.
+- **The base FedGA paper** (`docs/protocol/fedga_paper_comparison.md`, from the PDF p.6): "a consistent field of view centred on the prostate region", resized to 384×384, intensities **z-score** normalised.
 - **What this suggests:** an FOV crop would make the gland a much larger share of the image. That is the most obvious candidate for our low prostate DSC (~0.40 validation). It is a hypothesis to test on validation, not a result.
 
 ## 4. Prostate validation error analysis: false-positive blobs and largest-component post-processing

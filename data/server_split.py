@@ -25,6 +25,7 @@ from data.breast_dataset import INDEXERS, train_val_split, filter_nonempty_masks
 
 
 def get_server_split(cfg):
+    """LEGACY image-level 50 / 50 BUS-BRA fitness / OOD split (audit reproduction only)."""
     server_cfg = cfg["server"]
     indexer = INDEXERS[server_cfg["name"]]
     all_pairs = indexer(server_cfg["path"])

@@ -59,5 +59,5 @@ uns\*_rehearsal`), which the live run cannot overwrite; keep it as the fallback.
   - EC is optimised by the method, so it is not evidence on its own.
   - We report independent metrics: pointing game, deletion/insertion AUC, Grad-CAM++, and a parameter-randomisation sanity check.
 - **"How were β and the checkpoint chosen?"**
-  - On the validation set only, by a rule fixed before the results (`reports/audit/plan.md` §0.0).
+  - On the validation set only, by a rule fixed before the results (`docs/protocol/plan.md` §0.0).
   - The test set is evaluated once per run.

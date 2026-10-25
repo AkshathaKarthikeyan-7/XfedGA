@@ -9,6 +9,7 @@ Windows spawn added 8-30 s per loader. Workers > 0 are supported and tested
 
 
 def loader_kwargs(cfg):
+    """DataLoader keyword arguments from the config's `loader` section."""
     opts = (cfg or {}).get("loader", {}) or {}
     workers = int(opts.get("num_workers", 0))
     return {

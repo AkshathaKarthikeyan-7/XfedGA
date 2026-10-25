@@ -1,7 +1,7 @@
 # Independent-site confirmation (item g, pre-registered 20 Oct 2026): the multi-site pipeline of prostate_ms with
 # RUNMC as the held-out server site (30 cases; case-level 8 fitness / 8 validation / 14 test, gland-size blocks,
 # data seed 42) and BIDMC, BMC, HK, I2CVB, UCL as clients. Self-contained: no PROMISE12 or Decathlon data.
-# RUNMC cases are Decathlon Task05 scans (reports/audit/multisite_inventory.md); harmless here, no Decathlon data is used.
+# RUNMC cases are Decathlon Task05 scans (docs/protocol/multisite_inventory.md); harmless here, no Decathlon data is used.
 
 task: prostate_segmentation_multisite_runmc
 image_size: [384, 384]

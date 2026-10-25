@@ -1,0 +1,211 @@
+..........................................................F............. [ 43%]
+......FF.FF...............x............................................. [ 87%]
+........xx..........                                                     [100%]
+================================== FAILURES ===================================
+________________ test_dataloader_workers_match_single_process _________________
+
+self = <torch.utils.data.dataloader._MultiProcessingDataLoaderIter object at 0x000001F615B8C220>
+timeout = 5.0
+
+    def _try_get_data(self, timeout=_utils.MP_STATUS_CHECK_INTERVAL):
+        # Tries to fetch data from `self._data_queue` once for a given timeout.
+        # This can also be used as inner loop of fetching without timeout, with
+        # the sender status as the loop condition.
+        #
+        # This raises a `RuntimeError` if any worker died expectedly. This error
+        # can come from either the SIGCHLD handler in `_utils/signal_handling.py`
+        # (only for non-Windows platforms), or the manual check below on errors
+        # and timeouts.
+        #
+        # Returns a 2-tuple:
+        #   (bool: whether successfully get data, any: data if successful else None)
+        try:
+>           data = self._data_queue.get(timeout=timeout)
+
+D:\conda_envs\fedga\lib\site-packages\torch\utils\data\dataloader.py:1310: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <multiprocessing.queues.Queue object at 0x000001F615B8D450>, block = True
+timeout = 5.0
+
+    def get(self, block=True, timeout=None):
+        if self._closed:
+            raise ValueError(f"Queue {self!r} is closed")
+        if block and timeout is None:
+            with self._rlock:
+                res = self._recv_bytes()
+            self._sem.release()
+        else:
+            if block:
+                deadline = time.monotonic() + timeout
+            if not self._rlock.acquire(block, timeout):
+                raise Empty
+            try:
+                if block:
+                    timeout = deadline - time.monotonic()
+                    if not self._poll(timeout):
+>                       raise Empty
+E                       _queue.Empty
+
+D:\conda_envs\fedga\lib\multiprocessing\queues.py:114: Empty
+
+The above exception was the direct cause of the following exception:
+
+tmp_path = WindowsPath('C:/Users/aksha/AppData/Local/Temp/pytest-of-aksha/pytest-73/test_dataloader_workers_match_0')
+
+    def test_dataloader_workers_match_single_process(tmp_path):
+        ds = _ToyDataset(_toy_cache(tmp_path))
+        single = [b for b in DataLoader(ds, batch_size=4, num_workers=0)]
+>       multi = [b for b in DataLoader(ds, batch_size=4, num_workers=2, persistent_workers=True)]
+
+tests\test_cache.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_cache.py:93: in <listcomp>
+    multi = [b for b in DataLoader(ds, batch_size=4, num_workers=2, persistent_workers=True)]
+D:\conda_envs\fedga\lib\site-packages\torch\utils\data\dataloader.py:741: in __next__
+    data = self._next_data()
+D:\conda_envs\fedga\lib\site-packages\torch\utils\data\dataloader.py:1524: in _next_data
+    idx, data = self._get_data()
+D:\conda_envs\fedga\lib\site-packages\torch\utils\data\dataloader.py:1483: in _get_data
+    success, data = self._try_get_data()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <torch.utils.data.dataloader._MultiProcessingDataLoaderIter object at 0x000001F615B8C220>
+timeout = 5.0
+
+    def _try_get_data(self, timeout=_utils.MP_STATUS_CHECK_INTERVAL):
+        # Tries to fetch data from `self._data_queue` once for a given timeout.
+        # This can also be used as inner loop of fetching without timeout, with
+        # the sender status as the loop condition.
+        #
+        # This raises a `RuntimeError` if any worker died expectedly. This error
+        # can come from either the SIGCHLD handler in `_utils/signal_handling.py`
+        # (only for non-Windows platforms), or the manual check below on errors
+        # and timeouts.
+        #
+        # Returns a 2-tuple:
+        #   (bool: whether successfully get data, any: data if successful else None)
+        try:
+            data = self._data_queue.get(timeout=timeout)
+            return (True, data)
+        except Exception as e:
+            # At timeout and error, we manually check whether any worker has
+            # failed. Note that this is the only mechanism for Windows to detect
+            # worker failures.
+            failed_workers = []
+            for worker_id, w in enumerate(self._workers):
+                if self._workers_status[worker_id] and not w.is_alive():
+                    failed_workers.append(w)
+                    self._mark_worker_as_unavailable(worker_id)
+            if len(failed_workers) > 0:
+                pids_str = ", ".join(str(w.pid) for w in failed_workers)
+>               raise RuntimeError(
+                    f"DataLoader worker (pid(s) {pids_str}) exited unexpectedly"
+                ) from e
+E               RuntimeError: DataLoader worker (pid(s) 32464, 21716) exited unexpectedly
+
+D:\conda_envs\fedga\lib\site-packages\torch\utils\data\dataloader.py:1323: RuntimeError
+______________ test_fl_dist_matches_custom_loop_and_passes_audit ______________
+
+tmp_path = WindowsPath('C:/Users/aksha/AppData/Local/Temp/pytest-of-aksha/pytest-73/test_fl_dist_matches_custom_lo0')
+
+    @pytest.mark.data
+    @pytest.mark.slow
+    def test_fl_dist_matches_custom_loop_and_passes_audit(tmp_path):
+        require_path("raw data/PROMISE12")
+        cmd = [sys.executable, os.path.join(REPO, "fl_dist", "launch.py"), "--task", "prostate", "--method", "xfedga",
+               "--seed", "7", "--tag", "fltest", "--out", str(tmp_path), "--no_test", "--set", *TINY]
+        res = subprocess.run(cmd, cwd=REPO, capture_output=True, text=True, timeout=1200)
+>       assert res.returncode == 0, res.stdout[-2000:]
+E       AssertionError: 
+E       assert 3221225794 == 0
+E        +  where 3221225794 = CompletedProcess(args=['D:\\conda_envs\\fedga\\python.exe', 'D:\\new repo\\xfedga\\fl_dist\\launch.py', '--task', 'pro...ess.subsample=8', 'saliency.subsample=4', 'evaluation.explain_samples=8'], returncode=3221225794, stdout='', stderr='').returncode
+
+tests\test_fl_dist.py:25: AssertionError
+_______________________ test_lock_serialises_processes ________________________
+
+tmp_path = WindowsPath('C:/Users/aksha/AppData/Local/Temp/pytest-of-aksha/pytest-73/test_lock_serialises_processes0')
+
+    def test_lock_serialises_processes(tmp_path):
+        lock = str(tmp_path / "gpu.lock")
+        procs = [subprocess.Popen([sys.executable, "-c", HOLDER, REPO, lock], stdout=subprocess.PIPE, text=True)
+                 for _ in range(3)]
+>       spans = sorted((json.loads(p.communicate(timeout=60)[0]) for p in procs), key=lambda s: s["start"])
+
+tests\test_fl_dist_lock.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_fl_dist_lock.py:30: in <genexpr>
+    spans = sorted((json.loads(p.communicate(timeout=60)[0]) for p in procs), key=lambda s: s["start"])
+D:\conda_envs\fedga\lib\json\__init__.py:346: in loads
+    return _default_decoder.decode(s)
+D:\conda_envs\fedga\lib\json\decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <json.decoder.JSONDecoder object at 0x000001F618201D20>, s = '', idx = 0
+
+    def raw_decode(self, s, idx=0):
+        """Decode a JSON document from ``s`` (a ``str`` beginning with
+        a JSON document) and return a 2-tuple of the Python
+        representation and the index in ``s`` where the document ended.
+    
+        This can be used to decode a JSON document from a string that may
+        have extraneous data at the end.
+    
+        """
+        try:
+            obj, end = self.scan_once(s, idx)
+        except StopIteration as err:
+>           raise JSONDecodeError("Expecting value", s, err.value) from None
+E           json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+D:\conda_envs\fedga\lib\json\decoder.py:355: JSONDecodeError
+_______________________ test_five_client_fl_dist_on_cpu _______________________
+
+tmp_path = WindowsPath('C:/Users/aksha/AppData/Local/Temp/pytest-of-aksha/pytest-73/test_five_client_fl_dist_on_cp0')
+
+    @pytest.mark.data
+    @pytest.mark.slow
+    def test_five_client_fl_dist_on_cpu(tmp_path):
+        require_path("raw data/MultiSiteProstate")
+        from tests.test_switches import TINY
+        out = str(tmp_path / "fl")
+        env = {**os.environ, "CUDA_VISIBLE_DEVICES": "-1", "OMP_NUM_THREADS": "1"}
+        r = subprocess.run([sys.executable, os.path.join(REPO, "fl_dist", "launch.py"), "--task", "prostate_ms",
+                            "--method", "xfedga", "--seed", "5", "--no_test", "--out", out, "--set", *TINY],
+                           capture_output=True, text=True, timeout=3600, env=env)
+>       assert r.returncode == 0, r.stdout[-3000:] + r.stderr[-2000:]
+E       AssertionError: 
+E       assert 3221225794 == 0
+E        +  where 3221225794 = CompletedProcess(args=['D:\\conda_envs\\fedga\\python.exe', 'D:\\new repo\\xfedga\\fl_dist\\launch.py', '--task', 'pro...ess.subsample=8', 'saliency.subsample=4', 'evaluation.explain_samples=8'], returncode=3221225794, stdout='', stderr='').returncode
+
+tests\test_fl_dist_lock.py:53: AssertionError
+__________________ test_tables_comparisons_outcome_and_latex __________________
+
+tmp_path = WindowsPath('C:/Users/aksha/AppData/Local/Temp/pytest-of-aksha/pytest-73/test_tables_comparisons_outcom0')
+
+    def test_tables_comparisons_outcome_and_latex(tmp_path):
+        rng = np.random.default_rng(0)
+        runs = tmp_path / "runs"
+        for seed in (1, 2, 3):
+            fake_run(runs, "prostate", "fedavg", seed, 0.00, rng)
+            fake_run(runs, "prostate", "fedga", seed, 0.00, rng)
+            fake_run(runs, "prostate", "xfedga", seed, 0.05, rng)
+            fake_run(runs, "prostate", "xfedga", seed, -0.30, rng, tag="hetero")    # other group: must not mix in
+            fake_run(runs, "prostate", "fedavg", seed + 10, -0.30, rng, cam=("halfres", "all"))   # old CAM: excluded
+        out = tmp_path / "tables"
+        res = subprocess.run([sys.executable, os.path.join(REPO, "analysis", "make_tables.py"), "--runs", str(runs / "*"),
+                              "--group", "main", "--n_boot", "2000", "--out", str(out)], capture_output=True, text=True, cwd=REPO)
+>       assert res.returncode == 0, res.stderr[-2000:]
+E       AssertionError: 
+E       assert 3221225794 == 0
+E        +  where 3221225794 = CompletedProcess(args=['D:\\conda_envs\\fedga\\python.exe', 'D:\\new repo\\xfedga\\analysis\\make_tables.py', '--runs'...mp\\pytest-of-aksha\\pytest-73\\test_tables_comparisons_outcom0\\tables'], returncode=3221225794, stdout='', stderr='').returncode
+
+tests\test_make_tables.py:56: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_cache.py::test_dataloader_workers_match_single_process - Ru...
+FAILED tests/test_fl_dist.py::test_fl_dist_matches_custom_loop_and_passes_audit
+FAILED tests/test_fl_dist_lock.py::test_lock_serialises_processes - json.deco...
+FAILED tests/test_fl_dist_lock.py::test_five_client_fl_dist_on_cpu - Assertio...
+FAILED tests/test_make_tables.py::test_tables_comparisons_outcome_and_latex
+5 failed, 156 passed, 3 xfailed in 727.44s (0:12:07)

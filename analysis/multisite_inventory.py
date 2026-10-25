@@ -15,7 +15,7 @@ in three steps (all arrays read with SimpleITK as (z, y, x)):
   3. confirm: candidates are re-read at full resolution (the reference resized to the multi-site in-plane grid if
      the grids differ), r recomputed under the screened alignment, and the mask Dice computed.
      DUPLICATE if full-resolution r >= 0.99 on the same grid or >= 0.95 after resizing.
-Writes results/audit/multisite_inventory.json and reports/audit/multisite_inventory.md.
+Writes results/audit/multisite_inventory.json and docs/protocol/multisite_inventory.md.
     & $py analysis/multisite_inventory.py
 """
 import glob
@@ -213,8 +213,8 @@ def main():
     nd = [m for a in audit.values() for r in a["cases"] for m in r["matches"] if not (m["duplicate"] or m["exact_hash"])]
     L += ["", f"Screened candidates (r ≥ {SCREEN_R} at 96 px) that were NOT confirmed as duplicates: {len(nd)}"
           + (f" (max full-resolution r {max(m['r_full'] for m in nd):.3f})" if nd else "") + "."]
-    os.makedirs(os.path.join("reports", "audit"), exist_ok=True)
-    with open(os.path.join("reports", "audit", "multisite_inventory.md"), "w", encoding="utf-8") as f:
+    os.makedirs(os.path.join("docs", "protocol"), exist_ok=True)
+    with open(os.path.join("docs", "protocol", "multisite_inventory.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L) + "\n")
     sys.stdout.reconfigure(encoding="utf-8")
     print("\n".join(L))

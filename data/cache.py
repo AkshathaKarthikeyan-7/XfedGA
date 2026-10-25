@@ -55,6 +55,7 @@ def file_fingerprint(paths):
 
 
 def cache_key(spec):
+    """Short SHA-256 of the preprocessing spec (code, parameters and file fingerprints)."""
     blob = json.dumps(spec, sort_keys=True, default=str).encode("utf-8")
     return hashlib.sha256(blob).hexdigest()[:16]
 
@@ -81,18 +82,22 @@ class CachedArrays:
             self._masks = np.load(os.path.join(self.directory, "masks.npy"), mmap_mode="r")
 
     def rows(self, item_id):
+        """Row indices of `item_id` in the cache."""
         start, end = self.index[item_key(item_id)]
         return list(range(start, end))
 
     def image(self, row):
+        """Preprocessed image of one row."""
         self._open()
         return np.array(self._images[row])
 
     def mask(self, row):
+        """Binary mask of one row."""
         self._open()
         return np.array(self._masks[row])
 
     def mask_sum(self, row):
+        """Number of foreground pixels in the mask of one row."""
         self._open()
         return int(self._masks[row].sum())
 

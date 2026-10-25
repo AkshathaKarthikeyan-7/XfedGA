@@ -1,9 +1,9 @@
 """Standard FedAvg aggregation, plus the explanation-weighted variant."""
 import copy
-import torch
 
 
 def fedavg_aggregate(client_state_dicts, client_sizes):
+    """FedAvg: weighted average of the client state dicts with weights n_i / N."""
     return _weighted_average(client_state_dicts, aggregation_weights(client_sizes))
 
 

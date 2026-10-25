@@ -12,6 +12,7 @@ from monai.losses import DiceCELoss
 
 
 def build_loss():
+    """Equal-weight Dice + cross-entropy loss on logits (MONAI DiceCELoss), as in the base paper."""
     return DiceCELoss(
         to_onehot_y=True,   # masks come in as (B,H,W) int labels; auto one-hot to (B,2,H,W)
         softmax=True,       # model outputs raw logits; apply softmax internally

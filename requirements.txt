@@ -1,5 +1,5 @@
 # Pinned to the working environment D:\conda_envs\fedga (Python 3.10), from
-# reports/audit/env_freeze_after_pypdf_pytest.txt (pip freeze, 14 Oct 2026).
+# docs/environment/requirements_freeze.txt (pip freeze, 14 Oct 2026).
 # torch/torchvision are CUDA 12.8 builds: install them from the PyTorch index, e.g.
 #   pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu128
 torch==2.11.0+cu128

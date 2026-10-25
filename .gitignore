@@ -31,3 +31,6 @@ cache/
 
 # smoke-run outputs (not results)
 results/smoke/
+
+# local agent instructions (kept on disk, not tracked)
+CLAUDE.md

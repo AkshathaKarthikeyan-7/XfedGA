@@ -1,0 +1,170 @@
+{
+ "clients": {
+  "BIDMC": {
+   "cases": [
+    "Case00",
+    "Case02",
+    "Case03",
+    "Case04",
+    "Case05",
+    "Case06",
+    "Case07",
+    "Case08",
+    "Case09",
+    "Case10",
+    "Case11",
+    "Case12"
+   ],
+   "n_cases": 12,
+   "n_slices": 261
+  },
+  "HK": {
+   "cases": [
+    "Case38",
+    "Case39",
+    "Case40",
+    "Case41",
+    "Case42",
+    "Case43",
+    "Case44",
+    "Case45",
+    "Case46",
+    "Case47",
+    "Case48",
+    "Case49"
+   ],
+   "n_cases": 12,
+   "n_slices": 158
+  },
+  "I2CVB": {
+   "cases": [
+    "Case00",
+    "Case01",
+    "Case02",
+    "Case03",
+    "Case04",
+    "Case05",
+    "Case06",
+    "Case07",
+    "Case08",
+    "Case09",
+    "Case10",
+    "Case11",
+    "Case12",
+    "Case13",
+    "Case14",
+    "Case15",
+    "Case16",
+    "Case17",
+    "Case18"
+   ],
+   "n_cases": 19,
+   "n_slices": 468
+  },
+  "RUNMC": {
+   "cases": [
+    "Case00",
+    "Case01",
+    "Case02",
+    "Case03",
+    "Case04",
+    "Case05",
+    "Case06",
+    "Case07",
+    "Case08",
+    "Case09",
+    "Case10",
+    "Case11",
+    "Case12",
+    "Case13",
+    "Case14",
+    "Case15",
+    "Case16",
+    "Case17",
+    "Case18",
+    "Case19",
+    "Case20",
+    "Case21",
+    "Case22",
+    "Case23",
+    "Case24",
+    "Case25",
+    "Case26",
+    "Case27",
+    "Case28",
+    "Case29"
+   ],
+   "n_cases": 30,
+   "n_slices": 421
+  },
+  "UCL": {
+   "cases": [
+    "Case01",
+    "Case26",
+    "Case27",
+    "Case28",
+    "Case29",
+    "Case30",
+    "Case31",
+    "Case32",
+    "Case33",
+    "Case34",
+    "Case35",
+    "Case36",
+    "Case37"
+   ],
+   "n_cases": 13,
+   "n_slices": 175
+  }
+ },
+ "server": {
+  "fitness": {
+   "cases": [
+    "Case00",
+    "Case01",
+    "Case14",
+    "Case18",
+    "Case20",
+    "Case24",
+    "Case26",
+    "Case29"
+   ],
+   "n_cases": 8,
+   "n_slices": 106
+  },
+  "test": {
+   "cases": [
+    "Case03",
+    "Case07",
+    "Case08",
+    "Case09",
+    "Case10",
+    "Case11",
+    "Case15",
+    "Case16",
+    "Case17",
+    "Case19",
+    "Case23",
+    "Case25",
+    "Case27",
+    "Case28"
+   ],
+   "n_cases": 14,
+   "n_slices": 173
+  },
+  "validation": {
+   "cases": [
+    "Case02",
+    "Case04",
+    "Case05",
+    "Case06",
+    "Case12",
+    "Case13",
+    "Case21",
+    "Case22"
+   ],
+   "n_cases": 8,
+   "n_slices": 105
+  }
+ }
+}

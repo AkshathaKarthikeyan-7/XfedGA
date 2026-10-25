@@ -12,7 +12,7 @@ Method (memory-lean): every image read once as grayscale and kept as a 64 x 64 z
   2. screen: Pearson r of every pair (one matrix product), also against the horizontally flipped image; r >= 0.95;
   3. confirm: screened pairs re-read and compared at 256 x 256: DUPLICATE if r >= 0.98, NEAR-DUPLICATE if 0.95-0.98.
   Limitation: whole-image correlation does not detect a copy that was cropped or padded differently.
-Writes results/audit/breast_duplicates.json and reports/audit/breast_duplicates.md.
+Writes results/audit/breast_duplicates.json and docs/protocol/breast_duplicates.md.
     & $py analysis/breast_duplicate_audit.py
 """
 import csv
@@ -125,8 +125,8 @@ def main():
         L += ["", "Leaking pairs:", ""] + [f"- {p['a']} = {p['b']} (r256={p['r_256']}, {p['kind']}"
                                          + (f", patients {p['patients']}, roles {p['roles']}" if "roles" in p else "") + ")"
                                          for p in pairs if group(p) in leaks and p["kind"] != "not confirmed"][:200]
-    os.makedirs(os.path.join("reports", "audit"), exist_ok=True)
-    with open(os.path.join("reports", "audit", "breast_duplicates.md"), "w", encoding="utf-8") as f:
+    os.makedirs(os.path.join("docs", "protocol"), exist_ok=True)
+    with open(os.path.join("docs", "protocol", "breast_duplicates.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L) + "\n")
     sys.stdout.reconfigure(encoding="utf-8")
     print("\n".join(L[:40]))

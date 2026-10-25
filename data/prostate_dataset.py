@@ -13,6 +13,7 @@ Output interface matches data/breast_dataset.py exactly:
     image: (1, H, W) float tensor, normalized to [0, 1]
     mask:  (H, W) long tensor, binary {0, 1}
 """
+import logging
 import os
 import glob
 import numpy as np
@@ -26,6 +27,8 @@ from torch.utils.data import Dataset
 from data.cache import DEFAULT_CACHE_ROOT, build_or_load, file_fingerprint, source_hash
 
 TARGET_SPACING_MM = 0.5
+
+log = logging.getLogger(__name__)
 
 
 def _resample_to_spacing_sitk(sitk_image, is_mask=False):
@@ -172,6 +175,7 @@ def _extract_slices_multisite(volume_path, min_fg_fraction=0.0):
 
 
 def split_promise12_clients(root, seed=42):
+    """Seeded 50 / 50 case-level split of PROMISE12 into two clients (superseded task)."""
     all_cases = _index_promise12(root)
     rng = np.random.RandomState(seed)
     idx = rng.permutation(len(all_cases))
@@ -298,8 +302,7 @@ class ProstateClientDataset(Dataset):
                 f"No non-empty slices extracted for {client_name} at {root}. "
                 f"Check min_fg_fraction or resampling parameters."
             )
-        print(f"  ProstateClientDataset[{client_name}]: {len(self.slices)} slices "
-              f"from {len(case_list)} cases")
+        log.info("ProstateClientDataset[%s]: %d slices from %d cases", client_name, len(self.slices), len(case_list))
 
     def __len__(self):
         return len(self.slices)

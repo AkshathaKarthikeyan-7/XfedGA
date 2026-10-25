@@ -2,7 +2,7 @@
 
 Everything in this folder predates the Session-1 audit (13 Oct 2026) and is **superseded**. Do not cite these numbers as results.
 
-**Why superseded** (`reports/audit/audit.md`):
+**Why superseded** (`docs/protocol/audit.md`):
 - Every `*_BEST_OODselected.pt` was chosen as the round with the highest DSC **on the OOD test set**, verified by exact re-evaluation in `results/audit/verify_checkpoints.json`. This is selection on the test set.
 - All runs are single and unseeded. Statistics were per image, not per case.
 - Breast data bugs: malignant BUS-UCLM lesions were silently dropped (red masks; audit D-1), and the BUS-BRA fitness/OOD split leaked 382 patients across the halves (audit D-2).

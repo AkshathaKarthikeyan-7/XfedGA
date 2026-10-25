@@ -1,90 +1,103 @@
 # XFedGA
 
-XFedGA is explanation-aware federated learning with server-side genetic-algorithm (GA) search, for medical image segmentation (M.Tech project, Amrita Vishwa Vidyapeetham).
-- Each client sends its model update and a client-side Grad-CAM saliency score **q_i**.
-- The server aggregates with weights ∝ (n_i/N)·max(q_i, eps)^beta, then runs a GA whose fitness combines DSC, HD95 and explanation consistency.
-- The best candidate becomes the global model.
+Explanation-aware federated learning with a server-side genetic algorithm (GA), for medical image segmentation.
+M.Tech project, Amrita Vishwa Vidyapeetham.
 
-How the pieces fit: [ARCHITECTURE.md](ARCHITECTURE.md). Live demo script: [docs/DEMO.md](docs/DEMO.md). Research spec: [docs/XFEDGA_SPEC.md](docs/XFEDGA_SPEC.md). Current plan: [reports/audit/plan.md](reports/audit/plan.md).
+- **FedGA (baseline)** (the base paper's algorithm): the server averages the client models (w_agg) and runs a GA around w_agg. Its fitness is DSC on a server fitness set.
+- **XFedGA**: each client also sends a Grad-CAM saliency score q_i. The server weights the clients by (n_i/N)·max(q_i, eps)^β and uses the fitness F = w1·DSC − w2·HD95_norm + w3·EC.
+- **XFedGA+** (a declared post-v1 variant): the server scores each client model itself (s_i), and the GA searches over client mixing weights.
 
-> Status (17 Oct 2026): Session 3a — all method and scenario switches implemented and smoke-tested; experiment queue in `analysis/run_queue.py`. Results produced before 13 Oct are superseded: their checkpoints were selected on the test set (see [results/legacy/README.md](results/legacy/README.md)).
+Every experiment was pre-registered before its runs (`docs/protocol/plan.md`). Checkpoints are selected on validation only, and the test set is evaluated once per run.
 
-## Tasks and data
-| Task | Clients | Server data (fitness / validation / test) |
-|---|---|---|
-| Breast ultrasound | BUSI, BUS-UCLM | BUS-BRA, split by patient 15 / 25 / 60 % |
-| Prostate MRI | PROMISE12, split 50/50 by case into 2 clients | Decathlon Task05, cases 8 / 8 / 16 |
+## Folder structure
+| Path | Contents |
+|---|---|
+| `fedga/` | algorithm: aggregation, GA (`ga_optimizer.py`), fitness and metrics (`evaluation.py`), client update, losses |
+| `xai/` | Grad-CAM / Grad-CAM++, explanation consistency (EC, EC_mass), pointing game, deletion / insertion, randomisation checks |
+| `experiments/` | the single-process federated loop (`run_federated.py`), task builders (`tasks.py`), config handling |
+| `fl_dist/` | Flower 1.7.0 version: multi-process federation on a single machine over loopback gRPC |
+| `data/` | dataset loaders, preprocessing cache, splits, scenarios (label corruption) |
+| `configs/` | one YAML per task (`<task>_clients.yaml`: `breast`, `prostate_ms`, `prostate_ms_runmc`; `prostate` is superseded) |
+| `queues/` | the exact run lists of every experiment (YAML) |
+| `analysis/` | scripts that produce every reported table and figure; `analysis/archive/` = planning and queue generators |
+| `results/` | all run outputs, tables, figures and audits (each script writes here) |
+| `docs/protocol/` | pre-registrations (`plan.md`), audits, the leakage note, the Review-2 comparison, panel responses |
+| `docs/` | research spec (`XFEDGA_SPEC.md`), Flower demo script (`DEMO.md`), environment freeze |
+| `reports/` | generated diagnostic and review reports |
+| `tests/` | pytest suite (fast CPU tests; `-m slow` = GPU tests) |
 
-Expected locations (relative to the repo root): `raw data/BUSI`, `raw data/BUS-UCLM`, `raw data/BUS-BRA`, `raw data/PROMISE12`, `raw data/Task05_Prostate/Task05_Prostate`. All datasets are public and de-identified; see their licences (Decathlon: CC-BY-SA 4.0).
+## Data
+Expected under `raw data/` (all public, de-identified):
+- **Breast:** `BUSI`, `BUS-UCLM` (clients) and `BUS-BRA` (server; split by patient 15 / 25 / 60 % into fitness / validation / test).
+- **Prostate:** `MultiSiteProstate/{BIDMC,BMC,HK,I2CVB,RUNMC,UCL}`.
+  - `prostate_ms`: clients BIDMC, HK, I2CVB, RUNMC, UCL; server BMC.
+  - `prostate_ms_runmc`: clients BIDMC, BMC, HK, I2CVB, UCL; server RUNMC.
+  - Server cases are split 8 / 8 / 14 into fitness / validation / test.
+- The earlier PROMISE12 → Decathlon setting is **superseded**: 12 PROMISE12 client cases are Decathlon server scans (`docs/protocol/leakage_note.md`).
 
-**Preprocessing:**
-- every image and mask is resized to 384×384 before training and before every metric;
-- breast images are min-max normalised;
-- prostate slices are resampled to 0.5 mm in-plane, clipped to the 1st/99th percentile and min-max normalised;
-- only slices or images with a non-empty mask are used.
-
-Preprocessed tensors are cached under `cache/`, built automatically on first use and rebuilt whenever the preprocessing code or raw files change.
-
-## Setup (Windows, PowerShell)
+## Setup (Windows, PowerShell; Python 3.10)
 ```powershell
-# Python 3.10 environment with the pinned packages
 python -m venv venv; .\venv\Scripts\Activate.ps1
 pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu128
-pip install -r requirements.txt
+pip install -r requirements.txt          # full freeze: docs/environment/requirements_freeze.txt
+$py = "python"                           # the commands below use $py
+& $py -m pytest -m "not slow"            # fast tests (CPU); drop -m to run the GPU tests too
 ```
-The development environment is `D:\conda_envs\fedga`. The commands below use `$py = "D:\conda_envs\fedga\python.exe"`; with a venv, use `python` instead.
 
-## Run
+## Reproduce the results
+**Runs.** Every experiment is a queue. `analysis/run_queue.py` runs it sequentially, skips finished runs and logs the GPU state. Run it from a frozen worktree at the commit named in the pre-registration:
 ```powershell
-$py = "D:\conda_envs\fedga\python.exe"
-
-# tests (add -m "not slow" to skip the GPU tests)
-& $py -m pytest
-
-# one federated run: --task breast|prostate, --seed N, --method one of
-#   fedavg | fedga (FedGA baseline = ablation A) | xfedga (= ablation E)
-#   abl_B | abl_C | abl_D | abl_F | random_search | fedprox | centralized | local_only
-# scenario switches (configs, scenario:): partition=acquisition (prostate), noisy_qi_client,
-#   corrupted_label_client, dp.enabled
-& $py experiments/run_federated.py --task prostate --method xfedga --seed 1
-
-# smoke run: 1 round, tiny GA, no test evaluation
-& $py experiments/run_federated.py --task breast --method xfedga --seed 1 --no_test --set train.rounds=1 ga.population=4 ga.generations=2
-
-# any hyperparameter can be overridden with dotted keys
-& $py experiments/run_federated.py --task breast --method xfedga --seed 1 --set aggregation.beta=1.0
+git worktree add --detach ..\xfedga_frozen\<sha> <sha>
+& $py ..\xfedga_frozen\<sha>\analysis\run_queue.py ..\xfedga_frozen\<sha>\queues\<queue>.yaml --repo .
+# a single run:
+& $py experiments/run_federated.py --task breast --method xfedga --seed 1 [--no_test] [--set key=value ...]
 ```
-Each run writes `results/runs/<run_id>/`:
-- `config_resolved.yaml`
-- `round_log.csv`: validation DSC / HD95 / EC / pointing game, q_i and alpha_i per client, GA best/mean fitness per generation, and timings
-- `test_per_image.csv`: the selected checkpoint on the test set, with patient/case ids
-- `run_meta.json`: run id, seed, config hash, git commit, selected round
-- the validation-selected checkpoint `<task>_<method>_seed<k>_valselected.pt`
 
-The split case/patient ids are logged in `results/splits/<task>_dataseed<seed>.json` (identical for every run; each run checks it) and, with the fixed subsamples, in the run folder (`split_log.json`).
+**Tables and figures.** These run on the CPU and read `results/runs/`:
 
-## Experiment queue
+| Result | Queue(s) | Command |
+|---|---|---|
+| Final headline (PRIMARY: XFedGA vs FedGA; secondary: XFedGA+ vs FedGA) | `headline.yaml` (breast), `final_headline.yaml` | `& $py analysis/make_tables.py --group main,final --comparisons final --tasks breast,prostate_ms --out results/tables/final` |
+| XAI metrics on checkpoints | as above | `& $py analysis/xai_metrics.py --runs "results/runs/*_final"` |
+| Protocol / XFedGA+ / acceptance decisions (validation) | `v2_screen.yaml`, `screen_19oct.yaml`, `acceptance_screen.yaml` | `analysis/v2_adoption.py`, `analysis/xplus_adoption.py`, `analysis/acceptance_adoption.py` |
+| a. Dose-response | `post_a_dose_response.yaml` | `& $py analysis/dose_response.py` |
+| b–f. Flower parity, paper GA settings, H-ROB2, ablations, FedProx + bounds | `post_b_*` … `post_f_*` | `& $py analysis/post_items_analysis.py` |
+| g. Independent site (RUNMC) | `post_g_site_runmc.yaml` | `& $py analysis/g_site_runmc.py` |
+| g2. Breast replication (seeds 6–10) | `post_g2_breast_replication.yaml` | `& $py analysis/g2_replication.py` |
+| h / i. Fitness-weight and β sensitivity (validation) | `post_h_fw_screen.yaml`, `post_i_beta_screen.yaml` | `& $py analysis/sensitivity_screens.py` |
+| Root-cause diagnostics | (all screens) | `& $py analysis/root_cause.py` |
+| Final figures | (all) | `& $py analysis/final_figures.py` |
+| Leakage and duplicate audits | — | `analysis/promise12_decathlon_overlap.py`, `analysis/multisite_inventory.py`, `analysis/breast_duplicate_audit.py` |
+
+## Flower demo
+The demo uses breast with 2 clients; the script is in `docs/DEMO.md`.
 ```powershell
-# sequential, resumable; skips finished runs; logs GPU state and flags throttling
-& $py analysis/run_queue.py queues/beta_screen.yaml
-# run from a frozen worktree so later edits cannot change running jobs:
-git worktree add --detach ..þdga_frozen\<sha> <sha>
-& $py ..þdga_frozen\<sha>nalysis
-un_queue.py ..þdga_frozen\<sha>\queues\<queue>.yaml --repo .
+& $py fl_dist/launch.py --task breast --method xfedga --seed 1 --tag demo --set train.rounds=2 train.local_epochs=2
 ```
+One server process and one OS process per client communicate over loopback gRPC. Each run writes `message_audit.json` (exactly weights, n_i, q_i and the client index per message).
 
-## Analysis (CPU; every table and figure from `results/`)
-```powershell
-& $py analysis/make_tables.py --group main --out results/tables/headline                        # headline
-& $py analysis/make_tables.py --group main --comparisons ablations --out results/tables/ablations
-& $py analysis/make_tables.py --group hetero --out results/tables/hetero
-& $py analysis/xai_metrics.py --runs "results/runs/*_seed*"      # independent XAI metrics (GPU, minutes per checkpoint)
-& $py analysis/fitness_weight_step0.py                           # fitness-weight sensitivity, offline
-& $py analysis/beta_decision.py                                  # beta rule on the beta screen (validation only)
-```
-Each table is written as `.md` and as LaTeX (`egin{tabular}` with `\hline`) for the thesis. Comparisons are case-level paired differences: seeds are averaged within case, with a 95% cluster-bootstrap CI over cases, Cohen's d_z, and WIN / TIE / LOSE.
+## Main results
+Test DSC, paired differences at patient (breast, 638) or case (`prostate_ms`, 14) level, 95% cluster bootstrap, 5 seeds unless stated.
 
-## Repository layout
-`configs/ data/ models/ fedga/ xai/ experiments/ fl_dist/ (Session 3) analysis/ tests/ reports/ results/`; see [ARCHITECTURE.md](ARCHITECTURE.md).
+| Comparison | Task | Δ test DSC [95% CI] | Outcome | Source |
+|---|---|---|---|---|
+| **PRIMARY:** XFedGA vs FedGA (baseline) | breast | −0.0072 [−0.0109, −0.0035] | LOSE | [final tables](results/tables/final/comparisons.md) |
+| **PRIMARY:** XFedGA vs FedGA (baseline) | prostate_ms | −0.0046 [−0.0082, −0.0015] | LOSE | [final tables](results/tables/final/comparisons.md) |
+| Declared secondary: XFedGA+ vs FedGA | breast / prostate_ms | −0.0078 / +0.0061 | LOSE / TIE | [final tables](results/tables/final/comparisons.md) |
+| g: XFedGA+ (DSC-only) vs FedGA, independent site RUNMC | prostate_ms_runmc | +0.0166 [+0.0084, +0.0254] | WIN | [g](results/site_g/g_runmc.md) |
+| g2: XFedGA+ (DSC-only) vs FedGA, new seeds 6–10 | breast | +0.0121 [+0.0068, +0.0172] | WIN | [g2](results/replication/g2_breast.md) |
+| Dose-response D1: slope XFedGA − FedGA (corrupted client) | breast, 3 seeds | +0.0197 [+0.0145, +0.0247] | supported | [dose-response](results/dose_response/dose_response.md) |
+| Flower vs custom loop (XFedGA, XFedGA+) | breast, 3 seeds | 0 (bit-identical) | equivalent | [items b–f](results/post_items/post_items.md) |
 
-The pre-audit training scripts (`experiments/train_fedga.py`, `train_fedga_prostate.py`, `train_baseline_fedavg.py`), the root-level analysis scripts and `scripts/` were **removed on 15 Oct 2026** (superseded by `experiments/run_federated.py` and `analysis/`). They remain in git history at tag `legacy-scripts-final`; their outputs are in `results/legacy/` (superseded, OOD-selected).
+More results (paper GA settings, H-ROB2, ablations, FedProx, bounds, sensitivity screens, explanation metrics) are in [results/post_items/post_items.md](results/post_items/post_items.md), [results/sensitivity/](results/sensitivity/) and [results/tables/final/comparisons.md](results/tables/final/comparisons.md). Figures: [results/figures/final/](results/figures/final/).
+
+## Limitations
+- **The pre-registered primary endpoint is LOSE on both tasks**, so XFedGA is not claimed to improve accuracy. XFedGA+ and its DSC-only control are post-v1 variants, declared as such. g2 reuses the same test patients (new seeds only).
+- **`prostate_ms` has only 14 test cases** per held-out site; some secondary rows disagree between the bootstrap and the t-interval.
+- **Explanation metrics depend on the definition:** EC (IoU at 0.5) and EC_mass can disagree in direction (`results/xai_ec/`).
+- **Single 6 GB GPU:** batch size 8 instead of the paper's 128. Flower with 5 client processes runs out of memory, so the Flower demo and parity use 2 clients.
+- **Declared deviations** (queue incidents, execution order, the superseded prostate setting) are recorded in `docs/protocol/plan.md`.
+- **Results before 13 Oct 2026** are superseded: their checkpoints were selected on the test set (`results/legacy/README.md`, `docs/protocol/reaudit.md`).
+
+## Tools
+AI coding assistants were used to write code, run experiments and draft documentation, under the author's direction. The author made all research decisions and pre-registrations.

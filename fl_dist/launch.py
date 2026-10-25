@@ -14,7 +14,6 @@ import os
 import socket
 import subprocess
 import sys
-import threading
 import time
 
 CODE_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,12 +24,14 @@ from experiments.config import config_hash, load_config  # noqa: E402
 
 
 def free_port():
+    """A free local TCP port for the gRPC server."""
     with socket.socket() as s:
         s.bind(("127.0.0.1", 0))
         return s.getsockname()[1]
 
 
 def wait_listening(port, proc, timeout=300):
+    """Wait until the server listens on `port` (False if it exits or times out)."""
     t0 = time.time()
     while time.time() - t0 < timeout:
         if proc.poll() is not None:
@@ -43,6 +44,7 @@ def wait_listening(port, proc, timeout=300):
 
 
 def terminate(procs):
+    """Terminate the processes, then kill those still alive after 20 s."""
     for p in procs:
         if p.poll() is None:
             p.terminate()
@@ -55,6 +57,7 @@ def terminate(procs):
 
 
 def main():
+    """Start the server and one process per client; wait for them; write the GPU summary."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--task", choices=["breast", "prostate", "prostate_ms", "prostate_ms_runmc"], required=True)
     ap.add_argument("--method", default="xfedga")

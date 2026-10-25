@@ -166,6 +166,7 @@ def random_subsample(n_items, n, seed=42):
 
 
 def write_split_log(path, payload):
+    """Write the split log as sorted, indented JSON."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=1, sort_keys=True)

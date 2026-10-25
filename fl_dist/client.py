@@ -33,14 +33,17 @@ log = logging.getLogger("fl_dist.client")
 
 
 def state_to_ndarrays(state):
+    """Model state dict -> list of numpy arrays (the Flower message format)."""
     return [v.detach().cpu().numpy() for v in state.values()]
 
 
 def ndarrays_to_state(keys, arrays, device):
+    """List of numpy arrays -> state dict on `device`, in the order of `keys`."""
     return {k: torch.from_numpy(np.array(a, copy=True)).to(device) for k, a in zip(keys, arrays)}
 
 
 class XFedGAClient(fl.client.NumPyClient):
+    """Flower client: trains locally on its own data and returns (w_i, n_i, {q_i, client index})."""
     def __init__(self, task, method, seed, client, overrides, device, lock_path=None):
         self.cfg = load_config(task, overrides)
         self.spec = METHODS[method]
@@ -63,9 +66,11 @@ class XFedGAClient(fl.client.NumPyClient):
         log.info("client %d (%s): %d training samples", client, self.data.name, len(self.data.train))
 
     def get_parameters(self, config):
+        """Current local model weights."""
         return state_to_ndarrays(self.model.state_dict())
 
     def fit(self, parameters, config):
+        """One round: load the global model, train locally, compute q_i; returns weights, n_i and metrics."""
         self.received.append({"round": config.get("round"), "config_keys": sorted(config.keys()),
                               "n_arrays": len(parameters)})
         t = int(config["round"])
@@ -98,10 +103,12 @@ class XFedGAClient(fl.client.NumPyClient):
         return state_to_ndarrays(state), len(self.data.train), metrics
 
     def evaluate(self, parameters, config):   # evaluation is server-side only (fraction_evaluate = 0)
+        """Not used: evaluation is server-side only."""
         return 0.0, 0, {}
 
 
 def main():
+    """Command-line entry point for one client process."""
     ap = argparse.ArgumentParser()
     ap.add_argument("--task", required=True)
     ap.add_argument("--method", required=True)

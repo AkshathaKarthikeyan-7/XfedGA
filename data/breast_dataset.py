@@ -6,6 +6,7 @@ them into a common (image, mask) pair list before wrapping in a torch Dataset.
 Update `_index_busi` / `_index_busbra` / `_index_busuclm` once you've unzipped
 the actual files and can see the real folder structure.
 """
+import logging
 import os
 import glob
 import cv2
@@ -14,6 +15,8 @@ import torch
 from torch.utils.data import Dataset
 
 from data.cache import DEFAULT_CACHE_ROOT, build_or_load, file_fingerprint, source_hash
+
+log = logging.getLogger(__name__)
 
 
 def _load_resized(image_path, mask_path, size=(384, 384)):
@@ -204,6 +207,7 @@ class BreastClientDataset(Dataset):
 
 
 def train_val_split(pairs, val_ratio=0.2, seed=42):
+    """Seeded random split of (image, mask) pairs into train / validation lists."""
     rng = np.random.RandomState(seed)
     idx = rng.permutation(len(pairs))
     n_val = int(len(pairs) * val_ratio)
@@ -234,6 +238,5 @@ def filter_nonempty_masks(pairs, size=(384, 384), min_fg_fraction=0.0, verbose=T
         else:
             dropped += 1
     if verbose:
-        print(f"  filter_nonempty_masks: kept {len(kept)}/{len(pairs)} "
-              f"(dropped {dropped} empty/near-empty masks)")
+        log.info("filter_nonempty_masks: kept %d/%d (dropped %d empty/near-empty masks)", len(kept), len(pairs), dropped)
     return kept

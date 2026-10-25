@@ -25,6 +25,7 @@ ALLOWED_METRICS = {"q_i", "client_index"}
 
 
 class XFedGAStrategy(fl.server.strategy.FedAvg):
+    """Flower strategy that runs the shared server step (aggregation, GA, validation) and audits every message."""
     def __init__(self, cfg, spec, seed, model, srv, device, n_clients, cand_log=None):
         self.cfg, self.spec, self.seed, self.model, self.srv, self.device = cfg, spec, seed, model, srv, device
         self.keys = list(model.state_dict().keys())
@@ -57,6 +58,7 @@ class XFedGAStrategy(fl.server.strategy.FedAvg):
         return arrays
 
     def aggregate_fit(self, server_round, results, failures):
+        """Collect the client updates of one round, audit them and run the shared server step."""
         if failures:
             raise RuntimeError(f"round {server_round}: {len(failures)} client failures")
         fit_wall = time.time() - self._t_fit
@@ -79,6 +81,7 @@ class XFedGAStrategy(fl.server.strategy.FedAvg):
         return ndarrays_to_parameters([v.numpy() for v in best.values()]), {}
 
     def audit_summary(self):
+        """Summary of the message audit: keys, shapes and dtypes seen, bytes received."""
         rec = self.audit["received"]
         return {"allowed_metric_keys": sorted(ALLOWED_METRICS),
                 "metric_keys_seen": sorted({k for r in rec for k in r["metric_keys"]}),
@@ -89,5 +92,6 @@ class XFedGAStrategy(fl.server.strategy.FedAvg):
 
 
 def dump(path, obj):
+    """Write `obj` as indented JSON to `path`."""
     with open(path, "w", encoding="utf-8") as f:
         json.dump(obj, f, indent=1)

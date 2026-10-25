@@ -1,0 +1,99 @@
+task: breast_lesion_segmentation
+method: xfedga
+method_switches:
+  topology: federated
+  aggregation: saliency
+  q_source: gradcam
+  search: ga
+  fitness: multi
+  anneal: true
+  prox: false
+  score: null
+  ec: iou
+seed: 42
+framework: fl_dist (Flower 1.7.0, multi-process, loopback gRPC)
+image_size:
+- 384
+- 384
+channels: 1
+clients:
+- id: client_1
+  name: BUSI
+  path: raw data/BUSI
+  kaggle: aryashah2k/breast-ultrasound-images-dataset
+  notes: 'confirmed: benign/malignant/normal subfolders, filename (n)_mask.png'
+- id: client_2
+  name: BUS-UCLM
+  path: raw data/BUS-UCLM
+  kaggle: orvile/bus-uclm-breast-ultrasound-dataset
+  notes: 'confirmed: images/ + masks/ with identical filenames (e.g. ALWI_000.png),
+    nested under a doubled folder name -- indexer walks the tree to find it robustly'
+server:
+  name: BUS-BRA
+  path: raw data/BUS-BRA
+  kaggle: orvile/bus-bra-a-breast-ultrasound-dataset
+  notes: 'confirmed: nested under BUSBRA/Images + BUSBRA/Masks, bus_data.csv has scanner
+    metadata'
+  fitness_split: 0.5
+  seed: 42
+train_val_split: 0.8
+loader:
+  num_workers: 0
+  persistent_workers: true
+  pin_memory: false
+train:
+  rounds: 15
+  local_epochs: 10
+  lr: 0.001
+  adam_betas:
+  - 0.9
+  - 0.99
+  batch_size: 8
+aggregation:
+  beta: 0.5
+  eps: 0.001
+ga:
+  population: 6
+  generations: 5
+  pc: 0.5
+  pm: 0.1
+  sigma0: 0.01
+  tau: 10.0
+  cache_elite_fitness: true
+  kappa: 20
+  acceptance_check: false
+fitness:
+  weights:
+  - 0.5
+  - 0.3
+  - 0.2
+  subsample: 40
+  hd95_normalizer: 384
+  cam_threshold: 0.5
+  cam_layer: fullres
+  cam_target: pred
+saliency:
+  subsample: 40
+evaluation:
+  explain_samples: 30
+  selection_smoothing: 3
+  log_wagg_val: false
+  log_client_val: false
+splits:
+  server_fractions:
+    fitness: 0.15
+    validation: 0.25
+  server_metadata: raw data/BUS-BRA/BUSBRA/bus_data.csv
+  client_val_fraction: 0.2
+method_options:
+  fedprox_mu: 0.01
+scenario:
+  partition: random
+  acquisition_threshold_mm: 0.45
+  noisy_qi_client: null
+  corrupted_label_client: null
+  corrupted_label_fraction: 1.0
+  dp:
+    enabled: false
+    clip_norm: 1.0
+    noise_multiplier: 0.1

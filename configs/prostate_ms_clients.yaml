@@ -1,7 +1,7 @@
 # Multi-site prostate: the MAIN prostate experiment from 18 Oct 2026 (decision B). It replaces PROMISE12 -> Decathlon,
 # which leaked (12 PROMISE12 client cases = Decathlon cases, 8 of them in the server sets:
-# reports/audit/promise12_decathlon_overlap.md). Self-contained: no PROMISE12 or Decathlon data.
-# Sites from raw data/MultiSiteProstate (inventory + duplicate audit: reports/audit/multisite_inventory.md):
+# docs/protocol/promise12_decathlon_overlap.md). Self-contained: no PROMISE12 or Decathlon data.
+# Sites from raw data/MultiSiteProstate (inventory + duplicate audit: docs/protocol/multisite_inventory.md):
 # one client per site; the held-out server site BMC is split case-level 8 fitness / 8 validation / 14 test.
 # Every multi-site volume is 384 x 384 in-plane; our pipeline resamples to 0.5 mm, as for PROMISE12.
 

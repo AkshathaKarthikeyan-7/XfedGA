@@ -7,7 +7,7 @@ fitness / validation / test; imagesTs unused) with the same method as multisite_
 the 16 alignments, full-resolution confirmation with the reference resized to the PROMISE12 grid; duplicate if
 r >= 0.95 after resizing / 0.99 on the same grid). For each duplicate, reports the PROMISE12 client it belongs to
 (random partition, data seed 42 as in every run) and the Decathlon server role (fitness / validation / test) from
-the split logs. Writes results/audit/promise12_decathlon_overlap.json and reports/audit/promise12_decathlon_overlap.md.
+the split logs. Writes results/audit/promise12_decathlon_overlap.json and docs/protocol/promise12_decathlon_overlap.md.
     & $py analysis/promise12_decathlon_overlap.py
 """
 import glob
@@ -83,8 +83,8 @@ def main():
         L.append(f"| {p['promise12']} | {p['client']} | {p['decathlon']} | {p['server_role']} | {p['r_full']} | {p['mask_dice']} |")
     nd = [p for p in pairs if not p["duplicate"]]
     L += ["", f"Screened candidates not confirmed: {len(nd)}."]
-    os.makedirs(os.path.join("reports", "audit"), exist_ok=True)
-    with open(os.path.join("reports", "audit", "promise12_decathlon_overlap.md"), "w", encoding="utf-8") as f:
+    os.makedirs(os.path.join("docs", "protocol"), exist_ok=True)
+    with open(os.path.join("docs", "protocol", "promise12_decathlon_overlap.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L) + "\n")
     sys.stdout.reconfigure(encoding="utf-8")
     print("\n".join(L))

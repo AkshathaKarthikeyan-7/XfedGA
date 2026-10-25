@@ -28,6 +28,7 @@ log = logging.getLogger("fl_dist.server")
 
 
 def main():
+    """Command-line entry point for the Flower server process."""
     ap = argparse.ArgumentParser()
     ap.add_argument("--task", required=True)
     ap.add_argument("--method", required=True)

@@ -47,6 +47,7 @@ def gpu_lock(path, poll_s=0.2):
 
 
 def release_cached_gpu_memory():
+    """Synchronise and free the CUDA caching allocator (no-op without a GPU)."""
     import torch
     if torch.cuda.is_available():
         torch.cuda.synchronize()

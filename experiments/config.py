@@ -32,6 +32,7 @@ def _parse_value(text):
 
 
 def apply_overrides(cfg, overrides):
+    """Copy of `cfg` with dotted `key=value` overrides applied (values parsed as YAML)."""
     cfg = copy.deepcopy(cfg)
     for item in overrides or []:
         key, _, value = item.partition("=")
@@ -50,6 +51,7 @@ def apply_overrides(cfg, overrides):
 
 
 def validate(cfg):
+    """Check the config for missing sections and invalid settings; returns it unchanged or raises ValueError."""
     missing = [k for k in REQUIRED if k not in cfg]
     if missing:
         raise ValueError(f"config is missing sections: {missing}")
@@ -97,12 +99,14 @@ def validate(cfg):
 
 
 def load_config(task, overrides=None, path=None):
+    """Load a task config (or `path`), apply the overrides and validate it."""
     with open(path or TASK_CONFIGS[task], encoding="utf-8") as f:
         cfg = yaml.safe_load(f)
     return validate(apply_overrides(cfg, overrides))
 
 
 def config_hash(cfg):
+    """Short SHA-256 of the canonical JSON of `cfg` (part of every run id)."""
     return hashlib.sha256(json.dumps(cfg, sort_keys=True, default=str).encode("utf-8")).hexdigest()[:12]
 
 
@@ -132,6 +136,7 @@ def seed_everything(seed):
 
 
 def torch_generator(seed):
+    """torch.Generator seeded with `seed` (deterministic data-loader shuffling)."""
     g = torch.Generator()
     g.manual_seed(seed)
     return g

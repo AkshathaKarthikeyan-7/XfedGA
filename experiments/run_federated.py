@@ -323,6 +323,7 @@ def _finish(cfg, data, device, model, rows, states, out, suffix, evaluate_test):
 
 
 def run_experiment(task, method, seed, overrides=None, out_root="results/runs", tag="", evaluate_test=True):
+    """Run one (task, method, seed) experiment end to end and write its outputs to `out_root`."""
     seed_everything(seed)
     cfg = load_config(task, overrides)
     spec = METHODS[method]
@@ -388,6 +389,7 @@ def run_experiment(task, method, seed, overrides=None, out_root="results/runs", 
 
 
 def main():
+    """Command-line entry point (see the module docstring)."""
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--task", choices=["breast", "prostate", "prostate_ms", "prostate_ms_runmc"], required=True)
     ap.add_argument("--method", choices=sorted(METHODS), required=True)

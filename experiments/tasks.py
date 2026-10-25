@@ -21,6 +21,7 @@ from data.splits import (ROLES, busbra_patient_split, decathlon_case_split, even
 
 @dataclass
 class ClientData:
+    """One client: its training set, fixed q_i subsample indices and number of training groups."""
     name: str
     train: object            # torch Dataset
     qi_indices: list         # fixed q_i subsample (indices into train)
@@ -29,6 +30,7 @@ class ClientData:
 
 @dataclass
 class ServerSet:
+    """One server set (fitness, validation or test) with per-image and per-group (patient / case) ids."""
     dataset: object
     image_ids: list
     group_ids: list
@@ -36,6 +38,7 @@ class ServerSet:
 
 @dataclass
 class TaskData:
+    """Everything a run needs: clients, server sets, fixed subsamples and the split log."""
     clients: list
     server: dict                         # role -> ServerSet
     fitness_subsample: list              # indices into server["fitness"].dataset
@@ -48,6 +51,7 @@ def _stem(path):
 
 
 def build_breast(cfg, part="all"):
+    """Breast task: BUSI and BUS-UCLM clients, BUS-BRA server split by patient."""
     size, seed = tuple(cfg["image_size"]), cfg["seed"]
     sp = cfg["splits"]
     clients, log = [], {"clients": {}, "server": {}}
@@ -103,6 +107,7 @@ def _case_ids(cases, cache):
 
 
 def build_prostate(cfg, part="all"):
+    """Original prostate task (PROMISE12 clients, Decathlon server); SUPERSEDED by the leakage."""
     size, seed = tuple(cfg["image_size"]), cfg["seed"]
     root = cfg["clients"][0]["path"]
     clients, log = [], {"clients": {}, "server": {}}
@@ -151,7 +156,7 @@ def build_prostate(cfg, part="all"):
 def build_prostate_ms(cfg, part="all"):
     """
     Multi-site prostate (the main prostate experiment from 18 Oct 2026; replaces PROMISE12 -> Decathlon, which leaked:
-    reports/audit/promise12_decathlon_overlap.md). One client per site (cfg["clients"]: BIDMC, HK, I2CVB, RUNMC, UCL;
+    docs/protocol/promise12_decathlon_overlap.md). One client per site (cfg["clients"]: BIDMC, HK, I2CVB, RUNMC, UCL;
     every case of the site is client training data); server = one held-out site (BMC), split case-level into
     fitness / validation / test in gland-size blocks (splits.server_block_roles + splits.server_remainder_roles).
     No PROMISE12 or Decathlon data.

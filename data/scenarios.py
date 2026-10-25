@@ -17,6 +17,7 @@ from data.prostate_dataset import _index_promise12
 
 
 def promise12_in_plane_spacing(mhd_path):
+    """In-plane voxel spacing (mm) read from a PROMISE12 .mhd header."""
     with open(mhd_path, encoding="utf-8") as f:
         for line in f:
             if line.startswith("ElementSpacing"):

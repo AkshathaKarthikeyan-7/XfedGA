@@ -3,7 +3,7 @@ Review 2 breast results vs the corrected breast results (18 Oct 2026). CPU only;
 
 Review 2: the breast results table of the Review-2 deck (slide 10 of
   D:/Amrita/Project/Literature review/Panel review -2/XFedGA_Panel_Review_2.pptx), read from the file. Those numbers
-  are SUPERSEDED (results/legacy/README.md; reports/audit/reaudit.md).
+  are SUPERSEDED (results/legacy/README.md; docs/protocol/reaudit.md).
 Corrected: the breast v1 headline runs (FedGA (baseline) and XFedGA, seeds 1-5, validation-selected checkpoint, test
   evaluated once; frozen code b556334; commit 49bf2ad), per-image test metrics in results/runs/<run>/test_per_image.csv.
   Per metric: mean +- s.d. over seeds of the per-run mean over test images; patient-level paired difference
@@ -12,7 +12,7 @@ Corrected: the breast v1 headline runs (FedGA (baseline) and XFedGA, seeds 1-5, 
   EC (IoU@0.5) = `ec` (the Review-2 definition); pointing game = `pg` (Grad-CAM, full-res layer, predicted target).
   EC_mass: from the declared evaluation of the same fixed checkpoints (analysis/ec_mass_headline.py ->
   results/xai_ec/<run_id>/ec_per_image.csv, every test image; 19 Oct 2026), merged by image id.
-Writes reports/review/review2_vs_corrected.md and results/review/review2_vs_corrected.json.
+Writes docs/protocol/review2_vs_corrected.md and results/review/review2_vs_corrected.json.
     & $py analysis/review2_vs_corrected.py
 """
 import csv
@@ -52,9 +52,9 @@ AUDIT = [
      "Explanation Consistency and Pointing-Game rows of slides 10 and 11; slide 12 explanation conclusions; and, via q_i "
      "and the EC fitness term, every XFedGA number on slides 10 and 11."),
     (7, "PROMISE12 client cases are Decathlon server scans: 12 duplicated cases, 8 in the server sets "
-        "(`reports/audit/leakage_note.md`)",
+        "(`docs/protocol/leakage_note.md`)",
      "Prostate: every number on slide 11; prostate rows of slides 8–9; the prostate parts of slides 12 and 18. "
-     "Breast numbers are not affected (`reports/audit/breast_duplicates.md`)."),
+     "Breast numbers are not affected (`docs/protocol/breast_duplicates.md`)."),
     (8, "Unequal fitness data: XFedGA scored fitness on the first 40 images of the unshuffled fitness loader, FedGA "
         "(baseline) on the whole fitness set (audit #37, D-5)",
      "Every FedGA-vs-XFedGA comparison: all rows of slides 10 and 11 and the conclusions on slides 12 and 18 (the two "
@@ -145,11 +145,11 @@ def main():
           "the per-run mean over test images. The pointing game and EC here use the corrected Grad-CAM (full-resolution "
           "decoder layer, predicted-foreground target)."]
     L += ["", "## Which Review-2 numbers each audit item affects", "",
-          "Items 1–9 follow `reports/audit/reaudit.md` (thesis Chapter 4 numbering, confirmed 18 Oct 2026). Slide "
+          "Items 1–9 follow `docs/protocol/reaudit.md` (thesis Chapter 4 numbering, confirmed 18 Oct 2026). Slide "
           "numbers refer to the Review-2 deck.", "",
           "| Item | Issue | Review-2 numbers affected |", "|---|---|---|"] + [f"| {i} | {issue} | {aff} |" for i, issue, aff in AUDIT]
     os.makedirs(os.path.join(REPO, "reports", "review"), exist_ok=True)
-    with open(os.path.join(REPO, "reports", "review", "review2_vs_corrected.md"), "w", encoding="utf-8") as f:
+    with open(os.path.join(REPO, "docs", "protocol", "review2_vs_corrected.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L) + "\n")
     sys.stdout.reconfigure(encoding="utf-8")
     print("\n".join(L))

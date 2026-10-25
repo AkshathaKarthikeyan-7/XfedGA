@@ -1,0 +1,14 @@
+2026-10-21 06:54:46 queue post_i_beta_screen: 6 runs; code D:\new repo\xfedga_frozen\9f0225f @ 9f0225f; repo D:\new repo\xfedga
+2026-10-21 06:54:46 [1/6] start prostate_ms_xfedga_seed1_ccaef032_ms_betascreen_b0p0
+2026-10-21 07:51:17 [1/6] done prostate_ms_xfedga_seed1_ccaef032_ms_betascreen_b0p0 in 56.5 min; GPU median 2595.0 MHz  ** THROTTLED **
+2026-10-21 07:51:18 [2/6] start prostate_ms_xfedga_seed1_48dcfd9d_ms_betascreen_b0p2
+2026-10-21 08:49:20 [2/6] done prostate_ms_xfedga_seed1_48dcfd9d_ms_betascreen_b0p2 in 58.0 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 08:49:20 [3/6] start prostate_ms_xfedga_seed1_c0c05c91_ms_betascreen_b1p0
+2026-10-21 09:46:45 [3/6] done prostate_ms_xfedga_seed1_c0c05c91_ms_betascreen_b1p0 in 57.4 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 09:46:45 [4/6] start prostate_ms_xfedga_seed2_ccaef032_ms_betascreen_b0p0
+2026-10-21 10:43:16 [4/6] done prostate_ms_xfedga_seed2_ccaef032_ms_betascreen_b0p0 in 56.5 min; GPU median 2655.0 MHz  ** THROTTLED **
+2026-10-21 10:43:16 [5/6] start prostate_ms_xfedga_seed2_48dcfd9d_ms_betascreen_b0p2
+2026-10-21 11:40:39 [5/6] done prostate_ms_xfedga_seed2_48dcfd9d_ms_betascreen_b0p2 in 57.4 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 11:40:39 [6/6] start prostate_ms_xfedga_seed2_c0c05c91_ms_betascreen_b1p0
+2026-10-21 12:37:11 [6/6] done prostate_ms_xfedga_seed2_c0c05c91_ms_betascreen_b1p0 in 56.5 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 12:37:11 queue post_i_beta_screen finished

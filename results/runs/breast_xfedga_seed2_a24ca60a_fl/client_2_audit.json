@@ -1,0 +1,188 @@
+{
+ "client": 1,
+ "received": [
+  {
+   "round": 1,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  },
+  {
+   "round": 2,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  },
+  {
+   "round": 3,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  },
+  {
+   "round": 4,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  },
+  {
+   "round": 5,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  },
+  {
+   "round": 6,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  },
+  {
+   "round": 7,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  },
+  {
+   "round": 8,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  },
+  {
+   "round": 9,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  },
+  {
+   "round": 10,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  },
+  {
+   "round": 11,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  },
+  {
+   "round": 12,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  },
+  {
+   "round": 13,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  },
+  {
+   "round": 14,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  },
+  {
+   "round": 15,
+   "config_keys": [
+    "round"
+   ],
+   "n_arrays": 63
+  }
+ ],
+ "gpu_lock": [
+  {
+   "round": 1,
+   "waited_s": 35.57,
+   "held_s": 16.04
+  },
+  {
+   "round": 2,
+   "waited_s": 0.0,
+   "held_s": 15.5
+  },
+  {
+   "round": 3,
+   "waited_s": 0.0,
+   "held_s": 15.37
+  },
+  {
+   "round": 4,
+   "waited_s": 35.35,
+   "held_s": 15.63
+  },
+  {
+   "round": 5,
+   "waited_s": 0.0,
+   "held_s": 15.58
+  },
+  {
+   "round": 6,
+   "waited_s": 35.29,
+   "held_s": 15.63
+  },
+  {
+   "round": 7,
+   "waited_s": 0.0,
+   "held_s": 15.58
+  },
+  {
+   "round": 8,
+   "waited_s": 35.51,
+   "held_s": 15.35
+  },
+  {
+   "round": 9,
+   "waited_s": 35.46,
+   "held_s": 15.54
+  },
+  {
+   "round": 10,
+   "waited_s": 35.37,
+   "held_s": 15.39
+  },
+  {
+   "round": 11,
+   "waited_s": 35.3,
+   "held_s": 15.58
+  },
+  {
+   "round": 12,
+   "waited_s": 0.0,
+   "held_s": 15.49
+  },
+  {
+   "round": 13,
+   "waited_s": 0.0,
+   "held_s": 15.54
+  },
+  {
+   "round": 14,
+   "waited_s": 35.5,
+   "held_s": 15.44
+  },
+  {
+   "round": 15,
+   "waited_s": 35.29,
+   "held_s": 15.41
+  }
+ ],
+ "peak_reserved_MiB": 692
+}

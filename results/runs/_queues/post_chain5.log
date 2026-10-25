@@ -1,0 +1,36 @@
+2026-10-22 06:53:35 chain 5 started (single queue)
+2026-10-22 07:13:12 full suite rc=0: 161 passed, 3 xfailed in 1175.24s (0:19:35)
+warning: in the working copy of 'tests/test_prostate_ms.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'analysis/post_chain5.sh', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'analysis/post_headline_chain2.sh', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'analysis/recost_20oct_ghi.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'analysis/recost_22oct.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'reports/review/panel_responses.md', LF will be replaced by CRLF the next time Git touches it
+2026-10-22 07:13:15 code commit 8c3d78b
+2026-10-22 07:13:17 start item g_site_runmc (code D:/new repo/xfedga_frozen/8c3d78b)
+2026-10-22 23:31:34 end item g_site_runmc done=20 failed=0 watchdog_kills=0
+2026-10-22 23:31:49 xai prostate_ms_runmc_fedga_seed1_1d6d20a0_runmc rc=0
+2026-10-22 23:32:03 xai prostate_ms_runmc_fedga_seed2_1d6d20a0_runmc rc=0
+2026-10-22 23:32:16 xai prostate_ms_runmc_fedga_seed3_1d6d20a0_runmc rc=0
+2026-10-22 23:32:30 xai prostate_ms_runmc_fedga_seed4_1d6d20a0_runmc rc=0
+2026-10-22 23:32:45 xai prostate_ms_runmc_fedga_seed5_1d6d20a0_runmc rc=0
+2026-10-22 23:32:58 xai prostate_ms_runmc_xfedga_plus_dsc_seed1_22403dd1_runmc rc=0
+2026-10-22 23:33:12 xai prostate_ms_runmc_xfedga_plus_dsc_seed2_22403dd1_runmc rc=0
+2026-10-22 23:33:25 xai prostate_ms_runmc_xfedga_plus_dsc_seed3_22403dd1_runmc rc=0
+2026-10-22 23:33:39 xai prostate_ms_runmc_xfedga_plus_dsc_seed4_22403dd1_runmc rc=0
+2026-10-22 23:33:52 xai prostate_ms_runmc_xfedga_plus_dsc_seed5_22403dd1_runmc rc=0
+2026-10-22 23:34:06 xai prostate_ms_runmc_xfedga_plus_seed1_4cb0e137_runmc rc=0
+2026-10-22 23:34:19 xai prostate_ms_runmc_xfedga_plus_seed2_4cb0e137_runmc rc=0
+2026-10-22 23:34:33 xai prostate_ms_runmc_xfedga_plus_seed3_4cb0e137_runmc rc=0
+2026-10-22 23:34:47 xai prostate_ms_runmc_xfedga_plus_seed4_4cb0e137_runmc rc=0
+2026-10-22 23:35:00 xai prostate_ms_runmc_xfedga_plus_seed5_4cb0e137_runmc rc=0
+2026-10-22 23:35:14 xai prostate_ms_runmc_xfedga_seed1_919cc3a4_runmc rc=0
+2026-10-22 23:35:28 xai prostate_ms_runmc_xfedga_seed2_919cc3a4_runmc rc=0
+2026-10-22 23:35:41 xai prostate_ms_runmc_xfedga_seed3_919cc3a4_runmc rc=0
+2026-10-22 23:35:55 xai prostate_ms_runmc_xfedga_seed4_919cc3a4_runmc rc=0
+2026-10-22 23:36:09 xai prostate_ms_runmc_xfedga_seed5_919cc3a4_runmc rc=0
+2026-10-22 23:36:09 start item d_hrob2 (code D:/new repo/xfedga_frozen/8c3d78b)
+2026-10-23 01:57:07 end item d_hrob2 done=3 failed=0 watchdog_kills=0
+2026-10-23 01:57:07 start item b_flower (code D:/new repo/xfedga_frozen/8c3d78b)
+2026-10-23 06:10:52 end item b_flower done=6 failed=0 watchdog_kills=0
+2026-10-23 06:10:52 start item e_ablations (code D:/new repo/xfedga_frozen/8c3d78b)

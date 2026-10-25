@@ -1,0 +1,558 @@
+{
+ "queue": "post_e_ablations",
+ "code_root": "D:\\new repo\\xfedga_frozen\\8c3d78b",
+ "code_commit": "8c3d78b",
+ "repo": "D:\\new repo\\xfedga",
+ "runs": [
+  {
+   "run_id": "prostate_ms_abl_B_seed1_b421fb3c_abl",
+   "task": "prostate_ms",
+   "method": "abl_B",
+   "seed": 1,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "prostate_ms_abl_C_seed1_b12e0138_abl",
+   "task": "prostate_ms",
+   "method": "abl_C",
+   "seed": 1,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "prostate_ms_abl_D_seed1_5e24b089_abl",
+   "task": "prostate_ms",
+   "method": "abl_D",
+   "seed": 1,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "prostate_ms_abl_F_seed1_39d7fb92_abl",
+   "task": "prostate_ms",
+   "method": "abl_F",
+   "seed": 1,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "prostate_ms_random_search_seed1_cae722e9_abl",
+   "task": "prostate_ms",
+   "method": "random_search",
+   "seed": 1,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "breast_abl_B_seed1_97773136_abl",
+   "task": "breast",
+   "method": "abl_B",
+   "seed": 1,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "breast_abl_C_seed1_601a4197_abl",
+   "task": "breast",
+   "method": "abl_C",
+   "seed": 1,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "breast_abl_D_seed1_b4573cb6_abl",
+   "task": "breast",
+   "method": "abl_D",
+   "seed": 1,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "breast_abl_F_seed1_a86a1b09_abl",
+   "task": "breast",
+   "method": "abl_F",
+   "seed": 1,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "breast_random_search_seed1_9b4cfec5_abl",
+   "task": "breast",
+   "method": "random_search",
+   "seed": 1,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "prostate_ms_abl_B_seed2_b421fb3c_abl",
+   "task": "prostate_ms",
+   "method": "abl_B",
+   "seed": 2,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "prostate_ms_abl_C_seed2_b12e0138_abl",
+   "task": "prostate_ms",
+   "method": "abl_C",
+   "seed": 2,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "prostate_ms_abl_D_seed2_5e24b089_abl",
+   "task": "prostate_ms",
+   "method": "abl_D",
+   "seed": 2,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "prostate_ms_abl_F_seed2_39d7fb92_abl",
+   "task": "prostate_ms",
+   "method": "abl_F",
+   "seed": 2,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "prostate_ms_random_search_seed2_cae722e9_abl",
+   "task": "prostate_ms",
+   "method": "random_search",
+   "seed": 2,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "breast_abl_B_seed2_97773136_abl",
+   "task": "breast",
+   "method": "abl_B",
+   "seed": 2,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "breast_abl_C_seed2_601a4197_abl",
+   "task": "breast",
+   "method": "abl_C",
+   "seed": 2,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "breast_abl_D_seed2_b4573cb6_abl",
+   "task": "breast",
+   "method": "abl_D",
+   "seed": 2,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 32.7,
+   "gpu": {
+    "busy_samples": 91,
+    "median_sm_clock_MHz": 2550.0,
+    "min_sm_clock_MHz": 300.0,
+    "median_power_W": 59.55,
+    "share_busy_with_throttle_reason": 0.846,
+    "throttled": true,
+    "max_memory_used_MiB": 861.0
+   }
+  },
+  {
+   "run_id": "breast_abl_F_seed2_a86a1b09_abl",
+   "task": "breast",
+   "method": "abl_F",
+   "seed": 2,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 48.4,
+   "gpu": {
+    "busy_samples": 92,
+    "median_sm_clock_MHz": 2520.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 59.59,
+    "share_busy_with_throttle_reason": 0.761,
+    "throttled": true,
+    "max_memory_used_MiB": 857.0
+   }
+  },
+  {
+   "run_id": "breast_random_search_seed2_9b4cfec5_abl",
+   "task": "breast",
+   "method": "random_search",
+   "seed": 2,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 48.1,
+   "gpu": {
+    "busy_samples": 99,
+    "median_sm_clock_MHz": 2520.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 59.57,
+    "share_busy_with_throttle_reason": 0.778,
+    "throttled": true,
+    "max_memory_used_MiB": 837.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_abl_B_seed3_b421fb3c_abl",
+   "task": "prostate_ms",
+   "method": "abl_B",
+   "seed": 3,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 13.5,
+   "gpu": {
+    "busy_samples": 27,
+    "median_sm_clock_MHz": 2520.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 59.5,
+    "share_busy_with_throttle_reason": 0.704,
+    "throttled": true,
+    "max_memory_used_MiB": 905.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_abl_C_seed3_b12e0138_abl",
+   "task": "prostate_ms",
+   "method": "abl_C",
+   "seed": 3,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 52.2,
+   "gpu": {
+    "busy_samples": 45,
+    "median_sm_clock_MHz": 2550.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 59.19,
+    "share_busy_with_throttle_reason": 0.644,
+    "throttled": true,
+    "max_memory_used_MiB": 1003.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_abl_D_seed3_5e24b089_abl",
+   "task": "prostate_ms",
+   "method": "abl_D",
+   "seed": 3,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 13.5,
+   "gpu": {
+    "busy_samples": 43,
+    "median_sm_clock_MHz": 2520.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 59.39,
+    "share_busy_with_throttle_reason": 0.744,
+    "throttled": true,
+    "max_memory_used_MiB": 1033.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_abl_F_seed3_39d7fb92_abl",
+   "task": "prostate_ms",
+   "method": "abl_F",
+   "seed": 3,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 52.2,
+   "gpu": {
+    "busy_samples": 44,
+    "median_sm_clock_MHz": 2535.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 59.14,
+    "share_busy_with_throttle_reason": 0.659,
+    "throttled": true,
+    "max_memory_used_MiB": 973.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_random_search_seed3_cae722e9_abl",
+   "task": "prostate_ms",
+   "method": "random_search",
+   "seed": 3,
+   "tag": "abl",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 52.2,
+   "gpu": {
+    "busy_samples": 45,
+    "median_sm_clock_MHz": 2535.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 58.9,
+    "share_busy_with_throttle_reason": 0.689,
+    "throttled": true,
+    "max_memory_used_MiB": 949.0
+   }
+  },
+  {
+   "run_id": "breast_abl_B_seed3_97773136_abl",
+   "task": "breast",
+   "method": "abl_B",
+   "seed": 3,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 33.0,
+   "gpu": {
+    "busy_samples": 91,
+    "median_sm_clock_MHz": 2550.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 59.49,
+    "share_busy_with_throttle_reason": 0.813,
+    "throttled": true,
+    "max_memory_used_MiB": 809.0
+   }
+  },
+  {
+   "run_id": "breast_abl_C_seed3_601a4197_abl",
+   "task": "breast",
+   "method": "abl_C",
+   "seed": 3,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 48.5,
+   "gpu": {
+    "busy_samples": 96,
+    "median_sm_clock_MHz": 2535.0,
+    "min_sm_clock_MHz": 375.0,
+    "median_power_W": 59.64,
+    "share_busy_with_throttle_reason": 0.76,
+    "throttled": true,
+    "max_memory_used_MiB": 857.0
+   }
+  },
+  {
+   "run_id": "breast_abl_D_seed3_b4573cb6_abl",
+   "task": "breast",
+   "method": "abl_D",
+   "seed": 3,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 32.8,
+   "gpu": {
+    "busy_samples": 97,
+    "median_sm_clock_MHz": 2550.0,
+    "min_sm_clock_MHz": 360.0,
+    "median_power_W": 59.47,
+    "share_busy_with_throttle_reason": 0.784,
+    "throttled": true,
+    "max_memory_used_MiB": 845.0
+   }
+  },
+  {
+   "run_id": "breast_abl_F_seed3_a86a1b09_abl",
+   "task": "breast",
+   "method": "abl_F",
+   "seed": 3,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 48.2,
+   "gpu": {
+    "busy_samples": 98,
+    "median_sm_clock_MHz": 2520.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 59.58,
+    "share_busy_with_throttle_reason": 0.735,
+    "throttled": true,
+    "max_memory_used_MiB": 857.0
+   }
+  },
+  {
+   "run_id": "breast_random_search_seed3_9b4cfec5_abl",
+   "task": "breast",
+   "method": "random_search",
+   "seed": 3,
+   "tag": "abl",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 48.3,
+   "gpu": {
+    "busy_samples": 85,
+    "median_sm_clock_MHz": 2535.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 59.62,
+    "share_busy_with_throttle_reason": 0.824,
+    "throttled": true,
+    "max_memory_used_MiB": 837.0
+   }
+  }
+ ]
+}

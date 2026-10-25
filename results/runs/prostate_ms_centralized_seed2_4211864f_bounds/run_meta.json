@@ -1,0 +1,56 @@
+{
+ "run_id": "prostate_ms_centralized_seed2_4211864f_bounds",
+ "task": "prostate_ms",
+ "method": "centralized",
+ "method_switches": {
+  "topology": "centralized",
+  "aggregation": "fedavg",
+  "q_source": null,
+  "search": "none",
+  "fitness": null,
+  "anneal": false,
+  "prox": false,
+  "score": null,
+  "ec": "iou"
+ },
+ "seed": 2,
+ "config_hash": "4211864fc3ab",
+ "git_commit": "8c3d78b",
+ "selection": "centred moving-average validation DSC",
+ "clients": [
+  "BIDMC",
+  "HK",
+  "I2CVB",
+  "RUNMC",
+  "UCL"
+ ],
+ "server_sizes": {
+  "fitness": 106,
+  "validation": 105,
+  "test": 173
+ },
+ "setup_s": 0.1,
+ "total_s": 460.9,
+ "selected_round": 8,
+ "smoothed_val_dsc": [
+  0.7722125931160463,
+  0.794311780068966,
+  0.8246636170614678,
+  0.8300593715715191,
+  0.8304704918414988,
+  0.8340512445765399,
+  0.8384975470720776,
+  0.8388578963658166,
+  0.8296620651374645,
+  0.8358292319373035,
+  0.8326238472455593,
+  0.8362619065249776,
+  0.8309767473801027,
+  0.8327038241292977,
+  0.8353641625675166
+ ],
+ "n_i": [
+  1483
+ ],
+ "test_evaluated": true
+}

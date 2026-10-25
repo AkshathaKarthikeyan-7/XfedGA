@@ -1,0 +1,105 @@
+task: prostate_segmentation_multisite
+method: xfedga
+method_switches:
+  topology: federated
+  aggregation: saliency
+  q_source: gradcam
+  search: ga
+  fitness: multi
+  anneal: true
+  prox: false
+  score: null
+  ec: iou
+seed: 42
+image_size:
+- 384
+- 384
+channels: 1
+clients:
+- id: client_1
+  name: BIDMC
+  path: raw data/MultiSiteProstate/BIDMC
+- id: client_2
+  name: HK
+  path: raw data/MultiSiteProstate/HK
+- id: client_3
+  name: I2CVB
+  path: raw data/MultiSiteProstate/I2CVB
+- id: client_4
+  name: RUNMC
+  path: raw data/MultiSiteProstate/RUNMC
+- id: client_5
+  name: UCL
+  path: raw data/MultiSiteProstate/UCL
+server:
+  name: BMC
+  path: raw data/MultiSiteProstate/BMC
+  notes: 30 cases; case-level fitness / validation / test 8 / 8 / 14 in gland-size
+    blocks
+train_val_split: 0.8
+loader:
+  num_workers: 0
+  persistent_workers: true
+  pin_memory: false
+train:
+  rounds: 15
+  local_epochs: 2
+  lr: 0.001
+  adam_betas:
+  - 0.9
+  - 0.99
+  batch_size: 8
+aggregation:
+  beta: 0.0
+  eps: 0.001
+ga:
+  population: 6
+  generations: 5
+  pc: 0.5
+  pm: 0.1
+  sigma0: 0.01
+  tau: 10.0
+  cache_elite_fitness: true
+  kappa: 20
+  acceptance_check: false
+fitness:
+  weights:
+  - 0.5
+  - 0.3
+  - 0.2
+  subsample: 120
+  hd95_normalizer: 384
+  cam_threshold: 0.5
+  cam_layer: fullres
+  cam_target: pred
+saliency:
+  subsample: 40
+evaluation:
+  explain_samples: 30
+  selection_smoothing: 3
+  log_wagg_val: true
+  log_client_val: true
+preprocessing:
+  fov_crop_mm: 110
+  intensity: zscore
+splits:
+  server_block_roles:
+  - fitness
+  - validation
+  - test
+  - test
+  server_remainder_roles:
+  - fitness
+  - validation
+method_options:
+  fedprox_mu: 0.01
+scenario:
+  partition: random
+  acquisition_threshold_mm: 0.45
+  noisy_qi_client: null
+  corrupted_label_client: null
+  corrupted_label_fraction: 1.0
+  dp:
+    enabled: false
+    clip_norm: 1.0
+    noise_multiplier: 0.1

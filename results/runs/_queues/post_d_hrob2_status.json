@@ -1,0 +1,116 @@
+{
+ "queue": "post_d_hrob2",
+ "code_root": "D:\\new repo\\xfedga_frozen\\8c3d78b",
+ "code_commit": "8c3d78b",
+ "repo": "D:\\new repo\\xfedga",
+ "runs": [
+  {
+   "run_id": "breast_xfedga_seed1_f4d3d004_hrob2",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 1,
+   "tag": "hrob2",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "scenario.noisy_qi_client=1"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "breast_xfedga_plus_seed1_3610de6a_hrob2",
+   "task": "breast",
+   "method": "xfedga_plus",
+   "seed": 1,
+   "tag": "hrob2",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "scenario.noisy_qi_client=1"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "breast_xfedga_seed2_f4d3d004_hrob2",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 2,
+   "tag": "hrob2",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "scenario.noisy_qi_client=1"
+   ],
+   "status": "skipped (finished)"
+  },
+  {
+   "run_id": "breast_xfedga_plus_seed2_3610de6a_hrob2",
+   "task": "breast",
+   "method": "xfedga_plus",
+   "seed": 2,
+   "tag": "hrob2",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "scenario.noisy_qi_client=1"
+   ],
+   "status": "done",
+   "minutes": 46.6,
+   "gpu": {
+    "busy_samples": 96,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.62,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 835.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed3_f4d3d004_hrob2",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 3,
+   "tag": "hrob2",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "scenario.noisy_qi_client=1"
+   ],
+   "status": "done",
+   "minutes": 46.0,
+   "gpu": {
+    "busy_samples": 94,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.58,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 857.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_seed3_3610de6a_hrob2",
+   "task": "breast",
+   "method": "xfedga_plus",
+   "seed": 3,
+   "tag": "hrob2",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "scenario.noisy_qi_client=1"
+   ],
+   "status": "done",
+   "minutes": 47.5,
+   "gpu": {
+    "busy_samples": 95,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 67.7,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 835.0
+   }
+  }
+ ]
+}

@@ -1,0 +1,176 @@
+{
+ "queue": "post_i_beta_screen",
+ "code_root": "D:\\new repo\\xfedga_frozen\\9f0225f",
+ "code_commit": "9f0225f",
+ "repo": "D:\\new repo\\xfedga",
+ "runs": [
+  {
+   "run_id": "prostate_ms_xfedga_seed1_ccaef032_ms_betascreen_b0p0",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 1,
+   "tag": "ms_betascreen_b0p0",
+   "no_test": true,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "aggregation.beta=0.0"
+   ],
+   "status": "done",
+   "minutes": 56.5,
+   "gpu": {
+    "busy_samples": 173,
+    "median_sm_clock_MHz": 2595.0,
+    "min_sm_clock_MHz": 870.0,
+    "median_power_W": 59.72,
+    "share_busy_with_throttle_reason": 0.728,
+    "throttled": true,
+    "max_memory_used_MiB": 1828.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed1_48dcfd9d_ms_betascreen_b0p2",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 1,
+   "tag": "ms_betascreen_b0p2",
+   "no_test": true,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "aggregation.beta=0.2"
+   ],
+   "status": "done",
+   "minutes": 58.0,
+   "gpu": {
+    "busy_samples": 194,
+    "median_sm_clock_MHz": 2610.0,
+    "min_sm_clock_MHz": 915.0,
+    "median_power_W": 59.69,
+    "share_busy_with_throttle_reason": 0.737,
+    "throttled": true,
+    "max_memory_used_MiB": 1920.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed1_c0c05c91_ms_betascreen_b1p0",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 1,
+   "tag": "ms_betascreen_b1p0",
+   "no_test": true,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "aggregation.beta=1.0"
+   ],
+   "status": "done",
+   "minutes": 57.4,
+   "gpu": {
+    "busy_samples": 172,
+    "median_sm_clock_MHz": 2610.0,
+    "min_sm_clock_MHz": 1005.0,
+    "median_power_W": 59.67,
+    "share_busy_with_throttle_reason": 0.75,
+    "throttled": true,
+    "max_memory_used_MiB": 1928.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed2_ccaef032_ms_betascreen_b0p0",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 2,
+   "tag": "ms_betascreen_b0p0",
+   "no_test": true,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "aggregation.beta=0.0"
+   ],
+   "status": "done",
+   "minutes": 56.5,
+   "gpu": {
+    "busy_samples": 136,
+    "median_sm_clock_MHz": 2655.0,
+    "min_sm_clock_MHz": 1200.0,
+    "median_power_W": 59.75,
+    "share_busy_with_throttle_reason": 0.596,
+    "throttled": true,
+    "max_memory_used_MiB": 1822.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed2_48dcfd9d_ms_betascreen_b0p2",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 2,
+   "tag": "ms_betascreen_b0p2",
+   "no_test": true,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "aggregation.beta=0.2"
+   ],
+   "status": "done",
+   "minutes": 57.4,
+   "gpu": {
+    "busy_samples": 200,
+    "median_sm_clock_MHz": 2610.0,
+    "min_sm_clock_MHz": 1035.0,
+    "median_power_W": 59.74,
+    "share_busy_with_throttle_reason": 0.725,
+    "throttled": true,
+    "max_memory_used_MiB": 1832.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed2_c0c05c91_ms_betascreen_b1p0",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 2,
+   "tag": "ms_betascreen_b1p0",
+   "no_test": true,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "aggregation.beta=1.0"
+   ],
+   "status": "done",
+   "minutes": 56.5,
+   "gpu": {
+    "busy_samples": 185,
+    "median_sm_clock_MHz": 2610.0,
+    "min_sm_clock_MHz": 945.0,
+    "median_power_W": 59.65,
+    "share_busy_with_throttle_reason": 0.746,
+    "throttled": true,
+    "max_memory_used_MiB": 2008.0
+   }
+  }
+ ]
+}

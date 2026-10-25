@@ -1,0 +1,31 @@
+2026-10-19 17:06:04 queue post_d_hrob2: 6 runs; code D:\new repo\xfedga @ d9760c6; repo D:\new repo\xfedga
+2026-10-19 17:06:04 [1/6] pending breast_xfedga_seed1_f4d3d004_hrob2
+2026-10-19 17:06:04 [2/6] pending breast_xfedga_plus_seed1_3610de6a_hrob2
+2026-10-19 17:06:04 [3/6] pending breast_xfedga_seed2_f4d3d004_hrob2
+2026-10-19 17:06:04 [4/6] pending breast_xfedga_plus_seed2_3610de6a_hrob2
+2026-10-19 17:06:04 [5/6] pending breast_xfedga_seed3_f4d3d004_hrob2
+2026-10-19 17:06:04 [6/6] pending breast_xfedga_plus_seed3_3610de6a_hrob2
+2026-10-19 17:06:04 queue post_d_hrob2 finished
+2026-10-20 16:34:47 queue post_d_hrob2: 6 runs; code D:\new repo\xfedga_frozen\fcf54ee @ fcf54ee; repo D:\new repo\xfedga
+2026-10-20 16:34:47 STOP file found; stopping before breast_xfedga_seed1_f4d3d004_hrob2
+2026-10-20 16:34:47 queue post_d_hrob2 finished
+2026-10-21 18:09:12 queue post_d_hrob2: 6 runs; code D:\new repo\xfedga_frozen\9f0225f @ 9f0225f; repo D:\new repo\xfedga
+2026-10-21 18:09:12 [1/6] start breast_xfedga_seed1_f4d3d004_hrob2
+2026-10-21 19:07:13 [1/6] done breast_xfedga_seed1_f4d3d004_hrob2 in 58.0 min; GPU median 2595.0 MHz  ** THROTTLED **
+2026-10-21 19:07:13 [2/6] start breast_xfedga_plus_seed1_3610de6a_hrob2
+2026-10-21 20:07:04 [2/6] done breast_xfedga_plus_seed1_3610de6a_hrob2 in 59.8 min; GPU median 2640.0 MHz  ** THROTTLED **
+2026-10-21 20:07:04 [3/6] start breast_xfedga_seed2_f4d3d004_hrob2
+2026-10-21 21:03:17 [3/6] done breast_xfedga_seed2_f4d3d004_hrob2 in 56.2 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 21:03:17 [4/6] start breast_xfedga_plus_seed2_3610de6a_hrob2
+2026-10-22 23:36:10 queue post_d_hrob2: 6 runs; code D:\new repo\xfedga_frozen\8c3d78b @ 8c3d78b; repo D:\new repo\xfedga
+2026-10-22 23:36:10 [1/6] skip finished breast_xfedga_seed1_f4d3d004_hrob2
+2026-10-22 23:36:10 [2/6] skip finished breast_xfedga_plus_seed1_3610de6a_hrob2
+2026-10-22 23:36:10 [3/6] skip finished breast_xfedga_seed2_f4d3d004_hrob2
+2026-10-22 23:36:10 [4] moved interrupted run to D:\new repo\xfedga\results/runs\_interrupted\breast_xfedga_plus_seed2_3610de6a_hrob2_20261022_233610
+2026-10-22 23:36:10 [4/6] start breast_xfedga_plus_seed2_3610de6a_hrob2
+2026-10-23 00:22:46 [4/6] done breast_xfedga_plus_seed2_3610de6a_hrob2 in 46.6 min; GPU median 2730.0 MHz
+2026-10-23 00:22:46 [5/6] start breast_xfedga_seed3_f4d3d004_hrob2
+2026-10-23 01:08:44 [5/6] done breast_xfedga_seed3_f4d3d004_hrob2 in 46.0 min; GPU median 2730.0 MHz
+2026-10-23 01:08:44 [6/6] start breast_xfedga_plus_seed3_3610de6a_hrob2
+2026-10-23 01:56:13 [6/6] done breast_xfedga_plus_seed3_3610de6a_hrob2 in 47.5 min; GPU median 2730.0 MHz
+2026-10-23 01:56:13 queue post_d_hrob2 finished

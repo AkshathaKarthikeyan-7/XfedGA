@@ -1,0 +1,137 @@
+{
+ "queue": "post_b_flower",
+ "code_root": "D:\\new repo\\xfedga_frozen\\8c3d78b",
+ "code_commit": "8c3d78b",
+ "repo": "D:\\new repo\\xfedga",
+ "runs": [
+  {
+   "run_id": "breast_xfedga_seed1_a24ca60a_fl",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 1,
+   "tag": "fl",
+   "runner": "fl_dist",
+   "set": [],
+   "status": "done",
+   "minutes": 35.6,
+   "gpu": {
+    "busy_samples": 154,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.7,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1198.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_seed1_42cd5466_fl",
+   "task": "breast",
+   "method": "xfedga_plus",
+   "seed": 1,
+   "tag": "fl",
+   "runner": "fl_dist",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 48.7,
+   "gpu": {
+    "busy_samples": 194,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.32,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1162.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed2_a24ca60a_fl",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 2,
+   "tag": "fl",
+   "runner": "fl_dist",
+   "set": [],
+   "status": "done",
+   "minutes": 35.5,
+   "gpu": {
+    "busy_samples": 157,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 67.72,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1272.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_seed2_42cd5466_fl",
+   "task": "breast",
+   "method": "xfedga_plus",
+   "seed": 2,
+   "tag": "fl",
+   "runner": "fl_dist",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 48.7,
+   "gpu": {
+    "busy_samples": 186,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.17,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1162.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_seed3_a24ca60a_fl",
+   "task": "breast",
+   "method": "xfedga",
+   "seed": 3,
+   "tag": "fl",
+   "runner": "fl_dist",
+   "set": [],
+   "status": "done",
+   "minutes": 35.4,
+   "gpu": {
+    "busy_samples": 149,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 67.86,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1194.0
+   }
+  },
+  {
+   "run_id": "breast_xfedga_plus_seed3_42cd5466_fl",
+   "task": "breast",
+   "method": "xfedga_plus",
+   "seed": 3,
+   "tag": "fl",
+   "runner": "fl_dist",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 49.2,
+   "gpu": {
+    "busy_samples": 177,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 67.53,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 1162.0
+   }
+  }
+ ]
+}

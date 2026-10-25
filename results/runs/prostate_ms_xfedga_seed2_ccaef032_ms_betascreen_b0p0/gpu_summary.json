@@ -1,0 +1,9 @@
+{
+ "busy_samples": 136,
+ "median_sm_clock_MHz": 2655.0,
+ "min_sm_clock_MHz": 1200.0,
+ "median_power_W": 59.75,
+ "share_busy_with_throttle_reason": 0.596,
+ "throttled": true,
+ "max_memory_used_MiB": 1822.0
+}

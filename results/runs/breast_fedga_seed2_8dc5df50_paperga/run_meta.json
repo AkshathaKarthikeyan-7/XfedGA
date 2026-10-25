@@ -1,0 +1,59 @@
+{
+ "run_id": "breast_fedga_seed2_8dc5df50_paperga",
+ "task": "breast",
+ "method": "fedga",
+ "method_switches": {
+  "topology": "federated",
+  "aggregation": "fedavg",
+  "q_source": null,
+  "search": "ga",
+  "fitness": "dsc",
+  "anneal": false,
+  "prox": false,
+  "score": null,
+  "ec": "iou"
+ },
+ "seed": 2,
+ "config_hash": "8dc5df505c1f",
+ "git_commit": "9f0225f",
+ "selection": "centred moving-average validation DSC",
+ "clients": [
+  "BUSI",
+  "BUS-UCLM"
+ ],
+ "server_sizes": {
+  "fitness": 278,
+  "validation": 470,
+  "test": 1127
+ },
+ "setup_s": 2.0,
+ "total_s": 3584.1,
+ "selected_round": 3,
+ "smoothed_val_dsc": [
+  0.6523659898241623,
+  0.6586705980410006,
+  0.663339634538354,
+  0.6581008826968137,
+  0.6424887998661781,
+  0.625472779633326,
+  0.6179088436241378,
+  0.6184735353155828,
+  0.6204000466505798,
+  0.6176554208049918,
+  0.6076989086011108,
+  0.6110870419481346,
+  0.6125734897023896,
+  0.622076509837345,
+  0.6226758716973159,
+  0.6162336042523423,
+  0.6160887295770637,
+  0.6156650309835979,
+  0.6183454117669909,
+  0.6153468472382401
+ ],
+ "n_i": [
+  518,
+  211
+ ],
+ "test_evaluated": true
+}

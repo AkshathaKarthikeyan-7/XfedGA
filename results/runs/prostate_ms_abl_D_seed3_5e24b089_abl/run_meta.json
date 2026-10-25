@@ -1,0 +1,60 @@
+{
+ "run_id": "prostate_ms_abl_D_seed3_5e24b089_abl",
+ "task": "prostate_ms",
+ "method": "abl_D",
+ "method_switches": {
+  "topology": "federated",
+  "aggregation": "fedavg",
+  "q_source": null,
+  "search": "ga",
+  "fitness": "dsc",
+  "anneal": true,
+  "prox": false,
+  "score": null,
+  "ec": "iou"
+ },
+ "seed": 3,
+ "config_hash": "5e24b089cd83",
+ "git_commit": "8c3d78b",
+ "selection": "centred moving-average validation DSC",
+ "clients": [
+  "BIDMC",
+  "HK",
+  "I2CVB",
+  "RUNMC",
+  "UCL"
+ ],
+ "server_sizes": {
+  "fitness": 106,
+  "validation": 105,
+  "test": 173
+ },
+ "setup_s": 0.1,
+ "total_s": 802.3,
+ "selected_round": 13,
+ "smoothed_val_dsc": [
+  0.43573129156557106,
+  0.5036239541911955,
+  0.6386636658507885,
+  0.696057833368256,
+  0.7433503373753387,
+  0.7655182722191299,
+  0.7863316230596332,
+  0.799448530873155,
+  0.817699960110955,
+  0.8290497768968734,
+  0.836721408509073,
+  0.839169185738715,
+  0.8416854626129545,
+  0.8395614672984396,
+  0.8401690059829325
+ ],
+ "n_i": [
+  261,
+  158,
+  468,
+  421,
+  175
+ ],
+ "test_evaluated": true
+}

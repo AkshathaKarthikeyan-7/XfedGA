@@ -1,0 +1,73 @@
+2026-10-19 17:06:12 queue post_f_fedprox_bounds: 22 runs; code D:\new repo\xfedga @ d9760c6; repo D:\new repo\xfedga
+2026-10-19 17:06:12 [1/22] pending prostate_ms_fedprox_seed1_452026ab_fedprox
+2026-10-19 17:06:12 [2/22] pending breast_fedprox_seed1_2de0c4c9_fedprox
+2026-10-19 17:06:12 [3/22] pending prostate_ms_fedprox_seed2_452026ab_fedprox
+2026-10-19 17:06:12 [4/22] pending breast_fedprox_seed2_2de0c4c9_fedprox
+2026-10-19 17:06:12 [5/22] pending prostate_ms_fedprox_seed3_452026ab_fedprox
+2026-10-19 17:06:12 [6/22] pending breast_fedprox_seed3_2de0c4c9_fedprox
+2026-10-19 17:06:12 [7/22] pending prostate_ms_fedprox_seed4_452026ab_fedprox
+2026-10-19 17:06:12 [8/22] pending breast_fedprox_seed4_2de0c4c9_fedprox
+2026-10-19 17:06:12 [9/22] pending prostate_ms_fedprox_seed5_452026ab_fedprox
+2026-10-19 17:06:12 [10/22] pending breast_fedprox_seed5_2de0c4c9_fedprox
+2026-10-19 17:06:12 [11/22] pending prostate_ms_centralized_seed1_4211864f_bounds
+2026-10-19 17:06:12 [12/22] pending prostate_ms_local_only_seed1_0f335946_bounds
+2026-10-19 17:06:12 [13/22] pending breast_centralized_seed1_fe3e9271_bounds
+2026-10-19 17:06:12 [14/22] pending breast_local_only_seed1_2d65532d_bounds
+2026-10-19 17:06:12 [15/22] pending prostate_ms_centralized_seed2_4211864f_bounds
+2026-10-19 17:06:12 [16/22] pending prostate_ms_local_only_seed2_0f335946_bounds
+2026-10-19 17:06:12 [17/22] pending breast_centralized_seed2_fe3e9271_bounds
+2026-10-19 17:06:12 [18/22] pending breast_local_only_seed2_2d65532d_bounds
+2026-10-19 17:06:12 [19/22] pending prostate_ms_centralized_seed3_4211864f_bounds
+2026-10-19 17:06:12 [20/22] pending prostate_ms_local_only_seed3_0f335946_bounds
+2026-10-19 17:06:12 [21/22] pending breast_centralized_seed3_fe3e9271_bounds
+2026-10-19 17:06:12 [22/22] pending breast_local_only_seed3_2d65532d_bounds
+2026-10-19 17:06:12 queue post_f_fedprox_bounds finished
+2026-10-20 16:36:48 queue post_f_fedprox_bounds: 22 runs; code D:\new repo\xfedga_frozen\fcf54ee @ fcf54ee; repo D:\new repo\xfedga
+2026-10-20 16:36:48 STOP file found; stopping before prostate_ms_fedprox_seed1_452026ab_fedprox
+2026-10-20 16:36:48 queue post_f_fedprox_bounds finished
+2026-10-24 23:12:08 queue post_f_fedprox_bounds: 22 runs; code D:\new repo\xfedga_frozen\8c3d78b @ 8c3d78b; repo D:\new repo\xfedga
+2026-10-24 23:12:08 [1/22] start prostate_ms_fedprox_seed1_452026ab_fedprox
+2026-10-24 23:24:37 [1/22] done prostate_ms_fedprox_seed1_452026ab_fedprox in 12.5 min; GPU median 2685.0 MHz  ** THROTTLED **
+2026-10-24 23:24:37 [2/22] start breast_fedprox_seed1_2de0c4c9_fedprox
+2026-10-24 23:59:02 [2/22] done breast_fedprox_seed1_2de0c4c9_fedprox in 34.4 min; GPU median 2730.0 MHz  ** THROTTLED **
+2026-10-24 23:59:02 [3/22] start prostate_ms_fedprox_seed2_452026ab_fedprox
+2026-10-25 00:11:07 [3/22] done prostate_ms_fedprox_seed2_452026ab_fedprox in 12.1 min; GPU median 2745.0 MHz
+2026-10-25 00:11:07 [4/22] start breast_fedprox_seed2_2de0c4c9_fedprox
+2026-10-25 00:44:03 [4/22] done breast_fedprox_seed2_2de0c4c9_fedprox in 32.9 min; GPU median 2730.0 MHz
+2026-10-25 00:44:03 [5/22] start prostate_ms_fedprox_seed3_452026ab_fedprox
+2026-10-25 00:56:35 [5/22] done prostate_ms_fedprox_seed3_452026ab_fedprox in 12.5 min; GPU median 2745.0 MHz
+2026-10-25 00:56:35 [6/22] start breast_fedprox_seed3_2de0c4c9_fedprox
+2026-10-25 01:29:53 [6/22] done breast_fedprox_seed3_2de0c4c9_fedprox in 33.3 min; GPU median 2730.0 MHz
+2026-10-25 01:29:53 [7/22] start prostate_ms_fedprox_seed4_452026ab_fedprox
+2026-10-25 01:42:18 [7/22] done prostate_ms_fedprox_seed4_452026ab_fedprox in 12.4 min; GPU median 2745.0 MHz
+2026-10-25 01:42:18 [8/22] start breast_fedprox_seed4_2de0c4c9_fedprox
+2026-10-25 02:15:22 [8/22] done breast_fedprox_seed4_2de0c4c9_fedprox in 33.1 min; GPU median 2730.0 MHz
+2026-10-25 02:15:22 [9/22] start prostate_ms_fedprox_seed5_452026ab_fedprox
+2026-10-25 02:27:49 [9/22] done prostate_ms_fedprox_seed5_452026ab_fedprox in 12.5 min; GPU median 2730.0 MHz
+2026-10-25 02:27:49 [10/22] start breast_fedprox_seed5_2de0c4c9_fedprox
+2026-10-25 03:01:17 [10/22] done breast_fedprox_seed5_2de0c4c9_fedprox in 33.5 min; GPU median 2730.0 MHz
+2026-10-25 03:01:17 [11/22] start prostate_ms_centralized_seed1_4211864f_bounds
+2026-10-25 03:09:29 [11/22] done prostate_ms_centralized_seed1_4211864f_bounds in 8.2 min; GPU median 2730.0 MHz
+2026-10-25 03:09:29 [12/22] start prostate_ms_local_only_seed1_0f335946_bounds
+2026-10-25 03:31:56 [12/22] done prostate_ms_local_only_seed1_0f335946_bounds in 22.5 min; GPU median 2745.0 MHz
+2026-10-25 03:31:56 [13/22] start breast_centralized_seed1_fe3e9271_bounds
+2026-10-25 03:59:33 [13/22] done breast_centralized_seed1_fe3e9271_bounds in 27.6 min; GPU median 2730.0 MHz
+2026-10-25 03:59:33 [14/22] start breast_local_only_seed1_2d65532d_bounds
+2026-10-25 04:44:36 [14/22] done breast_local_only_seed1_2d65532d_bounds in 45.1 min; GPU median 2730.0 MHz
+2026-10-25 04:44:36 [15/22] start prostate_ms_centralized_seed2_4211864f_bounds
+2026-10-25 04:52:24 [15/22] done prostate_ms_centralized_seed2_4211864f_bounds in 7.8 min; GPU median 2730.0 MHz
+2026-10-25 04:52:24 [16/22] start prostate_ms_local_only_seed2_0f335946_bounds
+2026-10-25 05:13:52 [16/22] done prostate_ms_local_only_seed2_0f335946_bounds in 21.5 min; GPU median 2745.0 MHz
+2026-10-25 05:13:52 [17/22] start breast_centralized_seed2_fe3e9271_bounds
+2026-10-25 05:41:32 [17/22] done breast_centralized_seed2_fe3e9271_bounds in 27.7 min; GPU median 2730.0 MHz
+2026-10-25 05:41:32 [18/22] start breast_local_only_seed2_2d65532d_bounds
+2026-10-25 06:25:27 [18/22] done breast_local_only_seed2_2d65532d_bounds in 43.9 min; GPU median 2730.0 MHz
+2026-10-25 06:25:27 [19/22] start prostate_ms_centralized_seed3_4211864f_bounds
+2026-10-25 06:33:18 [19/22] done prostate_ms_centralized_seed3_4211864f_bounds in 7.8 min; GPU median 2730.0 MHz
+2026-10-25 06:33:18 [20/22] start prostate_ms_local_only_seed3_0f335946_bounds
+2026-10-25 06:56:53 [20/22] done prostate_ms_local_only_seed3_0f335946_bounds in 23.6 min; GPU median 2745.0 MHz
+2026-10-25 06:56:53 [21/22] start breast_centralized_seed3_fe3e9271_bounds
+2026-10-25 07:24:40 [21/22] done breast_centralized_seed3_fe3e9271_bounds in 27.8 min; GPU median 2730.0 MHz
+2026-10-25 07:24:40 [22/22] start breast_local_only_seed3_2d65532d_bounds
+2026-10-25 08:09:17 [22/22] done breast_local_only_seed3_2d65532d_bounds in 44.6 min; GPU median 2730.0 MHz
+2026-10-25 08:09:17 queue post_f_fedprox_bounds finished

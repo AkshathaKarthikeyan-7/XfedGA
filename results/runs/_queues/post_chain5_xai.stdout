@@ -1,0 +1,80 @@
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_fedga_seed1_1d6d20a0_runmc: 14 images in 7.4 s; PG 0.929, deletion 0.543, insertion 0.766
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_fedga_seed2_1d6d20a0_runmc: 14 images in 7.5 s; PG 0.929, deletion 0.589, insertion 0.760
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_fedga_seed3_1d6d20a0_runmc: 14 images in 7.4 s; PG 0.929, deletion 0.491, insertion 0.744
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_fedga_seed4_1d6d20a0_runmc: 14 images in 7.6 s; PG 0.929, deletion 0.492, insertion 0.736
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_fedga_seed5_1d6d20a0_runmc: 14 images in 7.7 s; PG 0.929, deletion 0.539, insertion 0.744
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_plus_dsc_seed1_22403dd1_runmc: 14 images in 7.3 s; PG 0.929, deletion 0.492, insertion 0.749
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_plus_dsc_seed2_22403dd1_runmc: 14 images in 7.3 s; PG 1.000, deletion 0.579, insertion 0.796
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_plus_dsc_seed3_22403dd1_runmc: 14 images in 7.3 s; PG 0.929, deletion 0.584, insertion 0.735
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_plus_dsc_seed4_22403dd1_runmc: 14 images in 7.3 s; PG 0.929, deletion 0.505, insertion 0.773
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_plus_dsc_seed5_22403dd1_runmc: 14 images in 7.3 s; PG 0.929, deletion 0.517, insertion 0.740
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_plus_seed1_4cb0e137_runmc: 14 images in 7.3 s; PG 0.929, deletion 0.598, insertion 0.741
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_plus_seed2_4cb0e137_runmc: 14 images in 7.3 s; PG 1.000, deletion 0.545, insertion 0.831
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_plus_seed3_4cb0e137_runmc: 14 images in 7.4 s; PG 0.929, deletion 0.548, insertion 0.772
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_plus_seed4_4cb0e137_runmc: 14 images in 7.5 s; PG 1.000, deletion 0.552, insertion 0.753
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_plus_seed5_4cb0e137_runmc: 14 images in 7.4 s; PG 0.929, deletion 0.515, insertion 0.778
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_seed1_919cc3a4_runmc: 14 images in 7.4 s; PG 0.929, deletion 0.599, insertion 0.746
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_seed2_919cc3a4_runmc: 14 images in 7.5 s; PG 1.000, deletion 0.509, insertion 0.739
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_seed3_919cc3a4_runmc: 14 images in 7.3 s; PG 0.929, deletion 0.449, insertion 0.736
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_seed4_919cc3a4_runmc: 14 images in 7.4 s; PG 0.929, deletion 0.490, insertion 0.736
+  ProstateClientDataset[MS_RUNMC]: 117 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 114 slices from 8 cases
+  ProstateClientDataset[MS_RUNMC]: 190 slices from 14 cases
+prostate_ms_runmc_xfedga_seed5_919cc3a4_runmc: 14 images in 7.3 s; PG 0.929, deletion 0.565, insertion 0.734

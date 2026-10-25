@@ -1,0 +1,176 @@
+{
+ "queue": "post_h_fw_screen",
+ "code_root": "D:\\new repo\\xfedga_frozen\\9f0225f",
+ "code_commit": "9f0225f",
+ "repo": "D:\\new repo\\xfedga",
+ "runs": [
+  {
+   "run_id": "prostate_ms_xfedga_seed1_4f84c4ae_fw100",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 1,
+   "tag": "fw100",
+   "no_test": true,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "fitness.weights=[1.0,0.0,0.0]"
+   ],
+   "status": "done",
+   "minutes": 57.1,
+   "gpu": {
+    "busy_samples": 195,
+    "median_sm_clock_MHz": 2610.0,
+    "min_sm_clock_MHz": 1065.0,
+    "median_power_W": 59.69,
+    "share_busy_with_throttle_reason": 0.754,
+    "throttled": true,
+    "max_memory_used_MiB": 1916.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed1_b8c6dd9c_fw622",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 1,
+   "tag": "fw622",
+   "no_test": true,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "fitness.weights=[0.6,0.2,0.2]"
+   ],
+   "status": "done",
+   "minutes": 58.0,
+   "gpu": {
+    "busy_samples": 154,
+    "median_sm_clock_MHz": 2625.0,
+    "min_sm_clock_MHz": 1020.0,
+    "median_power_W": 59.81,
+    "share_busy_with_throttle_reason": 0.571,
+    "throttled": true,
+    "max_memory_used_MiB": 1928.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed1_2d4e3ac0_fw442",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 1,
+   "tag": "fw442",
+   "no_test": true,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "fitness.weights=[0.4,0.4,0.2]"
+   ],
+   "status": "done",
+   "minutes": 55.9,
+   "gpu": {
+    "busy_samples": 147,
+    "median_sm_clock_MHz": 2595.0,
+    "min_sm_clock_MHz": 1380.0,
+    "median_power_W": 59.7,
+    "share_busy_with_throttle_reason": 0.762,
+    "throttled": true,
+    "max_memory_used_MiB": 1854.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed2_4f84c4ae_fw100",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 2,
+   "tag": "fw100",
+   "no_test": true,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "fitness.weights=[1.0,0.0,0.0]"
+   ],
+   "status": "done",
+   "minutes": 57.0,
+   "gpu": {
+    "busy_samples": 194,
+    "median_sm_clock_MHz": 2610.0,
+    "min_sm_clock_MHz": 1500.0,
+    "median_power_W": 59.69,
+    "share_busy_with_throttle_reason": 0.789,
+    "throttled": true,
+    "max_memory_used_MiB": 1832.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed2_b8c6dd9c_fw622",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 2,
+   "tag": "fw622",
+   "no_test": true,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "fitness.weights=[0.6,0.2,0.2]"
+   ],
+   "status": "done",
+   "minutes": 55.2,
+   "gpu": {
+    "busy_samples": 176,
+    "median_sm_clock_MHz": 2610.0,
+    "min_sm_clock_MHz": 945.0,
+    "median_power_W": 59.69,
+    "share_busy_with_throttle_reason": 0.756,
+    "throttled": true,
+    "max_memory_used_MiB": 1862.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_xfedga_seed2_2d4e3ac0_fw442",
+   "task": "prostate_ms",
+   "method": "xfedga",
+   "seed": 2,
+   "tag": "fw442",
+   "no_test": true,
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true",
+    "fitness.weights=[0.4,0.4,0.2]"
+   ],
+   "status": "done",
+   "minutes": 56.5,
+   "gpu": {
+    "busy_samples": 163,
+    "median_sm_clock_MHz": 2625.0,
+    "min_sm_clock_MHz": 915.0,
+    "median_power_W": 59.7,
+    "share_busy_with_throttle_reason": 0.663,
+    "throttled": true,
+    "max_memory_used_MiB": 1862.0
+   }
+  }
+ ]
+}

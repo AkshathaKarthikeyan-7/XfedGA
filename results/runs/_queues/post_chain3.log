@@ -1,0 +1,5 @@
+2026-10-20 16:50:00 chain 3: full suite (started by chain 2 at 16:37 on the current code): 5 failed, 156 passed, 3 xfailed in 727.44s (0:12:07)
+2026-10-20 16:50:00 SUITE NOT CLEAN: nothing committed; item g (needs the new code) SKIPPED; the other items run from the last pre-registration commit
+2026-10-20 16:50:00 start item a_dose_response (code D:/new repo/xfedga_frozen/fcf54ee)
+2026-10-21 20:56:18 end item a_dose_response done=36 failed=0
+2026-10-21 20:56:18 start item b_flower (code D:/new repo/xfedga_frozen/fcf54ee)

@@ -1,0 +1,536 @@
+{
+ "queue": "post_f_fedprox_bounds",
+ "code_root": "D:\\new repo\\xfedga_frozen\\8c3d78b",
+ "code_commit": "8c3d78b",
+ "repo": "D:\\new repo\\xfedga",
+ "runs": [
+  {
+   "run_id": "prostate_ms_fedprox_seed1_452026ab_fedprox",
+   "task": "prostate_ms",
+   "method": "fedprox",
+   "seed": 1,
+   "tag": "fedprox",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 12.5,
+   "gpu": {
+    "busy_samples": 40,
+    "median_sm_clock_MHz": 2685.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 58.23,
+    "share_busy_with_throttle_reason": 0.725,
+    "throttled": true,
+    "max_memory_used_MiB": 893.0
+   }
+  },
+  {
+   "run_id": "breast_fedprox_seed1_2de0c4c9_fedprox",
+   "task": "breast",
+   "method": "fedprox",
+   "seed": 1,
+   "tag": "fedprox",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 34.4,
+   "gpu": {
+    "busy_samples": 100,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 360.0,
+    "median_power_W": 59.42,
+    "share_busy_with_throttle_reason": 0.39,
+    "throttled": true,
+    "max_memory_used_MiB": 821.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_fedprox_seed2_452026ab_fedprox",
+   "task": "prostate_ms",
+   "method": "fedprox",
+   "seed": 2,
+   "tag": "fedprox",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 12.1,
+   "gpu": {
+    "busy_samples": 38,
+    "median_sm_clock_MHz": 2745.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 61.31,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 909.0
+   }
+  },
+  {
+   "run_id": "breast_fedprox_seed2_2de0c4c9_fedprox",
+   "task": "breast",
+   "method": "fedprox",
+   "seed": 2,
+   "tag": "fedprox",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 32.9,
+   "gpu": {
+    "busy_samples": 97,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 61.3,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 821.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_fedprox_seed3_452026ab_fedprox",
+   "task": "prostate_ms",
+   "method": "fedprox",
+   "seed": 3,
+   "tag": "fedprox",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 12.5,
+   "gpu": {
+    "busy_samples": 35,
+    "median_sm_clock_MHz": 2745.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 60.53,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 893.0
+   }
+  },
+  {
+   "run_id": "breast_fedprox_seed3_2de0c4c9_fedprox",
+   "task": "breast",
+   "method": "fedprox",
+   "seed": 3,
+   "tag": "fedprox",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 33.3,
+   "gpu": {
+    "busy_samples": 103,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 61.39,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 821.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_fedprox_seed4_452026ab_fedprox",
+   "task": "prostate_ms",
+   "method": "fedprox",
+   "seed": 4,
+   "tag": "fedprox",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 12.4,
+   "gpu": {
+    "busy_samples": 39,
+    "median_sm_clock_MHz": 2745.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 60.78,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 893.0
+   }
+  },
+  {
+   "run_id": "breast_fedprox_seed4_2de0c4c9_fedprox",
+   "task": "breast",
+   "method": "fedprox",
+   "seed": 4,
+   "tag": "fedprox",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 33.1,
+   "gpu": {
+    "busy_samples": 104,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 61.31,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 821.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_fedprox_seed5_452026ab_fedprox",
+   "task": "prostate_ms",
+   "method": "fedprox",
+   "seed": 5,
+   "tag": "fedprox",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 12.5,
+   "gpu": {
+    "busy_samples": 37,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 435.0,
+    "median_power_W": 61.04,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 893.0
+   }
+  },
+  {
+   "run_id": "breast_fedprox_seed5_2de0c4c9_fedprox",
+   "task": "breast",
+   "method": "fedprox",
+   "seed": 5,
+   "tag": "fedprox",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 33.5,
+   "gpu": {
+    "busy_samples": 104,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 375.0,
+    "median_power_W": 61.23,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 821.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_centralized_seed1_4211864f_bounds",
+   "task": "prostate_ms",
+   "method": "centralized",
+   "seed": 1,
+   "tag": "bounds",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 8.2,
+   "gpu": {
+    "busy_samples": 30,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 660.0,
+    "median_power_W": 66.48,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 803.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_local_only_seed1_0f335946_bounds",
+   "task": "prostate_ms",
+   "method": "local_only",
+   "seed": 1,
+   "tag": "bounds",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 22.5,
+   "gpu": {
+    "busy_samples": 48,
+    "median_sm_clock_MHz": 2745.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 57.36,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 815.0
+   }
+  },
+  {
+   "run_id": "breast_centralized_seed1_fe3e9271_bounds",
+   "task": "breast",
+   "method": "centralized",
+   "seed": 1,
+   "tag": "bounds",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 27.6,
+   "gpu": {
+    "busy_samples": 83,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 66.03,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 797.0
+   }
+  },
+  {
+   "run_id": "breast_local_only_seed1_2d65532d_bounds",
+   "task": "breast",
+   "method": "local_only",
+   "seed": 1,
+   "tag": "bounds",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 45.1,
+   "gpu": {
+    "busy_samples": 98,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 375.0,
+    "median_power_W": 64.61,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 801.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_centralized_seed2_4211864f_bounds",
+   "task": "prostate_ms",
+   "method": "centralized",
+   "seed": 2,
+   "tag": "bounds",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 7.8,
+   "gpu": {
+    "busy_samples": 33,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 66.71,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 803.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_local_only_seed2_0f335946_bounds",
+   "task": "prostate_ms",
+   "method": "local_only",
+   "seed": 2,
+   "tag": "bounds",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 21.5,
+   "gpu": {
+    "busy_samples": 37,
+    "median_sm_clock_MHz": 2745.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 57.24,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 815.0
+   }
+  },
+  {
+   "run_id": "breast_centralized_seed2_fe3e9271_bounds",
+   "task": "breast",
+   "method": "centralized",
+   "seed": 2,
+   "tag": "bounds",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 27.7,
+   "gpu": {
+    "busy_samples": 91,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 65.57,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 803.0
+   }
+  },
+  {
+   "run_id": "breast_local_only_seed2_2d65532d_bounds",
+   "task": "breast",
+   "method": "local_only",
+   "seed": 2,
+   "tag": "bounds",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 43.9,
+   "gpu": {
+    "busy_samples": 100,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 390.0,
+    "median_power_W": 65.03,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 807.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_centralized_seed3_4211864f_bounds",
+   "task": "prostate_ms",
+   "method": "centralized",
+   "seed": 3,
+   "tag": "bounds",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 7.8,
+   "gpu": {
+    "busy_samples": 31,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 615.0,
+    "median_power_W": 66.44,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 803.0
+   }
+  },
+  {
+   "run_id": "prostate_ms_local_only_seed3_0f335946_bounds",
+   "task": "prostate_ms",
+   "method": "local_only",
+   "seed": 3,
+   "tag": "bounds",
+   "set": [
+    "fitness.subsample=120",
+    "train.local_epochs=2",
+    "preprocessing.fov_crop_mm=110",
+    "preprocessing.intensity=zscore",
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 23.6,
+   "gpu": {
+    "busy_samples": 34,
+    "median_sm_clock_MHz": 2745.0,
+    "min_sm_clock_MHz": 405.0,
+    "median_power_W": 51.46,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 815.0
+   }
+  },
+  {
+   "run_id": "breast_centralized_seed3_fe3e9271_bounds",
+   "task": "breast",
+   "method": "centralized",
+   "seed": 3,
+   "tag": "bounds",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 27.8,
+   "gpu": {
+    "busy_samples": 89,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 65.64,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 797.0
+   }
+  },
+  {
+   "run_id": "breast_local_only_seed3_2d65532d_bounds",
+   "task": "breast",
+   "method": "local_only",
+   "seed": 3,
+   "tag": "bounds",
+   "set": [
+    "evaluation.log_wagg_val=true",
+    "evaluation.log_client_val=true"
+   ],
+   "status": "done",
+   "minutes": 44.6,
+   "gpu": {
+    "busy_samples": 102,
+    "median_sm_clock_MHz": 2730.0,
+    "min_sm_clock_MHz": 420.0,
+    "median_power_W": 65.13,
+    "share_busy_with_throttle_reason": 0.0,
+    "throttled": false,
+    "max_memory_used_MiB": 801.0
+   }
+  }
+ ]
+}

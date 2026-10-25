@@ -1,0 +1,82 @@
+{
+ "run_id": "breast_local_only_seed1_2d65532d_bounds",
+ "task": "breast",
+ "method": "local_only",
+ "method_switches": {
+  "topology": "local_only",
+  "aggregation": "fedavg",
+  "q_source": null,
+  "search": "none",
+  "fitness": null,
+  "anneal": false,
+  "prox": false,
+  "score": null,
+  "ec": "iou"
+ },
+ "seed": 1,
+ "config_hash": "2d65532dbb4d",
+ "git_commit": "8c3d78b",
+ "selection": "centred moving-average validation DSC",
+ "clients": [
+  "BUSI",
+  "BUS-UCLM"
+ ],
+ "server_sizes": {
+  "fitness": 278,
+  "validation": 470,
+  "test": 1127
+ },
+ "setup_s": 1.6,
+ "total_s": 2673.8,
+ "per_client": {
+  "BUSI": {
+   "selected_round": 1,
+   "smoothed_val_dsc": [
+    0.6178204641209843,
+    0.5995293978730936,
+    0.570569240213208,
+    0.5574701085714668,
+    0.558591581184785,
+    0.5611001079044063,
+    0.5575644080237644,
+    0.541779558244098,
+    0.5373272136231327,
+    0.5364825522870903,
+    0.5391027739081428,
+    0.5226609843082016,
+    0.522464261195417,
+    0.5217637002591811,
+    0.5273466953943431
+   ],
+   "n_i": [
+    518
+   ],
+   "test_evaluated": true
+  },
+  "BUS-UCLM": {
+   "selected_round": 1,
+   "smoothed_val_dsc": [
+    0.5565318819679911,
+    0.5477866698533548,
+    0.5399547990837341,
+    0.5330587137761535,
+    0.5198588637594916,
+    0.5252825794957029,
+    0.5217983343338201,
+    0.5245927651792871,
+    0.5061801179035911,
+    0.49245494705062026,
+    0.4902517599536916,
+    0.5004911540480658,
+    0.49525816718195476,
+    0.49095711493296923,
+    0.48196248812023945
+   ],
+   "n_i": [
+    211
+   ],
+   "test_evaluated": true
+  }
+ },
+ "test_evaluated": true
+}

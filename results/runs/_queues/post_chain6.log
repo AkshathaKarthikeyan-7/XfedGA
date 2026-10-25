@@ -1,0 +1,6 @@
+2026-10-24 14:27:51 chain 6 started (single queue; resume after pause)
+2026-10-24 14:27:51 start item e_ablations (code D:/new repo/xfedga_frozen/8c3d78b)
+2026-10-24 23:12:06 end item e_ablations done=13 failed=0 watchdog_kills=0
+2026-10-24 23:12:06 start item f_fedprox_bounds (code D:/new repo/xfedga_frozen/8c3d78b)
+2026-10-25 08:10:16 end item f_fedprox_bounds done=22 failed=0 watchdog_kills=0
+2026-10-25 08:10:16 chain 6 finished

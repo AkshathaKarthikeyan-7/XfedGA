@@ -1,0 +1,54 @@
+{
+ "run_id": "breast_random_search_seed3_9b4cfec5_abl",
+ "task": "breast",
+ "method": "random_search",
+ "method_switches": {
+  "topology": "federated",
+  "aggregation": "fedavg",
+  "q_source": null,
+  "search": "random",
+  "fitness": "multi",
+  "anneal": false,
+  "prox": false,
+  "score": null,
+  "ec": "iou"
+ },
+ "seed": 3,
+ "config_hash": "9b4cfec57cfd",
+ "git_commit": "8c3d78b",
+ "selection": "centred moving-average validation DSC",
+ "clients": [
+  "BUSI",
+  "BUS-UCLM"
+ ],
+ "server_sizes": {
+  "fitness": 278,
+  "validation": 470,
+  "test": 1127
+ },
+ "setup_s": 1.4,
+ "total_s": 2890.5,
+ "selected_round": 3,
+ "smoothed_val_dsc": [
+  0.6251451813433417,
+  0.6354180961827639,
+  0.6536972651618617,
+  0.637713895950449,
+  0.6186697264651115,
+  0.6101308381810948,
+  0.601067387014362,
+  0.6018802961066626,
+  0.6006045739717191,
+  0.5988620074839759,
+  0.592752286410625,
+  0.5882580451052882,
+  0.5850417129422754,
+  0.57748524739991,
+  0.5706976463842326
+ ],
+ "n_i": [
+  518,
+  211
+ ],
+ "test_evaluated": true
+}

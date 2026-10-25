@@ -1,0 +1,568 @@
+{
+ "allowed_metric_keys": [
+  "client_index",
+  "q_i"
+ ],
+ "metric_keys_seen": [
+  "client_index",
+  "q_i"
+ ],
+ "all_shapes_ok": true,
+ "dtypes_seen": [
+  "float32"
+ ],
+ "config_keys_sent": [
+  "round"
+ ],
+ "bytes_per_client_per_round": [
+  6500644
+ ],
+ "messages_received": 30,
+ "rounds": 15,
+ "detail": {
+  "sent": [
+   {
+    "round": 1,
+    "config_keys": [
+     "round"
+    ]
+   },
+   {
+    "round": 2,
+    "config_keys": [
+     "round"
+    ]
+   },
+   {
+    "round": 3,
+    "config_keys": [
+     "round"
+    ]
+   },
+   {
+    "round": 4,
+    "config_keys": [
+     "round"
+    ]
+   },
+   {
+    "round": 5,
+    "config_keys": [
+     "round"
+    ]
+   },
+   {
+    "round": 6,
+    "config_keys": [
+     "round"
+    ]
+   },
+   {
+    "round": 7,
+    "config_keys": [
+     "round"
+    ]
+   },
+   {
+    "round": 8,
+    "config_keys": [
+     "round"
+    ]
+   },
+   {
+    "round": 9,
+    "config_keys": [
+     "round"
+    ]
+   },
+   {
+    "round": 10,
+    "config_keys": [
+     "round"
+    ]
+   },
+   {
+    "round": 11,
+    "config_keys": [
+     "round"
+    ]
+   },
+   {
+    "round": 12,
+    "config_keys": [
+     "round"
+    ]
+   },
+   {
+    "round": 13,
+    "config_keys": [
+     "round"
+    ]
+   },
+   {
+    "round": 14,
+    "config_keys": [
+     "round"
+    ]
+   },
+   {
+    "round": 15,
+    "config_keys": [
+     "round"
+    ]
+   }
+  ],
+  "received": [
+   {
+    "round": 1,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   },
+   {
+    "round": 1,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 2,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 2,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   },
+   {
+    "round": 3,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 3,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   },
+   {
+    "round": 4,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 4,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   },
+   {
+    "round": 5,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 5,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   },
+   {
+    "round": 6,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   },
+   {
+    "round": 6,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 7,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   },
+   {
+    "round": 7,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 8,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   },
+   {
+    "round": 8,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 9,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 9,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   },
+   {
+    "round": 10,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 10,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   },
+   {
+    "round": 11,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 11,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   },
+   {
+    "round": 12,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 12,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   },
+   {
+    "round": 13,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   },
+   {
+    "round": 13,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 14,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 14,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   },
+   {
+    "round": 15,
+    "num_examples": 518,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 0
+   },
+   {
+    "round": 15,
+    "num_examples": 211,
+    "metric_keys": [
+     "client_index",
+     "q_i"
+    ],
+    "n_arrays": 63,
+    "dtypes": [
+     "float32"
+    ],
+    "bytes": 6500644,
+    "shapes_ok": true,
+    "client_index": 1
+   }
+  ]
+ }
+}

@@ -1,0 +1,14 @@
+2026-10-21 13:12:35 queue post_c_paperga: 6 runs; code D:\new repo\xfedga_frozen\9f0225f @ 9f0225f; repo D:\new repo\xfedga
+2026-10-21 13:12:35 [1/6] start prostate_ms_fedga_seed1_82fdd9bc_paperga
+2026-10-21 13:49:35 [1/6] done prostate_ms_fedga_seed1_82fdd9bc_paperga in 37.0 min; GPU median 2625.0 MHz  ** THROTTLED **
+2026-10-21 13:49:35 [2/6] start breast_fedga_seed1_8dc5df50_paperga
+2026-10-21 14:51:12 [2/6] done breast_fedga_seed1_8dc5df50_paperga in 61.6 min; GPU median 2625.0 MHz  ** THROTTLED **
+2026-10-21 14:51:12 [3/6] start prostate_ms_fedga_seed2_82fdd9bc_paperga
+2026-10-21 15:30:02 [3/6] done prostate_ms_fedga_seed2_82fdd9bc_paperga in 38.8 min; GPU median 2670.0 MHz  ** THROTTLED **
+2026-10-21 15:30:02 [4/6] start breast_fedga_seed2_8dc5df50_paperga
+2026-10-21 16:29:57 [4/6] done breast_fedga_seed2_8dc5df50_paperga in 59.9 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 16:29:57 [5/6] start prostate_ms_fedga_seed3_82fdd9bc_paperga
+2026-10-21 17:07:39 [5/6] done prostate_ms_fedga_seed3_82fdd9bc_paperga in 37.7 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 17:07:39 [6/6] start breast_fedga_seed3_8dc5df50_paperga
+2026-10-21 18:08:33 [6/6] done breast_fedga_seed3_8dc5df50_paperga in 60.9 min; GPU median 2610.0 MHz  ** THROTTLED **
+2026-10-21 18:08:33 queue post_c_paperga finished

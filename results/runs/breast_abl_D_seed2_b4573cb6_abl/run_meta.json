@@ -1,0 +1,54 @@
+{
+ "run_id": "breast_abl_D_seed2_b4573cb6_abl",
+ "task": "breast",
+ "method": "abl_D",
+ "method_switches": {
+  "topology": "federated",
+  "aggregation": "fedavg",
+  "q_source": null,
+  "search": "ga",
+  "fitness": "dsc",
+  "anneal": true,
+  "prox": false,
+  "score": null,
+  "ec": "iou"
+ },
+ "seed": 2,
+ "config_hash": "b4573cb6aaf5",
+ "git_commit": "8c3d78b",
+ "selection": "centred moving-average validation DSC",
+ "clients": [
+  "BUSI",
+  "BUS-UCLM"
+ ],
+ "server_sizes": {
+  "fitness": 278,
+  "validation": 470,
+  "test": 1127
+ },
+ "setup_s": 1.7,
+ "total_s": 1949.3,
+ "selected_round": 3,
+ "smoothed_val_dsc": [
+  0.6532047725956384,
+  0.6542695796349184,
+  0.6597674443669524,
+  0.6570337174166684,
+  0.646847306420781,
+  0.6401518809673423,
+  0.6267092309797365,
+  0.6245959973830614,
+  0.6175823644072856,
+  0.6132008059516018,
+  0.6058194805849477,
+  0.5998922945354993,
+  0.5994858235623031,
+  0.6018108100913953,
+  0.6061952260799834
+ ],
+ "n_i": [
+  518,
+  211
+ ],
+ "test_evaluated": true
+}

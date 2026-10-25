@@ -1,0 +1,60 @@
+{
+ "run_id": "prostate_ms_random_search_seed2_cae722e9_abl",
+ "task": "prostate_ms",
+ "method": "random_search",
+ "method_switches": {
+  "topology": "federated",
+  "aggregation": "fedavg",
+  "q_source": null,
+  "search": "random",
+  "fitness": "multi",
+  "anneal": false,
+  "prox": false,
+  "score": null,
+  "ec": "iou"
+ },
+ "seed": 2,
+ "config_hash": "cae722e97fb4",
+ "git_commit": "8c3d78b",
+ "selection": "centred moving-average validation DSC",
+ "clients": [
+  "BIDMC",
+  "HK",
+  "I2CVB",
+  "RUNMC",
+  "UCL"
+ ],
+ "server_sizes": {
+  "fitness": 106,
+  "validation": 105,
+  "test": 173
+ },
+ "setup_s": 0.1,
+ "total_s": 2940.7,
+ "selected_round": 13,
+ "smoothed_val_dsc": [
+  0.5372464529221072,
+  0.5780482359302831,
+  0.6232765887435532,
+  0.7079369352172457,
+  0.7520545824027324,
+  0.7801318901957166,
+  0.8029742786817472,
+  0.8118365574933114,
+  0.8206317950815128,
+  0.8294573221418102,
+  0.8399088359541363,
+  0.842956799363333,
+  0.8450439428526257,
+  0.8439938369724486,
+  0.8442946079941023
+ ],
+ "n_i": [
+  261,
+  158,
+  468,
+  421,
+  175
+ ],
+ "test_evaluated": true
+}

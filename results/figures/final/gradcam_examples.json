@@ -1,0 +1,54 @@
+{
+ "breast": {
+  "best": {
+   "image_id": "bus_0670-l",
+   "fedga_seed1_dsc": 0.9575289487838745,
+   "fedga": 0.9575289575289575,
+   "xfedga": 0.960421052631579,
+   "xfedga_plus": 0.8615014558804912,
+   "xfedga_plus_dsc": 0.9322971364559266
+  },
+  "median": {
+   "image_id": "bus_0098-r",
+   "fedga_seed1_dsc": 0.691098153591156,
+   "fedga": 0.6910767897489863,
+   "xfedga": 0.7326666666666667,
+   "xfedga_plus": 0.7675631455159014,
+   "xfedga_plus_dsc": 0.6997826761875194
+  },
+  "worst": {
+   "image_id": "bus_1014-r",
+   "fedga_seed1_dsc": 4.710315471001536e-11,
+   "fedga": 0.0,
+   "xfedga": 0.0,
+   "xfedga_plus": 0.0,
+   "xfedga_plus_dsc": 0.0
+  }
+ },
+ "prostate_ms": {
+  "best": {
+   "image_id": "Case09#7",
+   "fedga_seed1_dsc": 0.9688038229942322,
+   "fedga": 0.9688038277511962,
+   "xfedga": 0.9559031628867557,
+   "xfedga_plus": 0.9643808880381338,
+   "xfedga_plus_dsc": 0.9680249851279
+  },
+  "median": {
+   "image_id": "Case19#10",
+   "fedga_seed1_dsc": 0.8912460207939148,
+   "fedga": 0.8912460254372019,
+   "xfedga": 0.8833521515493664,
+   "xfedga_plus": 0.9022140221402214,
+   "xfedga_plus_dsc": 0.9090821720326766
+  },
+  "worst": {
+   "image_id": "Case03#13",
+   "fedga_seed1_dsc": 0.1573355495929718,
+   "fedga": 0.15732368896925858,
+   "xfedga": 0.1722061855670103,
+   "xfedga_plus": 0.2752801582069875,
+   "xfedga_plus_dsc": 0.47109304426377596
+  }
+ }
+}

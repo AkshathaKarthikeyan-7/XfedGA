@@ -1,0 +1,412 @@
+{
+ "b": [
+  {
+   "method": "xfedga",
+   "n": 638,
+   "diff": 0.0,
+   "ci90_lo": 0.0,
+   "ci90_hi": 0.0,
+   "equivalent": true,
+   "max_abs_val_dsc_diff": 0.0,
+   "audit_ok": true
+  },
+  {
+   "method": "xfedga_plus",
+   "n": 638,
+   "diff": 0.0,
+   "ci90_lo": 0.0,
+   "ci90_hi": 0.0,
+   "equivalent": true,
+   "max_abs_val_dsc_diff": 0.0,
+   "audit_ok": true
+  }
+ ],
+ "c": [
+  {
+   "item": "c",
+   "task": "breast",
+   "comparison": "XFedGA vs FedGA (paper GA settings)",
+   "role": "secondary",
+   "n": 638,
+   "diff": -0.010370225727336261,
+   "lo": -0.01434890996961852,
+   "hi": -0.006411975814193664,
+   "outcome": "LOSE",
+   "t_outcome": "LOSE"
+  },
+  {
+   "item": "c",
+   "task": "breast",
+   "comparison": "XFedGA+ vs FedGA (paper GA settings)",
+   "role": "secondary",
+   "n": 638,
+   "diff": 0.0028471701512095006,
+   "lo": -0.0038674837915201737,
+   "hi": 0.00949625913673257,
+   "outcome": "TIE",
+   "t_outcome": "TIE"
+  },
+  {
+   "item": "c",
+   "task": "breast",
+   "comparison": "FedGA (paper GA settings) vs FedGA (baseline)",
+   "role": "secondary",
+   "n": 638,
+   "diff": -0.0007502553795943329,
+   "lo": -0.004729206951033889,
+   "hi": 0.0032461271226130934,
+   "outcome": "TIE",
+   "t_outcome": "TIE"
+  },
+  {
+   "item": "c",
+   "task": "prostate_ms",
+   "comparison": "XFedGA vs FedGA (paper GA settings)",
+   "role": "secondary",
+   "n": 14,
+   "diff": -0.009064017023558888,
+   "lo": -0.016816976771050506,
+   "hi": -0.0026906704410451566,
+   "outcome": "LOSE",
+   "t_outcome": "LOSE"
+  },
+  {
+   "item": "c",
+   "task": "prostate_ms",
+   "comparison": "XFedGA+ vs FedGA (paper GA settings)",
+   "role": "secondary",
+   "n": 14,
+   "diff": 0.0026784474665491214,
+   "lo": -0.0043455572284817525,
+   "hi": 0.010515174822738525,
+   "outcome": "TIE",
+   "t_outcome": "TIE"
+  },
+  {
+   "item": "c",
+   "task": "prostate_ms",
+   "comparison": "FedGA (paper GA settings) vs FedGA (baseline)",
+   "role": "secondary",
+   "n": 14,
+   "diff": 0.0007870950517394297,
+   "lo": -0.003970519988109628,
+   "hi": 0.005950567002097788,
+   "outcome": "TIE",
+   "t_outcome": "TIE"
+  }
+ ],
+ "d": [
+  {
+   "method": "xfedga",
+   "role": "primary of d",
+   "n": 638,
+   "drop": -0.015322337931133315,
+   "lo": -0.02082012499134095,
+   "hi": -0.009777179935791625,
+   "supported": false
+  },
+  {
+   "method": "xfedga_plus",
+   "role": "secondary",
+   "n": 638,
+   "drop": 0.0,
+   "lo": 0.0,
+   "hi": 0.0,
+   "supported": true
+  }
+ ],
+ "e": [
+  {
+   "item": "e",
+   "task": "breast",
+   "comparison": "B: q_i weighting only vs FedAvg",
+   "role": "secondary",
+   "n": 638,
+   "diff": 0.002097568419225116,
+   "lo": -0.001610100412770786,
+   "hi": 0.005710140476171596,
+   "outcome": "TIE",
+   "t_outcome": "TIE"
+  },
+  {
+   "item": "e",
+   "task": "breast",
+   "comparison": "C: FedAvg + GA (multi) vs FedGA (baseline)",
+   "role": "secondary",
+   "n": 638,
+   "diff": -0.013411202429132936,
+   "lo": -0.01828634350793768,
+   "hi": -0.008600253227515718,
+   "outcome": "LOSE",
+   "t_outcome": "LOSE"
+  },
+  {
+   "item": "e",
+   "task": "breast",
+   "comparison": "D: FedGA + annealing vs FedGA (baseline)",
+   "role": "secondary",
+   "n": 638,
+   "diff": -0.0041698870083649985,
+   "lo": -0.007843511261092829,
+   "hi": -0.0005583092385728815,
+   "outcome": "LOSE",
+   "t_outcome": "LOSE"
+  },
+  {
+   "item": "e",
+   "task": "breast",
+   "comparison": "C: FedAvg + GA (multi) vs random search",
+   "role": "secondary",
+   "n": 638,
+   "diff": -0.009881336103557448,
+   "lo": -0.016881448191712452,
+   "hi": -0.0027011418964696904,
+   "outcome": "LOSE",
+   "t_outcome": "LOSE"
+  },
+  {
+   "item": "e",
+   "task": "breast",
+   "comparison": "XFedGA vs F: XFedGA, random q_i",
+   "role": "secondary",
+   "n": 638,
+   "diff": -0.0027135516563437144,
+   "lo": -0.006551368191850431,
+   "hi": 0.0011738989780095866,
+   "outcome": "TIE",
+   "t_outcome": "TIE"
+  },
+  {
+   "item": "e",
+   "task": "breast",
+   "comparison": "XFedGA vs C: FedAvg + GA (multi)",
+   "role": "secondary",
+   "n": 638,
+   "diff": 0.0022907213222023424,
+   "lo": -0.0021658395740765815,
+   "hi": 0.006820494293709734,
+   "outcome": "TIE",
+   "t_outcome": "TIE"
+  },
+  {
+   "item": "e",
+   "task": "prostate_ms",
+   "comparison": "B: q_i weighting only vs FedAvg",
+   "role": "secondary",
+   "n": 14,
+   "diff": -0.003055324696175849,
+   "lo": -0.01195898423346624,
+   "hi": 0.0047213241749765504,
+   "outcome": "TIE",
+   "t_outcome": "TIE"
+  },
+  {
+   "item": "e",
+   "task": "prostate_ms",
+   "comparison": "C: FedAvg + GA (multi) vs FedGA (baseline)",
+   "role": "secondary",
+   "n": 14,
+   "diff": -0.005777827557986163,
+   "lo": -0.009848672561184888,
+   "hi": -0.0016714730361642586,
+   "outcome": "LOSE",
+   "t_outcome": "LOSE"
+  },
+  {
+   "item": "e",
+   "task": "prostate_ms",
+   "comparison": "D: FedGA + annealing vs FedGA (baseline)",
+   "role": "secondary",
+   "n": 14,
+   "diff": -0.006666927342627852,
+   "lo": -0.010745307412715595,
+   "hi": -0.0034581130772457806,
+   "outcome": "LOSE",
+   "t_outcome": "LOSE"
+  },
+  {
+   "item": "e",
+   "task": "prostate_ms",
+   "comparison": "C: FedAvg + GA (multi) vs random search",
+   "role": "secondary",
+   "n": 14,
+   "diff": -0.0011347594512819098,
+   "lo": -0.004641352073789866,
+   "hi": 0.002383793582690758,
+   "outcome": "TIE",
+   "t_outcome": "TIE"
+  },
+  {
+   "item": "e",
+   "task": "prostate_ms",
+   "comparison": "XFedGA vs F: XFedGA, random q_i",
+   "role": "secondary",
+   "n": 14,
+   "diff": -0.012168476460792063,
+   "lo": -0.018111543671677915,
+   "hi": -0.006764239685481535,
+   "outcome": "LOSE",
+   "t_outcome": "LOSE"
+  },
+  {
+   "item": "e",
+   "task": "prostate_ms",
+   "comparison": "XFedGA vs C: FedAvg + GA (multi)",
+   "role": "secondary",
+   "n": 14,
+   "diff": -0.0024990944138332965,
+   "lo": -0.007431955187483671,
+   "hi": 0.001662462314759507,
+   "outcome": "TIE",
+   "t_outcome": "TIE"
+  }
+ ],
+ "f": [
+  {
+   "item": "f",
+   "task": "breast",
+   "comparison": "XFedGA vs FedProx",
+   "role": "secondary",
+   "n": 638,
+   "diff": 0.060890589188778474,
+   "lo": 0.05392865601186035,
+   "hi": 0.06807797440885725,
+   "outcome": "WIN",
+   "t_outcome": "WIN"
+  },
+  {
+   "item": "f",
+   "task": "breast",
+   "comparison": "XFedGA+ vs FedProx",
+   "role": "secondary",
+   "n": 638,
+   "diff": 0.06028945689554238,
+   "lo": 0.05147031098641254,
+   "hi": 0.06909266636647877,
+   "outcome": "WIN",
+   "t_outcome": "WIN"
+  },
+  {
+   "item": "f",
+   "task": "breast",
+   "comparison": "FedProx vs FedAvg",
+   "role": "secondary",
+   "n": 638,
+   "diff": -0.06432047950679744,
+   "lo": -0.07172360883705482,
+   "hi": -0.05712252287714109,
+   "outcome": "LOSE",
+   "t_outcome": "LOSE"
+  },
+  {
+   "item": "f",
+   "task": "prostate_ms",
+   "comparison": "XFedGA vs FedProx",
+   "role": "secondary",
+   "n": 14,
+   "diff": 0.013977652508409861,
+   "lo": 0.007026028714424484,
+   "hi": 0.021900122156436243,
+   "outcome": "WIN",
+   "t_outcome": "WIN"
+  },
+  {
+   "item": "f",
+   "task": "prostate_ms",
+   "comparison": "XFedGA+ vs FedProx",
+   "role": "secondary",
+   "n": 14,
+   "diff": 0.024709352882925712,
+   "lo": 0.01243266177300971,
+   "hi": 0.03783496618237476,
+   "outcome": "WIN",
+   "t_outcome": "WIN"
+  },
+  {
+   "item": "f",
+   "task": "prostate_ms",
+   "comparison": "FedProx vs FedAvg",
+   "role": "secondary",
+   "n": 14,
+   "diff": -0.019909174132580285,
+   "lo": -0.03066188983234661,
+   "hi": -0.009699652629476259,
+   "outcome": "LOSE",
+   "t_outcome": "LOSE"
+  }
+ ],
+ "bounds": [
+  {
+   "task": "breast",
+   "bound": "centralized (pooled clients)",
+   "dsc": [
+    0.6442478114546047,
+    0.009040347569635055
+   ]
+  },
+  {
+   "task": "breast",
+   "bound": "local-only, client BUSI",
+   "dsc": [
+    0.6004808286935999,
+    0.026823605064367064
+   ]
+  },
+  {
+   "task": "breast",
+   "bound": "local-only, client BUS-UCLM",
+   "dsc": [
+    0.5402106702153978,
+    0.023017345207438544
+   ]
+  },
+  {
+   "task": "prostate_ms",
+   "bound": "centralized (pooled clients)",
+   "dsc": [
+    0.8476283865512452,
+    0.00843768294419334
+   ]
+  },
+  {
+   "task": "prostate_ms",
+   "bound": "local-only, client BIDMC",
+   "dsc": [
+    0.49910807677672525,
+    0.05769167415819251
+   ]
+  },
+  {
+   "task": "prostate_ms",
+   "bound": "local-only, client HK",
+   "dsc": [
+    0.6031833023358383,
+    0.02779444646255462
+   ]
+  },
+  {
+   "task": "prostate_ms",
+   "bound": "local-only, client I2CVB",
+   "dsc": [
+    0.5755460015231831,
+    0.012615779358379332
+   ]
+  },
+  {
+   "task": "prostate_ms",
+   "bound": "local-only, client RUNMC",
+   "dsc": [
+    0.7721729476627516,
+    0.03422862339437499
+   ]
+  },
+  {
+   "task": "prostate_ms",
+   "bound": "local-only, client UCL",
+   "dsc": [
+    0.7548075928255136,
+    0.018516039943494888
+   ]
+  }
+ ]
+}

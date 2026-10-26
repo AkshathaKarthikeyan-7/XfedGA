@@ -34,3 +34,4 @@ results/smoke/
 
 # local agent instructions (kept on disk, not tracked)
 CLAUDE.md
+.claude/

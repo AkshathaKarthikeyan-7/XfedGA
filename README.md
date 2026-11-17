@@ -3,8 +3,7 @@
 Explanation-aware federated learning with a server-side genetic algorithm (GA), for medical image segmentation.
 M.Tech project, Amrita Vishwa Vidyapeetham.
 
-Author: Akshatha K (CB.SC.P2AIE25001), M.Tech Artificial Intelligence, Amrita School of Computing, Amrita Vishwa Vidyapeetham, Coimbatore. Guide: Dr. Bagyammal T.
-
+Author: Akshatha K (CB.SC.P2AIE25001), M.Tech Artificial Intelligence, Amrita School of Computing, Amrita Vishwa Vidyapeetham, Coimbatore.
 - **FedGA (baseline)** (the base paper's algorithm): the server averages the client models (w_agg) and runs a GA around w_agg. Its fitness is DSC on a server fitness set.
 - **XFedGA**: each client also sends a Grad-CAM saliency score q_i. The server weights the clients by (n_i/N)·max(q_i, eps)^β and uses the fitness F = w1·DSC − w2·HD95_norm + w3·EC.
 - **XFedGA+** (a declared post-v1 variant): the server scores each client model itself (s_i), and the GA searches over client mixing weights.
